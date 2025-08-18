@@ -5,6 +5,9 @@
 
 #include "Stdafx.h"
 #include <python/longintrepr.h>
+#ifdef BYTE
+#undef BYTE
+#endif
 
 /* High water mark to determine when the marshalled object is dangerously deep
  * and risks coring the interpreter.  When the object stack gets this deep,

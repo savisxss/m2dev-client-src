@@ -896,7 +896,7 @@ PyObject * playerSetItemCount(PyObject* poSelf, PyObject* poArgs)
 			if (!PyTuple_GetInteger(poArgs, 0, &iSlotIndex))
 				return Py_BuildException();
 
-			BYTE bCount;
+			uint8_t bCount;
 			if (!PyTuple_GetInteger(poArgs, 1, &bCount))
 				return Py_BuildException();
 
@@ -915,7 +915,7 @@ PyObject * playerSetItemCount(PyObject* poSelf, PyObject* poArgs)
 			if (!PyTuple_GetInteger(poArgs, 1, &Cell.cell))
 				return Py_BuildException();
 
-			BYTE bCount;
+			uint8_t bCount;
 			if (!PyTuple_GetInteger(poArgs, 2, &bCount))
 				return Py_BuildException();
 
@@ -1290,7 +1290,7 @@ PyObject * playerIsEquipmentSlot(PyObject* poSelf, PyObject* poArgs)
 
 PyObject * playerIsDSEquipmentSlot(PyObject* poSelf, PyObject* poArgs)
 {
-	BYTE bWindowType;
+	uint8_t bWindowType;
 	if (!PyTuple_GetInteger(poArgs, 0, &bWindowType))
 		return Py_BuildException();
 	int iSlotIndex;
@@ -2124,7 +2124,7 @@ PyObject * playerIsAvailableBeltInventoryCell(PyObject* poSelf, PyObject* poArgs
 // 용혼석 강화
 PyObject* playerSendDragonSoulRefine(PyObject* poSelf, PyObject* poArgs)
 {
-	BYTE bSubHeader;
+	uint8_t bSubHeader;
 	PyObject* pDic;
 	TItemPos RefineItemPoses[DS_REFINE_WINDOW_MAX_NUM];
 	if (!PyTuple_GetByte(poArgs, 0, &bSubHeader))
@@ -2139,7 +2139,7 @@ PyObject* playerSendDragonSoulRefine(PyObject* poSelf, PyObject* poArgs)
 		{
 			if (!PyTuple_GetObject(poArgs, 1, &pDic))
 				return Py_BuildException();
-			int pos = 0;
+			Py_ssize_t pos = 0;
 			PyObject* key, *value;
 			int size = PyDict_Size(pDic);
 

@@ -649,7 +649,7 @@ void CPythonSystem::ChangeSystem()
 	else
 		fVoiceVolume = (float)pow(10.0f, (-1.0f + (float)m_Config.voice_volume / 5.0f));
 	*/
-	rkSndMgr.SetSoundVolumeGrade(m_Config.voice_volume);	
+	rkSndMgr.SetSoundVolume(m_Config.voice_volume);
 }
 
 void CPythonSystem::Clear()

@@ -5,11 +5,6 @@ project(m2dev-client-src)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (MSVC)
-    add_compile_options("/Zc:__cplusplus")
-    add_compile_options("/Zc:preprocessor")
-endif()
-
 set(CMAKE_MODULE_PATH
 	${CMAKE_MODULE_PATH}
 	"${CMAKE_CURRENT_SOURCE_DIR}/buildtool"
@@ -34,6 +29,7 @@ add_compile_options(
 )
 
 add_definitions(-DNOMINMAX)
+add_definitions(-DWIN32_LEAN_AND_MEAN)
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-DWINDOWS_IGNORE_PACKING_MISMATCH)
 

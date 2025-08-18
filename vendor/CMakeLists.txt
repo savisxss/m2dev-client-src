@@ -1,6 +1,4 @@
 add_subdirectory(cryptopp)
-
-
 add_subdirectory(lzo-2.10)
 
 if (WIN32)

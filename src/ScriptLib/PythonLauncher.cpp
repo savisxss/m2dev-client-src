@@ -1,5 +1,9 @@
 #include "StdAfx.h"
 #include <python/frameobject.h>
+#ifdef BYTE
+#undef BYTE
+#endif
+
 #include "eterPack/EterPackManager.h"
 
 #include "PythonLauncher.h"

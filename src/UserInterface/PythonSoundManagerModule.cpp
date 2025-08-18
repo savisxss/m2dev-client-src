@@ -39,7 +39,7 @@ PyObject * sndPlayMusic(PyObject * poSelf, PyObject * poArgs)
 		return Py_BuildException();
 
 	CSoundManager& rkSndMgr=CSoundManager::Instance();
-	rkSndMgr.PlayMusic(szFileName);
+	rkSndMgr.PlaySound2D(szFileName);
 	return Py_BuildNone();
 }
 
@@ -112,7 +112,7 @@ PyObject * sndSetSoundVolumef(PyObject * poSelf, PyObject * poArgs)
 		return Py_BuildException();
 
 	CSoundManager& rkSndMgr=CSoundManager::Instance();	
-	rkSndMgr.SetSoundVolumeRatio(fVolume);
+	rkSndMgr.SetSoundVolume(fVolume);
 	return Py_BuildNone();
 }
 
@@ -124,7 +124,7 @@ PyObject * sndSetSoundVolume(PyObject * poSelf, PyObject * poArgs)
 		return Py_BuildException();
 
 	CSoundManager& rkSndMgr=CSoundManager::Instance();
-	rkSndMgr.SetSoundVolumeGrade(iVolume);
+	rkSndMgr.SetSoundVolume(iVolume);
 	return Py_BuildNone();
 }
 

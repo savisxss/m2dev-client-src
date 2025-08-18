@@ -45,7 +45,6 @@ extern "C" { FILE __iob_func[3] = { *stdin,*stdout,*stderr }; }
 #pragma comment( lib, "dmoguids.lib" )
 //#pragma comment( lib, "wsock32.lib" )
 #include <stdlib.h>
-#include <cryptopp/cryptoppLibLink.h>
 bool __IS_TEST_SERVER_MODE__=false;
 
 extern bool SetDefaultCodePage(DWORD codePage);
@@ -218,8 +217,6 @@ bool PackInitialize(const char * c_pszFolder)
 	CEterPackManager::Instance().SetCacheMode();
 	CEterPackManager::Instance().SetSearchMode(bPackFirst);
 
-	CSoundData::SetPackMode(); // Miles 파일 콜백을 셋팅
-
 	std::string strPackName, strTexCachePackName;
 	for (DWORD i = 1; i < TextLoader.GetLineCount() - 1; i += 2)
 	{
@@ -385,9 +382,7 @@ bool Main(HINSTANCE hInstance, LPSTR lpCmdLine)
 		system("patchupdater.exe");
 		return false;
 	}
-#ifndef __VTUNE__
-	ilInit();
-#endif
+
 	if (!Setup(lpCmdLine))
 		return false;
 

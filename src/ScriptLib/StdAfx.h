@@ -20,6 +20,10 @@
 #include <python/eval.h>
 #include <python/marshal.h>
 
+#ifdef BYTE
+#undef BYTE
+#endif
+
 #include "PythonUtils.h"
 #include "PythonLauncher.h"
 #include "PythonMarshal.h"

@@ -1,5 +1,8 @@
 #pragma once
 #include <python/frameobject.h>
+#ifdef BYTE
+#undef BYTE
+#endif
 
 #include "eterBase/Singleton.h"
 
