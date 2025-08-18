@@ -185,7 +185,7 @@ void CFlyTrace::Render()
 		const D3DXVECTOR3& rkNew=it2->second;
 		D3DXVECTOR3 B = rkNew - rkOld;
 		
-		float radius = max(fabs(B.x),max(fabs(B.y),fabs(B.z)))/2;
+		float radius = std::max(fabs(B.x),std::max(fabs(B.y),fabs(B.z)))/2;
 		Vector3d c(it1->second.x+B.x*0.5f,
 			it1->second.y+B.y*0.5f,
 			it1->second.z+B.z*0.5f

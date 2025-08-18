@@ -30,7 +30,7 @@ class CEffectData
 		DWORD							GetLightCount();
 		CLightData *					GetLightPointer(DWORD dwPosition);
 
-		NSound::TSoundInstanceVector *	GetSoundInstanceVector();
+		TSoundInstanceVector *			GetSoundInstanceVector();
 
 		float							GetBoundingSphereRadius();
 		D3DXVECTOR3						GetBoundingSpherePosition();
@@ -52,7 +52,7 @@ class CEffectData
 		TParticleVector					m_ParticleVector;
 		TMeshVector						m_MeshVector;
 		TLightVector					m_LightVector;
-		NSound::TSoundInstanceVector	m_SoundInstanceVector;
+		TSoundInstanceVector			m_SoundInstanceVector;
 
 		float							m_fBoundingSphereRadius;
 		D3DXVECTOR3						m_v3BoundingSpherePosition;

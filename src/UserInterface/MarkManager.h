@@ -16,7 +16,7 @@ class CGuildMarkManager : public singleton<CGuildMarkManager>
 		struct TGuildSymbol
 		{
 			DWORD crc;
-			std::vector<BYTE> raw;
+			std::vector<uint8_t> raw;
 		};
 
 		CGuildMarkManager();
@@ -25,7 +25,7 @@ class CGuildMarkManager : public singleton<CGuildMarkManager>
 		const TGuildSymbol * GetGuildSymbol(DWORD GID);
 		bool LoadSymbol(const char* filename);
 		void SaveSymbol(const char* filename);
-		void UploadSymbol(DWORD guildID, int iSize, const BYTE* pbyData);
+		void UploadSymbol(DWORD guildID, int iSize, const uint8_t* pbyData);
 
 		//
 		// Mark
@@ -46,12 +46,12 @@ class CGuildMarkManager : public singleton<CGuildMarkManager>
 
 		// SERVER
 		void CopyMarkIdx(char * pcBuf) const;
-		DWORD SaveMark(DWORD guildID, BYTE * pbMarkImage);
+		DWORD SaveMark(DWORD guildID, uint8_t* pbMarkImage);
 		void DeleteMark(DWORD guildID);
-		void GetDiffBlocks(DWORD imgIdx, const DWORD * crcList, std::map<BYTE, const SGuildMarkBlock *> & mapDiffBlocks);
+		void GetDiffBlocks(DWORD imgIdx, const DWORD * crcList, std::map<uint8_t, const SGuildMarkBlock *> & mapDiffBlocks);
 
 		// CLIENT
-		bool SaveBlockFromCompressedData(DWORD imgIdx, DWORD idBlock, const BYTE * pbBlock, DWORD dwSize);
+		bool SaveBlockFromCompressedData(DWORD imgIdx, DWORD idBlock, const uint8_t * pbBlock, DWORD dwSize);
 		bool GetBlockCRCList(DWORD imgIdx, DWORD * crcList);
 
 	private:

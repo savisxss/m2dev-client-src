@@ -2,7 +2,8 @@
 
 add_library(EterGrnLib STATIC ${FILE_SOURCES})
 
-# target_link_libraries(EterGrnLib 
-# )
+target_link_libraries(EterGrnLib 
+	lzo2
+)
 
 GroupSourcesByFolder(EterGrnLib)

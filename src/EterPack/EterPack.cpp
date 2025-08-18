@@ -10,21 +10,19 @@
 #include "EterPackPolicy_CSHybridCrypt.h"
 
 #pragma warning(push, 3)
-#include <cryptopp/cryptlib.h>
-#include <cryptopp/filters.h>
-#include <cryptopp/modes.h>
-#include <cryptopp/tiger.h>
-#include <cryptopp/sha.h>
-#include <cryptopp/ripemd.h>
-#include <cryptopp/whrlpool.h>
-#include <cryptopp/panama.h>
-
-#include <cryptopp/cryptoppLibLink.h>
+#include <cryptlib.h>
+#include <filters.h>
+#include <modes.h>
+#include <tiger.h>
+#include <sha.h>
+#include <ripemd.h>
+#include <whrlpool.h>
+#include <panama.h>
 #pragma warning(pop)
 
-#include "../EterBase/utils.h"
-#include "../EterBase/Debug.h"
-#include "../EterBase/CRC32.h"
+#include "EterBase/utils.h"
+#include "EterBase/Debug.h"
+#include "EterBase/CRC32.h"
 
 #ifdef __THEMIDA__
 #include <ThemidaSDK.h>
@@ -1170,7 +1168,7 @@ void CEterPack::WriteIndex(CFileBase & file, TEterPackIndex * index)
  */
 int CEterPack::GetFreeBlockIndex(long size)
 {
-	return min(FREE_INDEX_MAX_SIZE, size / FREE_INDEX_BLOCK_SIZE);
+	return std::min((long)FREE_INDEX_MAX_SIZE, size / FREE_INDEX_BLOCK_SIZE);
 }
 
 void CEterPack::PushFreeIndex(TEterPackIndex* index)

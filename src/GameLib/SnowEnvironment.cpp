@@ -76,7 +76,7 @@ void CSnowEnvironment::Deform()
 
 	if (m_bSnowEnable)
 	{
-		for (int p = 0; p < min(10, m_dwParticleMaxNum - m_kVct_pkParticleSnow.size()); ++p)
+		for (int p = 0; p < std::min(10ull, m_dwParticleMaxNum - m_kVct_pkParticleSnow.size()); ++p)
 		{
 			CSnowParticle * pSnowParticle = CSnowParticle::New();
 			pSnowParticle->Init(v3ChangedPos);
@@ -177,7 +177,7 @@ void CSnowEnvironment::Render()
 
 	__BeginBlur();
 
-	DWORD dwParticleCount = min(m_dwParticleMaxNum, m_kVct_pkParticleSnow.size());
+	DWORD dwParticleCount = std::min((size_t)m_dwParticleMaxNum, m_kVct_pkParticleSnow.size());
 
 	CCamera * pCamera = CCameraManager::Instance().GetCurrentCamera();
 	if (!pCamera)

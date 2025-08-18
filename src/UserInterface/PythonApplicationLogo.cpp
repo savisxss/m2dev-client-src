@@ -92,7 +92,7 @@ int CPythonApplication::OnLogoUpdate()
 		return 0;
 	}
 
-	BYTE* pBuffer = m_pCaptureBuffer; LONG lBufferSize = m_lBufferSize;
+	uint8_t* pBuffer = m_pCaptureBuffer; LONG lBufferSize = m_lBufferSize;
 
 	// 재생이 안됬�?경우 재생.
 	if(!m_bLogoPlay) { m_pMediaCtrl->Run(); m_bLogoPlay = true; }
@@ -102,7 +102,7 @@ int CPythonApplication::OnLogoUpdate()
 		m_pSampleGrabber->GetCurrentBuffer(&m_lBufferSize, NULL);
 
 		SAFE_DELETE_ARRAY(m_pCaptureBuffer);
-		m_pCaptureBuffer = new BYTE[ m_lBufferSize ];
+		m_pCaptureBuffer = new uint8_t[ m_lBufferSize ];
 		pBuffer = m_pCaptureBuffer;
 		lBufferSize = m_lBufferSize;
 	}
@@ -119,10 +119,10 @@ int CPythonApplication::OnLogoUpdate()
 
 		// 실패한 경우에는 텍스쳐를 까맣게 비운다.
 		tex->LockRect(0, &rt, 0, 0);
-		BYTE* destb = static_cast<unsigned char*>(rt.pBits);
+		uint8_t* destb = static_cast<unsigned char*>(rt.pBits);
 		for(int a = 0; a < 4; a+= 4)
 		{
-			BYTE* dest = &destb[a];
+			uint8_t* dest = &destb[a];
 			dest[0] = 0; dest[1] = 0; dest[2] = 0; dest[3] = 0xff;
 		}
 		tex->UnlockRect(0);
@@ -163,16 +163,17 @@ int CPythonApplication::OnLogoUpdate()
 	ZeroMemory(&rt, sizeof(rt));
 
 	tex->LockRect(0, &rt, 0, 0);
-	BYTE* destb = static_cast<unsigned char*>(rt.pBits);
+	uint8_t* destb = static_cast<unsigned char*>(rt.pBits);
 	for(int a = 0; a < lBufferSize; a+= 4)
 	{
-		BYTE* src = &m_pCaptureBuffer[a]; BYTE* dest = &destb[a];
+		uint8_t* src = &m_pCaptureBuffer[a]; uint8_t* dest = &destb[a];
 		dest[0] = src[0]; dest[1] = src[1]; dest[2] = src[2]; dest[3] = 0xff;
 	}
 	tex->UnlockRect(0);
 
-	// 영상의 상태 체크 (종료되었는지)
-	long evCode, param1, param2;
+	long evCode;
+	LONG_PTR param1, param2;
+
 	while(SUCCEEDED(m_pMediaEvent->GetEvent(&evCode, &param1, &param2, 0)))
 	{
 		switch(evCode)

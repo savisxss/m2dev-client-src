@@ -27,10 +27,13 @@ target_link_libraries(UserInterface
 	SphereLib
 	
 	ws2_32 
-	version
-	ddraw
-	dmoguids
-	dbghelp
+	cryptopp-static
+	lzo2
+	
+	DirectX
+	Granny
+	SpeedTree
+	MilesSoundSystem
 )
 
 GroupSourcesByFolder(UserInterface)

@@ -1,1 +1,5 @@
-## add_subdirectory(python)
+add_subdirectory(DirectX)
+add_subdirectory(Granny)
+add_subdirectory(MilesSoundSystem)
+add_subdirectory(Python)
+add_subdirectory(SpeedTree)

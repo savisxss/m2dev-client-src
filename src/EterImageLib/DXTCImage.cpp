@@ -181,7 +181,7 @@ bool CDXTCImage::LoadHeaderFromMemory(const BYTE * c_pbMap)
 	m_nWidth		= ddsd.dwWidth;
 	m_nHeight		= ddsd.dwHeight;
 	//!@#
-	m_dwMipMapCount = max(1, ddsd.dwMipMapCount);
+	m_dwMipMapCount = std::max(1ul, ddsd.dwMipMapCount);
 	m_dwFlags		= ddsd.dwFlags;
 
 	if (ddsd.dwFlags & DDSD_PITCH)
@@ -647,19 +647,7 @@ void CDXTCImage::DecompressDXT1(int miplevel, DWORD * pdwDest)
 	// This was hacked up pretty quick & slopily
 	// decompresses to 32 bit format 0xARGB
 	int xblocks, yblocks;
-#ifdef DEBUG
-	if ((ddsd.dwWidth % 4) != 0)
-	{
-		Tracef("****** warning width not div by 4!  %d\n", ddsd.dwWidth);
-	}
-	
-	if ((ddsd.dwHeight % 4) != 0)
-	{
-		Tracef("****** warning Height not div by 4! %d\n", ddsd.dwHeight);
-	}
-	
-	Tracef("end check\n");
-#endif
+
 	UINT nWidth = m_nWidth >> miplevel;
 	UINT nHeight = m_nHeight >> miplevel;
 	
@@ -704,19 +692,7 @@ void CDXTCImage::DecompressDXT1(int miplevel, DWORD * pdwDest)
 void CDXTCImage::DecompressDXT3(int miplevel, DWORD* pdwDest)
 {
 	int xblocks, yblocks;
-#ifdef DEBUG
-	if ((ddsd.dwWidth % 4) != 0)
-	{
-		Tracef("****** warning width not div by 4! %d\n", ddsd.dwWidth);
-	}
-	
-	if ((ddsd.dwHeight % 4) != 0)
-	{
-		Tracef("****** warning Height not div by 4! %d\n", ddsd.dwHeight);
-	}
-	
-	Tracef("end check\n");
-#endif 
+
 	UINT nWidth = m_nWidth >> miplevel;
 	UINT nHeight = m_nHeight >> miplevel;
 
@@ -778,19 +754,7 @@ void CDXTCImage::DecompressDXT3(int miplevel, DWORD* pdwDest)
 void CDXTCImage::DecompressDXT5(int level, DWORD * pdwDest)
 {
 	int xblocks, yblocks;
-#ifdef DEBUG
-	if ((ddsd.dwWidth % 4) != 0)
-	{
-		Tracef("****** warning width not div by 4! %d\n", ddsd.dwWidth);
-	}
-	
-	if ((ddsd.dwHeight % 4) != 0)
-	{
-		Tracef("****** warning Height not div by 4! %d\n", ddsd.dwHeight);
-	}
-	
-	Tracef("end check\n");
-#endif
+
 	UINT nWidth = m_nWidth >> level;
 	UINT nHeight = m_nHeight >> level;
 

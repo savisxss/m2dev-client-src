@@ -2,7 +2,8 @@
 
 add_library(MilesLib STATIC ${FILE_SOURCES})
 
-# target_link_libraries(MilesLib 
-# )
+target_link_libraries(MilesLib 
+	lzo2
+)
 
 GroupSourcesByFolder(MilesLib)

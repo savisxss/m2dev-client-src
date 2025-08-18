@@ -13,7 +13,7 @@
 
 bool CPythonNetworkStream::SendSafeBoxMoneyPacket(BYTE byState, DWORD dwMoney)
 {
-	assert(!"CPythonNetworkStream::SendSafeBoxMoneyPacket - 사용하지 않는 함수");
+	assert(!"CPythonNetworkStream::SendSafeBoxMoneyPacket");
 	return false;
 
 //	TPacketCGSafeboxMoney kSafeboxMoney;

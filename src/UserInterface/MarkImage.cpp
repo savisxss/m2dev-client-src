@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "MarkImage.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image.h"
+#include "stb_image_write.h"
+
 #if !defined(_MSC_VER)
 #include <IL/il.h>
 #include "crc32.h"
@@ -26,7 +31,7 @@ void DeleteMarkImage(CGuildMarkImage * pkImage)
 
 CGuildMarkImage::CGuildMarkImage()
 {
-	m_uImg = INVALID_HANDLE;
+	memset(&m_apxImage, 0, sizeof(m_apxImage));
 }
 
 CGuildMarkImage::~CGuildMarkImage()
@@ -36,93 +41,48 @@ CGuildMarkImage::~CGuildMarkImage()
 
 void CGuildMarkImage::Destroy()
 {
-	if (INVALID_HANDLE == m_uImg)
-		return;
-
-	ilDeleteImages(1, &m_uImg);
-	m_uImg = INVALID_HANDLE;
+	memset(&m_apxImage, 0, sizeof(m_apxImage));
 }
 
 void CGuildMarkImage::Create()
 {
-	if (INVALID_HANDLE != m_uImg)
-		return;
-
-	ilGenImages(1, &m_uImg);
+	memset(m_apxImage, 0, sizeof(m_apxImage));
 }
 
 bool CGuildMarkImage::Save(const char* c_szFileName) 
 {
-	ilEnable(IL_FILE_OVERWRITE);
-	ilBindImage(m_uImg);
-
-	if (!ilSave(IL_TGA, (const ILstring)c_szFileName))
+	if (stbi_write_tga(c_szFileName, WIDTH, HEIGHT, 4, m_apxImage) == 0)
 		return false;
-
 	return true;
 }
 
 bool CGuildMarkImage::Build(const char * c_szFileName)
 {
-	Destroy();
-	Create();
-
-	ilBindImage(m_uImg);
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
-
-	BYTE * data = (BYTE *) malloc(sizeof(Pixel) * WIDTH * HEIGHT);
-	memset(data, 0, sizeof(Pixel) * WIDTH * HEIGHT);
-
-	if (!ilTexImage(WIDTH, HEIGHT, 1, 4, IL_BGRA, IL_UNSIGNED_BYTE, data))
-	{
-		sys_err("CGuildMarkImage: cannot initialize image");
+	memset(m_apxImage, 0, sizeof(m_apxImage));
+	if (!Save(c_szFileName)) {
+		sys_err("GuildMarkImage: cannot initialize image");
 		return false;
 	}
-
-	free(data);
-
-	ilEnable(IL_FILE_OVERWRITE);
-
-	if (!ilSave(IL_TGA, (const ILstring)c_szFileName))
-		return false;
-
 	return true;
 }
 
 bool CGuildMarkImage::Load(const char * c_szFileName) 
 {
-	Destroy();
-	Create();	
-
-	ilBindImage(m_uImg);
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
-
-	if (!ilLoad(IL_TYPE_UNKNOWN, (const ILstring) c_szFileName))
-	{
-		Build(c_szFileName);
-		
-		if (!Load(c_szFileName))
-		{
-			sys_err("CGuildMarkImage: cannot open file for writing %s", c_szFileName);
-			return false;
-		}
-	}
-
-	if (ilGetInteger(IL_IMAGE_WIDTH) != WIDTH)	
-	{
-		sys_err("CGuildMarkImage: %s width must be %u", c_szFileName, WIDTH);
+	int w, h, channels;
+	unsigned char* data = stbi_load(c_szFileName, &w, &h, &channels, 4);
+	if (!data) {
+		sys_err("GuildMarkImage: %s cannot open file.", c_szFileName);
 		return false;
 	}
 
-	if (ilGetInteger(IL_IMAGE_HEIGHT) != HEIGHT)
-	{
-		sys_err("CGuildMarkImage: %s height must be %u", c_szFileName, HEIGHT);
+	if (w != WIDTH || h != HEIGHT) {
+		sys_err("GuildMarkImage: %s wrong dimensions (%d x %d)", c_szFileName, w, h);
+		stbi_image_free(data);
 		return false;
 	}
 
-	ilConvertImage(IL_BGRA, IL_UNSIGNED_BYTE);
+	memcpy(m_apxImage, data, WIDTH * HEIGHT * 4);
+	stbi_image_free(data);
 
 	BuildAllBlocks();
 	return true;
@@ -130,14 +90,20 @@ bool CGuildMarkImage::Load(const char * c_szFileName)
 
 void CGuildMarkImage::PutData(UINT x, UINT y, UINT width, UINT height, void * data)
 {
-	ilBindImage(m_uImg);
-	ilSetPixels(x, y, 0, width, height, 1, IL_BGRA, IL_UNSIGNED_BYTE, data);
+	for (UINT row = 0; row < height; ++row) {
+		Pixel* dst = m_apxImage + (y + row) * WIDTH + x;
+		Pixel* src = (Pixel*)data + row * width;
+		memcpy(dst, src, width * sizeof(Pixel));
+	}
 }
 
 void CGuildMarkImage::GetData(UINT x, UINT y, UINT width, UINT height, void * data)
 {
-	ilBindImage(m_uImg);
-	ilCopyPixels(x, y, 0, width, height, 1, IL_BGRA, IL_UNSIGNED_BYTE, data);	
+	for (UINT row = 0; row < height; ++row) {
+		Pixel* src = m_apxImage + (y + row) * WIDTH + x;
+		Pixel* dst = (Pixel*)data + row * width;
+		memcpy(dst, src, width * sizeof(Pixel));
+	}
 }
 
 // 이미지 = 512x512
@@ -146,7 +112,7 @@ void CGuildMarkImage::GetData(UINT x, UINT y, UINT width, UINT height, void * da
 // 한 이미지의 블럭 = 8 x 10
 
 // SERVER
-bool CGuildMarkImage::SaveMark(DWORD posMark, BYTE * pbImage)
+bool CGuildMarkImage::SaveMark(DWORD posMark, uint8_t* pbImage)
 {
 	if (posMark >= MARK_TOTAL_COUNT)
 	{
@@ -175,11 +141,11 @@ bool CGuildMarkImage::DeleteMark(DWORD posMark)
 {
 	Pixel image[SGuildMark::SIZE];
 	memset(&image, 0, sizeof(image));
-	return SaveMark(posMark, (BYTE *) &image);
+	return SaveMark(posMark, (uint8_t*) &image);
 }
 
 // CLIENT
-bool CGuildMarkImage::SaveBlockFromCompressedData(DWORD posBlock, const BYTE * pbComp, DWORD dwCompSize)
+bool CGuildMarkImage::SaveBlockFromCompressedData(DWORD posBlock, const uint8_t* pbComp, DWORD dwCompSize)
 {
 	if (posBlock >= BLOCK_TOTAL_COUNT)
 		return false;
@@ -187,7 +153,7 @@ bool CGuildMarkImage::SaveBlockFromCompressedData(DWORD posBlock, const BYTE * p
 	Pixel apxBuf[SGuildMarkBlock::SIZE];
 	size_t sizeBuf = sizeof(apxBuf);
 
-	if (LZO_E_OK != lzo1x_decompress_safe(pbComp, dwCompSize, (BYTE *) apxBuf, (lzo_uint*) &sizeBuf, CLZO::Instance().GetWorkMemory()))
+	if (LZO_E_OK != lzo1x_decompress_safe(pbComp, dwCompSize, (uint8_t*) apxBuf, (lzo_uint*) &sizeBuf, CLZO::Instance().GetWorkMemory()))
 	{
 		sys_err("CGuildMarkImage::CopyBlockFromCompressedData: cannot decompress, compressed size = %u", dwCompSize);
 		return false;
@@ -239,16 +205,16 @@ DWORD CGuildMarkImage::GetEmptyPosition()
 	return INVALID_MARK_POSITION;
 }
 
-void CGuildMarkImage::GetDiffBlocks(const DWORD * crcList, std::map<BYTE, const SGuildMarkBlock *> & mapDiffBlocks)
+void CGuildMarkImage::GetDiffBlocks(const DWORD * crcList, std::map<uint8_t, const SGuildMarkBlock *> & mapDiffBlocks)
 {
-	BYTE posBlock = 0;
+	uint8_t posBlock = 0;
 
 	for (DWORD row = 0; row < BLOCK_ROW_COUNT; ++row)
 		for (DWORD col = 0; col < BLOCK_COL_COUNT; ++col)
 		{
 			if (m_aakBlock[row][col].m_crc != *crcList)
 			{
-				mapDiffBlocks.insert(std::map<BYTE, const SGuildMarkBlock *>::value_type(posBlock, &m_aakBlock[row][col]));
+				mapDiffBlocks.insert(std::map<uint8_t, const SGuildMarkBlock *>::value_type(posBlock, &m_aakBlock[row][col]));
 			}
 			++crcList;
 			++posBlock;
@@ -284,7 +250,7 @@ DWORD SGuildMarkBlock::GetCRC() const
 	return m_crc;
 }
 
-void SGuildMarkBlock::CopyFrom(const BYTE * pbCompBuf, DWORD dwCompSize, DWORD crc)
+void SGuildMarkBlock::CopyFrom(const uint8_t* pbCompBuf, DWORD dwCompSize, DWORD crc)
 {
 	if (dwCompSize > MAX_COMP_SIZE)
 		return;
@@ -299,7 +265,7 @@ void SGuildMarkBlock::Compress(const Pixel * pxBuf)
 {
 	m_sizeCompBuf = MAX_COMP_SIZE;
 
-	if (LZO_E_OK != lzo1x_999_compress((const BYTE *) pxBuf,
+	if (LZO_E_OK != lzo1x_999_compress((const uint8_t*) pxBuf,
 		sizeof(Pixel) * SGuildMarkBlock::SIZE, m_abCompBuf,
 		(lzo_uint*) &m_sizeCompBuf,
 		CLZO::Instance().GetWorkMemory()))

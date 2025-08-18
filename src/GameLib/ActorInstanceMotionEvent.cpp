@@ -29,9 +29,9 @@ void CActorInstance::SoundEventProcess(BOOL bCheckFrequency)
 	if (!m_pkCurRaceMotionData)
 		return;
 
-	CSoundManager& rkSndMgr=CSoundManager::Instance();
-	const NSound::TSoundInstanceVector* c_pkVct_kSndInst=m_pkCurRaceMotionData->GetSoundInstanceVectorPointer();
-	rkSndMgr.UpdateSoundInstance(m_x, m_y, m_z, m_kCurMotNode.dwcurFrame, c_pkVct_kSndInst, bCheckFrequency);
+	const TSoundInstanceVector* c_pkVct_kSndInst = m_pkCurRaceMotionData->GetSoundInstanceVectorPointer();
+	UpdateSoundInstance(m_kCurMotNode.dwcurFrame, *c_pkVct_kSndInst,
+		m_x, m_y, m_z, bCheckFrequency);
 }
 
 void CActorInstance::MotionEventProcess(DWORD dwcurFrame, int iIndex, const CRaceMotionData::TMotionEventData * c_pData)

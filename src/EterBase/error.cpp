@@ -5,7 +5,7 @@
 #include <winsock.h>
 #include <imagehlp.h>
 
-FILE * fException;
+FILE* fException;
 
 /*
 static char __msg[4000], __cmsg[4000];
@@ -15,11 +15,11 @@ CLZObject __l;
 /*
 typedef BOOL
 (CALLBACK *PENUMLOADED_MODULES_CALLBACK)(
-    __in PCSTR ModuleName,
-    __in ULONG ModuleBase,
-    __in ULONG ModuleSize,
-    __in_opt PVOID UserContext
-    );
+	__in PCSTR ModuleName,
+	__in ULONG ModuleBase,
+	__in ULONG ModuleSize,
+	__in_opt PVOID UserContext
+	);
 */
 #if _MSC_VER >= 1400
 BOOL CALLBACK EnumerateLoadedModulesProc(PCSTR ModuleName, ULONG ModuleBase, ULONG ModuleSize, PVOID UserContext)
@@ -28,7 +28,7 @@ BOOL CALLBACK EnumerateLoadedModulesProc(PSTR ModuleName, ULONG ModuleBase, ULON
 #endif
 {
 	DWORD offset = *((DWORD*)UserContext);
-	
+
 	if (offset >= ModuleBase && offset <= ModuleBase + ModuleSize)
 	{
 		fprintf(fException, "%s", ModuleName);
@@ -41,22 +41,22 @@ BOOL CALLBACK EnumerateLoadedModulesProc(PSTR ModuleName, ULONG ModuleBase, ULON
 
 LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 {
-	HANDLE		hProcess	= GetCurrentProcess();
-	HANDLE		hThread		= GetCurrentThread();
-	
+	HANDLE		hProcess = GetCurrentProcess();
+	HANDLE		hThread = GetCurrentThread();
+
 	fException = fopen("ErrorLog.txt", "wt");
 	if (fException)
 	{
 		char module_name[256];
 		time_t module_time;
-		
+
 		HMODULE hModule = GetModuleHandle(NULL);
-		
+
 		GetModuleFileName(hModule, module_name, sizeof(module_name));
 		module_time = (time_t)GetTimestampForLoadedLibrary(hModule);
-		
+
 		fprintf(fException, "Module Name: %s\n", module_name);
-		fprintf(fException, "Time Stamp: 0x%08x - %s\n", module_time, ctime(&module_time));
+		fprintf(fException, "Time Stamp: 0x%08x - %s\n", (unsigned int)module_time, ctime(&module_time));
 		fprintf(fException, "\n");
 		fprintf(fException, "Exception Type: 0x%08x\n", pExceptionInfo->ExceptionRecord->ExceptionCode);
 		fprintf(fException, "\n");
@@ -70,39 +70,39 @@ LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 			__idx+=sprintf(__msg+__idx, "\n");
 		}
 		*/
-		
-		CONTEXT&	context		= *pExceptionInfo->ContextRecord;
-		
-		fprintf(fException, "eax: 0x%08x\tebx: 0x%08x\n", context.Eax, context.Ebx);
-		fprintf(fException, "ecx: 0x%08x\tedx: 0x%08x\n", context.Ecx, context.Edx);
-		fprintf(fException, "esi: 0x%08x\tedi: 0x%08x\n", context.Esi, context.Edi);
-		fprintf(fException, "ebp: 0x%08x\tesp: 0x%08x\n", context.Ebp, context.Esp);
+
+		CONTEXT& context = *pExceptionInfo->ContextRecord;
+		fprintf(fException, "rax: 0x%016llx\trbx: 0x%016llx\n", context.Rax, context.Rbx);
+		fprintf(fException, "rcx: 0x%016llx\trdx: 0x%016llx\n", context.Rcx, context.Rdx);
+		fprintf(fException, "rsi: 0x%016llx\trdi: 0x%016llx\n", context.Rsi, context.Rdi);
+		fprintf(fException, "rbp: 0x%016llx\trsp: 0x%016llx\n", context.Rbp, context.Rsp);
 		fprintf(fException, "\n");
+
 		/*
 		{
-			__idx+=sprintf(__msg+__idx, "eax: 0x%08x\tebx: 0x%08x\n", context.Eax, context.Ebx);
-			__idx+=sprintf(__msg+__idx, "ecx: 0x%08x\tedx: 0x%08x\n", context.Ecx, context.Edx);
-			__idx+=sprintf(__msg+__idx, "esi: 0x%08x\tedi: 0x%08x\n", context.Esi, context.Edi);
-			__idx+=sprintf(__msg+__idx, "ebp: 0x%08x\tesp: 0x%08x\n", context.Ebp, context.Esp);
-			__idx+=sprintf(__msg+__idx, "\n");
+			__idx += sprintf(__msg + __idx, "rax: 0x%016llx\trbx: 0x%016llx\n", context.Rax, context.Rbx);
+			__idx += sprintf(__msg + __idx, "rcx: 0x%016llx\trdx: 0x%016llx\n", context.Rcx, context.Rdx);
+			__idx += sprintf(__msg + __idx, "rsi: 0x%016llx\trdi: 0x%016llx\n", context.Rsi, context.Rdi);
+			__idx += sprintf(__msg + __idx, "rbp: 0x%016llx\trsp: 0x%016llx\n", context.Rbp, context.Rsp);
+			__idx += sprintf(__msg + __idx, "\n");
 		}
 		*/
-		
-		STACKFRAME stackFrame = {0,};
-		stackFrame.AddrPC.Offset	= context.Eip;
-		stackFrame.AddrPC.Mode		= AddrModeFlat;
-		stackFrame.AddrStack.Offset	= context.Esp;
-		stackFrame.AddrStack.Mode	= AddrModeFlat;
-		stackFrame.AddrFrame.Offset	= context.Ebp;
-		stackFrame.AddrFrame.Mode	= AddrModeFlat;
-		
-		for (int i=0; i < 512 && stackFrame.AddrPC.Offset; ++i)
+
+		STACKFRAME64 stackFrame = { 0 };
+		stackFrame.AddrPC.Offset = context.Rip;
+		stackFrame.AddrPC.Mode = AddrModeFlat;
+		stackFrame.AddrStack.Offset = context.Rsp;
+		stackFrame.AddrStack.Mode = AddrModeFlat;
+		stackFrame.AddrFrame.Offset = context.Rbp;
+		stackFrame.AddrFrame.Mode = AddrModeFlat;
+
+		for (int i = 0; i < 512 && stackFrame.AddrPC.Offset; ++i)
 		{
-			if (StackWalk(IMAGE_FILE_MACHINE_I386, hProcess, hThread, &stackFrame, &context, NULL, NULL, NULL, NULL) != FALSE)
+			if (StackWalk64(IMAGE_FILE_MACHINE_AMD64, hProcess, hThread, &stackFrame, &context, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL) != FALSE)
 			{
-				fprintf(fException, "0x%08x\t", stackFrame.AddrPC.Offset);
-				//__idx+=sprintf(__msg+__idx, "0x%08x\t", stackFrame.AddrPC.Offset);
-				EnumerateLoadedModules(hProcess, (PENUMLOADED_MODULES_CALLBACK) EnumerateLoadedModulesProc, &stackFrame.AddrPC.Offset);
+				fprintf(fException, "0x%016llx\t", stackFrame.AddrPC.Offset);
+				//__idx+=sprintf(__msg+__idx, "0x%016llx\t", stackFrame.AddrPC.Offset);
+				EnumerateLoadedModules64(hProcess, (PENUMLOADED_MODULES_CALLBACK64)EnumerateLoadedModulesProc, &stackFrame.AddrPC.Offset);
 				fprintf(fException, "\n");
 
 				//__idx+=sprintf(__msg+__idx,  "\n");
@@ -111,17 +111,16 @@ LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 			{
 				break;
 			}
-		} 
-		
+		}
 		fprintf(fException, "\n");
 		//__idx+=sprintf(__msg+__idx, "\n");
-		
-		
+
+
 /*
 		BYTE* stack = (BYTE*)(context.Esp);
 		fprintf(fException, "stack %08x - %08x\n", context.Esp, context.Esp+1024);
 		//__idx+=sprintf(__msg+__idx, "stack %08x - %08x\n", context.Esp, context.Esp+1024);
-		
+
 		for(i=0; i<16; ++i)
 		{
 			fprintf(fException, "%08X : ", context.Esp+i*16);
@@ -142,7 +141,7 @@ LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 
 		fclose(fException);
 		fException = NULL;
-		
+
 		//WinExec()
 		/*CreateProcess("cmd.exe",NULL,NULL,NULL,FALSE,
 			CREATE_NEW_PROCESS_GROUP|DETACHED_PROCESS,NULL,NULL,NULL,NULL);
@@ -155,14 +154,14 @@ LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 			//fprintf(fException,"Compress printing\n");
 			// send this to server
 			SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-			
+
 			ioctlsocket(s,FIONBIO,0);
 
 			if (s==INVALID_SOCKET)
 			{
 				//fprintf(fException,"INVALID %X\n",WSAGetLastError());
 			}
-			
+
 			sockaddr_in sa;
 			sa.sin_family = AF_INET;
 			sa.sin_port = htons(19294);
@@ -194,11 +193,11 @@ LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 			closesocket(s);
 		}*/
 
-		WinExec("errorlog.exe",SW_SHOW);
-		
-		
+		WinExec("errorlog.exe", SW_SHOW);
+
+
 	}
-	
+
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 

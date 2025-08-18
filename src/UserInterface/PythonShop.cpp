@@ -13,7 +13,7 @@
 //	*pdwItemID=itemData->vnum;
 //	return TRUE;
 //}
-void CPythonShop::SetTabCoinType(BYTE tabIdx, BYTE coinType)
+void CPythonShop::SetTabCoinType(uint8_t tabIdx, uint8_t coinType)
 {
 	if (tabIdx >= m_bTabCount)
 	{	
@@ -23,7 +23,7 @@ void CPythonShop::SetTabCoinType(BYTE tabIdx, BYTE coinType)
 	m_aShoptabs[tabIdx].coinType = coinType;
 }
 
-BYTE CPythonShop::GetTabCoinType(BYTE tabIdx)
+uint8_t CPythonShop::GetTabCoinType(uint8_t tabIdx)
 {
 	if (tabIdx >= m_bTabCount)
 	{
@@ -33,7 +33,7 @@ BYTE CPythonShop::GetTabCoinType(BYTE tabIdx)
 	return m_aShoptabs[tabIdx].coinType;
 }
 
-void CPythonShop::SetTabName(BYTE tabIdx, const char* name)
+void CPythonShop::SetTabName(uint8_t tabIdx, const char* name)
 {
 	if (tabIdx >= m_bTabCount)
 	{	
@@ -43,7 +43,7 @@ void CPythonShop::SetTabName(BYTE tabIdx, const char* name)
 	m_aShoptabs[tabIdx].name = name;
 }
 
-const char* CPythonShop::GetTabName(BYTE tabIdx)
+const char* CPythonShop::GetTabName(uint8_t tabIdx)
 {
 	if (tabIdx >= m_bTabCount)
 	{
@@ -56,7 +56,7 @@ const char* CPythonShop::GetTabName(BYTE tabIdx)
 
 void CPythonShop::SetItemData(DWORD dwIndex, const TShopItemData & c_rShopItemData)
 {
-	BYTE tabIdx = dwIndex / SHOP_HOST_ITEM_MAX_NUM;
+	uint8_t tabIdx = dwIndex / SHOP_HOST_ITEM_MAX_NUM;
 	DWORD dwSlotPos = dwIndex % SHOP_HOST_ITEM_MAX_NUM;
 	
 	SetItemData(tabIdx, dwSlotPos, c_rShopItemData);
@@ -64,13 +64,13 @@ void CPythonShop::SetItemData(DWORD dwIndex, const TShopItemData & c_rShopItemDa
 
 BOOL CPythonShop::GetItemData(DWORD dwIndex, const TShopItemData ** c_ppItemData)
 {
-	BYTE tabIdx = dwIndex / SHOP_HOST_ITEM_MAX_NUM;
+	uint8_t tabIdx = dwIndex / SHOP_HOST_ITEM_MAX_NUM;
 	DWORD dwSlotPos = dwIndex % SHOP_HOST_ITEM_MAX_NUM;
 
 	return GetItemData(tabIdx, dwSlotPos, c_ppItemData);
 }
 
-void CPythonShop::SetItemData(BYTE tabIdx, DWORD dwSlotPos, const TShopItemData & c_rShopItemData)
+void CPythonShop::SetItemData(uint8_t tabIdx, DWORD dwSlotPos, const TShopItemData & c_rShopItemData)
 {
 	if (tabIdx >= SHOP_TAB_COUNT_MAX || dwSlotPos >= SHOP_HOST_ITEM_MAX_NUM)
 	{
@@ -81,7 +81,7 @@ void CPythonShop::SetItemData(BYTE tabIdx, DWORD dwSlotPos, const TShopItemData 
 	m_aShoptabs[tabIdx].items[dwSlotPos] = c_rShopItemData;
 }
 
-BOOL CPythonShop::GetItemData(BYTE tabIdx, DWORD dwSlotPos, const TShopItemData ** c_ppItemData)
+BOOL CPythonShop::GetItemData(uint8_t tabIdx, DWORD dwSlotPos, const TShopItemData ** c_ppItemData)
 {
 	if (tabIdx >= SHOP_TAB_COUNT_MAX || dwSlotPos >= SHOP_HOST_ITEM_MAX_NUM)
 	{
@@ -106,7 +106,7 @@ void CPythonShop::ClearPrivateShopStock()
 {
 	m_PrivateShopItemStock.clear();
 }
-void CPythonShop::AddPrivateShopItemStock(TItemPos ItemPos, BYTE dwDisplayPos, DWORD dwPrice)
+void CPythonShop::AddPrivateShopItemStock(TItemPos ItemPos, uint8_t dwDisplayPos, DWORD dwPrice)
 {
 	DelPrivateShopItemStock(ItemPos);
 
@@ -326,7 +326,7 @@ PyObject * shopClearPrivateShopStock(PyObject * poSelf, PyObject * poArgs)
 }
 PyObject * shopAddPrivateShopItemStock(PyObject * poSelf, PyObject * poArgs)
 {
-	BYTE bItemWindowType;
+	uint8_t bItemWindowType;
 	if (!PyTuple_GetInteger(poArgs, 0, &bItemWindowType))
 		return Py_BuildException();
 	WORD wItemSlotIndex;
@@ -344,7 +344,7 @@ PyObject * shopAddPrivateShopItemStock(PyObject * poSelf, PyObject * poArgs)
 }
 PyObject * shopDelPrivateShopItemStock(PyObject * poSelf, PyObject * poArgs)
 {
-	BYTE bItemWindowType;
+	uint8_t bItemWindowType;
 	if (!PyTuple_GetInteger(poArgs, 0, &bItemWindowType))
 		return Py_BuildException();
 	WORD wItemSlotIndex;
@@ -356,7 +356,7 @@ PyObject * shopDelPrivateShopItemStock(PyObject * poSelf, PyObject * poArgs)
 }
 PyObject * shopGetPrivateShopItemPrice(PyObject * poSelf, PyObject * poArgs)
 {
-	BYTE bItemWindowType;
+	uint8_t bItemWindowType;
 	if (!PyTuple_GetInteger(poArgs, 0, &bItemWindowType))
 		return Py_BuildException();
 	WORD wItemSlotIndex;
@@ -383,7 +383,7 @@ PyObject * shopGetTabCount(PyObject * poSelf, PyObject * poArgs)
 
 PyObject * shopGetTabName(PyObject * poSelf, PyObject * poArgs)
 {
-	BYTE bTabIdx;
+	uint8_t bTabIdx;
 	if (!PyTuple_GetInteger(poArgs, 0, &bTabIdx))
 		return Py_BuildException();
 
@@ -392,7 +392,7 @@ PyObject * shopGetTabName(PyObject * poSelf, PyObject * poArgs)
 
 PyObject * shopGetTabCoinType(PyObject * poSelf, PyObject * poArgs)
 {
-	BYTE bTabIdx;
+	uint8_t bTabIdx;
 	if (!PyTuple_GetInteger(poArgs, 0, &bTabIdx))
 		return Py_BuildException();
 

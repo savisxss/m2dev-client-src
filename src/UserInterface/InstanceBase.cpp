@@ -2685,7 +2685,7 @@ void CInstanceBase::__ClearArmorRefineEffect()
 
 UINT CInstanceBase::__GetRefinedEffect(CItemData* pItem)
 {
-	DWORD refine = max(pItem->GetRefine() + pItem->GetSocketCount(),CItemData::ITEM_SOCKET_MAX_NUM) - CItemData::ITEM_SOCKET_MAX_NUM;
+	DWORD refine = std::max(pItem->GetRefine() + pItem->GetSocketCount(), (UINT)CItemData::ITEM_SOCKET_MAX_NUM) - CItemData::ITEM_SOCKET_MAX_NUM;
 	switch (pItem->GetType())
 	{
 	case CItemData::ITEM_TYPE_WEAPON:

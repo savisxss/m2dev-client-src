@@ -1,7 +1,9 @@
 #include "StdAfx.h"
 #include "Resource.h"
 #include "PythonApplication.h"
-#include "../EterLib/Camera.h"
+#include "EterLib/Camera.h"
+
+#include <stb_image.h>
 
 extern bool PERF_CHECKER_RENDER_GAME;
 extern D3DXCOLOR g_fSpecularColor;
@@ -332,31 +334,16 @@ PyObject* appGetImageInfo(PyObject* poSelf, PyObject* poArgs)
 
 #else
 
-#include <il/il.h>
-	
 PyObject* appGetImageInfo(PyObject* poSelf, PyObject* poArgs)
 {
 	char* szFileName;
 	if (!PyTuple_GetString(poArgs, 0, &szFileName))
 		return Py_BuildException();
 
-	BOOL canLoad=FALSE;
-	ILuint uWidth=0;
-	ILuint uHeight=0;
+	int w = 0, h = 0, comp = 0;
+	int canLoad = stbi_info(szFileName, &w, &h, &comp) ? 1 : 0;
 
-	ILuint uImg;
-	ilGenImages(1, &uImg);
-	ilBindImage(uImg);
-	if (ilLoad(IL_TYPE_UNKNOWN, szFileName))
-	{
-		canLoad=TRUE;
-		uWidth=ilGetInteger(IL_IMAGE_WIDTH);
-		uHeight=ilGetInteger(IL_IMAGE_HEIGHT);
-	}
-
-	ilDeleteImages(1, &uImg);
-
-	return Py_BuildValue("iii", canLoad, uWidth, uHeight);
+	return Py_BuildValue("iii", canLoad, w, h);
 }
 #endif
 

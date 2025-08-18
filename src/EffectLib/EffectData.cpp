@@ -96,11 +96,11 @@ bool CEffectData::LoadScript(const char * c_szFileName)
 
 bool CEffectData::LoadSoundScriptData(const char * c_szFileName)
 {
-	NSound::TSoundDataVector SoundDataVector;
+	TSoundDataVector SoundDataVector;
 
-	if (NSound::LoadSoundInformationPiece(c_szFileName, SoundDataVector))
+	if (LoadSoundInformationPiece(c_szFileName, SoundDataVector))
 	{
-		NSound::DataToInstance(SoundDataVector, &m_SoundInstanceVector);
+		DataToInstance(SoundDataVector, &m_SoundInstanceVector);
 		return false;
 	}
 
@@ -164,7 +164,7 @@ CEffectMeshScript * CEffectData::GetMeshPointer(DWORD dwPosition)
 	return m_MeshVector[dwPosition];
 }
 
-NSound::TSoundInstanceVector * CEffectData::GetSoundInstanceVector()
+TSoundInstanceVector * CEffectData::GetSoundInstanceVector()
 {
 	return &m_SoundInstanceVector;
 }

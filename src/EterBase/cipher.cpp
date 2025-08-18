@@ -7,31 +7,31 @@
 //#pragma warning(push)
 //#pragma warning(disable: 4100 4127 4189 4231 4512 4706)
 
-#include <cryptopp/modes.h>
-#include <cryptopp/nbtheory.h>
-#include <cryptopp/osrng.h>
+#include <modes.h>
+#include <nbtheory.h>
+#include <osrng.h>
 
 // Diffie-Hellman key agreement
-#include <cryptopp/dh.h>
-#include <cryptopp/dh2.h>
+#include <dh.h>
+#include <dh2.h>
 
 // AES winner and candidates
-#include <cryptopp/aes.h>
-#include <cryptopp/cast.h>
-#include <cryptopp/rc6.h>
-#include <cryptopp/mars.h>
-#include <cryptopp/serpent.h>
-#include <cryptopp/twofish.h>
+#include <aes.h>
+#include <cast.h>
+#include <rc6.h>
+#include <mars.h>
+#include <serpent.h>
+#include <twofish.h>
 // Other block ciphers
-#include <cryptopp/blowfish.h>
-#include <cryptopp/camellia.h>
-#include <cryptopp/des.h>
-#include <cryptopp/idea.h>
-#include <cryptopp/rc5.h>
-#include <cryptopp/seed.h>
-#include <cryptopp/shacal2.h>
-#include <cryptopp/skipjack.h>
-#include <cryptopp/tea.h>
+#include <blowfish.h>
+#include <camellia.h>
+#include <des.h>
+#include <idea.h>
+#include <rc5.h>
+#include <seed.h>
+#include <shacal2.h>
+#include <skipjack.h>
+#include <tea.h>
 
 #ifdef __THEMIDA__
 #include <ThemidaSDK.h>
@@ -248,7 +248,7 @@ bool Cipher::SetUp(bool polarity) {
 
 	key_0.Assign(shared, key_length_0);
 	offset = key_length_0;
-	offset = min(key_length_0, shared.size() - key_length_1);
+	offset = std::min(key_length_0, shared.size() - key_length_1);
 	key_1.Assign(shared.BytePtr() + offset, key_length_1);
 
 	offset = shared.size() - iv_length_0;

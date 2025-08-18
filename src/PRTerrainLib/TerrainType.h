@@ -65,31 +65,7 @@ typedef struct
 
 /* Converts a floating point number to an integer by truncation, using
    the FISTP instruction */
-#define PR_FLOAT_TO_INTASM __asm	\
-{									\
-	__asm fld PR_FCNV				\
-	__asm fistp PR_ICNV				\
-}
 
-#define PR_FLOAT_TO_FIXED(inreal, outint)	\
-{											\
-	PR_FCNV = (inreal) * 65536.0f;			\
-    PR_FLOAT_TO_INTASM;						\
-	(outint) = PR_ICNV;						\
-}
-
-#define PR_FLOAT_TO_INT(inreal, outint)							\
-{																\
-	PR_FCNV = (inreal);											\
-    PR_FLOAT_TO_INTASM;											\
-	(outint) = PR_ICNV > PR_FCNV ? PR_ICNV - 1 : PR_ICNV;		\
-}
-
-#define PR_FLOAT_ADD_TO_INT(inreal, outint)	\
-{											\
-	PR_FCNV = (inreal);						\
-    PR_FLOAT_TO_INTASM;						\
-	(outint) += PR_ICNV;					\
-}
+#define PR_FLOAT_TO_INT(inreal, outint) (outint) = static_cast<int>(inreal);
 
 #endif //__TERRAIn_TYPES__

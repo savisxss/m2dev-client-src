@@ -133,11 +133,11 @@ int CMappedFile::Seek(DWORD offset, int iSeekType)
 			break;
 			
 		case SEEK_TYPE_CURRENT:
-			m_seekPosition = min(m_seekPosition + offset, Size());
+			m_seekPosition = std::min(m_seekPosition + offset, Size());
 			break;
 
 		case SEEK_TYPE_END:
-			m_seekPosition = max(0, Size() - offset);
+			m_seekPosition = std::max(0ul, Size() - offset);
 			break;
 	}
 

@@ -179,14 +179,14 @@ enum EDSInventoryMaxNum
 
 typedef struct SItemPos
 {
-	BYTE window_type;
+	uint8_t window_type;
 	WORD cell;
     SItemPos ()
     {
 		window_type =     INVENTORY;
 		cell = WORD_MAX;
     }
-	SItemPos (BYTE _window_type, WORD _cell)
+	SItemPos (uint8_t _window_type, WORD _cell)
     {
         window_type = _window_type;
         cell = _cell;

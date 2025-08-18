@@ -1260,7 +1260,7 @@ PyObject * wndMgrSetSlotCoolTime(PyObject * poSelf, PyObject * poArgs)
 
 PyObject * wndMgrSetToggleSlot(PyObject * poSelf, PyObject * poArgs)
 {
-	assert(!"wndMgrSetToggleSlot - 사용하지 않는 함수");
+	assert(!"wndMgrSetToggleSlot");
 	return Py_BuildNone();
 }
 

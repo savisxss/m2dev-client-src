@@ -45,7 +45,7 @@ int CGraphicTextInstance::__DrawCharacter(CGraphicFontTexture * pFontTexture, WO
 		m_pCharInfoVector.push_back(pInsCharInfo);
 
 		m_textWidth += pInsCharInfo->advance;
-		m_textHeight = max(pInsCharInfo->height, m_textHeight);
+		m_textHeight = std::max((WORD)pInsCharInfo->height, m_textHeight);
 		return pInsCharInfo->advance;
 	}
 	
@@ -54,7 +54,7 @@ int CGraphicTextInstance::__DrawCharacter(CGraphicFontTexture * pFontTexture, WO
 
 void CGraphicTextInstance::__GetTextPos(DWORD index, float* x, float* y)
 {
-	index = min(index, m_pCharInfoVector.size());
+	index = std::min((size_t)index, m_pCharInfoVector.size());
 
 	float sx = 0;
 	float sy = 0;
@@ -69,7 +69,7 @@ void CGraphicTextInstance::__GetTextPos(DWORD index, float* x, float* y)
 		}
 
 		sx += float(m_pCharInfoVector[i]->advance);
-		fFontMaxHeight = max(float(m_pCharInfoVector[i]->height), fFontMaxHeight);
+		fFontMaxHeight = std::max(float(m_pCharInfoVector[i]->height), fFontMaxHeight);
 	}
 
 	*x = sx;
@@ -695,7 +695,7 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 
 			fFontWidth=float(pCurCharInfo->width);
 			fFontHeight=float(pCurCharInfo->height);
-			fFontMaxHeight=max(fFontHeight, pCurCharInfo->height);
+			fFontMaxHeight=std::max(fFontHeight, (float)pCurCharInfo->height);
 			fFontAdvance=float(pCurCharInfo->advance);
 
 			// NOTE : 폰트 출력에 Width 제한을 둡니다. - [levites]

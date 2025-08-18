@@ -381,7 +381,7 @@ bool CGuildMarkDownloader::__LoginState_RecvMarkBlock()
 		{
 			Recv(compSize, compBuf);
 			// 압축된 이미지를 실제로 저장한다. CRC등 여러가지 정보가 함께 빌드된다.
-			CGuildMarkManager::Instance().SaveBlockFromCompressedData(kPacket.imgIdx, posBlock, (const BYTE *) compBuf, compSize);
+			CGuildMarkManager::Instance().SaveBlockFromCompressedData(kPacket.imgIdx, posBlock, (const uint8_t *) compBuf, compSize);
 		}
 	}
 

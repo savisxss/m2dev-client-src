@@ -217,7 +217,7 @@ bool CPythonGraphic::SaveScreenShot(const char * c_pszFileName)
 		return false;
 	}
 
-	BYTE* pbyBuffer = new BYTE[uWidth * uHeight * 3];
+	uint8_t* pbyBuffer = new uint8_t[uWidth * uHeight * 3];
 	if (pbyBuffer == NULL) {
 		lpSurface->UnlockRect();
 		lpSurface->Release();
@@ -225,10 +225,10 @@ bool CPythonGraphic::SaveScreenShot(const char * c_pszFileName)
 		TraceError("Failed to allocate screenshot buffer");
 		return false;
 	}
-	BYTE* pbySource = (BYTE*) lockRect.pBits;
-	BYTE* pbyDestination = (BYTE*) pbyBuffer;
+	uint8_t* pbySource = (uint8_t*) lockRect.pBits;
+	uint8_t* pbyDestination = (uint8_t*) pbyBuffer;
 	for(UINT y = 0; y < uHeight; ++y) {
-		BYTE *pRow = pbySource;
+		uint8_t*pRow = pbySource;
 
 		switch( stSurfaceDesc.Format ) {
 		case D3DFMT_R8G8B8 :
@@ -252,9 +252,9 @@ bool CPythonGraphic::SaveScreenShot(const char * c_pszFileName)
 			{
 				for(UINT x = 0; x < uWidth; ++x) {
 					UINT uColor		= *((UINT *) pRow);
-					BYTE byBlue		= (uColor >> 11) & 0x1F;
-					BYTE byGreen	= (uColor >> 5) & 0x3F;
-					BYTE byRed		= uColor & 0x1F;
+					uint8_t byBlue		= (uColor >> 11) & 0x1F;
+					uint8_t byGreen	= (uColor >> 5) & 0x3F;
+					uint8_t byRed		= uColor & 0x1F;
 
 					*pbyDestination++ = (byBlue << 3)	| (byBlue >> 2);		// Blue
 					*pbyDestination++ = (byGreen << 2)	| (byGreen >> 2);		// Green
@@ -268,9 +268,9 @@ bool CPythonGraphic::SaveScreenShot(const char * c_pszFileName)
 			{
 				for(UINT x = 0; x < uWidth; ++x) {
 					UINT uColor		= *((UINT *) pRow);
-					BYTE byBlue		= (uColor >> 10) & 0x1F;
-					BYTE byGreen	= (uColor >> 5) & 0x1F;
-					BYTE byRed		= uColor & 0x1F;
+					uint8_t byBlue		= (uColor >> 10) & 0x1F;
+					uint8_t byGreen	= (uColor >> 5) & 0x1F;
+					uint8_t byRed		= uColor & 0x1F;
 
 					*pbyDestination++ = (byBlue << 3)	| (byBlue >> 2);		// Blue
 					*pbyDestination++ = (byGreen << 3)	| (byGreen >> 2);		// Green
@@ -493,7 +493,7 @@ void CPythonGraphic::RenderCoolTimeBox(float fxCenter, float fyCenter, float fRa
 	if (fTime >= 1.0f)
 		return;
 
-	fTime = max(0.0f, fTime);
+	fTime = std::max(0.0f, fTime);
 
 	static D3DXCOLOR color = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.5f);
 	static WORD s_wBoxIndicies[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };

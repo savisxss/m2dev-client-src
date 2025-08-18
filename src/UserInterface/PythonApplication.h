@@ -260,7 +260,7 @@ class CPythonApplication : public CMSApplication, public CInputKeyboard, public 
 		IMediaEventEx*			m_pMediaEvent;				// Media Event
 		IVideoWindow*			m_pVideoWnd;				// Video Window
 		IBasicVideo*			m_pBasicVideo;
-		BYTE*					m_pCaptureBuffer;			// 영상 이미지를 캡처한 버퍼
+		uint8_t*					m_pCaptureBuffer;			// 영상 이미지를 캡처한 버퍼
 		LONG					m_lBufferSize;				// Video 버퍼 크기 변수 
 		CGraphicImageTexture*	m_pLogoTex;					// 출력할 텍스쳐
 		bool					m_bLogoError;				// 영상 읽기 상태

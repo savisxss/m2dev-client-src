@@ -367,7 +367,7 @@ static  void                    SetTime(float fTime);
         float                   GetWindStrength(void) const;
         float                   SetWindStrength(float fNewStrength, float fOldStrength = -1.0f, float fFrequencyTimeOffset = -1.0f);
 
-static  void                    SetNumWindMatrices(unsigned int nNumMatrices);
+static  void                    SetNumWindMatrices(int nNumMatrices);
 static  void                    SetWindMatrix(unsigned int nMatrixIndex, const float* pMatrix);
         void                    GetLocalMatrices(unsigned int& nStartingIndex, unsigned int& nMatrixSpan);
         void                    SetLocalMatrices(unsigned int nStartingMatrix, unsigned int nMatrixSpan);

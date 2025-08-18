@@ -325,7 +325,7 @@ void CPythonEventManager::UpdateEventSet(int iIndex, int ix, int iy)
 
 	if (pEventSet->isConfirmWait)
 	{
-		int iLeftTime = max(0, pEventSet->iConfirmEndTime - timeGetTime()/1000);
+		int iLeftTime = std::max(0ul, pEventSet->iConfirmEndTime - timeGetTime()/1000);
 		pEventSet->pConfirmTimeTextLine->SetValue(_getf(m_strLeftTimeString.c_str(), iLeftTime));
 	}
 
@@ -337,7 +337,7 @@ void CPythonEventManager::UpdateEventSet(int iIndex, int ix, int iy)
 	// Process EventSet
 	long lElapsedTime = CTimer::Instance().GetElapsedMilliecond();
 
-	pEventSet->lLastDelayTime = max(0, pEventSet->lLastDelayTime - lElapsedTime);
+	pEventSet->lLastDelayTime = std::max(0l, pEventSet->lLastDelayTime - lElapsedTime);
 
 	while (lElapsedTime > 0)
 	{

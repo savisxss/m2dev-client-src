@@ -77,7 +77,7 @@ class CEffectInstance : public CGraphicObjectInstance
 		std::vector<CEffectMeshInstance*>		m_MeshInstanceVector;
 		std::vector<CLightInstance*>			m_LightInstanceVector;
 
-		NSound::TSoundInstanceVector *	m_pSoundInstanceVector;
+		TSoundInstanceVector *					m_pSoundInstanceVector;
 
 		float m_fBoundingSphereRadius;
 		D3DXVECTOR3 m_v3BoundingSpherePosition;

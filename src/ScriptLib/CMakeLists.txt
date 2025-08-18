@@ -2,7 +2,9 @@
 
 add_library(ScriptLib STATIC ${FILE_SOURCES})
 
-# target_link_libraries(ScriptLib 
-# )
+target_link_libraries(ScriptLib 
+	lzo2
+	cryptopp-static
+)
 
 GroupSourcesByFolder(ScriptLib)

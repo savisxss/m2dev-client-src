@@ -22,7 +22,7 @@ void CAffectFlagContainer::CopyInstance(const CAffectFlagContainer& c_rkAffectCo
 
 void CAffectFlagContainer::CopyData(UINT uPos, UINT uByteSize, const void* c_pvData)
 {
-	const BYTE* c_pbData=(const BYTE*)c_pvData; 
+	const uint8_t* c_pbData=(const uint8_t*)c_pvData;
 	Element bMask=0x01;
 
 	UINT uBitEnd=uPos+uByteSize*8;
@@ -65,9 +65,9 @@ void CAffectFlagContainer::Set(UINT uPos, bool isSet)
 		return;
 	}
 
-	BYTE& rElement=m_aElement[uPos/8];
+	uint8_t& rElement=m_aElement[uPos/8];
 
-	BYTE bMask=BYTE(1<<(uPos&7));
+	uint8_t bMask= uint8_t(1<<(uPos&7));
 	if (isSet)
 		rElement|=bMask;
 	else
@@ -82,9 +82,9 @@ bool CAffectFlagContainer::IsSet(UINT uPos) const
 		return false;
 	}
 
-	const BYTE& c_rElement=m_aElement[uPos/8];
+	const uint8_t& c_rElement=m_aElement[uPos/8];
 
-	BYTE bMask=BYTE(1<<(uPos&7));
+	uint8_t bMask= uint8_t(1<<(uPos&7));
 	if (c_rElement&bMask)
 		return true;
 

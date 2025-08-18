@@ -28,17 +28,17 @@ class CPythonShop : public CSingleton<CPythonShop>
 		void SetItemData(DWORD dwIndex, const TShopItemData & c_rShopItemData);
 		BOOL GetItemData(DWORD dwIndex, const TShopItemData ** c_ppItemData);
 
-		void SetItemData(BYTE tabIdx, DWORD dwSlotPos, const TShopItemData & c_rShopItemData);
-		BOOL GetItemData(BYTE tabIdx, DWORD dwSlotPos, const TShopItemData ** c_ppItemData);
+		void SetItemData(uint8_t tabIdx, DWORD dwSlotPos, const TShopItemData & c_rShopItemData);
+		BOOL GetItemData(uint8_t tabIdx, DWORD dwSlotPos, const TShopItemData ** c_ppItemData);
 		
-		void SetTabCount(BYTE bTabCount) { m_bTabCount = bTabCount; }
-		BYTE GetTabCount() { return m_bTabCount; }
+		void SetTabCount(uint8_t bTabCount) { m_bTabCount = bTabCount; }
+		uint8_t GetTabCount() { return m_bTabCount; }
 
-		void SetTabCoinType(BYTE tabIdx, BYTE coinType);
-		BYTE GetTabCoinType(BYTE tabIdx);
+		void SetTabCoinType(uint8_t tabIdx, uint8_t coinType);
+		uint8_t GetTabCoinType(uint8_t tabIdx);
 
-		void SetTabName(BYTE tabIdx, const char* name);
-		const char* GetTabName(BYTE tabIdx);
+		void SetTabName(uint8_t tabIdx, const char* name);
+		const char* GetTabName(uint8_t tabIdx);
 
 
 		//BOOL GetSlotItemID(DWORD dwSlotPos, DWORD* pdwItemID);
@@ -50,7 +50,7 @@ class CPythonShop : public CSingleton<CPythonShop>
 		BOOL IsMainPlayerPrivateShop();
 
 		void ClearPrivateShopStock();
-		void AddPrivateShopItemStock(TItemPos ItemPos, BYTE byDisplayPos, DWORD dwPrice);
+		void AddPrivateShopItemStock(TItemPos ItemPos, uint8_t byDisplayPos, DWORD dwPrice);
 		void DelPrivateShopItemStock(TItemPos ItemPos);
 		int GetPrivateShopItemPrice(TItemPos ItemPos);
 		void BuildPrivateShop(const char * c_szName);
@@ -69,12 +69,12 @@ class CPythonShop : public CSingleton<CPythonShop>
 			{
 				coinType = SHOP_COIN_TYPE_GOLD;
 			}
-			BYTE				coinType;
+			uint8_t				coinType;
 			std::string			name;
 			TShopItemData		items[SHOP_HOST_ITEM_MAX_NUM];
 		};
 		
-		BYTE m_bTabCount;
+		uint8_t m_bTabCount;
 		ShopTab m_aShoptabs[SHOP_TAB_COUNT_MAX];
 
 		typedef std::map<TItemPos, TShopItemTable> TPrivateShopItemStock;

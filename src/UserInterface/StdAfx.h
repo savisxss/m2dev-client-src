@@ -9,19 +9,14 @@
 #pragma warning(disable:4245)
 #pragma warning(disable:4995)
 
-#if _MSC_VER >= 1400
-//if don't use below, time_t is 64bit
-#define _USE_32BIT_TIME_T
-#endif
-
-#include "../eterLib/StdAfx.h"
-#include "../eterPythonLib/StdAfx.h"
-#include "../gameLib/StdAfx.h"
-#include "../scriptLib/StdAfx.h"
-#include "../milesLib/StdAfx.h"
-#include "../EffectLib/StdAfx.h"
-#include "../PRTerrainLib/StdAfx.h"
-#include "../SpeedTreeLib/StdAfx.h"
+#include "eterLib/StdAfx.h"
+#include "eterPythonLib/StdAfx.h"
+#include "gameLib/StdAfx.h"
+#include "scriptLib/StdAfx.h"
+#include "milesLib/StdAfx.h"
+#include "EffectLib/StdAfx.h"
+#include "PRTerrainLib/StdAfx.h"
+#include "SpeedTreeLib/StdAfx.h"
 
 #ifndef __D3DRM_H__
 #define __D3DRM_H__

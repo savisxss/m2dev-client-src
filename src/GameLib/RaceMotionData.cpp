@@ -295,7 +295,7 @@ float CRaceMotionData::GetEventStartTime(DWORD dwIndex) const
 	return m_MotionEventDataVector[dwIndex]->fStartingTime;
 }
 
-const NSound::TSoundInstanceVector * CRaceMotionData::GetSoundInstanceVectorPointer() const
+const TSoundInstanceVector * CRaceMotionData::GetSoundInstanceVectorPointer() const
 {
 	return &m_SoundInstanceVector;
 }
@@ -553,13 +553,13 @@ bool CRaceMotionData::SaveMotionData(const char * c_szFileName)
 #endif
 bool CRaceMotionData::LoadSoundScriptData(const char * c_szFileName)
 {
-	NSound::TSoundDataVector SoundDataVector;
-	if (!NSound::LoadSoundInformationPiece(c_szFileName, SoundDataVector))
+	TSoundDataVector SoundDataVector;
+	if (!LoadSoundInformationPiece(c_szFileName, SoundDataVector))
 	{	
 		return false;
 	}
 	
-	NSound::DataToInstance(SoundDataVector, &m_SoundInstanceVector);	
+	DataToInstance(SoundDataVector, &m_SoundInstanceVector);	
 	return true;
 }
 

@@ -3,6 +3,9 @@
 #include "Packet.h"
 #include "Test.h"
 
+#include "stb_image.h"
+#include "stb_image_write.h"
+
 #ifdef __VTUNE__
 #else
 
@@ -31,122 +34,100 @@ bool CGuildMarkUploader::IsCompleteUploading()
 
 bool CGuildMarkUploader::__Save(const char* c_szFileName)
 {
-	/* 업로더에서 저장하지 않아야 함;
-	ILuint uImg;
-	ilGenImages(1, &uImg);
-	ilBindImage(uImg);
-	ilEnable(IL_FILE_OVERWRITE);
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
+	/*
+	int width = CGuildMarkImage::WIDTH;
+	int height = CGuildMarkImage::HEIGHT;
+	std::vector<unsigned char> rgba(width * height * 4);
 
-	if (!ilLoad(IL_TYPE_UNKNOWN, (const ILstring)c_szFileName))	
-	{
+	for (int i = 0; i < width * height; ++i) {
+		rgba[i * 4 + 0] = m_kMark.m_apxBuf[i * 4 + 2]; // R
+		rgba[i * 4 + 1] = m_kMark.m_apxBuf[i * 4 + 1]; // G
+		rgba[i * 4 + 2] = m_kMark.m_apxBuf[i * 4 + 0]; // B
+		rgba[i * 4 + 3] = m_kMark.m_apxBuf[i * 4 + 3]; // A
+	}
+
+	// Save as PNG
+	if (!stbi_write_png(c_szFileName, width, height, 4, rgba.data(), width * 4)) {
 		return false;
 	}
 
-	if (ilGetInteger(IL_IMAGE_WIDTH) != CGuildMarkImage::WIDTH)	
-	{
-		return false;
-	}
-
-	if (ilGetInteger(IL_IMAGE_HEIGHT) != CGuildMarkImage::HEIGHT)
-	{
-		return false;
-	}
-
-	ilConvertImage(IL_BGRA, IL_BYTE);
-
-	UINT uColCount = CGuildMarkImage::MARK_COL_COUNT;
-	UINT uCol = m_dwGuildID % uColCount;
-	UINT uRow = m_dwGuildID / uColCount;
-
-	ilSetPixels(uCol*SGuildMark::WIDTH, uRow*SGuildMark::HEIGHT, 0, SGuildMark::WIDTH, SGuildMark::HEIGHT, 1, IL_BGRA, IL_BYTE, (ILvoid*)m_kMark.m_apxBuf);
-
-	ilSave(IL_TGA, (ILstring)c_szFileName);
-
-	ilDeleteImages(1, &uImg);
+	return true;
 	*/
 	return true;
 }
 
 bool CGuildMarkUploader::__Load(const char* c_szFileName, UINT* peError)
 {
-	ILuint uImg;
-	ilGenImages(1, &uImg);
-	ilBindImage(uImg);
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
+	int width, height, channels;
+	unsigned char* data = stbi_load(c_szFileName, &width, &height, &channels, 4); // force RGBA
 
-	if (!ilLoad(IL_TYPE_UNKNOWN, (const ILstring)c_szFileName))	
-	{
-		*peError=ERROR_LOAD;
+	if (!data) {
+		*peError = ERROR_LOAD;
 		return false;
 	}
 
-	if (ilGetInteger(IL_IMAGE_WIDTH)!=SGuildMark::WIDTH)	
-	{
-		*peError=ERROR_WIDTH;
+	if (width != SGuildMark::WIDTH) {
+		stbi_image_free(data);
+		*peError = ERROR_WIDTH;
 		return false;
 	}
 
-	if (ilGetInteger(IL_IMAGE_HEIGHT)!=SGuildMark::HEIGHT)
-	{
-		*peError=ERROR_HEIGHT;
+	if (height != SGuildMark::HEIGHT) {
+		stbi_image_free(data);
+		*peError = ERROR_HEIGHT;
 		return false;
 	}
 
-	ilConvertImage(IL_BGRA, IL_BYTE);
+	// Copy into our mark buffer (BGRA expected)
+	for (int i = 0; i < width * height; ++i) {
+		m_kMark.m_apxBuf[i * 4 + 0] = data[i * 4 + 2]; // B
+		m_kMark.m_apxBuf[i * 4 + 1] = data[i * 4 + 1]; // G
+		m_kMark.m_apxBuf[i * 4 + 2] = data[i * 4 + 0]; // R
+		m_kMark.m_apxBuf[i * 4 + 3] = data[i * 4 + 3]; // A
+	}
 
-	ilCopyPixels(0, 0, 0, SGuildMark::WIDTH, SGuildMark::HEIGHT, 1, IL_BGRA, IL_BYTE, (ILvoid*)m_kMark.m_apxBuf);
-
-	ilDeleteImages(1, &uImg);
+	stbi_image_free(data);
 	return true;
 }
 
 bool CGuildMarkUploader::__LoadSymbol(const char* c_szFileName, UINT* peError)
 {
-	//	For Check Image
-	ILuint uImg;
-	ilGenImages(1, &uImg);
-	ilBindImage(uImg);
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
-	if (!ilLoad(IL_TYPE_UNKNOWN, (const ILstring)c_szFileName))
-	{
-		*peError=ERROR_LOAD;
-		return false;
-	}
-	if (ilGetInteger(IL_IMAGE_WIDTH) != 64)
-	{
-		*peError=ERROR_WIDTH;
-		return false;
-	}
-	if (ilGetInteger(IL_IMAGE_HEIGHT) != 128)
-	{
-		*peError=ERROR_HEIGHT;
-		return false;
-	}
-	ilDeleteImages(1, &uImg);
-	ilShutDown();
+	int width, height, channels;
+	unsigned char* data = stbi_load(c_szFileName, &width, &height, &channels, 4);
 
-	/////
+	if (!data) {
+		*peError = ERROR_LOAD;
+		return false;
+	}
 
-	FILE * file = fopen(c_szFileName, "rb");
-	if (!file)
-	{
-		*peError=ERROR_LOAD;
+	if (width != 64) {
+		stbi_image_free(data);
+		*peError = ERROR_WIDTH;
+		return false;
+	}
+
+	if (height != 128) {
+		stbi_image_free(data);
+		*peError = ERROR_HEIGHT;
+		return false;
+	}
+
+	stbi_image_free(data);
+
+	// Now read raw file into m_pbySymbolBuf (same as original code did)
+	FILE* file = fopen(c_szFileName, "rb");
+	if (!file) {
+		*peError = ERROR_LOAD;
+		return false;
 	}
 
 	fseek(file, 0, SEEK_END);
 	m_dwSymbolBufSize = ftell(file);
 	fseek(file, 0, SEEK_SET);
 
-	m_pbySymbolBuf = new BYTE [m_dwSymbolBufSize];
+	m_pbySymbolBuf = new uint8_t[m_dwSymbolBufSize];
 	fread(m_pbySymbolBuf, m_dwSymbolBufSize, 1, file);
-
 	fclose(file);
-
-	/////
 
 	m_dwSymbolCRC32 = GetFileCRC32(c_szFileName);
 	return true;

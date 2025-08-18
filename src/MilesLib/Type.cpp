@@ -1,136 +1,150 @@
-#include "StdAfx.h"
+#include "Stdafx.h"
 #include "Type.h"
+#include "SoundManager.h"
+
+#include "../EterBase/Debug.h"
 #include "../EterLib/TextFileLoader.h"
+#include "../EterLib/Util.h"
 
-std::string NSound::strResult;
-
-const char * NSound::GetResultString()
+bool LoadSoundInformationPiece(const char *c_szFileName,
+                               TSoundDataVector &rSoundDataVector,
+                               const char *c_szPathHeader)
 {
-	return strResult.c_str();
+    CTextFileLoader *pkTextFileLoader = CTextFileLoader::Cache(c_szFileName);
+    if (!pkTextFileLoader)
+        return false;
+
+    CTextFileLoader &rkTextFileLoader = *pkTextFileLoader;
+    if (rkTextFileLoader.IsEmpty())
+        return false;
+
+    rkTextFileLoader.SetTop();
+
+    int iCount;
+    if (!rkTextFileLoader.GetTokenInteger("sounddatacount", &iCount))
+    {
+        Tracenf("%s: no SoundDataCount", c_szFileName);
+        return false;
+    }
+
+    rSoundDataVector.clear();
+    rSoundDataVector.resize(iCount);
+
+    char szSoundDataHeader[32 + 1];
+    for (uint32_t i = 0; i < rSoundDataVector.size(); ++i)
+    {
+        _snprintf(szSoundDataHeader, sizeof(szSoundDataHeader), "sounddata%02d", i);
+        CTokenVector *pTokenVector;
+        if (!rkTextFileLoader.GetTokenVector(szSoundDataHeader, &pTokenVector))
+        {
+            Tracenf("%s: no %s", c_szFileName, szSoundDataHeader);
+            return false;
+        }
+
+        if (2 != pTokenVector->size())
+        {
+            Tracenf("%s: %s has wrong size %u", c_szFileName,
+                          szSoundDataHeader, pTokenVector->size());
+            return false;
+        }
+
+        rSoundDataVector[i].fTime = (float)atof(pTokenVector->at(0).c_str());
+        if (c_szPathHeader)
+        {
+            rSoundDataVector[i].strSoundFileName = c_szPathHeader;
+            rSoundDataVector[i].strSoundFileName += pTokenVector->at(1).c_str();
+        }
+        else
+        {
+            rSoundDataVector[i].strSoundFileName = pTokenVector->at(1).c_str();
+        }
+    }
+
+    return true;
 }
 
-void NSound::SetResultString(const char * c_pszStr)
+bool SaveSoundInformationPiece(const char *c_szFileName, TSoundDataVector &rSoundDataVector)
 {
-	strResult.assign(c_pszStr);
+    /*storm::String realFilename;
+    GetVfs().GetPathTranslator().Translate(c_szFileName, realFilename);
+
+    if (rSoundDataVector.empty()) // Îç∞Ïù¥ÌÑ∞Í∞Ä ÏóÜÏúºÎ©¥ ÏÑ±Í≥µÏúºÎ°ú Í∞ÑÏ£º
+    {
+        ::DeleteFileA(realFilename.c_str());
+        return true;
+    }
+
+    storm::File File;
+
+    bsys::error_code ec;
+    File.Open(realFilename, ec,
+              storm::AccessMode::kWrite,
+              storm::CreationDisposition::kCreateAlways,
+              storm::ShareMode::kNone,
+              storm::UsageHint::kSequential);
+
+    if (ec) {
+        SPDLOG_ERROR("Failed to open {0} for writing with {1}",
+                  realFilename, ec);
+        return false;
+    }
+
+    PrintfTabs(File, 0, "ScriptType        CharacterSoundInformation\n");
+    PrintfTabs(File, 0, "\n");
+
+    PrintfTabs(File, 0, "SoundDataCount    %d\n", rSoundDataVector.size());
+
+    for (uint32_t i = 0; i < rSoundDataVector.size(); ++i)
+    {
+        const auto & rSoundData = rSoundDataVector[i];
+        PrintfTabs(File, 0, "SoundData%02d       %f \"%s\"\n",
+                   i, rSoundData.fTime,
+                   rSoundData.strSoundFileName.c_str());
+    }
+
+    */
+    return true;
 }
 
-bool NSound::LoadSoundInformationPiece(const char * c_szFileName, NSound::TSoundDataVector & rSoundDataVector, const char * c_szPathHeader)
+void DataToInstance(const TSoundDataVector &c_rSoundDataVector, TSoundInstanceVector *pSoundInstanceVector)
 {
-	std::string strResult;
-	strResult = c_szFileName;
+    if (c_rSoundDataVector.empty())
+        return;
 
-	CTextFileLoader* pkTextFileLoader=CTextFileLoader::Cache(c_szFileName);
-	if (!pkTextFileLoader)
-		return false;
+    const float c_fFrameTime = 1.0f / 60.0f;
 
-	CTextFileLoader& rkTextFileLoader=*pkTextFileLoader;
-	if (rkTextFileLoader.IsEmpty())
-	{
-		SetResultString((strResult + " ¿–±‚øÎ ∆ƒ¿œ¿ª ø≠ ºˆ æ¯¿Ω").c_str());
-		return false;
-	}
+    pSoundInstanceVector->clear();
+    pSoundInstanceVector->resize(c_rSoundDataVector.size());
+    for (uint32_t i = 0; i < c_rSoundDataVector.size(); ++i)
+    {
+        const TSoundData &c_rSoundData = c_rSoundDataVector[i];
+        TSoundInstance &rSoundInstance = pSoundInstanceVector->at(i);
 
-	rkTextFileLoader.SetTop();
-
-	int iCount;
-	if (!rkTextFileLoader.GetTokenInteger("sounddatacount", &iCount))
-	{
-		SetResultString((strResult + " ∆ƒ¿œ ∆˜∏‰ ø°∑Ø, SoundDataCount∏¶ √£¿ª ºˆ æ¯¿Ω").c_str());
-		return false;
-	}
-
-	rSoundDataVector.clear();
-	rSoundDataVector.resize(iCount);
-
-	char szSoundDataHeader[32+1];
-	for (DWORD i = 0; i < rSoundDataVector.size(); ++i)
-	{
-		_snprintf(szSoundDataHeader, sizeof(szSoundDataHeader), "sounddata%02d", i);
-		CTokenVector * pTokenVector;
-		if (!rkTextFileLoader.GetTokenVector(szSoundDataHeader, &pTokenVector))
-		{
-			SetResultString((strResult + " ∆ƒ¿œ ∆˜∏‰ ø°∑Ø: " + szSoundDataHeader + " ∏¶ √£¿ª ºˆ æ¯¿Ω").c_str());
-			return false;
-		}
-
-		if (2 != pTokenVector->size())
-		{
-			SetResultString((strResult + " ∆ƒ¿œ ∆˜∏‰ ø°∑Ø: ∫§≈Õ ≈©±‚∞° 2∞° æ∆¥‘").c_str());
-			return false;
-		}
-
-		rSoundDataVector[i].fTime = (float) atof(pTokenVector->at(0).c_str());
-		if (c_szPathHeader)
-		{
-			rSoundDataVector[i].strSoundFileName = c_szPathHeader;
-			rSoundDataVector[i].strSoundFileName += pTokenVector->at(1).c_str();
-		}
-		else
-		{
-			rSoundDataVector[i].strSoundFileName = pTokenVector->at(1).c_str();
-		}
-	}
-
-	SetResultString((strResult + " ∫“∑Øø»").c_str());
-	return true;
+        rSoundInstance.dwFrame = (uint32_t)(c_rSoundData.fTime / c_fFrameTime);
+        rSoundInstance.strSoundFileName = c_rSoundData.strSoundFileName;
+    }
 }
 
-bool NSound::SaveSoundInformationPiece(const char * c_szFileName, NSound::TSoundDataVector & rSoundDataVector)
+void UpdateSoundInstance(uint32_t frame, const TSoundInstanceVector &sounds,
+                         float fx, float fy, float fz, bool bCheckFrequency)
 {
-	if (rSoundDataVector.empty())	// µ•¿Ã≈Õ∞° æ¯¿∏∏È º∫∞¯¿∏∑Œ ∞£¡÷
-	{
-		if (IsFile(c_szFileName))	// µ•¿Ã≈Õ¥¬ ∫ÒæÓ¿÷¥¬µ• ∆ƒ¿œ¿Ã ¿÷¥Ÿ∏È
-		{
-			_unlink(c_szFileName);		// ¡ˆøÓ¥Ÿ.
-		}
-		return true;
-	}
+    auto &snd = CSoundManager::Instance();
+    for (const auto &instance : sounds)
+    {
+        if (instance.dwFrame != frame)
+            continue;
 
-	std::string strResult;
-	strResult = c_szFileName;
-
-	FILE * File = fopen(c_szFileName, "wt");
-
-	if (!File)
-	{
-		char szErrorText[256+1];
-		_snprintf(szErrorText, sizeof(szErrorText), "Failed to save file (%s).\nPlease check if it is read-only or you have no space on the disk.\n", c_szFileName);
-		LogBox(szErrorText, "ø°∑Ø");
-		SetResultString((strResult + " æ≤±‚øÎ ∆ƒ¿œ¿ª ø≠ ºˆ æ¯¿Ω").c_str());
-		return false;
-	}
-
-	fprintf(File, "ScriptType        CharacterSoundInformation\n");
-	fprintf(File, "\n");
-
-	fprintf(File, "SoundDataCount    %d\n", rSoundDataVector.size());
-
-	for (DWORD i = 0; i < rSoundDataVector.size(); ++i)
-	{
-		NSound::TSoundData & rSoundData = rSoundDataVector[i];
-		fprintf(File, "SoundData%02d       %f \"%s\"\n", i, rSoundData.fTime, rSoundData.strSoundFileName.c_str());
-	}
-
-	fclose(File);
-	return true;
+        snd.PlayCharacterSound3D(fx, fy, fz,
+                                 instance.strSoundFileName,
+                                 bCheckFrequency);
+    }
 }
 
-void NSound::DataToInstance(const TSoundDataVector & c_rSoundDataVector, TSoundInstanceVector * pSoundInstanceVector)
+void UpdateSoundInstance(uint32_t frame, const TSoundInstanceVector &sounds)
 {
-	if (c_rSoundDataVector.empty())
-		return;
-
-	DWORD dwFPS = 60;
-	const float c_fFrameTime = 1.0f / float(dwFPS);
-
-	pSoundInstanceVector->clear();
-	pSoundInstanceVector->resize(c_rSoundDataVector.size());
-	for (DWORD i = 0; i < c_rSoundDataVector.size(); ++i)
-	{
-		const TSoundData & c_rSoundData = c_rSoundDataVector[i];
-		TSoundInstance & rSoundInstance = pSoundInstanceVector->at(i);
-
-		rSoundInstance.dwFrame = (DWORD) (c_rSoundData.fTime / c_fFrameTime);
-		rSoundInstance.strSoundFileName = c_rSoundData.strSoundFileName;
-	}
+    for (const auto &instance : sounds)
+    {
+        if (instance.dwFrame == frame)
+            CSoundManager::Instance().PlaySound2D(instance.strSoundFileName);
+    }
 }

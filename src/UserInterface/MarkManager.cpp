@@ -213,7 +213,7 @@ void CGuildMarkManager::CopyMarkIdx(char * pcBuf) const
 }
 
 // SERVER
-DWORD CGuildMarkManager::SaveMark(DWORD guildID, BYTE * pbMarkImage)
+DWORD CGuildMarkManager::SaveMark(DWORD guildID, uint8_t* pbMarkImage)
 {
 	DWORD idMark;
 
@@ -267,7 +267,7 @@ void CGuildMarkManager::DeleteMark(DWORD guildID)
 }
 
 // SERVER
-void CGuildMarkManager::GetDiffBlocks(DWORD imgIdx, const DWORD * crcList, std::map<BYTE, const SGuildMarkBlock *> & mapDiffBlocks)
+void CGuildMarkManager::GetDiffBlocks(DWORD imgIdx, const DWORD * crcList, std::map<uint8_t, const SGuildMarkBlock *> & mapDiffBlocks)
 {
 	mapDiffBlocks.clear();
 
@@ -285,7 +285,7 @@ void CGuildMarkManager::GetDiffBlocks(DWORD imgIdx, const DWORD * crcList, std::
 }
 
 // CLIENT
-bool CGuildMarkManager::SaveBlockFromCompressedData(DWORD imgIdx, DWORD posBlock, const BYTE * pbBlock, DWORD dwSize)
+bool CGuildMarkManager::SaveBlockFromCompressedData(DWORD imgIdx, DWORD posBlock, const uint8_t* pbBlock, DWORD dwSize)
 {
 	CGuildMarkImage * pkImage = __GetImage(imgIdx);
 
@@ -380,7 +380,7 @@ void CGuildMarkManager::SaveSymbol(const char* filename)
 	fclose(fp);
 }
 
-void CGuildMarkManager::UploadSymbol(DWORD guildID, int iSize, const BYTE* pbyData)
+void CGuildMarkManager::UploadSymbol(DWORD guildID, int iSize, const uint8_t* pbyData)
 {
 	sys_log(0, "GuildSymbolUpload guildID %lu Size %d", guildID, iSize);
 	
@@ -424,7 +424,7 @@ void SaveMark(DWORD guildID, const char * filename)
 
 		ilConvertImage(IL_BGRA, IL_UNSIGNED_BYTE);
 
-		BYTE * data = (BYTE *) malloc(sizeof(DWORD) * width * height);
+		uint8_t* data = (uint8_t*) malloc(sizeof(DWORD) * width * height);
 		ilCopyPixels(0, 0, 0, width, height, 1, IL_BGRA, IL_UNSIGNED_BYTE, data);
 		ilDeleteImages(1, &m_uImg);
 
@@ -468,7 +468,7 @@ int main(int argc, char **argv)
 	mgr->GetBlockCRCList(0, idx_client);
 	mgr->GetBlockCRCList(1, idx_server);
 
-	std::map<BYTE, const SGuildMarkBlock *> mapDiff;
+	std::map<uint8_t, const SGuildMarkBlock *> mapDiff;
 	mgr->GetDiffBlocks(1, idx_client, mapDiff);
 
 	printf("#1 Diff %u\n", mapDiff.size());

@@ -5,7 +5,7 @@
 
 #pragma warning(push)
 #pragma warning(disable: 4100 4127 4189 4231 4512 4706)
-#include <cryptopp/cryptlib.h>
+#include <cryptlib.h>
 #pragma warning(pop)
 // Forward declaration
 class KeyAgreement;

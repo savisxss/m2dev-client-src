@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../milesLib/Type.h"
+#include "MilesLib/Type.h"
 #include "RaceMotionDataEvent.h"
 
 class CRaceMotionData
@@ -253,7 +253,7 @@ class CRaceMotionData
 		float			GetEventStartTime(DWORD dwIndex) const;
 
 		// Sound Data
-		const NSound::TSoundInstanceVector * GetSoundInstanceVectorPointer() const;
+		const			TSoundInstanceVector * GetSoundInstanceVectorPointer() const;
 
 		// File
 #ifdef WORLD_EDITOR
@@ -291,7 +291,7 @@ class CRaceMotionData
 		BOOL							m_bCancelEnableSkill;
 
 		TMotionEventDataVector			m_MotionEventDataVector;
-		NSound::TSoundInstanceVector	m_SoundInstanceVector;
+		TSoundInstanceVector		m_SoundInstanceVector;
 
 	private:
 		BOOL							m_hasSplashEvent;

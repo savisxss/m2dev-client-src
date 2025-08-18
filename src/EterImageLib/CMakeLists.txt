@@ -2,7 +2,8 @@
 
 add_library(EterImageLib STATIC ${FILE_SOURCES})
 
-# target_link_libraries(EterImageLib 
-# )
+target_link_libraries(EterImageLib 
+	lzo2
+)
 
 GroupSourcesByFolder(EterImageLib)

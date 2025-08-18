@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include <stdlib.h>
-#include <lzo/lzoLibLink.h>
 
 #include "lzo.h"
 #include "tea.h"
@@ -224,7 +223,7 @@ public:
 		sum += size;
 		count++;
 
-		maxSize = max(size, maxSize);
+		maxSize = std::max(size, maxSize);
 		if (size >= LOCAL_BUF_SIZE)
 		{
 			m_buf = new char[size];

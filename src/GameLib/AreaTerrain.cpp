@@ -583,48 +583,48 @@ void CTerrain::RAW_CountTiles()
 {
 	for (long y = 0; y < TILEMAP_RAW_YSIZE; ++y)
 	{
-		long lPatchIndexY = min(max((y-1)/PATCH_TILE_YSIZE,0), PATCH_YCOUNT - 1);
+		long lPatchIndexY = std::min(std::max((y-1)/PATCH_TILE_YSIZE,0l), (long)PATCH_YCOUNT - 1);
 		for (long x = 0; x < TILEMAP_RAW_XSIZE; ++x)
 		{
-			long lPatchIndexX = min(max((x-1)/(PATCH_TILE_XSIZE), 0), PATCH_XCOUNT - 1);
+			long lPatchIndexX = std::min(std::max((x-1)/(PATCH_TILE_XSIZE), 0l), (long)PATCH_XCOUNT - 1);
 			BYTE tilenum = m_abyTileMap[y * TILEMAP_RAW_XSIZE + x];
 
 			++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + lPatchIndexX][tilenum];
 
 			if ( 0 == y % PATCH_TILE_YSIZE && 0 != y && (TILEMAP_RAW_YSIZE - 2) != y)
 			{
-				++m_TerrainSplatPatch.PatchTileCount[min(PATCH_YCOUNT - 1, lPatchIndexY + 1) * PATCH_XCOUNT + lPatchIndexX][tilenum];
+				++m_TerrainSplatPatch.PatchTileCount[std::min((long)PATCH_YCOUNT - 1, lPatchIndexY + 1) * PATCH_XCOUNT + lPatchIndexX][tilenum];
 				if ( 0 == x % PATCH_TILE_XSIZE && 0 != x && (TILEMAP_RAW_XSIZE - 2) != x)
 				{
-					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + min(PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
-					++m_TerrainSplatPatch.PatchTileCount[min(PATCH_YCOUNT - 1, lPatchIndexY + 1) * PATCH_XCOUNT + min(PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + std::min((long)PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[std::min((long)PATCH_YCOUNT - 1, lPatchIndexY + 1) * PATCH_XCOUNT + std::min((long)PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
 				}
 				else if ( 1 == x % PATCH_TILE_XSIZE && (TILEMAP_RAW_XSIZE -1) != x && 1 != x)
 				{
-					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + max(0, lPatchIndexX - 1)][tilenum];
-					++m_TerrainSplatPatch.PatchTileCount[min(PATCH_YCOUNT - 1, lPatchIndexY + 1) * PATCH_XCOUNT + max(0, lPatchIndexX - 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + std::max(0l, lPatchIndexX - 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[std::min((long)PATCH_YCOUNT - 1, lPatchIndexY + 1) * PATCH_XCOUNT + std::max(0l, lPatchIndexX - 1)][tilenum];
 				}
 			}
 			else if ( 1 == y % PATCH_TILE_YSIZE && (TILEMAP_RAW_YSIZE -1) != y && 1 != y)
 			{
-				++m_TerrainSplatPatch.PatchTileCount[max(0, lPatchIndexY - 1) * PATCH_XCOUNT + lPatchIndexX][tilenum];
+				++m_TerrainSplatPatch.PatchTileCount[std::max(0l, lPatchIndexY - 1) * PATCH_XCOUNT + lPatchIndexX][tilenum];
 				if ( 0 == x % PATCH_TILE_XSIZE && 0 != x && (TILEMAP_RAW_XSIZE - 2) != x)
 				{
-					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + min(PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
-					++m_TerrainSplatPatch.PatchTileCount[max(0, lPatchIndexY - 1) * PATCH_XCOUNT + min(PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + std::min((long)PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[std::max(0l, lPatchIndexY - 1) * PATCH_XCOUNT + std::min((long)PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
 				}
 				else if ( 1 == x % PATCH_TILE_XSIZE && (TILEMAP_RAW_XSIZE -1) != x && 1 != x)
 				{
-					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + max(0, lPatchIndexX - 1)][tilenum];
-					++m_TerrainSplatPatch.PatchTileCount[max(0, lPatchIndexY - 1) * PATCH_XCOUNT + max(0, lPatchIndexX - 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + std::max(0l, lPatchIndexX - 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[std::max(0l, lPatchIndexY - 1) * PATCH_XCOUNT + std::max(0l, lPatchIndexX - 1)][tilenum];
 				}
 			}
 			else
 			{
 				if ( 0 == x % PATCH_TILE_XSIZE && 0 != x && (TILEMAP_RAW_XSIZE - 2) != x)
-					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + min(PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + std::min((long)PATCH_XCOUNT - 1, lPatchIndexX + 1)][tilenum];
 				else if ( 1 == x % PATCH_TILE_XSIZE && (TILEMAP_RAW_XSIZE -1) != x && 1 != x)
-					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + max(0, lPatchIndexX - 1)][tilenum];
+					++m_TerrainSplatPatch.PatchTileCount[lPatchIndexY * PATCH_XCOUNT + std::max(0l, lPatchIndexX - 1)][tilenum];
 			}
 
 			++m_TerrainSplatPatch.TileCount[tilenum];
@@ -1115,7 +1115,7 @@ void CTerrain::_CalculateTerrainPatch(BYTE byPatchNumX, BYTE byPatchNumY)
 		fY += float(CELLSCALE);
     }
 	
-	if (wNumPlainType <= max(wNumHillType, wNumCliffType))
+	if (wNumPlainType <= std::max(wNumHillType, wNumCliffType))
 	{
 		if (wNumCliffType <= wNumHillType)
 			rkTerrainPatch.SetType(CTerrainPatch::PATCH_TYPE_HILL);

@@ -29,8 +29,6 @@ class CGuildMarkUploader : public CNetworkStream, public CSingleton<CGuildMarkUp
 
 #else
 
-#include <il/il.h>
-
 class CGuildMarkUploader : public CNetworkStream, public CSingleton<CGuildMarkUploader>
 {
 	public:
@@ -112,7 +110,7 @@ class CGuildMarkUploader : public CNetworkStream, public CSingleton<CGuildMarkUp
 
 		DWORD m_dwSymbolBufSize;
 		DWORD m_dwSymbolCRC32;
-		BYTE * m_pbySymbolBuf;
+		uint8_t * m_pbySymbolBuf;
 };
 
 #endif

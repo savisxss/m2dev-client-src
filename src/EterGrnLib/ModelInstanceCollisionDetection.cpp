@@ -17,19 +17,19 @@ void CGrannyModelInstance::MakeBoundBox(TBoundBox* pBoundBox,
 	pBoundBox->ey = OBBMax[0] * mat[1] + OBBMax[1] * mat[5] + OBBMax[2] * mat[9] + mat[13];
 	pBoundBox->ez = OBBMax[0] * mat[2] + OBBMax[1] * mat[6] + OBBMax[2] * mat[10] + mat[14];
 
-	vtMin->x = min(vtMin->x, pBoundBox->sx);
-	vtMin->x = min(vtMin->x, pBoundBox->ex);
-	vtMin->y = min(vtMin->y, pBoundBox->sy);
-	vtMin->y = min(vtMin->y, pBoundBox->ey);
-	vtMin->z = min(vtMin->z, pBoundBox->sz);
-	vtMin->z = min(vtMin->z, pBoundBox->ez);
+	vtMin->x = std::min(vtMin->x, pBoundBox->sx);
+	vtMin->x = std::min(vtMin->x, pBoundBox->ex);
+	vtMin->y = std::min(vtMin->y, pBoundBox->sy);
+	vtMin->y = std::min(vtMin->y, pBoundBox->ey);
+	vtMin->z = std::min(vtMin->z, pBoundBox->sz);
+	vtMin->z = std::min(vtMin->z, pBoundBox->ez);
 
-	vtMax->x = max(vtMax->x, pBoundBox->sx);
-	vtMax->x = max(vtMax->x, pBoundBox->ex);
-	vtMax->y = max(vtMax->y, pBoundBox->sy);
-	vtMax->y = max(vtMax->y, pBoundBox->ey);
-	vtMax->z = max(vtMax->z, pBoundBox->sz);
-	vtMax->z = max(vtMax->z, pBoundBox->ez);
+	vtMax->x = std::max(vtMax->x, pBoundBox->sx);
+	vtMax->x = std::max(vtMax->x, pBoundBox->ex);
+	vtMax->y = std::max(vtMax->y, pBoundBox->sy);
+	vtMax->y = std::max(vtMax->y, pBoundBox->ey);
+	vtMax->z = std::max(vtMax->z, pBoundBox->sz);
+	vtMax->z = std::max(vtMax->z, pBoundBox->ez);
 }
 
 bool CGrannyModelInstance::Intersect(const D3DXMATRIX * c_pMatrix,

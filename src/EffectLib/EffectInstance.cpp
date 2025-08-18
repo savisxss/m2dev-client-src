@@ -50,8 +50,12 @@ void CEffectInstance::UpdateSound()
 {
 	if (m_pSoundInstanceVector)
 	{
-		CSoundManager& rkSndMgr=CSoundManager::Instance();
-		rkSndMgr.UpdateSoundInstance(m_matGlobal._41, m_matGlobal._42, m_matGlobal._43, m_dwFrame, m_pSoundInstanceVector);
+		UpdateSoundInstance(m_dwFrame,
+			*m_pSoundInstanceVector,
+			m_matGlobal._41,
+			m_matGlobal._42,
+			m_matGlobal._43,
+			false);
 		// NOTE : 매트릭스에서 위치를 직접 얻어온다 - [levites]
 	}
 	++m_dwFrame;

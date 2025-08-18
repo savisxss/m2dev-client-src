@@ -949,7 +949,7 @@ PyObject* netSendExchangeElkAddPacket(PyObject* poSelf, PyObject* poArgs)
 
 PyObject* netSendExchangeItemAddPacket(PyObject* poSelf, PyObject* poArgs)
 {
-	BYTE bWindowType;
+	int bWindowType;
 	if (!PyTuple_GetInteger(poArgs, 0, &bWindowType))
 		return Py_BuildException();
 	WORD wSlotIndex;

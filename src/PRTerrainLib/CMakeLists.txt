@@ -2,7 +2,9 @@
 
 add_library(PRTerrainLib STATIC ${FILE_SOURCES})
 
-# target_link_libraries(PRTerrainLib 
-# )
+target_link_libraries(PRTerrainLib 
+	lzo2
+	cryptopp-static
+)
 
 GroupSourcesByFolder(PRTerrainLib)

@@ -1,28 +1,37 @@
+#ifndef METIN2_CLIENT_MILESLIB_TYPE_HPP
+#define METIN2_CLIENT_MILESLIB_TYPE_HPP
+
 #pragma once
 
 #include <vector>
 
-namespace NSound
+typedef struct SSoundData
 {
-	extern std::string strResult;
+    float fTime;
+    std::string strSoundFileName;
+} TSoundData;
 
-	typedef struct SSoundData
-	{
-		float fTime;
-		std::string strSoundFileName;
-	} TSoundData;
-	typedef struct SSoundInstance
-	{
-		DWORD dwFrame;
-		std::string strSoundFileName;
-	} TSoundInstance;
-	typedef std::vector<TSoundData> TSoundDataVector;
-	typedef std::vector<TSoundInstance> TSoundInstanceVector;
+typedef struct SSoundInstance
+{
+    uint32_t dwFrame;
+    std::string strSoundFileName;
+} TSoundInstance;
 
-	bool			LoadSoundInformationPiece(const char * c_szFileName, TSoundDataVector & rSoundDataVector, const char * c_szPathHeader = NULL);
-	bool			SaveSoundInformationPiece(const char * c_szFileName, TSoundDataVector & rSoundDataVector);
-	void			DataToInstance(const TSoundDataVector & c_rSoundDataVector, TSoundInstanceVector * pSoundInstanceVector);
+typedef std::vector<TSoundData> TSoundDataVector;
+typedef std::vector<TSoundInstance> TSoundInstanceVector;
 
-	const char *	GetResultString();
-	void			SetResultString(const char * c_pszStr);
-};
+bool LoadSoundInformationPiece(const char *c_szFileName,
+                               TSoundDataVector &rSoundDataVector,
+                               const char *c_szPathHeader = NULL);
+bool SaveSoundInformationPiece(const char *c_szFileName,
+                               TSoundDataVector &rSoundDataVector);
+
+void DataToInstance(const TSoundDataVector &c_rSoundDataVector,
+                    TSoundInstanceVector *pSoundInstanceVector);
+
+void UpdateSoundInstance(uint32_t frame, const TSoundInstanceVector &sounds,
+                         float fx, float fy, float fz, bool bCheckFrequency);
+
+void UpdateSoundInstance(uint32_t frame, const TSoundInstanceVector &sounds);
+
+#endif

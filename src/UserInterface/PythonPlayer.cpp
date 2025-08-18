@@ -402,7 +402,7 @@ DWORD CPythonPlayer::__GetHitRate()
 		src = (GetStatus(POINT_DX) * 4 + GetStatus(POINT_LEVEL) * 2)/6;
 	}
 
-	return 100*(min(90, src)+210)/300;
+	return 100*(std::min(90, src)+210)/300;
 }
 
 DWORD CPythonPlayer::__GetEvadeRate()

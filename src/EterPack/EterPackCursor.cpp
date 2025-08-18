@@ -34,7 +34,7 @@ void CEterPackCursor::Close()
 
 void CEterPackCursor::Seek(long offset)
 {
-	m_ReadPoint = max(0, min(Size(), offset));
+	m_ReadPoint = std::max(0l, std::min(Size(), offset));
 }
 
 bool CEterPackCursor::Read(LPVOID data, long size)

@@ -6,20 +6,19 @@
 //#include <crtdbg.h>
 #ifdef _DEBUG
 	#undef _DEBUG
-	#include <Python-2.7/python.h>
+	#include <python/python.h>
 	#define _DEBUG
 #else
-	#include <Python-2.7/python.h>
+	#include <python/python.h>
 #endif
-#include <Python-2.7/node.h>
-#include <Python-2.7/grammar.h>
-#include <Python-2.7/token.h>
-#include <Python-2.7/parsetok.h>
-#include <Python-2.7/errcode.h>
-#include <Python-2.7/compile.h>
-#include <Python-2.7/symtable.h>
-#include <Python-2.7/eval.h>
-#include <Python-2.7/marshal.h>
+#include <python/node.h>
+#include <python/grammar.h>
+#include <python/token.h>
+#include <python/parsetok.h>
+#include <python/errcode.h>
+#include <python/compile.h>
+#include <python/eval.h>
+#include <python/marshal.h>
 
 #include "PythonUtils.h"
 #include "PythonLauncher.h"

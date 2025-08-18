@@ -845,8 +845,8 @@ void CPythonBackground::SetXMaxTree(int iGrade)
 	//////////////////////////////////////////////////////////////////////
 
 	iGrade -= 1;
-	iGrade = max(iGrade, 0);
-	iGrade = min(iGrade, 2);
+	iGrade = std::max(iGrade, 0);
+	iGrade = std::min(iGrade, 2);
 
 	static std::string s_strTreeName[3] = {
 		"d:/ymir work/tree/christmastree1.spt",

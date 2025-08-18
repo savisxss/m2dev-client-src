@@ -471,7 +471,7 @@ void CIME::SetText(const char* szText, int len)
 	if (iter < end)
 		ms_lastpos += MultiByteToWideChar(ReadToken(iter), 0, (iter+5), end-(iter+5), m_wText+ms_lastpos, m_wTextLen-ms_lastpos);
 
-	ms_curpos = min(ms_curpos, ms_lastpos);
+	ms_curpos = std::min(ms_curpos, ms_lastpos);
 }
 
 int  CIME::GetText(std::string & rstrText, bool addCodePage)
@@ -782,7 +782,7 @@ void CIME::IncCurPos()
 		int pos = FindColorTagEndPosition(m_wText + ms_curpos, ms_lastpos - ms_curpos);
 
 		if (pos > 0)
-			ms_curpos = min(ms_lastpos, max(0, ms_curpos + (pos + 1)));
+			ms_curpos = std::min(ms_lastpos, std::max(0, ms_curpos + (pos + 1)));
 		else
 			++ms_curpos;
 		//++ms_curpos;
@@ -796,7 +796,7 @@ void CIME::DecCurPos()
 		int pos = FindColorTagStartPosition(m_wText + ms_curpos - 1, ms_curpos);
 		
 		if (pos > 0)
-			ms_curpos = min(ms_lastpos, max(0, ms_curpos - (pos + 1)));
+			ms_curpos = std::min(ms_lastpos, std::max(0, ms_curpos - (pos + 1)));
 		else
 			--ms_curpos;
 		//--ms_curpos;
@@ -821,7 +821,7 @@ void CIME::SetCurPos(int offset)
 	{
 		// offset은 보여지는 텍스트의 위치로 온다. 따라서 새로 계산해야함.
 		//ms_curpos = min(ms_lastpos, offset);
-		ms_curpos = min(ms_lastpos, GetTextTagInternalPosFromRenderPos(m_wText, ms_lastpos, offset));
+		ms_curpos = std::min(ms_lastpos, GetTextTagInternalPosFromRenderPos(m_wText, ms_lastpos, offset));
 	}
 }
 
@@ -832,7 +832,7 @@ void CIME::DelCurPos()
 		int eraseCount = FindColorTagEndPosition(m_wText + ms_curpos, ms_lastpos - ms_curpos) + 1;
 		wcscpy(m_wText + ms_curpos, m_wText + ms_curpos + eraseCount);
 		ms_lastpos -= eraseCount;
-		ms_curpos = min(ms_lastpos, ms_curpos);
+		ms_curpos = std::min(ms_lastpos, ms_curpos);
 	}
 }
 
@@ -1169,7 +1169,7 @@ void CIME::ReadingProcess(HIMC hImc)
 						if(!p) break;
 						tempLen = *(DWORD *)(p + 7*4 + 16*2*4);
 						dwErr = *(DWORD *)(p + 8*4 + 16*2*4);
-						dwErr = min(dwErr, tempLen);
+						dwErr = std::min(dwErr, tempLen);
 						temp = (wchar_t *)(p + 6*4 + 16*2*1);
 						bUnicodeIme = true;
 					}
@@ -1926,12 +1926,12 @@ void CTsfUiLessMode::MakeCandidateStrings(ITfCandidateListUIElement* pcandidate)
 			pcandidate->GetPageIndex(IndexList, uPageCnt, &uPageCnt);
 			dwPageStart = IndexList[uCurrentPage];
 			dwPageSize = (uCurrentPage < uPageCnt-1) ? 
-				min(uCount, IndexList[uCurrentPage+1]) - dwPageStart:
+				std::min(uCount, IndexList[uCurrentPage+1]) - dwPageStart:
 				uCount - dwPageStart;
 		}
 	}
 
-	CIME::ms_dwCandidatePageSize = min(dwPageSize, CIME::MAX_CANDLIST);
+	CIME::ms_dwCandidatePageSize = std::min(dwPageSize, (DWORD)CIME::MAX_CANDLIST);
 	CIME::ms_dwCandidateSelection = CIME::ms_dwCandidateSelection - dwPageStart;
 
 	memset(&CIME::ms_wszCandidate, 0, sizeof(CIME::ms_wszCandidate));
