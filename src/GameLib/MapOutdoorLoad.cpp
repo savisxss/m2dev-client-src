@@ -15,7 +15,7 @@ bool CMapOutdoor::Load(float x, float y, float z)
 	{
 		static std::string s_strOldPathName="";
 
-		// 2004.08.09.myevan.PackÆÄÀÏÀ» Ã£À»¶§.. Æú´õ¸í¸¸À¸·Î´Â ±×³É ¸®ÅÏµÇ´Â ºÎºĞÀÌ ÀÖ´Ù
+		// 2004.08.09.myevan.PackíŒŒì¼ì„ ì°¾ì„ë•Œ.. í´ë”ëª…ë§Œìœ¼ë¡œëŠ” ê·¸ëƒ¥ ë¦¬í„´ë˜ëŠ” ë¶€ë¶„ì´ ìˆë‹¤
 		std::string c_rstrNewPathName=GetName()+"\\cache";
 		
 		s_strOldPathName=c_rstrNewPathName;
@@ -38,7 +38,7 @@ bool CMapOutdoor::Load(float x, float y, float z)
 
 	m_lOldReadX = -1;
 
-	// TODO: SetRenderingDevice¿¡¼­ Environment·Î ºÎÅÍ ¶óÀÌÆ® ¼Ó¼ºÀ» ³Ñ°ÜÁà¾ß ½ºÅÂÆ½ ¶óÀÌÆ®°¡ Á¦´ë·Î ÀÛµ¿ÇÑ´Ù.
+	// TODO: SetRenderingDeviceì—ì„œ Environmentë¡œ ë¶€í„° ë¼ì´íŠ¸ ì†ì„±ì„ ë„˜ê²¨ì¤˜ì•¼ ìŠ¤íƒœí‹± ë¼ì´íŠ¸ê°€ ì œëŒ€ë¡œ ì‘ë™í•œë‹¤.
 	CSpeedTreeForestDirectX8::Instance().SetRenderingDevice(ms_lpd3dDevice);
 
 	Update(x, y, z);
@@ -102,13 +102,13 @@ bool CMapOutdoor::isAreaLoaded(WORD wX, WORD wY)
 }
 
 
-// ÇöÀç ÁÂÇ¥¸¦ ±â¹İÀ¸·Î ÁÖÀ§(ex. 3x3)¿¡ ÀÖ´Â Terrain°ú AreaÆ÷ÀÎÅÍ¸¦ 
-// m_pTerrain°ú m_pArea¿¡ ¿¬°áÇÑ´Ù.
+// í˜„ì¬ ì¢Œí‘œë¥¼ ê¸°ë°˜ìœ¼ë¡œ ì£¼ìœ„(ex. 3x3)ì— ìˆëŠ” Terrainê³¼ Areaí¬ì¸í„°ë¥¼ 
+// m_pTerrainê³¼ m_pAreaì— ì—°ê²°í•œë‹¤.
 void CMapOutdoor::AssignTerrainPtr()
 {
-	// ¿ùµå¿¡µğÅÍ¿¡¼­ È­¸éÀ» Á×Á×Á× ³Ñ±æ ¶§ ÅÍ·¹ÀÎÀ» ÀúÀåÇØ¾ß ÇÏ±â
-	// ¶§¹®¿¡ ÀÌ virtual method¸¦ È£Ãâ ÇÑ´Ù. ÀÌ ¸Ş¼Òµå´Â CMapOutDoor¿¡¼­´Â ¾Æ¹« Çàµ¿µµ
-	// ÇÏÁö ¾Ê´Â´Ù.
+	// ì›”ë“œì—ë””í„°ì—ì„œ í™”ë©´ì„ ì£½ì£½ì£½ ë„˜ê¸¸ ë•Œ í„°ë ˆì¸ì„ ì €ì¥í•´ì•¼ í•˜ê¸°
+	// ë•Œë¬¸ì— ì´ virtual methodë¥¼ í˜¸ì¶œ í•œë‹¤. ì´ ë©”ì†Œë“œëŠ” CMapOutDoorì—ì„œëŠ” ì•„ë¬´ í–‰ë™ë„
+	// í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	OnPreAssignTerrainPtr();
 
 	short sReferenceCoordMinX, sReferenceCoordMaxX, sReferenceCoordMinY, sReferenceCoordMaxY;
@@ -392,15 +392,15 @@ bool CMapOutdoor::LoadSetting(const char * c_szFileName)
 	
 	std::string stTextureSetFileName = strTextureSet;
 
-	// TextureSet ÀÌ ÀÌ¹Ì ºÙ¾î ÀÖÀ» °æ¿ì ¾ÈºÙÀÎ´Ù.
+	// TextureSet ì´ ì´ë¯¸ ë¶™ì–´ ìˆì„ ê²½ìš° ì•ˆë¶™ì¸ë‹¤.
 	if (0 != stTextureSetFileName.find_first_of("textureset", 0))
 		stTextureSetFileName = "textureset\\"+strTextureSet;
 
  	if (!m_TextureSet.Load(stTextureSetFileName.c_str(), m_fTerrainTexCoordBase))
 	{
 #ifdef WORLD_EDITOR
-		// TextureSet ÀÌ Àû¿ëµÇ¾î ÀÖÁö ¾Ê¾Æµµ ÁøÇà
-		LogBox("TextureSet ÀÌ Àû¿ëµÇ¾îÀÖÁö ¾ÊÀº ¸Ê ÀÔ´Ï´Ù.\nÁöÇü ÅØ½ºÃç ÀÛ¾÷¿¡ ÁÖÀÇÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.");
+		// TextureSet ì´ ì ìš©ë˜ì–´ ìˆì§€ ì•Šì•„ë„ ì§„í–‰
+		LogBox("TextureSet ì´ ì ìš©ë˜ì–´ìˆì§€ ì•Šì€ ë§µ ì…ë‹ˆë‹¤.\nì§€í˜• í…ìŠ¤ì¶° ì‘ì—…ì— ì£¼ì˜í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.");
 #else
 		TraceError("MapOutdoor::LoadSetting(c_szFileName=%s) - LOAD TEXTURE SET(%s) ERROR", c_szFileName, stTextureSetFileName.c_str());
 		return false;

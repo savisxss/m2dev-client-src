@@ -342,8 +342,8 @@ bool CGraphicThingInstance::GetBonePosition(int iModelIndex, int iBoneIndex, flo
 	*pfz = pfMatrix[14];
 	return true;
 }
-//iSkelInstance °¡ ÀÖÀ¸¸é ±âº» º»¿¡ Link(º»ÀÌ ºÙ´Â°Í)½ÃÅ°°í,
-//¾øÀ¸¸é ±âº» º»¿¡ attach(ÁÂÇ¥¸¸ °¡Á®´Ù ¾²´Â°Í) µË´Ï´Ù.
+//iSkelInstance ê°€ ìˆìœ¼ë©´ ê¸°ë³¸ ë³¸ì— Link(ë³¸ì´ ë¶™ëŠ”ê²ƒ)ì‹œí‚¤ê³ ,
+//ì—†ìœ¼ë©´ ê¸°ë³¸ ë³¸ì— attach(ì¢Œí‘œë§Œ ê°€ì ¸ë‹¤ ì“°ëŠ”ê²ƒ) ë©ë‹ˆë‹¤.
 bool CGraphicThingInstance::SetModelInstance(int iDstModelInstance, int iSrcModelThing, int iSrcModel,int iSkelInstance)
 {
 	if (!CheckModelInstanceIndex(iDstModelInstance))
@@ -735,7 +735,7 @@ void CGraphicThingInstance::UpdateLODLevel()
 	const D3DXVECTOR3 & c_rv3CameraPosition = pcurCamera->GetEye();
 	const D3DXVECTOR3 & c_v3Position = GetPosition();
 
-	// NOTE : Áß½ÉÀ¸·ÎºÎÅÍÀÇ °Å¸® °è»ê¿¡ z°ª Â÷ÀÌ´Â »ç¿ëÇÏÁö ¾Ê´Â´Ù. - [levites]
+	// NOTE : ì¤‘ì‹¬ìœ¼ë¡œë¶€í„°ì˜ ê±°ë¦¬ ê³„ì‚°ì— zê°’ ì°¨ì´ëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤. - [levites]
 	CGrannyLODController::FUpdateLODLevel update;
 	update.fDistanceFromCenter = sqrtf((c_rv3TargetPosition.x - c_v3Position.x) * (c_rv3TargetPosition.x - c_v3Position.x) +
 									   (c_rv3TargetPosition.y - c_v3Position.y) * (c_rv3TargetPosition.y - c_v3Position.y));

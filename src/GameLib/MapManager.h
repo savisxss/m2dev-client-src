@@ -27,13 +27,13 @@ class CMapManager : public CScreen, public IPhysicsWorld
 		void					Initialize();
 		void					Destroy();
 
-		void					Create();		// AllocMap È£Ãâ ÇØ¼­ m_pMap À» ¸¸µë
+		void					Create();		// AllocMap í˜¸ì¶œ í•´ì„œ m_pMap ì„ ë§Œë“¬
 
 		virtual void			Clear();
 		virtual CMapBase *		AllocMap();
 
 		//////////////////////////////////////////////////////////////////////////
-		// Map °ü¸® ÇÔ¼ö
+		// Map ê´€ë¦¬ í•¨ìˆ˜
 		//////////////////////////////////////////////////////////////////////////
 		bool					IsMapReady();
 
@@ -51,9 +51,9 @@ class CMapManager : public CScreen, public IPhysicsWorld
 		//////////////////////////////////////////////////////////////////////////
 		// Environment
 		///
-		// NOTE : ´ÙÀ½ Environment·Î ¼­¼­È÷ ºí·»µù ½ÃÅ²´Ù
-		//        ¾ÆÁ÷ ¼¼ºÎ ±¸ÇöÀº µÇ¾îÀÖÁö ¾ÊÀ½. ÀÌ ÇÔ¼öµéÀº Protected·Î ³Ö°í,
-		//        MapManager¿¡ TimeControl ºÎºĞÀ» ±¸ÇöÇÏµµ·Ï ÇÑ´Ù. - [levites]
+		// NOTE : ë‹¤ìŒ Environmentë¡œ ì„œì„œíˆ ë¸”ë Œë”© ì‹œí‚¨ë‹¤
+		//        ì•„ì§ ì„¸ë¶€ êµ¬í˜„ì€ ë˜ì–´ìˆì§€ ì•ŠìŒ. ì´ í•¨ìˆ˜ë“¤ì€ Protectedë¡œ ë„£ê³ ,
+		//        MapManagerì— TimeControl ë¶€ë¶„ì„ êµ¬í˜„í•˜ë„ë¡ í•œë‹¤. - [levites]
 		void					SetEnvironmentDataPtr(const TEnvironmentData * c_pEnvironmentData);
 		void					ResetEnvironmentDataPtr(const TEnvironmentData * c_pEnvironmentData);
 		void					SetEnvironmentData(int nEnvDataIndex);

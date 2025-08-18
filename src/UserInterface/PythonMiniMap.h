@@ -148,7 +148,7 @@ class CPythonMiniMap : public CScreen, public CSingleton<CPythonMiniMap>
 			DWORD dwDstTime;
 		};
 
-		// Ä³¸¯ÅÍ ¸®½ºÆ®
+		// ìºë¦­í„° ë¦¬ìŠ¤íŠ¸
 		typedef struct 
 		{
 			float	m_fX;
@@ -180,14 +180,14 @@ class CPythonMiniMap : public CScreen, public CSingleton<CPythonMiniMap>
 
 		float							m_fMiniMapRadius;
 
-		// ¸Ê ±×¸²...
+		// ë§µ ê·¸ë¦¼...
 		LPDIRECT3DTEXTURE8				m_lpMiniMapTexture[AROUND_AREA_NUM];
 
-		// ¹Ì´Ï¸Ê Ä¿¹ö
+		// ë¯¸ë‹ˆë§µ ì»¤ë²„
 		CGraphicImageInstance			m_MiniMapFilterGraphicImageInstance;
 		CGraphicExpandedImageInstance	m_MiniMapCameraraphicImageInstance;
 
-		// Ä³¸¯ÅÍ ¸¶Å©
+		// ìºë¦­í„° ë§ˆí¬
 		CGraphicExpandedImageInstance	m_PlayerMark;
 		CGraphicImageInstance			m_WhiteMark;
 

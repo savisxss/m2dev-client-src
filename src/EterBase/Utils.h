@@ -64,9 +64,9 @@ extern void			GetExceptionPathName(const char * sz_Name, std::string & OnlyFileN
 extern void			GetWorkingFolder(std::string & strFileName);
 extern void			StringLowers(char * pString);
 extern void			StringPath(std::string & rString);
-extern void			StringPath(char * pString);	// ¸ğµÎ ¼Ò¹®ÀÚ·Î ¸¸µé°í, \´Â /·Î ¹Ù²Û´Ù.
-extern void			StringPath(const char * c_szSrc, char * szDest);	// ¸ğµÎ ¼Ò¹®ÀÚ·Î ¸¸µé°í, \´Â /·Î ¹Ù²Û´Ù.
-extern void			StringPath(const char * c_szSrc, std::string & rString);	// ¸ğµÎ ¼Ò¹®ÀÚ·Î ¸¸µé°í, \´Â /·Î ¹Ù²Û´Ù.
+extern void			StringPath(char * pString);	// ëª¨ë‘ ì†Œë¬¸ìë¡œ ë§Œë“¤ê³ , \ëŠ” /ë¡œ ë°”ê¾¼ë‹¤.
+extern void			StringPath(const char * c_szSrc, char * szDest);	// ëª¨ë‘ ì†Œë¬¸ìë¡œ ë§Œë“¤ê³ , \ëŠ” /ë¡œ ë°”ê¾¼ë‹¤.
+extern void			StringPath(const char * c_szSrc, std::string & rString);	// ëª¨ë‘ ì†Œë¬¸ìë¡œ ë§Œë“¤ê³ , \ëŠ” /ë¡œ ë°”ê¾¼ë‹¤.
 extern void			PrintAsciiData(const void* data, int bytes);
 bool				IsFile(const char* filename);
 bool				IsGlobalFileName(const char * c_szFileName);

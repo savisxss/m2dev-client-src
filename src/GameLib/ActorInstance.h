@@ -2,8 +2,8 @@
 
 // class CActorInstance
 
-//		Note : Ä³¸¯ÅÍÀÇ Lighting, Local Point Light, Weapon Trace µîÀÇ È¿°ú¿Í ÄŞº¸ µ¥ÀÌÅ¸, »ç¿îµå µ¥ÀÌÅ¸,
-//             ¸ğ¼Ç µ¥ÀÌÅ¸ µéÀ» Ãß»óÀû, ÃÑÃ¼ÀûÀ¸·Î °ü¸®ÇÏ´Â °³º° ¸Å´ÏÀú°¡ µÉ °ÍÀÌ´Ù.
+//		Note : ìºë¦­í„°ì˜ Lighting, Local Point Light, Weapon Trace ë“±ì˜ íš¨ê³¼ì™€ ì½¤ë³´ ë°ì´íƒ€, ì‚¬ìš´ë“œ ë°ì´íƒ€,
+//             ëª¨ì…˜ ë°ì´íƒ€ ë“¤ì„ ì¶”ìƒì , ì´ì²´ì ìœ¼ë¡œ ê´€ë¦¬í•˜ëŠ” ê°œë³„ ë§¤ë‹ˆì €ê°€ ë  ê²ƒì´ë‹¤.
 
 #include "FlyTarget.h"
 #include "RaceData.h"
@@ -64,7 +64,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 				virtual void OnChangeShape() = 0;
 		};
 
-	// 2004.07.05.myevan.±Ã½ÅÅº¿µ ¸Ê¿¡ ³¢ÀÌ´Â ¹®Á¦ÇØ°á
+	// 2004.07.05.myevan.ê¶ì‹ íƒ„ì˜ ë§µì— ë¼ì´ëŠ” ë¬¸ì œí•´ê²°
 	private:
 		static IBackground& GetBackground();
 
@@ -217,7 +217,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		CActorInstance();
 		virtual ~CActorInstance();
 
-		// 20041201.myevan.ÀÎ½ºÅÏ½ºº£ÀÌ½º¿ë ÇÔ¼ö
+		// 20041201.myevan.ì¸ìŠ¤í„´ìŠ¤ë² ì´ìŠ¤ìš© í•¨ìˆ˜
 		void INSTANCEBASE_Transform();
 		void INSTANCEBASE_Deform();
 
@@ -294,13 +294,13 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 
 		/////////////////////////////////////////////////////////////////////////////////////
 		// Motion Queueing System
-		void SetMotionMode(int iMotionMode); // FIXME : ¸ğµåÀÇ ½Ã°£Â÷ Àû¿ëÀÌ °¡´ÉÇÏ°Ô²û ÇÑ´Ù.
+		void SetMotionMode(int iMotionMode); // FIXME : ëª¨ë“œì˜ ì‹œê°„ì°¨ ì ìš©ì´ ê°€ëŠ¥í•˜ê²Œë” í•œë‹¤.
 		int GetMotionMode();
 		void SetLoopMotion(DWORD dwMotion, float fBlendTime = 0.1f, float fSpeedRatio=1.0f);
 		bool InterceptOnceMotion(DWORD dwMotion, float fBlendTime = 0.1f, UINT uSkill=0, float fSpeedRatio=1.0f);
 		bool InterceptLoopMotion(DWORD dwMotion, float fBlendTime = 0.1f);
-		bool PushOnceMotion(DWORD dwMotion, float fBlendTime = 0.1f, float fSpeedRatio=1.0f); // FIXME : ¸ğµåÀÇ ½Ã°£Â÷ Àû¿ëÀÌ °¡´ÉÇÏ°Ô²û ÇÑ´Ù.
-		bool PushLoopMotion(DWORD dwMotion, float fBlendTime = 0.1f, float fSpeedRatio=1.0f); // FIXME : ¸ğµåÀÇ ½Ã°£Â÷ Àû¿ëÀÌ °¡´ÉÇÏ°Ô²û ÇÑ´Ù.
+		bool PushOnceMotion(DWORD dwMotion, float fBlendTime = 0.1f, float fSpeedRatio=1.0f); // FIXME : ëª¨ë“œì˜ ì‹œê°„ì°¨ ì ìš©ì´ ê°€ëŠ¥í•˜ê²Œë” í•œë‹¤.
+		bool PushLoopMotion(DWORD dwMotion, float fBlendTime = 0.1f, float fSpeedRatio=1.0f); // FIXME : ëª¨ë“œì˜ ì‹œê°„ì°¨ ì ìš©ì´ ê°€ëŠ¥í•˜ê²Œë” í•œë‹¤.
 		void SetMotionLoopCount(int iCount);
 
 		bool IsPushing();
@@ -346,9 +346,9 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		/////////////////////////////////////////////////////////////////////////////////////
 		// Battle
 		// Input
-		// ÇÏÀ§·Î ¿Å±æ °¡´É¼ºÀÌ ÀÖ´Â ÄÚµåµé
-		// ³×Æ®¿÷ ¿¬µ¿½Ã ÀüÅõ °ü·ÃÀº ÇÃ·¹ÀÌ¾î¸¦ Á¦¿ÜÇÏ°ï ´Ü¼øÈ÷ Showing TypeÀÌ±â ¶§¹®¿¡
-		// Á¶°Ç °Ë»ç°¡ ÇÊ¿ä ¾ø´Ù.
+		// í•˜ìœ„ë¡œ ì˜®ê¸¸ ê°€ëŠ¥ì„±ì´ ìˆëŠ” ì½”ë“œë“¤
+		// ë„¤íŠ¸ì› ì—°ë™ì‹œ ì „íˆ¬ ê´€ë ¨ì€ í”Œë ˆì´ì–´ë¥¼ ì œì™¸í•˜ê³¤ ë‹¨ìˆœíˆ Showing Typeì´ê¸° ë•Œë¬¸ì—
+		// ì¡°ê±´ ê²€ì‚¬ê°€ í•„ìš” ì—†ë‹¤.
 		void		InputNormalAttackCommand(float fDirRot);	// Process input - Only used by player's character
 		bool		InputComboAttackCommand(float fDirRot);	// Process input - Only used by player's character
 
@@ -524,7 +524,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		void ClearFlyEventHandler();
 		void SetFlyEventHandler(IFlyEventHandler * pHandler);
 
-		// 2004. 07. 07. [levites] - ½ºÅ³ »ç¿ëÁß Å¸°ÙÀÌ ¹Ù²î´Â ¹®Á¦ ÇØ°áÀ» À§ÇÑ ÄÚµå
+		// 2004. 07. 07. [levites] - ìŠ¤í‚¬ ì‚¬ìš©ì¤‘ íƒ€ê²Ÿì´ ë°”ë€ŒëŠ” ë¬¸ì œ í•´ê²°ì„ ìœ„í•œ ì½”ë“œ
 		bool CanChangeTarget();
 
 	protected:
@@ -567,7 +567,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		void		CurrentMotionProcess();
 		MOTION_KEY	GetRandomMotionKey(MOTION_KEY dwMotionKey);
 
-		float GetLastMotionTime(float fBlendTime); // NOTE : ÀÚµ¿À¸·Î BlendTime¸¸Å­À» ¾Õ´ç±ä ½Ã°£À» ¸®ÅÏ
+		float GetLastMotionTime(float fBlendTime); // NOTE : ìë™ìœ¼ë¡œ BlendTimeë§Œí¼ì„ ì•ë‹¹ê¸´ ì‹œê°„ì„ ë¦¬í„´
 		float GetMotionDuration(DWORD dwMotionKey);
 
 		bool InterceptMotion(EMotionPushType iMotionType, WORD wMotion, float fBlendTime = 0.1f, UINT uSkill=0, float fSpeedRatio=1.0f);
@@ -637,31 +637,31 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 
 	protected:
 		float		__GetAttackSpeed();
-		DWORD		__SetMotion(const SSetMotionData& c_rkSetMotData, DWORD dwRandMotKey=0); // ¸ğ¼Ç µ¥ÀÌÅÍ ¼³Á¤
+		DWORD		__SetMotion(const SSetMotionData& c_rkSetMotData, DWORD dwRandMotKey=0); // ëª¨ì…˜ ë°ì´í„° ì„¤ì •
 		void		__ClearMotion();
 
-		bool		__BindMotionData(DWORD dwMotionKey);	// ¸ğ¼Ç µ¥ÀÌÅÍ¸¦ ¹ÙÀÎµù
-		void		__ClearHittedActorInstanceMap();		// ¶§·ÁÁø ¾×ÅÍ ÀÎ½ºÅÏ½º ¸ÊÀ» Áö¿î´Ù
+		bool		__BindMotionData(DWORD dwMotionKey);	// ëª¨ì…˜ ë°ì´í„°ë¥¼ ë°”ì¸ë”©
+		void		__ClearHittedActorInstanceMap();		// ë•Œë ¤ì§„ ì•¡í„° ì¸ìŠ¤í„´ìŠ¤ ë§µì„ ì§€ìš´ë‹¤
 
-		UINT		__GetMotionType();			// ¸ğ¼Ç Å¸ÀÔ ¾ò±â
+		UINT		__GetMotionType();			// ëª¨ì…˜ íƒ€ì… ì–»ê¸°
 
-		bool		__IsNeedFlyTargetMotion();	// FlyTarget ÀÌ ÇÊ¿äÇÑ ¸ğ¼ÇÀÎ°¡?
-		bool		__HasMotionFlyEvent();		// ¹«¾ğ°¡¸¦ ½î´Â°¡?
-		bool		__IsWaitMotion();			// ´ë±â ¸ğ¼Ç ÀÎ°¡?
-		bool		__IsMoveMotion();			// ÀÌµ¿ ¸ğ¼Ç ÀÎ°¡?
-		bool		__IsAttackMotion();			// °ø°İ ¸ğ¼Ç ÀÎ°¡?
-		bool		__IsComboAttackMotion();	// ÄŞº¸ °ø°İ ¸ğ¼Ç ÀÎ°¡?
-		bool		__IsDamageMotion();			// µ¥¹ÌÁö ¸ğ¼ÇÀÎ°¡?
-		bool		__IsKnockDownMotion();		// ³Ë´Ù¿î ¸ğ¼ÇÀÎ°¡?
-		bool		__IsDieMotion();			// »ç¸Á ¸ğ¼Ç ÀÎ°¡?
-		bool		__IsStandUpMotion();		// ÀÏ¾î¼­±â ¸ğ¼ÇÀÎ°¡?
+		bool		__IsNeedFlyTargetMotion();	// FlyTarget ì´ í•„ìš”í•œ ëª¨ì…˜ì¸ê°€?
+		bool		__HasMotionFlyEvent();		// ë¬´ì–¸ê°€ë¥¼ ì˜ëŠ”ê°€?
+		bool		__IsWaitMotion();			// ëŒ€ê¸° ëª¨ì…˜ ì¸ê°€?
+		bool		__IsMoveMotion();			// ì´ë™ ëª¨ì…˜ ì¸ê°€?
+		bool		__IsAttackMotion();			// ê³µê²© ëª¨ì…˜ ì¸ê°€?
+		bool		__IsComboAttackMotion();	// ì½¤ë³´ ê³µê²© ëª¨ì…˜ ì¸ê°€?
+		bool		__IsDamageMotion();			// ë°ë¯¸ì§€ ëª¨ì…˜ì¸ê°€?
+		bool		__IsKnockDownMotion();		// ë„‰ë‹¤ìš´ ëª¨ì…˜ì¸ê°€?
+		bool		__IsDieMotion();			// ì‚¬ë§ ëª¨ì…˜ ì¸ê°€?
+		bool		__IsStandUpMotion();		// ì¼ì–´ì„œê¸° ëª¨ì…˜ì¸ê°€?
 		bool		__IsMountingHorse();
 
-		bool		__CanAttack();				// °ø°İ ÇÒ¼ö ÀÖ´Â°¡?
-		bool		__CanNextComboAttack();		// ´ÙÀ½ ÄŞº¸ ¾îÅÃÀÌ °¡´ÉÇÑ°¡?
+		bool		__CanAttack();				// ê³µê²© í• ìˆ˜ ìˆëŠ”ê°€?
+		bool		__CanNextComboAttack();		// ë‹¤ìŒ ì½¤ë³´ ì–´íƒì´ ê°€ëŠ¥í•œê°€?
 
-		bool		__IsComboAttacking();	// ÄŞº¸ °ø°İÁßÀÎ°¡?
-		void		__CancelComboAttack();	// ÄŞº¸ °ø°İ Ãë¼Ò
+		bool		__IsComboAttacking();	// ì½¤ë³´ ê³µê²©ì¤‘ì¸ê°€?
+		void		__CancelComboAttack();	// ì½¤ë³´ ê³µê²© ì·¨ì†Œ
 
 		WORD		__GetCurrentMotionIndex();
 		DWORD		__GetCurrentMotionKey();
@@ -683,9 +683,9 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		D3DXVECTOR3	__GetFlyTargetPosition();
 
 	protected:
-		void		__DestroyWeaponTrace();	// ¹«±â ÀÜ»óÀ» Á¦°ÅÇÑ´Ù
-		void		__ShowWeaponTrace();	// ¹«±â ÀÜ»óÀ» º¸ÀÎ´Ù
-		void		__HideWeaponTrace();	// ¹«±â ÀÜ»óÀ» °¨Ãá´Ù
+		void		__DestroyWeaponTrace();	// ë¬´ê¸° ì”ìƒì„ ì œê±°í•œë‹¤
+		void		__ShowWeaponTrace();	// ë¬´ê¸° ì”ìƒì„ ë³´ì¸ë‹¤
+		void		__HideWeaponTrace();	// ë¬´ê¸° ì”ìƒì„ ê°ì¶˜ë‹¤
 
 	protected:
 		// collision data
@@ -705,7 +705,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		// For Collision Detection
 		TCollisionPointInstanceList		m_BodyPointInstanceList;
 		TCollisionPointInstanceList		m_DefendingPointInstanceList;
-		SSplashArea						m_kSplashArea; // TODO : º¹¼ö¿¡ ´ëÇÑ °í·Á¸¦ ÇØ¾ßÇÑ´Ù - [levites]
+		SSplashArea						m_kSplashArea; // TODO : ë³µìˆ˜ì— ëŒ€í•œ ê³ ë ¤ë¥¼ í•´ì•¼í•œë‹¤ - [levites]
 		CAttributeInstance *			m_pAttributeInstance;
 		/////////////////////////////////////////////////////////////////////////////////////
 
@@ -736,7 +736,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		float						m_fInvisibleTime;
 		BOOL						m_isHiding;
 
-		// TODO : State·Î ÅëÇÕ ½ÃÅ³ ¼ö ÀÖ´ÂÁö °í·ÁÇØ º¼°Í
+		// TODO : Stateë¡œ í†µí•© ì‹œí‚¬ ìˆ˜ ìˆëŠ”ì§€ ê³ ë ¤í•´ ë³¼ê²ƒ
 		BOOL						m_isResistFallen;
 		BOOL						m_isSleep;
 		BOOL						m_isFaint;
@@ -822,7 +822,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		void __InitializeRotationData();
 		void __InitializePositionData();
 
-	public: // InstanceBase ÅëÇÕÀü ÀÓ½Ã·Î public
+	public: // InstanceBase í†µí•©ì „ ì„ì‹œë¡œ public
 		IEventHandler* __GetEventHandlerPtr();
 		IEventHandler& __GetEventHandlerRef();
 

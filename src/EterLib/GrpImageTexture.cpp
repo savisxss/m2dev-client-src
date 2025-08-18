@@ -44,7 +44,7 @@ bool CGraphicImageTexture::CreateDeviceObjects()
 
 	if (m_stFileName.empty())
 	{
-		// ∆˘∆Æ ≈ÿΩ∫√ƒ
+		// Ìè∞Ìä∏ ÌÖçÏä§Ï≥ê
 		if (FAILED(ms_lpd3dDevice->CreateTexture(m_width, m_height, 1, 0, m_d3dFmt, D3DPOOL_MANAGED, &m_lpd3dTexture)))
 			return false;
 	}
@@ -209,7 +209,7 @@ bool CGraphicImageTexture::CreateFromMemoryFile(UINT bufSize, const void * c_pvB
 
 	static CDXTCImage image;
 
-	if (image.LoadHeaderFromMemory((const BYTE *) c_pvBuf))	// DDS¿Œ∞° »Æ¿Œ
+	if (image.LoadHeaderFromMemory((const BYTE *) c_pvBuf))	// DDSÏù∏Í∞Ä ÌôïÏù∏
 	{
 		return (CreateDDSTexture(image, (const BYTE *) c_pvBuf));
 	}

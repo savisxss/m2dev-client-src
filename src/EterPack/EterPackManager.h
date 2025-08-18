@@ -66,12 +66,12 @@ class CEterPackManager : public CSingleton<CEterPackManager>
 		//THEMIDA
 		void RetrieveHybridCryptPackSDB( const BYTE* pStream );
 
-		// ¸Ş¸ğ¸®¿¡ ¸ÅÇÎµÈ ÆÑµé °¡¿îµ¥, Á¤¸®ÇØ¾ßÇÒ °Íµé Á¤¸®.
+		// ë©”ëª¨ë¦¬ì— ë§¤í•‘ëœ íŒ©ë“¤ ê°€ìš´ë°, ì •ë¦¬í•´ì•¼í•  ê²ƒë“¤ ì •ë¦¬.
 	public:
 		void ArrangeMemoryMappedPack();
 
 	protected:
-		int ConvertFileName(const char * c_szFileName, std::string & rstrFileName); // StringPath std::string ¹öÀü
+		int ConvertFileName(const char * c_szFileName, std::string & rstrFileName); // StringPath std::string ë²„ì „
 		bool CompareName(const char * c_szDirectoryName, DWORD iLength, const char * c_szFileName);
 
 		CEterPack* FindPack(const char* c_szPathName);

@@ -7,8 +7,8 @@ std::string g_strImagePath = "d:/ymir work/ui/";
 std::string g_strGuildSymbolPathName = "mark/10/";
 
 // DEFAULT_FONT
-static std::string gs_strDefaultFontName = "±¼¸²Ã¼:12.fnt";
-static std::string gs_strDefaultItalicFontName = "±¼¸²Ã¼:12i.fnt";
+static std::string gs_strDefaultFontName = "êµ´ë¦¼ì²´:12.fnt";
+static std::string gs_strDefaultItalicFontName = "êµ´ë¦¼ì²´:12i.fnt";
 static CResource* gs_pkDefaultFont = NULL;
 static CResource* gs_pkDefaultItalicFont = NULL;
 
@@ -97,9 +97,9 @@ BYTE c_aSlotTypeToInvenType[SLOT_TYPE_MAX] =
 	RESERVED_WINDOW,		// SLOT_TYPE_EXCHANGE_OWNER
 	RESERVED_WINDOW,		// SLOT_TYPE_EXCHANGE_TARGET
 	RESERVED_WINDOW,		// SLOT_TYPE_QUICK_SLOT
-	RESERVED_WINDOW,		// SLOT_TYPE_SAFEBOX	<- SAFEBOX, MALLÀÇ °æ¿ì ÇÏµå ÄÚµùµÇ¾îÀÖ´Â LEGACY ÄÚµå¸¦ À¯ÁöÇÔ.
+	RESERVED_WINDOW,		// SLOT_TYPE_SAFEBOX	<- SAFEBOX, MALLì˜ ê²½ìš° í•˜ë“œ ì½”ë”©ë˜ì–´ìžˆëŠ” LEGACY ì½”ë“œë¥¼ ìœ ì§€í•¨.
 	RESERVED_WINDOW,		// SLOT_TYPE_PRIVATE_SHOP
-	RESERVED_WINDOW,		// SLOT_TYPE_MALL		<- SAFEBOX, MALLÀÇ °æ¿ì ÇÏµå ÄÚµùµÇ¾îÀÖ´Â LEGACY ÄÚµå¸¦ À¯ÁöÇÔ.
+	RESERVED_WINDOW,		// SLOT_TYPE_MALL		<- SAFEBOX, MALLì˜ ê²½ìš° í•˜ë“œ ì½”ë”©ë˜ì–´ìžˆëŠ” LEGACY ì½”ë“œë¥¼ ìœ ì§€í•¨.
 	DRAGON_SOUL_INVENTORY,	// SLOT_TYPE_DRAGON_SOUL_INVENTORY
 };
 

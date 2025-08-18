@@ -55,12 +55,12 @@ class CGrannyModelInstance : public CGraphicCollisionObject
 		void	DeformNoSkin(const D3DXMATRIX * c_pWorldMatrix);
 		void	Deform(const D3DXMATRIX * c_pWorldMatrix);
 
-		// FIXME : ÇöÀç´Â ÇÏµå¿ş¾îÀÇ ÇÑ°è·Î 2ÀåÀÇ ÅØ½ºÃç·Î Á¦ÇÑÀÌ µÇ¾îÀÖ´Â »óÅÂÀÌ±â¿¡ ÀÌ·±
-		//         ºÒ¾ÈÁ¤ÇÑ ¾ÆÅ°ÅØÃç°¡ °¡´ÉÇÏÁö¸¸, ±Ã±ØÀûÀÎ ¹æÇâÀº (¸ğµ¨ ÅØ½ºÃç ÀüºÎ) + (È¿°ú¿ë ÅØ½ºÃç)
-		//         ÀÌ·±½ÄÀÇ ÀÚµ¿ ¼ÂÆÃÀÌ ÀÌ·ïÁ®¾ß µÇÁö ¾Ê³ª »ı°¢ÇÕ´Ï´Ù. - [levites]
-		// NOTE : ³»ºÎ¿¡ if¹®À» Æ÷ÇÔ ½ÃÅ°±â º¸´Ù´Â Á¶±İÀº ¹ø°Å·ÓÁö¸¸ ÀÌ·¸°Ô ÇÔ¼ö Äİ ÀÚÃ¼¸¦ ºĞ¸®
-		//        ½ÃÅ°´Â °ÍÀÌ ÆÛÆ÷¸Õ½º ÀûÀÎ Ãø¸é¿¡¼­´Â ´õ ³ªÀº °Í °°½À´Ï´Ù. - [levites]
-		// NOTE : °Ç¹°Àº ¹«Á¶°Ç OneTexture. Ä³¸¯ÅÍ´Â °æ¿ì¿¡ µû¶ó TwoTexture.
+		// FIXME : í˜„ì¬ëŠ” í•˜ë“œì›¨ì–´ì˜ í•œê³„ë¡œ 2ì¥ì˜ í…ìŠ¤ì¶°ë¡œ ì œí•œì´ ë˜ì–´ìˆëŠ” ìƒíƒœì´ê¸°ì— ì´ëŸ°
+		//         ë¶ˆì•ˆì •í•œ ì•„í‚¤í…ì¶°ê°€ ê°€ëŠ¥í•˜ì§€ë§Œ, ê¶ê·¹ì ì¸ ë°©í–¥ì€ (ëª¨ë¸ í…ìŠ¤ì¶° ì „ë¶€) + (íš¨ê³¼ìš© í…ìŠ¤ì¶°)
+		//         ì´ëŸ°ì‹ì˜ ìë™ ì…‹íŒ…ì´ ì´ë¤„ì ¸ì•¼ ë˜ì§€ ì•Šë‚˜ ìƒê°í•©ë‹ˆë‹¤. - [levites]
+		// NOTE : ë‚´ë¶€ì— ifë¬¸ì„ í¬í•¨ ì‹œí‚¤ê¸° ë³´ë‹¤ëŠ” ì¡°ê¸ˆì€ ë²ˆê±°ë¡­ì§€ë§Œ ì´ë ‡ê²Œ í•¨ìˆ˜ ì½œ ìì²´ë¥¼ ë¶„ë¦¬
+		//        ì‹œí‚¤ëŠ” ê²ƒì´ í¼í¬ë¨¼ìŠ¤ ì ì¸ ì¸¡ë©´ì—ì„œëŠ” ë” ë‚˜ì€ ê²ƒ ê°™ìŠµë‹ˆë‹¤. - [levites]
+		// NOTE : ê±´ë¬¼ì€ ë¬´ì¡°ê±´ OneTexture. ìºë¦­í„°ëŠ” ê²½ìš°ì— ë”°ë¼ TwoTexture.
 		void	RenderWithOneTexture();
 		void	RenderWithTwoTexture();
 		void	BlendRenderWithOneTexture();
@@ -160,7 +160,7 @@ class CGrannyModelInstance : public CGraphicCollisionObject
 		// Granny Data
 		granny_model_instance *			m_pgrnModelInstance;
 
-		//granny_world_pose *				m_pgrnWorldPose;		// ÇöÀç ¿ùµå Æ÷Áî Æ÷ÀÎÅÍ
+		//granny_world_pose *				m_pgrnWorldPose;		// í˜„ì¬ ì›”ë“œ í¬ì¦ˆ í¬ì¸í„°
 
 		granny_control *				m_pgrnCtrl;
 		granny_animation *				m_pgrnAni;
@@ -182,7 +182,7 @@ class CGrannyModelInstance : public CGraphicCollisionObject
 		CGrannyMaterialPalette			m_kMtrlPal;
 
 		// WORK
-		granny_world_pose*					m_pgrnWorldPoseReal;	// ½ÇÁ¦ ¸Ş¸ğ¸®´Â ¿©±â¿¡ ÇÒ´ç
+		granny_world_pose*					m_pgrnWorldPoseReal;	// ì‹¤ì œ ë©”ëª¨ë¦¬ëŠ” ì—¬ê¸°ì— í• ë‹¹
 		std::vector<granny_mesh_binding*>	m_vct_pgrnMeshBinding;		
 
 		// Dynamic Vertex Buffer

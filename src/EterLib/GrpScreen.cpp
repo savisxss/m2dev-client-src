@@ -53,7 +53,7 @@ void CScreen::RenderBox3d(float sx, float sy, float sz, float ex, float ey, floa
 		{ ex, ey, ez, ms_diffuseColor, 0.0f, 0.0f },	// 3
 
 		{ sx, ey, ez, ms_diffuseColor, 0.0f, 0.0f },	// 2
-		{ ex+1.0f, ey, ez, ms_diffuseColor, 0.0f, 0.0f }	// 3, (x°¡ 1Áõ°¡µÈ 3)
+		{ ex+1.0f, ey, ez, ms_diffuseColor, 0.0f, 0.0f }	// 3, (xê°€ 1ì¦ê°€ëœ 3)
 	};
 
 	// 2004.11.18.myevan.DrawIndexPrimitiveUP -> DynamicVertexBuffer
@@ -510,11 +510,11 @@ void CScreen::SetCursorPosition(int x, int y, int hres, int vres)
     ms_vtPickRayOrig.y = matViewInverse._42;
     ms_vtPickRayOrig.z = matViewInverse._43;
 	
-//	// 2003. 9. 9 µ¿Çö Ãß°¡
-//	// ÁöÇü pickingÀ» À§ÇÑ »¹Áş... ¤Ñ¤Ñ; À§¿¡ °Í°ú ÅëÇÕ ÇÊ¿ä...
+//	// 2003. 9. 9 ë™í˜„ ì¶”ê°€
+//	// ì§€í˜• pickingì„ ìœ„í•œ ë»˜ì§“... ã…¡ã…¡; ìœ„ì— ê²ƒê³¼ í†µí•© í•„ìš”...
 	ms_Ray.SetStartPoint(ms_vtPickRayOrig);
 	ms_Ray.SetDirection(-ms_vtPickRayDir, 51200.0f);
-//	// 2003. 9. 9 µ¿Çö Ãß°¡
+//	// 2003. 9. 9 ë™í˜„ ì¶”ê°€
 }
 
 bool CScreen::GetCursorPosition(float* px, float* py, float* pz)

@@ -53,8 +53,8 @@ bool CPropertyManager::Initialize(const char * c_pszPackFileName)
 	else
 	{
 		m_isFileMode = true;
-		// NOTE : ¿©±â¼­ Property¸¦ µî·Ï½ÃÅ°¸é WorldEditor¿¡¼­ ÀÌ»óÀÌ »ı±è ;
-		//        ¶ÇÇÑ, Property Tree List¿¡µµ µî·ÏÀ» ½ÃÄÑ¾ß µÇ±â ¶§¹®¿¡ ¹Ù±ùÂÊ¿¡¼­.. - [levites]
+		// NOTE : ì—¬ê¸°ì„œ Propertyë¥¼ ë“±ë¡ì‹œí‚¤ë©´ WorldEditorì—ì„œ ì´ìƒì´ ìƒê¹€ ;
+		//        ë˜í•œ, Property Tree Listì—ë„ ë“±ë¡ì„ ì‹œì¼œì•¼ ë˜ê¸° ë•Œë¬¸ì— ë°”ê¹¥ìª½ì—ì„œ.. - [levites]
 	}
 
 	return true;
@@ -193,7 +193,7 @@ bool CPropertyManager::Put(const char * c_pszFileName, const char * c_pszSourceF
 	if (!CopyFile(c_pszSourceFileName, c_pszFileName, FALSE))
 		return false;
 
-	if (!m_isFileMode)	// ÆÑ ÆÄÀÏ¿¡µµ ³ÖÀ½
+	if (!m_isFileMode)	// íŒ© íŒŒì¼ì—ë„ ë„£ìŒ
 	{
 		if (!m_pack.Put(c_pszFileName, NULL, COMPRESSED_TYPE_NONE,""))
 		{
@@ -219,13 +219,13 @@ bool CPropertyManager::Erase(DWORD dwCRC)
 	DeleteFile(pProperty->GetFileName());
 	ReserveCRC(pProperty->GetCRC());
 
-	if (!m_isFileMode)	// ÆÄÀÏ ¸ğµå°¡ ¾Æ´Ï¸é ÆÑ¿¡¼­µµ Áö¿ò
+	if (!m_isFileMode)	// íŒŒì¼ ëª¨ë“œê°€ ì•„ë‹ˆë©´ íŒ©ì—ì„œë„ ì§€ì›€
 		m_pack.Delete(pProperty->GetFileName());
 
 	FILE * fp = fopen("property/reserve", "a+");
 
 	if (!fp)
-		LogBox("¿¹¾à CRC ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù.");
+		LogBox("ì˜ˆì•½ CRC íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 	else
 	{
 		char szCRC[64 + 1];

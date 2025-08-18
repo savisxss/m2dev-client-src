@@ -303,7 +303,7 @@ void CActorInstance::ProcessMotionEventWarp(const CRaceMotionData::TMotionEventD
 	if (CRaceMotionData::MOTION_EVENT_TYPE_WARP != c_pData->iType)
 		return;
 	
-	// FIXME : TMotionWarpEventData·Î »¬ º¯¼ö - [levites]
+	// FIXME : TMotionWarpEventDataë¡œ ëº„ ë³€ìˆ˜ - [levites]
 	static const float sc_fDistanceFromTarget = 270.0f;
 
 	if (m_kFlyTarget.IsValidTarget())
@@ -315,7 +315,7 @@ void CActorInstance::ProcessMotionEventWarp(const CRaceMotionData::TMotionEventD
 		D3DXVec3Normalize(&v3Distance, &v3Distance);
 		TPixelPosition DestPixelPosition = c_rv3TargetPosition - (v3Distance * sc_fDistanceFromTarget);
 
-		// 2004.07.05.myevan.±Ã½ÅÅº¿µ ¸Ê¿¡ ³¢ÀÌ´Â ¹®Á¦ÇØ°á. ¸ñÇ¥À§Ä¡°¡ ÀÌµ¿ ¸øÇÏ´Â °÷ÀÏ °æ¿ì ÀÌµ¿ÇÏÁö ¾Ê´Â´Ù
+		// 2004.07.05.myevan.ê¶ì‹ íƒ„ì˜ ë§µì— ë¼ì´ëŠ” ë¬¸ì œí•´ê²°. ëª©í‘œìœ„ì¹˜ê°€ ì´ë™ ëª»í•˜ëŠ” ê³³ì¼ ê²½ìš° ì´ë™í•˜ì§€ ì•ŠëŠ”ë‹¤
 		IBackground& rkBG=GetBackground();
 		if (!rkBG.IsBlock(DestPixelPosition.x, -DestPixelPosition.y))
 			SetPixelPosition(DestPixelPosition);

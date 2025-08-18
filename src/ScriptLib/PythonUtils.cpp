@@ -200,7 +200,7 @@ bool PyCallClassMemberFunc(PyObject* poClass, PyObject* poFunc, PyObject* poArgs
 {
 	PyObject* poRet;
 
-	// NOTE : NULL Ã¼Å© Ãß°¡.. - [levites]
+	// NOTE : NULL ì²´í¬ ì¶”ê°€.. - [levites]
 	if (!poClass)
 	{
 		Py_XDECREF(poArgs);
@@ -218,7 +218,7 @@ bool PyCallClassMemberFunc(PyObject* poClass, const char* c_szFunc, PyObject* po
 {
 	PyObject* poRet;
 
-	// NOTE : NULL Ã¼Å© Ãß°¡.. - [levites]
+	// NOTE : NULL ì²´í¬ ì¶”ê°€.. - [levites]
 	if (!poClass)
 	{
 		Py_XDECREF(poArgs);
@@ -236,7 +236,7 @@ bool PyCallClassMemberFunc_ByPyString(PyObject* poClass, PyObject* poFuncName, P
 {
 	PyObject* poRet;
 
-	// NOTE : NULL Ã¼Å© Ãß°¡.. - [levites]
+	// NOTE : NULL ì²´í¬ ì¶”ê°€.. - [levites]
 	if (!poClass)
 	{
 		Py_XDECREF(poArgs);
@@ -285,9 +285,9 @@ bool PyCallClassMemberFunc(PyObject* poClass, const char* c_szFunc, PyObject* po
 }
 
 /*
- *	ÀÌ ÇÔ¼ö¸¦ Á÷Á¢ È£ÃâÇÏÁö ¾Êµµ·Ï ÇÑ´Ù.
- *	ºÎµæÀÌ ÇÏ°Ô Á÷Á¢ È£ÃâÇÒ °æ¿ì¿¡´Â ¹İµå½Ã false °¡ ¸®ÅÏ µÆÀ» ¶§
- *	Py_DECREF(poArgs); ¸¦ ÇØÁØ´Ù.
+ *	ì´ í•¨ìˆ˜ë¥¼ ì§ì ‘ í˜¸ì¶œí•˜ì§€ ì•Šë„ë¡ í•œë‹¤.
+ *	ë¶€ë“ì´ í•˜ê²Œ ì§ì ‘ í˜¸ì¶œí•  ê²½ìš°ì—ëŠ” ë°˜ë“œì‹œ false ê°€ ë¦¬í„´ ëì„ ë•Œ
+ *	Py_DECREF(poArgs); ë¥¼ í•´ì¤€ë‹¤.
  */
 bool __PyCallClassMemberFunc_ByCString(PyObject* poClass, const char* c_szFunc, PyObject* poArgs, PyObject** ppoRet)
 {

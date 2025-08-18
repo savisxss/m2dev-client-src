@@ -51,8 +51,8 @@ class CCamera
 		void SetResistance(float fResistance);
 
 	private:
-		const CCamera & operator = (const CCamera &) ; // Áö¿øÇÏÁö ¾ÊÀ½
-		CCamera (const CCamera & ) ; //Áö¿øÇÏÁö ¾ÊÀ½ 
+		const CCamera & operator = (const CCamera &) ; // ì§€ì›í•˜ì§€ ì•ŠìŒ
+		CCamera (const CCamera & ) ; //ì§€ì›í•˜ì§€ ì•ŠìŒ 
 
 		// Camera Update
 		eCameraState	m_eCameraState;
@@ -85,14 +85,14 @@ class CCamera
 		D3DXMATRIX m_matInverseView;
 		D3DXMATRIX m_matBillboard; // Special matrix for billboarding effects
 
-		//Ãß°¡ºĞ
+		//ì¶”ê°€ë¶„
 		float m_fPitch;
 		float m_fRoll;
 		float m_fDistance;
 
-		// Ä«¸Ş¶ó AI¸¦ À§ÇÑ Ray µé
+		// ì¹´ë©”ë¼ AIë¥¼ ìœ„í•œ Ray ë“¤
 
-		// Ä«¸Ş¶ó¸¦ µÑ·¯½Ñ Ray
+		// ì¹´ë©”ë¼ë¥¼ ë‘˜ëŸ¬ì‹¼ Ray
 		CRay	m_kCameraBottomToTerrainRay;
 		CRay	m_kCameraFrontToTerrainRay;
 		CRay	m_kCameraBackToTerrainRay;
@@ -124,14 +124,14 @@ class CCamera
 		bool			m_bDrag;
 
 //	protected:
-		// ¹°¸®
+		// ë¬¼ë¦¬
 		D3DXVECTOR3		m_v3AngularAcceleration;
 		D3DXVECTOR3		m_v3AngularVelocity;
 
 		float			m_fResistance;
 	public:
 		//////////////////////////////////////////////////////////////////////////
-		// ¹°¸®
+		// ë¬¼ë¦¬
 		//////////////////////////////////////////////////////////////////////////
 		void SetAngularAcceleration(D3DXVECTOR3 v3AngularAcceleration) { m_v3AngularAcceleration = v3AngularAcceleration; }
 		
@@ -185,7 +185,7 @@ class CCamera
 		float GetRoll() const { return m_fRoll; }
 		float GetDistance() const { return m_fDistance; }
 		
-		void Pitch(const float fPitchDelta);	//µ¹¾Æ°¡´Â °¢µµ¸¦ ³Ö´Â´Ù.
+		void Pitch(const float fPitchDelta);	//ëŒì•„ê°€ëŠ” ê°ë„ë¥¼ ë„£ëŠ”ë‹¤.
 		void Roll(const float fRollDelta);
 		void SetDistance(const float fdistance);
 
@@ -193,35 +193,35 @@ class CCamera
 		// camera movement
 		//////////////////////////////////////////////////////////////////////////
 		
-		// ¸»±×´ë·Î ÀÌµ¿... Ä«¸Ş¶ó À§Ä¡¿Í Å¸°Ù À§Ä¡°¡ ¸ğµÎ ´Ş¶óÁø´Ù.
+		// ë§ê·¸ëŒ€ë¡œ ì´ë™... ì¹´ë©”ë¼ ìœ„ì¹˜ì™€ íƒ€ê²Ÿ ìœ„ì¹˜ê°€ ëª¨ë‘ ë‹¬ë¼ì§„ë‹¤.
 		void Move(const D3DXVECTOR3 & v3Displacement);
-		// ÁÜ.. Ä«¸Ş¶ó À§Ä¡¸¸ ÀÌµ¿.. Å¸°Ù À§Ä¡´Â °íÁ¤...
+		// ì¤Œ.. ì¹´ë©”ë¼ ìœ„ì¹˜ë§Œ ì´ë™.. íƒ€ê²Ÿ ìœ„ì¹˜ëŠ” ê³ ì •...
 		void Zoom(float fRatio);
 
-		// ºä ¹æÇâÀ¸·Î ÀÌµ¿.. Å¸°ÙÀ§Ä¡°¡ ´Ş¶óÁö¹Ç·Î ÁÜ°ú´Â ´Ù¸£´Ù...
+		// ë·° ë°©í–¥ìœ¼ë¡œ ì´ë™.. íƒ€ê²Ÿìœ„ì¹˜ê°€ ë‹¬ë¼ì§€ë¯€ë¡œ ì¤Œê³¼ëŠ” ë‹¤ë¥´ë‹¤...
 		void MoveAlongView(float fDistance);
-		// Ä«¸Ş¶ó ¿· ¹æÇâÀ¸·Î ÀÌµ¿..
+		// ì¹´ë©”ë¼ ì˜† ë°©í–¥ìœ¼ë¡œ ì´ë™..
 		void MoveAlongCross(float fDistance);
-		// Ä«¸Ş¶ó ¾÷º¤ÅÍ ¹æÇâÀ¸·Î ÀÌµ¿...
+		// ì¹´ë©”ë¼ ì—…ë²¡í„° ë°©í–¥ìœ¼ë¡œ ì´ë™...
 		void MoveAlongUp(float fDistance);
 
-		// Ä«¸Ş¶ó ¿· ¹æÇâÀ¸·Î ÀÌµ¿... MoveAlongCross°ú µ¿ÀÏ..
+		// ì¹´ë©”ë¼ ì˜† ë°©í–¥ìœ¼ë¡œ ì´ë™... MoveAlongCrossê³¼ ë™ì¼..
 		void MoveLateral(float fDistance);
-		// ºä ¹æÇâÀÇ Z ¼ººĞÀ» ¹«½ÃÇÑ XYÆò¸é ¹æÇâÀ¸·Î ÀÌµ¿..
+		// ë·° ë°©í–¥ì˜ Z ì„±ë¶„ì„ ë¬´ì‹œí•œ XYí‰ë©´ ë°©í–¥ìœ¼ë¡œ ì´ë™..
 		void MoveFront(float fDistance);
-		// Z¹æÇâ(¿¬Á÷ ¹æÇâ)À¸·Î ÀÌµ¿...
+		// Zë°©í–¥(ì—°ì§ ë°©í–¥)ìœ¼ë¡œ ì´ë™...
 		void MoveVertical(float fDistance);
 		
-	//	//Ä«¸Ş¶ó À§Ä¡´Â °íÁ¤½ÃÅ°°í ¸Ó¸®¸¸ µç´Ù. Å¸°ÙÀÌ ´Ş¶óÁö°ÚÁÒ?
-	//	//È¸Àü°¢À» ¶óµğ¾ÈÀÌ ¾Æ´Ñ "µµ(Degree)"·Î ³Ö´Â´Ù.
+	//	//ì¹´ë©”ë¼ ìœ„ì¹˜ëŠ” ê³ ì •ì‹œí‚¤ê³  ë¨¸ë¦¬ë§Œ ë“ ë‹¤. íƒ€ê²Ÿì´ ë‹¬ë¼ì§€ê² ì£ ?
+	//	//íšŒì „ê°ì„ ë¼ë””ì•ˆì´ ì•„ë‹Œ "ë„(Degree)"ë¡œ ë„£ëŠ”ë‹¤.
 	//	void RotateUpper(float fDegree);
 		
-		// Å¸°Ù Áß½ÉÀ¸·Î µ·´Ù. EterlibÀÇ SetAroundCameraÀÇ ±â´É°ú À¯»ç...
-		// fPitchDegree´Â ¼öÆò(0µµ)·ÎºÎÅÍ ¾Æ·§ÂÊÀ¸·Î ²©¾îÁö´Â °¢µµ...
-		// fRollDegree´Â Å¸°Ù Áß½ÉÀ¸·Î ½Ã°è¹æÇâÀ¸·Î µµ´Â °¢µµ...
+		// íƒ€ê²Ÿ ì¤‘ì‹¬ìœ¼ë¡œ ëˆë‹¤. Eterlibì˜ SetAroundCameraì˜ ê¸°ëŠ¥ê³¼ ìœ ì‚¬...
+		// fPitchDegreeëŠ” ìˆ˜í‰(0ë„)ë¡œë¶€í„° ì•„ë«ìª½ìœ¼ë¡œ êº½ì–´ì§€ëŠ” ê°ë„...
+		// fRollDegreeëŠ” íƒ€ê²Ÿ ì¤‘ì‹¬ìœ¼ë¡œ ì‹œê³„ë°©í–¥ìœ¼ë¡œ ë„ëŠ” ê°ë„...
 		void RotateEyeAroundTarget(float fPitchDegree, float fRollDegree);
 
-		// µµ´Â Áß½ÉÁ¡À» µû·Î ÁöÁ¤ ±× Á¡À» Áß½ÉÀ¸·Î µ·´Ù. Å¸°Ù Á¡µµ ´Ş¶óÁö°ÚÁÒ?
+		// ë„ëŠ” ì¤‘ì‹¬ì ì„ ë”°ë¡œ ì§€ì • ê·¸ ì ì„ ì¤‘ì‹¬ìœ¼ë¡œ ëˆë‹¤. íƒ€ê²Ÿ ì ë„ ë‹¬ë¼ì§€ê² ì£ ?
 		void RotateEyeAroundPoint(const D3DXVECTOR3 & v3Point, float fPitchDegree, float fRollDegree);
 
 	protected:

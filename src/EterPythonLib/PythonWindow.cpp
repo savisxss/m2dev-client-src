@@ -66,10 +66,10 @@ namespace UI
 
 	void CWindow::Clear()
 	{
-		// FIXME : ChildrenÀ» Áï½Ã DeleteÇÏÁö´Â ¾Ê´Â´Ù.
-		//         ¾îÂ÷ÇÇ PythonÂÊ¿¡¼­ Destroy°¡ ÇÏ³ª¾¿ ´Ù½Ã È£Ãâ µÉ °ÍÀÌ¹Ç·Î..
-		//         ÇÏÁö¸¸ ¸¸¾àÀ» À§ÇØ ¸µÅ©´Â ²÷¾î ³õ´Â´Ù.
-		//         ´õ ÁÁÀº ÇüÅÂ´Â ÀÖ´Â°¡? - [levites]
+		// FIXME : Childrenì„ ì¦‰ì‹œ Deleteí•˜ì§€ëŠ” ì•ŠëŠ”ë‹¤.
+		//         ì–´ì°¨í”¼ Pythonìª½ì—ì„œ Destroyê°€ í•˜ë‚˜ì”© ë‹¤ì‹œ í˜¸ì¶œ ë  ê²ƒì´ë¯€ë¡œ..
+		//         í•˜ì§€ë§Œ ë§Œì•½ì„ ìœ„í•´ ë§í¬ëŠ” ëŠì–´ ë†“ëŠ”ë‹¤.
+		//         ë” ì¢‹ì€ í˜•íƒœëŠ” ìˆëŠ”ê°€? - [levites]
 		std::for_each(m_pChildList.begin(), m_pChildList.end(), FClear());
 		m_pChildList.clear();
 
@@ -93,8 +93,8 @@ namespace UI
 		m_bShow = false;
 	}
 
-	// NOTE : IsShow´Â "ÀÚ½ÅÀÌ º¸ÀÌ´Â°¡?" ÀÌÁö¸¸, __IsShowingÀº "ÀÚ½ÅÀÌ ±×·ÁÁö°í ÀÖ´Â°¡?" ¸¦ Ã¼Å©ÇÑ´Ù
-	//        ÀÚ½ÅÀº Show Áö¸¸ Tree À§ÂÊÀÇ Parent Áß ÇÏ³ª´Â Hide ÀÏ ¼ö ÀÖÀ¸¹Ç·Î.. - [levites]
+	// NOTE : IsShowëŠ” "ìì‹ ì´ ë³´ì´ëŠ”ê°€?" ì´ì§€ë§Œ, __IsShowingì€ "ìì‹ ì´ ê·¸ë ¤ì§€ê³  ìˆëŠ”ê°€?" ë¥¼ ì²´í¬í•œë‹¤
+	//        ìì‹ ì€ Show ì§€ë§Œ Tree ìœ„ìª½ì˜ Parent ì¤‘ í•˜ë‚˜ëŠ” Hide ì¼ ìˆ˜ ìˆìœ¼ë¯€ë¡œ.. - [levites]
 	bool CWindow::IsRendering()
 	{
 		if (!IsShow())
@@ -577,7 +577,7 @@ namespace UI
 	BOOL CWindow::OnMouseLeftButtonUp()
 	{
 		PyCallClassMemberFunc(m_poHandler, "OnMouseLeftButtonUp", BuildEmptyTuple());
-		return TRUE; // NOTE : ButtonUpÀº ¿¹¿Ü·Î ¹«Á¶°Ç TRUE
+		return TRUE; // NOTE : ButtonUpì€ ì˜ˆì™¸ë¡œ ë¬´ì¡°ê±´ TRUE
 	}
 
 	BOOL CWindow::OnMouseLeftButtonDoubleClick()
@@ -1291,7 +1291,7 @@ namespace UI
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	// MarkBox - ¸¶Å© Ãâ·Â¿ë UI À©µµ¿ì
+	// MarkBox - ë§ˆí¬ ì¶œë ¥ìš© UI ìœˆë„ìš°
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	CMarkBox::CMarkBox(PyObject * ppyObject) : CWindow(ppyObject)
 	{

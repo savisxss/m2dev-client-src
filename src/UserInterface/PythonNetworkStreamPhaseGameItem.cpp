@@ -772,8 +772,8 @@ bool CPythonNetworkStream::RecvSpecialEffect()
 		return false;
 
 	DWORD effect = -1;
-	bool bPlayPotionSound = false;	//Æ÷¼ÇÀ» ¸ÔÀ» °æ¿ì´Â Æ÷¼Ç »ç¿îµå¸¦ Ãâ·ÂÇÏÀÚ.!!
-	bool bAttachEffect = true;		//Ä³¸®ÅÍ¿¡ ºÙ´Â ¾îÅÂÄ¡ ÀÌÆåÆ®¿Í ÀÏ¹İ ÀÌÆåÆ® ±¸ºĞ.!!
+	bool bPlayPotionSound = false;	//í¬ì…˜ì„ ë¨¹ì„ ê²½ìš°ëŠ” í¬ì…˜ ì‚¬ìš´ë“œë¥¼ ì¶œë ¥í•˜ì.!!
+	bool bAttachEffect = true;		//ìºë¦¬í„°ì— ë¶™ëŠ” ì–´íƒœì¹˜ ì´í™íŠ¸ì™€ ì¼ë°˜ ì´í™íŠ¸ êµ¬ë¶„.!!
 	switch (kSpecialEffect.type)
 	{
 		case SE_HPUP_RED:
@@ -823,11 +823,11 @@ bool CPythonNetworkStream::RecvSpecialEffect()
 			effect = CInstanceBase::EFFECT_FR_SUCCESS;
 			bAttachEffect = false ;
 			break;
-		case SE_LEVELUP_ON_14_FOR_GERMANY:	//·¹º§¾÷ 14ÀÏ¶§ ( µ¶ÀÏÀü¿ë )
+		case SE_LEVELUP_ON_14_FOR_GERMANY:	//ë ˆë²¨ì—… 14ì¼ë•Œ ( ë…ì¼ì „ìš© )
 			effect = CInstanceBase::EFFECT_LEVELUP_ON_14_FOR_GERMANY;
 			bAttachEffect = false ;
 			break;
-		case SE_LEVELUP_UNDER_15_FOR_GERMANY: //·¹º§¾÷ 15ÀÏ¶§ ( µ¶ÀÏÀü¿ë )
+		case SE_LEVELUP_UNDER_15_FOR_GERMANY: //ë ˆë²¨ì—… 15ì¼ë•Œ ( ë…ì¼ì „ìš© )
 			effect = CInstanceBase::EFFECT_LEVELUP_UNDER_15_FOR_GERMANY;
 			bAttachEffect = false ;
 			break;
@@ -861,7 +861,7 @@ bool CPythonNetworkStream::RecvSpecialEffect()
 
 		
 		default:
-			TraceError("%d ´Â ¾ø´Â ½ºÆä¼È ÀÌÆåÆ® ¹øÈ£ÀÔ´Ï´Ù.TPacketGCSpecialEffect",kSpecialEffect.type);
+			TraceError("%d ëŠ” ì—†ëŠ” ìŠ¤í˜ì…œ ì´í™íŠ¸ ë²ˆí˜¸ì…ë‹ˆë‹¤.TPacketGCSpecialEffect",kSpecialEffect.type);
 			break;
 	}
 

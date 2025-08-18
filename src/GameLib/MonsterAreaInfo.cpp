@@ -126,12 +126,12 @@ void CMonsterAreaInfo::RemoveAllMonsters()
 
 	SetMonsterGroupID(0);
 	
-	m_strGroupName.assign("ÀÌ¸§¾øÀ½");
-	m_strLeaderName.assign("ÀÌ¸§¾øÀ½");
+	m_strGroupName.assign("ì´ë¦„ì—†ìŒ");
+	m_strLeaderName.assign("ì´ë¦„ì—†ìŒ");
 	SetMonsterGroupFollowerCount(0);
 	
 	SetMonsterVID(0);
-	m_strMonsterName.assign("ÀÌ¸§¾øÀ½");
+	m_strMonsterName.assign("ì´ë¦„ì—†ìŒ");
 
 	SetMonsterCount(0);
 	SetMonsterDirection(DIR_NORTH);

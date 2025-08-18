@@ -42,15 +42,15 @@ protected:
 	D3DXPLANE		m_v4FrontPlane;
 	D3DXPLANE		m_v4BackPlane;
 
-	// °³¼ö
+	// ê°œìˆ˜
 	DWORD			m_dwVertexCount;
 	DWORD			m_dwPrimitiveCount;
 
-	// ¹öÅÃ½º ¹öÆÛ¿Í ÀÎ´ì½º ¹öÆÛ
+	// ë²„íƒìŠ¤ ë²„í¼ì™€ ì¸ëŒìŠ¤ ë²„í¼
 //	CGraphicVertexBuffer	m_GraphicVertexBuffer;
 //	CGraphicIndexBuffer		m_GraphicIndexBuffer;
 
-	// ¹öÅÃ½º ¹öÆÛ¿Í ÀÎ´ì½º ¹öÆÛ ´ë½Å¿¡ ¹è¿­ ¸¸µé°í DrawIndexedPrimitiveUP·Î ±×¸®ÀÚ.
+	// ë²„íƒìŠ¤ ë²„í¼ì™€ ì¸ëŒìŠ¤ ë²„í¼ ëŒ€ì‹ ì— ë°°ì—´ ë§Œë“¤ê³  DrawIndexedPrimitiveUPë¡œ ê·¸ë¦¬ì.
 	typedef struct 
 	{
 		WORD			m_wMinIndex;

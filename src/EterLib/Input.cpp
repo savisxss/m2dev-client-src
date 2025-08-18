@@ -72,7 +72,7 @@ bool CInputKeyboard::InitializeKeyboard(HWND hWnd)
 	if (FAILED(hr = ms_lpKeyboard->SetDataFormat(&c_dfDIKeyboard)))
 		return false;
 
-// Alt + F4¸¦ À§ÇØ ºñµ¶Á¡ ¸ðµå·Î - [levites]
+// Alt + F4ë¥¼ ìœ„í•´ ë¹„ë…ì  ëª¨ë“œë¡œ - [levites]
 //	DWORD dwCoopFlags = DISCL_FOREGROUND | DISCL_EXCLUSIVE;
 //	DWORD dwCoopFlags = DISCL_NONEXCLUSIVE | DISCL_BACKGROUND;
 	DWORD dwCoopFlags = DISCL_FOREGROUND | DISCL_NONEXCLUSIVE;
@@ -99,7 +99,7 @@ void CInputKeyboard::UpdateKeyboard()
 	{
 		hr = ms_lpKeyboard->Acquire();			
 		
-		// ÇöÀç ¾îÇÃ¸®ÄÉÀÌ¼ÇÀÌ ºñÈ°¼ºÈ­ µÇ¾î ÀÖ¾î ÀÔ·ÂÀ» ¹ÞÀ» ¼ö ¾ø´Ù.
+		// í˜„ìž¬ ì–´í”Œë¦¬ì¼€ì´ì…˜ì´ ë¹„í™œì„±í™” ë˜ì–´ ìžˆì–´ ìž…ë ¥ì„ ë°›ì„ ìˆ˜ ì—†ë‹¤.
 		//if (hr == DIERR_OTHERAPPHASPRIO || hr == DIERR_NOTACQUIRED);
 		return;
 	}

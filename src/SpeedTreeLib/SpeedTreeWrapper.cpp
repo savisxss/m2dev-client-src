@@ -103,7 +103,7 @@ void CSpeedTreeWrapper::OnRenderPCBlocker()
 	
 	CSpeedTreeForestDirectX8::Instance().UpdateSystem(ELTimer_GetMSec() / 1000.0f);
 	
-	// ÇÏ³ª¸¸ ·»´õ¸µ ÇÒ ¶§´Â LOD »ç¿ëÇÏÁö ¾ÊÀ½
+	// í•˜ë‚˜ë§Œ ë Œë”ë§ í•  ë•ŒëŠ” LOD ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
 	m_pSpeedTree->SetLodLevel(1.0f);
 	//Advance();
 	
@@ -250,7 +250,7 @@ void CSpeedTreeWrapper::OnRender()
 	
 	CSpeedTreeForestDirectX8::Instance().UpdateSystem(ELTimer_GetMSec() / 1000.0f);
 	
-	// ÇÏ³ª¸¸ ·»´õ¸µ ÇÒ ¶§´Â LOD »ç¿ëÇÏÁö ¾ÊÀ½
+	// í•˜ë‚˜ë§Œ ë Œë”ë§ í•  ë•ŒëŠ” LOD ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
 	m_pSpeedTree->SetLodLevel(1.0f);
 	//Advance();
 	

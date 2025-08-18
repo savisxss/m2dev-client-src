@@ -51,7 +51,7 @@ void __GetRaceResourcePathes(unsigned race, std::vector <std::string>& vec_stPat
 			vec_stPathes.push_back ("d:/ymir work/guild/");
 		}
 	}
-	// ¸¸¿ìÀı ÀÌº¥Æ®¿ë ¿¹¿Ü ¸ó½ºÅÍ
+	// ë§Œìš°ì ˆ ì´ë²¤íŠ¸ìš© ì˜ˆì™¸ ëª¬ìŠ¤í„°
 	else if (8507 == race || 8510 == race)
 	{
 		vec_stPathes.push_back ("d:/ymir work/monster2/");
@@ -273,8 +273,8 @@ bool CRaceManager::__LoadRaceMotionList(CRaceData& rkRaceData, const char* pathN
 
 		if (s_kMap_stType_dwIndex.end() == fTypeIndex)
 		{
-			// ¸ğ¼Ç ¸ñ·Ï¿¡ WAIT, WAIT4, WAIT20  ÀÌ·± ½ÄÀ¸·Î µî·ÏµÇ¾î ÀÖÀ» ¶§,
-			// WAIT4, WAIT20À» WAIT·Î ÀÎ½ÄÇÒ ¼ö ÀÖµµ·Ï Ã³¸®
+			// ëª¨ì…˜ ëª©ë¡ì— WAIT, WAIT4, WAIT20  ì´ëŸ° ì‹ìœ¼ë¡œ ë“±ë¡ë˜ì–´ ìˆì„ ë•Œ,
+			// WAIT4, WAIT20ì„ WAITë¡œ ì¸ì‹í•  ìˆ˜ ìˆë„ë¡ ì²˜ë¦¬
 			const size_t c_cutLengthLimit = 2;
 			bool bFound = false;
 

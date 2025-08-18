@@ -116,7 +116,7 @@ void CGraphicExpandedImageInstance::OnRender()
 			break;
 	}
 
-	// 2004.11.18.myevan.ctrl+alt+del ¹Ýº¹ »ç¿ë½Ã Æ¨±â´Â ¹®Á¦ 	
+	// 2004.11.18.myevan.ctrl+alt+del ë°˜ë³µ ì‚¬ìš©ì‹œ íŠ•ê¸°ëŠ” ë¬¸ì œ 	
 	if (CGraphicBase::SetPDTStream(vertices, 4))
 	{
 		CGraphicBase::SetDefaultIndexBuffer(CGraphicBase::DEFAULT_IB_FILL_RECT);

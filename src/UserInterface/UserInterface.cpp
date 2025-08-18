@@ -195,20 +195,20 @@ bool PackInitialize(const char * c_pszFolder)
 	}
 
 #ifdef _DISTRIBUTE
-	Tracef("¾Ë¸²: ÆÑ ¸ğµåÀÔ´Ï´Ù.\n");
+	Tracef("ì•Œë¦¼: íŒ© ëª¨ë“œì…ë‹ˆë‹¤.\n");
 	
 	//if (0 == strPackType.compare("FILE"))
 	//{
 	//	bPackFirst = FALSE;
-	//	Tracef("¾Ë¸²: ÆÄÀÏ ¸ğµåÀÔ´Ï´Ù.\n");
+	//	Tracef("ì•Œë¦¼: íŒŒì¼ ëª¨ë“œì…ë‹ˆë‹¤.\n");
 	//}
 	//else
 	//{
-	//	Tracef("¾Ë¸²: ÆÑ ¸ğµåÀÔ´Ï´Ù.\n");
+	//	Tracef("ì•Œë¦¼: íŒ© ëª¨ë“œì…ë‹ˆë‹¤.\n");
 	//}
 #else
 	bPackFirst = FALSE;
-	Tracef("¾Ë¸²: ÆÄÀÏ ¸ğµåÀÔ´Ï´Ù.\n");
+	Tracef("ì•Œë¦¼: íŒŒì¼ ëª¨ë“œì…ë‹ˆë‹¤.\n");
 #endif
 
 	CTextFileLoader::SetCacheMode();
@@ -218,7 +218,7 @@ bool PackInitialize(const char * c_pszFolder)
 	CEterPackManager::Instance().SetCacheMode();
 	CEterPackManager::Instance().SetSearchMode(bPackFirst);
 
-	CSoundData::SetPackMode(); // Miles ÆÄÀÏ Äİ¹éÀ» ¼ÂÆÃ
+	CSoundData::SetPackMode(); // Miles íŒŒì¼ ì½œë°±ì„ ì…‹íŒ…
 
 	std::string strPackName, strTexCachePackName;
 	for (DWORD i = 1; i < TextLoader.GetLineCount() - 1; i += 2)
@@ -309,7 +309,7 @@ bool RunMainScript(CPythonLauncher& pyLauncher, const char* lpCmdLine)
 		SplitLine(lpCmdLine,seperator,&stVec);
 		if (CmdSize == stVec.size() && stVec[0]==loginMark)
 		{
-			char buf[MAX_PATH];	//TODO ¾Æ·¡ ÇÔ¼ö string ÇüÅÂ·Î ¼öÁ¤
+			char buf[MAX_PATH];	//TODO ì•„ë˜ í•¨ìˆ˜ string í˜•íƒœë¡œ ìˆ˜ì •
 			base64_decode(stVec[2].c_str(),buf);
 			stVec[2] = buf;
 			string_join(seperator,stVec,&stCmdLine);
@@ -422,12 +422,12 @@ bool Main(HINSTANCE hInstance, LPSTR lpCmdLine)
 
 		if (pyLauncher.Create())
 		{
-			ret=RunMainScript(pyLauncher, lpCmdLine);	//°ÔÀÓ ½ÇÇàÁß¿£ ÇÔ¼ö°¡ ³¡³ªÁö ¾Ê´Â´Ù.
+			ret=RunMainScript(pyLauncher, lpCmdLine);	//ê²Œì„ ì‹¤í–‰ì¤‘ì—” í•¨ìˆ˜ê°€ ëë‚˜ì§€ ì•ŠëŠ”ë‹¤.
 		}
 
 		//ProcessScanner_ReleaseQuitEvent();
 		
-		//°ÔÀÓ Á¾·á½Ã.
+		//ê²Œì„ ì¢…ë£Œì‹œ.
 		app->Clear();
 
 		timeEndPeriod(1);
@@ -498,14 +498,14 @@ bool __IsLocaleVersion(LPSTR lpCmdLine)
 }
 
 #ifdef USE_OPENID
-//2012.07.16 ±è¿ë¿í
-//ÀÏº» OpenID Áö¿ø. ÀÎÁõÅ° ÀÎÀÚ Ãß°¡
+//2012.07.16 ê¹€ìš©ìš±
+//ì¼ë³¸ OpenID ì§€ì›. ì¸ì¦í‚¤ ì¸ì ì¶”ê°€
 bool __IsOpenIDAuthKeyOption(LPSTR lpCmdLine)
 {
 	return (strcmp(lpCmdLine, "--openid-authkey") == 0);
 }
 
-bool __IsOpenIDTestOption(LPSTR lpCmdLine) //Å¬¶óÀÌ¾ğÆ®¿¡¼­ ·Î±×ÀÎÀÌ °¡´ÉÇÏ´Ù.
+bool __IsOpenIDTestOption(LPSTR lpCmdLine) //í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë¡œê·¸ì¸ì´ ê°€ëŠ¥í•˜ë‹¤.
 {
 	return (strcmp(lpCmdLine, "--openid-test") == 0);
 }
@@ -547,14 +547,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 #endif
 
 	bool bQuit = false;
-	bool bAuthKeyChecked = false;	//OpenID ¹öÀü¿¡¼­ ÀÎÁõÅ°°¡ µé¾î¿Ô´ÂÁö ¾Ë±â À§ÇÑ ÀÎÀÚ.
+	bool bAuthKeyChecked = false;	//OpenID ë²„ì „ì—ì„œ ì¸ì¦í‚¤ê°€ ë“¤ì–´ì™”ëŠ”ì§€ ì•Œê¸° ìœ„í•œ ì¸ì.
 	int nArgc = 0;
 	PCHAR* szArgv = CommandLineToArgv( lpCmdLine, &nArgc );
 
 	for( int i=0; i < nArgc; i++ ) {
 		if(szArgv[i] == 0)
 			continue;
-		if (__IsLocaleVersion(szArgv[i])) // #0000829: [M2EU] ¹öÀü ÆÄÀÏÀÌ Ç×»ó »ı±âÁö ¾Êµµ·Ï ¼öÁ¤ 
+		if (__IsLocaleVersion(szArgv[i])) // #0000829: [M2EU] ë²„ì „ íŒŒì¼ì´ í•­ìƒ ìƒê¸°ì§€ ì•Šë„ë¡ ìˆ˜ì • 
 		{
 			char szModuleName[MAX_PATH];
 			char szVersionPath[MAX_PATH];
@@ -581,7 +581,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			bQuit = true;
 		} else if ((strcmp(szArgv[i], "--force-set-locale") == 0))
 		{
-			// locale ¼³Á¤¿£ ÀÎÀÚ°¡ µÎ °³ ´õ ÇÊ¿äÇÔ (·ÎÄÉÀÏ ¸íÄª, µ¥ÀÌÅÍ °æ·Î)
+			// locale ì„¤ì •ì—” ì¸ìê°€ ë‘ ê°œ ë” í•„ìš”í•¨ (ë¡œì¼€ì¼ ëª…ì¹­, ë°ì´í„° ê²½ë¡œ)
 			if (nArgc <= i + 2)
 			{
 				MessageBox(NULL, "Invalid arguments", ApplicationStringTable_GetStringz(IDS_APP_NAME, "APP_NAME"), MB_ICONSTOP);
@@ -594,9 +594,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			LocaleService_ForceSetLocale(localeName, localePath);
 		}
 #ifdef USE_OPENID
-		else if (__IsOpenIDAuthKeyOption(szArgv[i]))	//2012.07.16 OpenID : ±è¿ë¿í
+		else if (__IsOpenIDAuthKeyOption(szArgv[i]))	//2012.07.16 OpenID : ê¹€ìš©ìš±
 		{
-			// ÀÎÁõÅ° ¼³Á¤¿£ ÀÎÀÚ°¡ ÇÑ °³ ´õ ÇÊ¿äÇÔ (ÀÎÁõÅ°)
+			// ì¸ì¦í‚¤ ì„¤ì •ì—” ì¸ìê°€ í•œ ê°œ ë” í•„ìš”í•¨ (ì¸ì¦í‚¤)
 			if (nArgc <= i + 1)
 			{
 				MessageBox(NULL, "Invalid arguments", ApplicationStringTable_GetStringz(IDS_APP_NAME, "APP_NAME"), MB_ICONSTOP);
@@ -606,7 +606,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			const char* authKey = szArgv[++i];
 
 			//ongoing (2012.07.16)
-			//ÀÎÁõÅ° ÀúÀåÇÏ´Â ºÎºĞ
+			//ì¸ì¦í‚¤ ì €ì¥í•˜ëŠ” ë¶€ë¶„
 			LocaleService_SetOpenIDAuthKey(authKey);
 
 			bAuthKeyChecked = true;
@@ -621,7 +621,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 #ifdef USE_OPENID
 	//OpenID
-	//OpenID Å¬¶óÀÌ¾ğÆ®ÀÇ °æ¿ìÀÎÁõÅ°¸¦ ¹Ş¾Æ¿ÀÁö ¾ÊÀ» °æ¿ì (À¥À» Á¦¿ÜÇÏ°í ½ÇÇà ½Ã) Å¬¶óÀÌ¾ğÆ® Á¾·á.
+	//OpenID í´ë¼ì´ì–¸íŠ¸ì˜ ê²½ìš°ì¸ì¦í‚¤ë¥¼ ë°›ì•„ì˜¤ì§€ ì•Šì„ ê²½ìš° (ì›¹ì„ ì œì™¸í•˜ê³  ì‹¤í–‰ ì‹œ) í´ë¼ì´ì–¸íŠ¸ ì¢…ë£Œ.
 	
 	if (false == bAuthKeyChecked && !openid_test)
 	{
@@ -635,7 +635,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		goto Clean;
 
 #if defined(NEEDED_COMMAND_ARGUMENT)
-	// ¿É¼ÇÀÌ ¾øÀ¸¸é ºñÁ¤»ó ½ÇÇàÀ¸·Î °£ÁÖ, ÇÁ·Î±×·¥ Á¾·á
+	// ì˜µì…˜ì´ ì—†ìœ¼ë©´ ë¹„ì •ìƒ ì‹¤í–‰ìœ¼ë¡œ ê°„ì£¼, í”„ë¡œê·¸ë¨ ì¢…ë£Œ
 	if (strstr(lpCmdLine, NEEDED_COMMAND_ARGUMENT) == 0) {
 		MessageBox(NULL, ApplicationStringTable_GetStringz(IDS_ERR_MUST_LAUNCH_FROM_PATCHER, "ERR_MUST_LAUNCH_FROM_PATCHER"), ApplicationStringTable_GetStringz(IDS_APP_NAME, "APP_NAME"), MB_ICONSTOP);
 			goto Clean;
@@ -702,7 +702,7 @@ static void GrannyError(granny_log_message_type Type,
 int Setup(LPSTR lpCmdLine)
 {
 	/* 
-	 *	Å¸ÀÌ¸Ó Á¤¹Ğµµ¸¦ ¿Ã¸°´Ù.
+	 *	íƒ€ì´ë¨¸ ì •ë°€ë„ë¥¼ ì˜¬ë¦°ë‹¤.
 	 */
 	TIMECAPS tc; 
 	UINT wTimerRes; 
@@ -714,7 +714,7 @@ int Setup(LPSTR lpCmdLine)
 	timeBeginPeriod(wTimerRes); 
 
 	/*
-	 *	±×·¡´Ï ¿¡·¯ ÇÚµé¸µ
+	 *	ê·¸ë˜ë‹ˆ ì—ëŸ¬ í•¸ë“¤ë§
 	 */
 
 	granny_log_callback Callback;

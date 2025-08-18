@@ -57,7 +57,7 @@ bool CMapBase::LoadProperty()
 	
 	if (!LoadMultipleTextData(strFileName.c_str(), stTokenVectorMap))
 	{
-		TraceError("CMapBase::LoadProperty(FileName=%s) - LoadMultipleTextData ERROR ÆÄÀÏÀÌ ¾øÀ» °¡´É¼ºÀÌ ¸¹½À´Ï´Ù.", strFileName.c_str());
+		TraceError("CMapBase::LoadProperty(FileName=%s) - LoadMultipleTextData ERROR íŒŒì¼ì´ ì—†ì„ ê°€ëŠ¥ì„±ì´ ë§ìŠµë‹ˆë‹¤.", strFileName.c_str());
 		return false;
 	}
 
@@ -73,9 +73,9 @@ bool CMapBase::LoadProperty()
 		return false;
 	}
 
-	// NOTE: ÀÌ¹Ì Á¸ÀçÇÏ´Â ¸Ê µ¥ÀÌÅÍ¿Í µ¿ÀÏÇÑ µ¥ÀÌÅÍ¸¦ »ç¿ëÇÏ´Â ¸ÊÀ» »õ·Î Ãß°¡ÇÒ ¶§, ¸Ê ¹èÆ÷ ¿ë·®À» ÁÙÀÌ±â À§ÇÑ ÀÛ¾÷.
-	// MapProperty.txt ÆÄÀÏ¿¡ ParentMapName °ªÀÌ ¼³Á¤µÇ¾î ÀÖ´Ù¸é, ½ÇÁ¦ ¸ğµç µ¥ÀÌÅÍ´Â ParentMap¿¡¼­ ÀĞ¾î¿Â´Ù.
-	// µ¥ÀÌÅÍÀÇ ºÎºĞ°øÀ¯(ºÎºĞ ¿À¹ö¶óÀÌÆ®?) ±â´ÉÀº ÇÊ¿ä ¾ø´ë¼­, Parent Map¿¡¼­ ¸ğµç µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿È.
+	// NOTE: ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë§µ ë°ì´í„°ì™€ ë™ì¼í•œ ë°ì´í„°ë¥¼ ì‚¬ìš©í•˜ëŠ” ë§µì„ ìƒˆë¡œ ì¶”ê°€í•  ë•Œ, ë§µ ë°°í¬ ìš©ëŸ‰ì„ ì¤„ì´ê¸° ìœ„í•œ ì‘ì—….
+	// MapProperty.txt íŒŒì¼ì— ParentMapName ê°’ì´ ì„¤ì •ë˜ì–´ ìˆë‹¤ë©´, ì‹¤ì œ ëª¨ë“  ë°ì´í„°ëŠ” ParentMapì—ì„œ ì½ì–´ì˜¨ë‹¤.
+	// ë°ì´í„°ì˜ ë¶€ë¶„ê³µìœ (ë¶€ë¶„ ì˜¤ë²„ë¼ì´íŠ¸?) ê¸°ëŠ¥ì€ í•„ìš” ì—†ëŒ€ì„œ, Parent Mapì—ì„œ ëª¨ë“  ë°ì´í„°ë¥¼ ì½ì–´ì˜´.
 	if (stTokenVectorMap.end() != stTokenVectorMap.find("parentmapname"))
 	{
 		m_strParentMapName = stTokenVectorMap["parentmapname"][0];

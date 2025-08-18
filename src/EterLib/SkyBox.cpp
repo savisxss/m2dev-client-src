@@ -272,7 +272,7 @@ void CSkyBox::SetCloudTexture(const char * c_szFileName)
 	CGraphicImageInstance * pGraphicImageInstance = GenerateTexture(c_szFileName);
 	m_GraphicImageInstanceMap.insert(TGraphicImageInstanceMap::value_type(m_FaceCloud.m_strfacename, pGraphicImageInstance));
 
-	// ÀÌ°Å ¾È¾²´Â°Å °°Àºµ¥¿ä? [cronan]
+	// ì´ê±° ì•ˆì“°ëŠ”ê±° ê°™ì€ë°ìš”? [cronan]
 //	CGraphicImage * pImage = (CGraphicImage *) CResourceManager::Instance().GetResourcePointer("D:\\Ymir Work\\special/cloudalpha.tga");
 //	m_CloudAlphaImageInstance.SetImagePointer(pImage);
 }
@@ -803,7 +803,7 @@ void CSkyBox::Update()
 
 void CSkyBox::Render()
 {
-	// 2004.01.25 myevan Ã³¸®¸¦ ·»´õ¸µ ÈÄ¹İÀ¸·Î ¿Å±â°í, DepthTest Ã³¸®
+	// 2004.01.25 myevan ì²˜ë¦¬ë¥¼ ë Œë”ë§ í›„ë°˜ìœ¼ë¡œ ì˜®ê¸°ê³ , DepthTest ì²˜ë¦¬
 	STATEMANAGER.SaveRenderState(D3DRS_ZENABLE,	TRUE);
 	STATEMANAGER.SaveRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	STATEMANAGER.SaveRenderState(D3DRS_LIGHTING, FALSE);
@@ -872,7 +872,7 @@ void CSkyBox::RenderCloud()
 	if (!pCloudGraphicImageInstance)
 		return;
 
-	// 2004.01.25 myevan Ã³¸®¸¦ ·»´õ¸µ ÈÄ¹İÀ¸·Î ¿Å±â°í, DepthTest Ã³¸®
+	// 2004.01.25 myevan ì²˜ë¦¬ë¥¼ ë Œë”ë§ í›„ë°˜ìœ¼ë¡œ ì˜®ê¸°ê³ , DepthTest ì²˜ë¦¬
 	STATEMANAGER.SaveRenderState(D3DRS_ZENABLE,	TRUE);
 	STATEMANAGER.SaveRenderState(D3DRS_ZWRITEENABLE, FALSE);
 	STATEMANAGER.SaveRenderState(D3DRS_LIGHTING, FALSE);	

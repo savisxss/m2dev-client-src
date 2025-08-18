@@ -401,7 +401,7 @@ bool CGuildMarkUploader::__LoginState_RecvKeyAgreement()
 	size_t agreedLength = Prepare(packetToSend.data, &dataLength);
 	if (agreedLength == 0)
 	{
-		// ÃÊ±âÈ­ ½ÇÆĞ
+		// ì´ˆê¸°í™” ì‹¤íŒ¨
 		Disconnect();
 		return false;
 	}
@@ -409,7 +409,7 @@ bool CGuildMarkUploader::__LoginState_RecvKeyAgreement()
 
 	if (Activate(packet.wAgreedLength, packet.data, packet.wDataLength))
 	{
-		// Key agreement ¼º°ø, ÀÀ´ä Àü¼Û
+		// Key agreement ì„±ê³µ, ì‘ë‹µ ì „ì†¡
 		packetToSend.bHeader = HEADER_CG_KEY_AGREEMENT;
 		packetToSend.wAgreedLength = (WORD)agreedLength;
 		packetToSend.wDataLength = (WORD)dataLength;
@@ -423,7 +423,7 @@ bool CGuildMarkUploader::__LoginState_RecvKeyAgreement()
 	}
 	else
 	{
-		// Å° Çù»ó ½ÇÆĞ
+		// í‚¤ í˜‘ìƒ ì‹¤íŒ¨
 		Disconnect();
 		return false;
 	}

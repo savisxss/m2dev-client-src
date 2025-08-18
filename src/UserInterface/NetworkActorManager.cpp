@@ -273,7 +273,7 @@ bool CNetworkActorManager::__IsVisibleActor(const SNetworkActorData& c_rkNetActo
 	if (__IsMainActorVID(c_rkNetActorData.m_dwVID))
 		return true;
 
-	// 2004.08.02.myevan.Ç×»ó º¸ÀÌ±â ÇÃ·¡±×
+	// 2004.08.02.myevan.í•­ìƒ ë³´ì´ê¸° í”Œë˜ê·¸
 	if (c_rkNetActorData.m_kAffectFlags.IsSet(CInstanceBase::AFFECT_SHOW_ALWAYS))
 		return true;
 
@@ -293,7 +293,7 @@ bool CNetworkActorManager::__IsVisiblePos(LONG lPosX, LONG lPosY)
 	LONG len = (LONG)sqrt(double(dx * dx + dy * dy));
 
 	extern int CHAR_STAGE_VIEW_BOUND;
-	if (len < CHAR_STAGE_VIEW_BOUND) // °Å¸®Á¦ÇÑ cm
+	if (len < CHAR_STAGE_VIEW_BOUND) // ê±°ë¦¬ì œí•œ cm
 		return true;
 
 	return false;

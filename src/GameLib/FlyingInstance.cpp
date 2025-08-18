@@ -111,7 +111,7 @@ void CFlyingInstance::__SetTargetDirection(const CFlyTarget& c_rkTarget)
 {
 	D3DXVECTOR3 v3TargetPos=c_rkTarget.GetFlyTargetPosition();
 
-	// ÀÓ½Ã ÄÚµå
+	// ì„ì‹œ ì½”ë“œ
 	if (m_pData->m_bMaintainParallel)
 	{
 		v3TargetPos.z += 50.0f;
@@ -131,7 +131,7 @@ void CFlyingInstance::__SetTargetNormalizedDirection(const D3DXVECTOR3 & v3Nomal
 	Vec3TransformQuaternion(&m_v3Accel, &m_pData->m_v3Accel, &m_qRot);
 }
 
-// 2004. 3. 26. myevan. ±â´ÉÀ» ¸ô¶ó ÀÏ´Ü ÁÖ¼® Ã³¸®. ÀûÀıÇÑ ³×ÀÌ¹ÖÀÌ ÇÊ¿ä. °ÔÀÓ¿¡¼­ »ç¿ëÇÏÁö ¾Ê´Â´Ù¸é Åø¿¡¼­ Åø Àü¿ëÀ¸·Î »ó¼Ó¹Ş¾Æ ¸¸µéµµ·Ï ÇÏÀÚ
+// 2004. 3. 26. myevan. ê¸°ëŠ¥ì„ ëª°ë¼ ì¼ë‹¨ ì£¼ì„ ì²˜ë¦¬. ì ì ˆí•œ ë„¤ì´ë°ì´ í•„ìš”. ê²Œì„ì—ì„œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ íˆ´ì—ì„œ íˆ´ ì „ìš©ìœ¼ë¡œ ìƒì†ë°›ì•„ ë§Œë“¤ë„ë¡ í•˜ì
 void CFlyingInstance::SetFlyTarget(const CFlyTarget & cr_Target)
 {
 	//m_pFlyTarget = pTarget;
@@ -463,7 +463,7 @@ bool CFlyingInstance::Update()
 
 	if (m_pData->m_bHitOnBackground)
 	{
-		// ÁöÇü Ãæµ¹
+		// ì§€í˜• ì¶©ëŒ
 
 		if (CFlyingManager::Instance().GetMapManagerPtr())
 		{
@@ -478,7 +478,7 @@ bool CFlyingInstance::Update()
 			}
 		}
 
-		// °Ç¹°+³ª¹« Ãæµ¹
+		// ê±´ë¬¼+ë‚˜ë¬´ ì¶©ëŒ
 
 		FCheckBackgroundDuringFlying kCheckBackgroundDuringFlying(v3LastPosition,m_v3Position);
 		rkCullingMgr.ForInRange(vecStart,fCollisionSphereRadius, &kCheckBackgroundDuringFlying);

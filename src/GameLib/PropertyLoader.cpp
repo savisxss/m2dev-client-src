@@ -33,10 +33,10 @@ DWORD CPropertyLoader::RegisterFile(const char * c_szPathName, const char * c_sz
 	stl_lowers(stExt);
 	stl_lowers(strFileName);
 
-	// ÆÐ½º¸¦ ¼Ò¹®ÀÚ·Î ¸¸µé°í \\ ´Â / ·Î ¹Ù²Û´Ù.
+	// íŒ¨ìŠ¤ë¥¼ ì†Œë¬¸ìžë¡œ ë§Œë“¤ê³  \\ ëŠ” / ë¡œ ë°”ê¾¼ë‹¤.
 	StringPath(strFileName);
 
-	// ¿¹¾àµÈ CRC Ã³¸® (Áö¿öÁø CRC)
+	// ì˜ˆì•½ëœ CRC ì²˜ë¦¬ (ì§€ì›Œì§„ CRC)
 	if (0 == strFileName.compare("property/reserve"))
 	{
 		m_pPropertyManager->LoadReservedCRC(strFileName.c_str());

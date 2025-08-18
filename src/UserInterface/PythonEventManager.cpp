@@ -145,7 +145,7 @@ int CPythonEventManager::RegisterEventSetFromString(const std::string& strScript
 	if (!pEventSet)
 		return -1;
 
-	// SCRIPT_PARSING_FAILURE_CLEAR_BUG ½ºÅ©¸³Æ® ÆÄ½Ì ½ÇÆĞ½Ã __ClearEventSetp ¿¡¼­ ¿¡·¯ ¹ß»ı
+	// SCRIPT_PARSING_FAILURE_CLEAR_BUG ìŠ¤í¬ë¦½íŠ¸ íŒŒì‹± ì‹¤íŒ¨ì‹œ __ClearEventSetp ì—ì„œ ì—ëŸ¬ ë°œìƒ
 	pEventSet->pCurrentTextLine = NULL;
 	// END_OF_SCRIPT_PARSING_FAILURE_CLEAR_BUG
 	
@@ -159,7 +159,7 @@ int CPythonEventManager::RegisterEventSetFromString(const std::string& strScript
 	pEventSet->poEventHandler = NULL;
 	__InitEventSet(*pEventSet);
 
-	// NOTE : ¸¸¾à ´Ü¼øÇÑ ½ºÅ©¸³Æ® ÀÌº¥Æ® ½ÇÇà Ä¿¸Çµå¶ó¸é ´Ù½Ã ¸¸µç´Ù.
+	// NOTE : ë§Œì•½ ë‹¨ìˆœí•œ ìŠ¤í¬ë¦½íŠ¸ ì´ë²¤íŠ¸ ì‹¤í–‰ ì»¤ë§¨ë“œë¼ë©´ ë‹¤ì‹œ ë§Œë“ ë‹¤.
 	script::TCmd ScriptCommand;
 	int pEventPosition;
 	int iEventType;
@@ -468,7 +468,7 @@ void CPythonEventManager::ProcessEventSet(TEventSet * pEventSet)
 
 		case EVENT_TYPE_WAIT:
 		{
-			//Ä³Æ½ÅÍ ¸¸µé±â Á¦±¹ ¼³¸íµî¿¡¼­ ¼³¸í ¹ØÀ¸·Î ÃÄÁö´Â ¹ö±× ¼öÁ¤/EVENT_TYPE_WAIT °ü·ÃÇØ¼­ Å×½ºÆ® ÇÊ¿ä.
+			//ìºí‹±í„° ë§Œë“¤ê¸° ì œêµ­ ì„¤ëª…ë“±ì—ì„œ ì„¤ëª… ë°‘ìœ¼ë¡œ ì³ì§€ëŠ” ë²„ê·¸ ìˆ˜ì •/EVENT_TYPE_WAIT ê´€ë ¨í•´ì„œ í…ŒìŠ¤íŠ¸ í•„ìš”.
 			pEventSet->iyLocal = 0;
 			pEventSet->isLock = true;
 			break;
@@ -584,8 +584,8 @@ void CPythonEventManager::ProcessEventSet(TEventSet * pEventSet)
 			int idx = atoi(GetArgument("idx", ScriptCommand.argList));
 			const char * name = GetArgument("name", ScriptCommand.argList);
 			
-			// Äù½ºÆ® UI ¸®´º¾óÀÌ µÇ¸é ÇØ°á µÇ¹Ç·Î ÀÏ´Ü ¿ëÈ¥¼®¸¸ ¶«»§ by chrislee
-			if (!strcmp(name, "Á¶°¢³­ ¿ëÈ¥¼®?....")) {
+			// í€˜ìŠ¤íŠ¸ UI ë¦¬ë‰´ì–¼ì´ ë˜ë©´ í•´ê²° ë˜ë¯€ë¡œ ì¼ë‹¨ ìš©í˜¼ì„ë§Œ ë•œë¹µ by chrislee
+			if (!strcmp(name, "ì¡°ê°ë‚œ ìš©í˜¼ì„?....")) {
 				PyCallClassMemberFunc(m_poInterface, "BINARY_RecvQuest", Py_BuildValue("(isss)", idx, name, "highlight", ""));
 			}
 			else {
@@ -1146,7 +1146,7 @@ void CPythonEventManager::SetLeftTimeString(const char * c_szString)
 }
 
 CPythonEventManager::CPythonEventManager()
-	: m_poInterface(0), m_strLeftTimeString("³²Àº ½Ã°£ : %dÃÊ")
+	: m_poInterface(0), m_strLeftTimeString("ë‚¨ì€ ì‹œê°„ : %dì´ˆ")
 {
 	EventTypeMap["LETTER"]=EVENT_TYPE_LETTER;
 	EventTypeMap["COLOR"]=EVENT_TYPE_COLOR;

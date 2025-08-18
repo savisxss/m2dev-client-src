@@ -169,7 +169,7 @@ UINT CGuildMarkDownloader::__GetPacketSize(UINT header)
 			return sizeof(TPacketGCMarkBlock);
 		case HEADER_GC_GUILD_SYMBOL_DATA:
 			return sizeof(TPacketGCGuildSymbolData);
-		case HEADER_GC_MARK_DIFF_DATA:	// »ç¿ëÇÏÁö ¾ÊÀ½
+		case HEADER_GC_MARK_DIFF_DATA:	// ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
 			return sizeof(BYTE);
 #ifdef _IMPROVED_PACKET_ENCRYPTION_
 		case HEADER_GC_KEY_AGREEMENT:
@@ -198,7 +198,7 @@ bool CGuildMarkDownloader::__DispatchPacket(UINT header)
 			return __LoginState_RecvMarkBlock();
 		case HEADER_GC_GUILD_SYMBOL_DATA:
 			return __LoginState_RecvSymbolData();
-		case HEADER_GC_MARK_DIFF_DATA: // »ç¿ëÇÏÁö ¾ÊÀ½
+		case HEADER_GC_MARK_DIFF_DATA: // ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
 			return true;
 #ifdef _IMPROVED_PACKET_ENCRYPTION_
 		case HEADER_GC_KEY_AGREEMENT:
@@ -321,11 +321,11 @@ bool CGuildMarkDownloader::__LoginState_RecvMarkIndex()
 		Recv(sizeof(WORD), &guildID);
 		Recv(sizeof(WORD), &markID);
 
-		// ±æµåID -> ¸¶Å©ID ÀÎµ¦½º µî·Ï
+		// ê¸¸ë“œID -> ë§ˆí¬ID ì¸ë±ìŠ¤ ë“±ë¡
 		CGuildMarkManager::Instance().AddMarkIDByGuildID(guildID, markID);
 	}
 
-	// ¸ğµç ¸¶Å© ÀÌ¹ÌÁö ÆÄÀÏÀ» ·ÎµåÇÑ´Ù. (ÆÄÀÏÀÌ ¾øÀ¸¸é ¸¸µé¾îÁü)
+	// ëª¨ë“  ë§ˆí¬ ì´ë¯¸ì§€ íŒŒì¼ì„ ë¡œë“œí•œë‹¤. (íŒŒì¼ì´ ì—†ìœ¼ë©´ ë§Œë“¤ì–´ì§)
 	CGuildMarkManager::Instance().LoadMarkImages();
 
 	m_currentRequestingImageIndex = 0;
@@ -380,17 +380,17 @@ bool CGuildMarkDownloader::__LoginState_RecvMarkBlock()
 		else
 		{
 			Recv(compSize, compBuf);
-			// ¾ĞÃàµÈ ÀÌ¹ÌÁö¸¦ ½ÇÁ¦·Î ÀúÀåÇÑ´Ù. CRCµî ¿©·¯°¡Áö Á¤º¸°¡ ÇÔ²² ºôµåµÈ´Ù.
+			// ì••ì¶•ëœ ì´ë¯¸ì§€ë¥¼ ì‹¤ì œë¡œ ì €ì¥í•œë‹¤. CRCë“± ì—¬ëŸ¬ê°€ì§€ ì •ë³´ê°€ í•¨ê»˜ ë¹Œë“œëœë‹¤.
 			CGuildMarkManager::Instance().SaveBlockFromCompressedData(kPacket.imgIdx, posBlock, (const uint8_t *) compBuf, compSize);
 		}
 	}
 
 	if (kPacket.count > 0)
 	{
-		// ¸¶Å© ÀÌ¹ÌÁö ÀúÀå
+		// ë§ˆí¬ ì´ë¯¸ì§€ ì €ì¥
 		CGuildMarkManager::Instance().SaveMarkImage(kPacket.imgIdx);
 
-		// ¸®¼Ò½º ¸®·Îµù (ÀçÁ¢¼ÓÀ» ¾ÈÇØµµ º»ÀÎ°ÍÀº Àß º¸ÀÌ°Ô ÇÔ)
+		// ë¦¬ì†ŒìŠ¤ ë¦¬ë¡œë”© (ì¬ì ‘ì†ì„ ì•ˆí•´ë„ ë³¸ì¸ê²ƒì€ ì˜ ë³´ì´ê²Œ í•¨)
 		std::string imagePath;
 
 		if (CGuildMarkManager::Instance().GetMarkImageFilename(kPacket.imgIdx, imagePath))
@@ -404,7 +404,7 @@ bool CGuildMarkDownloader::__LoginState_RecvMarkBlock()
 		}
 	}
 
-	// ´õ ¿äÃ»ÇÒ °ÍÀÌ ÀÖÀ¸¸é ¿äÃ»ÇÏ°í ¾Æ´Ï¸é ÀÌ¹ÌÁö¸¦ ÀúÀåÇÏ°í Á¾·á
+	// ë” ìš”ì²­í•  ê²ƒì´ ìˆìœ¼ë©´ ìš”ì²­í•˜ê³  ì•„ë‹ˆë©´ ì´ë¯¸ì§€ë¥¼ ì €ì¥í•˜ê³  ì¢…ë£Œ
 	if (m_currentRequestingImageIndex < CGuildMarkManager::Instance().GetMarkImageCount())
 		__SendMarkCRCList();
 	else
@@ -430,7 +430,7 @@ bool CGuildMarkDownloader::__LoginState_RecvKeyAgreement()
 	size_t agreedLength = Prepare(packetToSend.data, &dataLength);
 	if (agreedLength == 0)
 	{
-		// ÃÊ±âÈ­ ½ÇÆĞ
+		// ì´ˆê¸°í™” ì‹¤íŒ¨
 		Disconnect();
 		return false;
 	}
@@ -438,7 +438,7 @@ bool CGuildMarkDownloader::__LoginState_RecvKeyAgreement()
 
 	if (Activate(packet.wAgreedLength, packet.data, packet.wDataLength))
 	{
-		// Key agreement ¼º°ø, ÀÀ´ä Àü¼Û
+		// Key agreement ì„±ê³µ, ì‘ë‹µ ì „ì†¡
 		packetToSend.bHeader = HEADER_CG_KEY_AGREEMENT;
 		packetToSend.wAgreedLength = (WORD)agreedLength;
 		packetToSend.wDataLength = (WORD)dataLength;
@@ -452,7 +452,7 @@ bool CGuildMarkDownloader::__LoginState_RecvKeyAgreement()
 	}
 	else
 	{
-		// Å° Çù»ó ½ÇÆĞ
+		// í‚¤ í˜‘ìƒ ì‹¤íŒ¨
 		Disconnect();
 		return false;
 	}

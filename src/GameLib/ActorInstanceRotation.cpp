@@ -62,7 +62,7 @@ void CActorInstance::RotationProcess()
 		m_fcurRotation = m_rotEnd;
 	}
 
-	// FIXME : "∞«π∞¿œ∂ß∏∏ √º≈©"∑Œ πŸ≤€¥Ÿ. - [levites]
+	// FIXME : "Í±¥Î¨ºÏùºÎïåÎßå Ï≤¥ÌÅ¨"Î°ú Î∞îÍæºÎã§. - [levites]
 	if (0.0f != m_rotX || 0.0f != m_rotY)
 	{
 		CGraphicObjectInstance::SetRotation(m_rotX, m_rotY, m_fcurRotation);

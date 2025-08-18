@@ -1,6 +1,6 @@
 #pragma once
 
-// NOTE : ItemÀÇ ÅëÇÕ °ü¸® Å¬·¡½º´Ù.
+// NOTE : Itemì˜ í†µí•© ê´€ë¦¬ í´ëž˜ìŠ¤ë‹¤.
 //        Icon, Model (droped on ground), Game Data
 
 #include "../eterLib/GrpSubImage.h"
@@ -22,18 +22,18 @@ class CItemData
 		enum EItemType
 		{
 			ITEM_TYPE_NONE,					//0
-			ITEM_TYPE_WEAPON,				//1//¹«±â
-			ITEM_TYPE_ARMOR,				//2//°©¿Ê
-			ITEM_TYPE_USE,					//3//¾ÆÀÌÅÛ »ç¿ë
+			ITEM_TYPE_WEAPON,				//1//ë¬´ê¸°
+			ITEM_TYPE_ARMOR,				//2//ê°‘ì˜·
+			ITEM_TYPE_USE,					//3//ì•„ì´í…œ ì‚¬ìš©
 			ITEM_TYPE_AUTOUSE,				//4
 			ITEM_TYPE_MATERIAL,				//5
-			ITEM_TYPE_SPECIAL,				//6 //½ºÆä¼È ¾ÆÀÌÅÛ
+			ITEM_TYPE_SPECIAL,				//6 //ìŠ¤íŽ˜ì…œ ì•„ì´í…œ
 			ITEM_TYPE_TOOL,					//7
-			ITEM_TYPE_LOTTERY,				//8//º¹±Ç
-			ITEM_TYPE_ELK,					//9//µ·
+			ITEM_TYPE_LOTTERY,				//8//ë³µê¶Œ
+			ITEM_TYPE_ELK,					//9//ëˆ
 			ITEM_TYPE_METIN,				//10
 			ITEM_TYPE_CONTAINER,			//11
-			ITEM_TYPE_FISH,					//12//³¬½Ã
+			ITEM_TYPE_FISH,					//12//ë‚šì‹œ
 			ITEM_TYPE_ROD,					//13
 			ITEM_TYPE_RESOURCE,				//14
 			ITEM_TYPE_CAMPFIRE,				//15
@@ -41,21 +41,21 @@ class CItemData
 			ITEM_TYPE_SKILLBOOK,			//17
 			ITEM_TYPE_QUEST,				//18
 			ITEM_TYPE_POLYMORPH,			//19
-			ITEM_TYPE_TREASURE_BOX,			//20//º¸¹°»óÀÚ
-			ITEM_TYPE_TREASURE_KEY,			//21//º¸¹°»óÀÚ ¿­¼è
+			ITEM_TYPE_TREASURE_BOX,			//20//ë³´ë¬¼ìƒìž
+			ITEM_TYPE_TREASURE_KEY,			//21//ë³´ë¬¼ìƒìž ì—´ì‡ 
 			ITEM_TYPE_SKILLFORGET,			//22
 			ITEM_TYPE_GIFTBOX,				//23
 			ITEM_TYPE_PICK,					//24
-			ITEM_TYPE_HAIR,					//25//¸Ó¸®
-			ITEM_TYPE_TOTEM,				//26//ÅäÅÛ
-			ITEM_TYPE_BLEND,				//27//»ý¼ºµÉ¶§ ·£´ýÇÏ°Ô ¼Ó¼ºÀÌ ºÙ´Â ¾à¹°
-			ITEM_TYPE_COSTUME,				//28//ÄÚ½ºÃõ ¾ÆÀÌÅÛ (2011³â 8¿ù Ãß°¡µÈ ÄÚ½ºÃõ ½Ã½ºÅÛ¿ë ¾ÆÀÌÅÛ)
-			ITEM_TYPE_DS,					//29 //¿ëÈ¥¼®
-			ITEM_TYPE_SPECIAL_DS,			//30 // Æ¯¼öÇÑ ¿ëÈ¥¼® (DS_SLOT¿¡ Âø¿ëÇÏ´Â UNIQUE ¾ÆÀÌÅÛÀÌ¶ó »ý°¢ÇÏ¸é µÊ)
-			ITEM_TYPE_EXTRACT,					//31 ÃßÃâµµ±¸.
-			ITEM_TYPE_SECONDARY_COIN,			//32 ¸íµµÀü.
-			ITEM_TYPE_RING,						//33 ¹ÝÁö (À¯´ÏÅ© ½½·ÔÀÌ ¾Æ´Ñ ¼ø¼ö ¹ÝÁö ½½·Ô)
-			ITEM_TYPE_BELT,						//34 º§Æ®
+			ITEM_TYPE_HAIR,					//25//ë¨¸ë¦¬
+			ITEM_TYPE_TOTEM,				//26//í† í…œ
+			ITEM_TYPE_BLEND,				//27//ìƒì„±ë ë•Œ ëžœë¤í•˜ê²Œ ì†ì„±ì´ ë¶™ëŠ” ì•½ë¬¼
+			ITEM_TYPE_COSTUME,				//28//ì½”ìŠ¤ì¸” ì•„ì´í…œ (2011ë…„ 8ì›” ì¶”ê°€ëœ ì½”ìŠ¤ì¸” ì‹œìŠ¤í…œìš© ì•„ì´í…œ)
+			ITEM_TYPE_DS,					//29 //ìš©í˜¼ì„
+			ITEM_TYPE_SPECIAL_DS,			//30 // íŠ¹ìˆ˜í•œ ìš©í˜¼ì„ (DS_SLOTì— ì°©ìš©í•˜ëŠ” UNIQUE ì•„ì´í…œì´ë¼ ìƒê°í•˜ë©´ ë¨)
+			ITEM_TYPE_EXTRACT,					//31 ì¶”ì¶œë„êµ¬.
+			ITEM_TYPE_SECONDARY_COIN,			//32 ëª…ë„ì „.
+			ITEM_TYPE_RING,						//33 ë°˜ì§€ (ìœ ë‹ˆí¬ ìŠ¬ë¡¯ì´ ì•„ë‹Œ ìˆœìˆ˜ ë°˜ì§€ ìŠ¬ë¡¯)
+			ITEM_TYPE_BELT,						//34 ë²¨íŠ¸
 
 			ITEM_TYPE_MAX_NUM,				
 		};
@@ -63,7 +63,7 @@ class CItemData
 		enum EWeaponSubTypes
 		{
 			WEAPON_SWORD,
-			WEAPON_DAGGER,	//ÀÌµµ·ù
+			WEAPON_DAGGER,	//ì´ë„ë¥˜
 			WEAPON_BOW,
 			WEAPON_TWO_HANDED,
 			WEAPON_BELL,
@@ -100,8 +100,8 @@ class CItemData
 
 		enum ECostumeSubTypes
 		{
-			COSTUME_BODY,				//0	°©¿Ê(main look)
-			COSTUME_HAIR,				//1	Çì¾î(Å»Âø°¡´É)
+			COSTUME_BODY,				//0	ê°‘ì˜·(main look)
+			COSTUME_HAIR,				//1	í—¤ì–´(íƒˆì°©ê°€ëŠ¥)
 			COSTUME_NUM_TYPES,
 		};
 
@@ -136,8 +136,8 @@ class CItemData
 			USE_UNBIND,
 			USE_TIME_CHARGE_PER,
 			USE_TIME_CHARGE_FIX,				// 28
-			USE_PUT_INTO_BELT_SOCKET,			// 29 º§Æ® ¼ÒÄÏ¿¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛ 
-			USE_PUT_INTO_RING_SOCKET,			// 30 ¹ÝÁö ¼ÒÄÏ¿¡ »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛ (À¯´ÏÅ© ¹ÝÁö ¸»°í, »õ·Î Ãß°¡µÈ ¹ÝÁö ½½·Ô)
+			USE_PUT_INTO_BELT_SOCKET,			// 29 ë²¨íŠ¸ ì†Œì¼“ì— ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ì•„ì´í…œ 
+			USE_PUT_INTO_RING_SOCKET,			// 30 ë°˜ì§€ ì†Œì¼“ì— ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ì•„ì´í…œ (ìœ ë‹ˆí¬ ë°˜ì§€ ë§ê³ , ìƒˆë¡œ ì¶”ê°€ëœ ë°˜ì§€ ìŠ¬ë¡¯)
 		};
 
 		enum EDragonSoulSubType
@@ -168,16 +168,16 @@ class CItemData
 			LIMIT_CON,
 			LIMIT_PCBANG,
 
-			/// Âø¿ë ¿©ºÎ¿Í »ó°ü ¾øÀÌ ½Ç½Ã°£À¸·Î ½Ã°£ Â÷°¨ (socket0¿¡ ¼Ò¸ê ½Ã°£ÀÌ ¹ÚÈû: unix_timestamp Å¸ÀÔ)
+			/// ì°©ìš© ì—¬ë¶€ì™€ ìƒê´€ ì—†ì´ ì‹¤ì‹œê°„ìœ¼ë¡œ ì‹œê°„ ì°¨ê° (socket0ì— ì†Œë©¸ ì‹œê°„ì´ ë°•íž˜: unix_timestamp íƒ€ìž…)
 			LIMIT_REAL_TIME,						
 
-			/// ¾ÆÀÌÅÛÀ» ¸Ç Ã³À½ »ç¿ë(È¤Àº Âø¿ë) ÇÑ ¼ø°£ºÎÅÍ ¸®¾óÅ¸ÀÓ Å¸ÀÌ¸Ó ½ÃÀÛ 
-			/// ÃÖÃÊ »ç¿ë Àü¿¡´Â socket0¿¡ »ç¿ë°¡´É½Ã°£(ÃÊ´ÜÀ§, 0ÀÌ¸é ÇÁ·ÎÅäÀÇ limit value°ª »ç¿ë) °ªÀÌ ¾²¿©ÀÖ´Ù°¡ 
-			/// ¾ÆÀÌÅÛ »ç¿ë½Ã socket1¿¡ »ç¿ë È½¼ö°¡ ¹ÚÈ÷°í socket0¿¡ unix_timestamp Å¸ÀÔÀÇ ¼Ò¸ê½Ã°£ÀÌ ¹ÚÈû.
+			/// ì•„ì´í…œì„ ë§¨ ì²˜ìŒ ì‚¬ìš©(í˜¹ì€ ì°©ìš©) í•œ ìˆœê°„ë¶€í„° ë¦¬ì–¼íƒ€ìž„ íƒ€ì´ë¨¸ ì‹œìž‘ 
+			/// ìµœì´ˆ ì‚¬ìš© ì „ì—ëŠ” socket0ì— ì‚¬ìš©ê°€ëŠ¥ì‹œê°„(ì´ˆë‹¨ìœ„, 0ì´ë©´ í”„ë¡œí† ì˜ limit valueê°’ ì‚¬ìš©) ê°’ì´ ì“°ì—¬ìžˆë‹¤ê°€ 
+			/// ì•„ì´í…œ ì‚¬ìš©ì‹œ socket1ì— ì‚¬ìš© íšŸìˆ˜ê°€ ë°•ížˆê³  socket0ì— unix_timestamp íƒ€ìž…ì˜ ì†Œë©¸ì‹œê°„ì´ ë°•íž˜.
 			LIMIT_REAL_TIME_START_FIRST_USE,
 
-			/// ¾ÆÀÌÅÛÀ» Âø¿ë ÁßÀÏ ¶§¸¸ »ç¿ë ½Ã°£ÀÌ Â÷°¨µÇ´Â ¾ÆÀÌÅÛ
-			/// socket0¿¡ ³²Àº ½Ã°£ÀÌ ÃÊ´ÜÀ§·Î ¹ÚÈû. (¾ÆÀÌÅÛ ÃÖÃÊ »ç¿ë½Ã ÇØ´ç °ªÀÌ 0ÀÌ¸é ÇÁ·ÎÅäÀÇ limit value°ªÀ» socket0¿¡ º¹»ç)
+			/// ì•„ì´í…œì„ ì°©ìš© ì¤‘ì¼ ë•Œë§Œ ì‚¬ìš© ì‹œê°„ì´ ì°¨ê°ë˜ëŠ” ì•„ì´í…œ
+			/// socket0ì— ë‚¨ì€ ì‹œê°„ì´ ì´ˆë‹¨ìœ„ë¡œ ë°•íž˜. (ì•„ì´í…œ ìµœì´ˆ ì‚¬ìš©ì‹œ í•´ë‹¹ ê°’ì´ 0ì´ë©´ í”„ë¡œí† ì˜ limit valueê°’ì„ socket0ì— ë³µì‚¬)
 			LIMIT_TIMER_BASED_ON_WEAR,
 
 			LIMIT_MAX_NUM
@@ -185,41 +185,41 @@ class CItemData
 
 		enum EItemAntiFlag
 		{
-			ITEM_ANTIFLAG_FEMALE        = (1 << 0),		// ¿©¼º »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_MALE          = (1 << 1),		// ³²¼º »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_WARRIOR       = (1 << 2),		// ¹«»ç »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_ASSASSIN      = (1 << 3),		// ÀÚ°´ »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_SURA          = (1 << 4),		// ¼ö¶ó »ç¿ë ºÒ°¡ 
-			ITEM_ANTIFLAG_SHAMAN        = (1 << 5),		// ¹«´ç »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_GET           = (1 << 6),		// ÁýÀ» ¼ö ¾øÀ½
-			ITEM_ANTIFLAG_DROP          = (1 << 7),		// ¹ö¸± ¼ö ¾øÀ½
-			ITEM_ANTIFLAG_SELL          = (1 << 8),		// ÆÈ ¼ö ¾øÀ½
-			ITEM_ANTIFLAG_EMPIRE_A      = (1 << 9),		// A Á¦±¹ »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_EMPIRE_B      = (1 << 10),	// B Á¦±¹ »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_EMPIRE_R      = (1 << 11),	// C Á¦±¹ »ç¿ë ºÒ°¡
-			ITEM_ANTIFLAG_SAVE          = (1 << 12),	// ÀúÀåµÇÁö ¾ÊÀ½
-			ITEM_ANTIFLAG_GIVE          = (1 << 13),	// °Å·¡ ºÒ°¡
-			ITEM_ANTIFLAG_PKDROP        = (1 << 14),	// PK½Ã ¶³¾îÁöÁö ¾ÊÀ½
-			ITEM_ANTIFLAG_STACK         = (1 << 15),	// ÇÕÄ¥ ¼ö ¾øÀ½
-			ITEM_ANTIFLAG_MYSHOP        = (1 << 16),	// °³ÀÎ »óÁ¡¿¡ ¿Ã¸± ¼ö ¾øÀ½
+			ITEM_ANTIFLAG_FEMALE        = (1 << 0),		// ì—¬ì„± ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_MALE          = (1 << 1),		// ë‚¨ì„± ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_WARRIOR       = (1 << 2),		// ë¬´ì‚¬ ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_ASSASSIN      = (1 << 3),		// ìžê° ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_SURA          = (1 << 4),		// ìˆ˜ë¼ ì‚¬ìš© ë¶ˆê°€ 
+			ITEM_ANTIFLAG_SHAMAN        = (1 << 5),		// ë¬´ë‹¹ ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_GET           = (1 << 6),		// ì§‘ì„ ìˆ˜ ì—†ìŒ
+			ITEM_ANTIFLAG_DROP          = (1 << 7),		// ë²„ë¦´ ìˆ˜ ì—†ìŒ
+			ITEM_ANTIFLAG_SELL          = (1 << 8),		// íŒ” ìˆ˜ ì—†ìŒ
+			ITEM_ANTIFLAG_EMPIRE_A      = (1 << 9),		// A ì œêµ­ ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_EMPIRE_B      = (1 << 10),	// B ì œêµ­ ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_EMPIRE_R      = (1 << 11),	// C ì œêµ­ ì‚¬ìš© ë¶ˆê°€
+			ITEM_ANTIFLAG_SAVE          = (1 << 12),	// ì €ìž¥ë˜ì§€ ì•ŠìŒ
+			ITEM_ANTIFLAG_GIVE          = (1 << 13),	// ê±°ëž˜ ë¶ˆê°€
+			ITEM_ANTIFLAG_PKDROP        = (1 << 14),	// PKì‹œ ë–¨ì–´ì§€ì§€ ì•ŠìŒ
+			ITEM_ANTIFLAG_STACK         = (1 << 15),	// í•©ì¹  ìˆ˜ ì—†ìŒ
+			ITEM_ANTIFLAG_MYSHOP        = (1 << 16),	// ê°œì¸ ìƒì ì— ì˜¬ë¦´ ìˆ˜ ì—†ìŒ
 		};
 
 		enum EItemFlag
 		{
-			ITEM_FLAG_REFINEABLE        = (1 << 0),		// °³·® °¡´É
+			ITEM_FLAG_REFINEABLE        = (1 << 0),		// ê°œëŸ‰ ê°€ëŠ¥
 			ITEM_FLAG_SAVE              = (1 << 1),
-			ITEM_FLAG_STACKABLE         = (1 << 2),     // ¿©·¯°³ ÇÕÄ¥ ¼ö ÀÖÀ½
-			ITEM_FLAG_COUNT_PER_1GOLD   = (1 << 3),		// °¡°ÝÀÌ °³¼ö / °¡°ÝÀ¸·Î º¯ÇÔ
-			ITEM_FLAG_SLOW_QUERY        = (1 << 4),		// °ÔÀÓ Á¾·á½Ã¿¡¸¸ SQL¿¡ Äõ¸®ÇÔ
+			ITEM_FLAG_STACKABLE         = (1 << 2),     // ì—¬ëŸ¬ê°œ í•©ì¹  ìˆ˜ ìžˆìŒ
+			ITEM_FLAG_COUNT_PER_1GOLD   = (1 << 3),		// ê°€ê²©ì´ ê°œìˆ˜ / ê°€ê²©ìœ¼ë¡œ ë³€í•¨
+			ITEM_FLAG_SLOW_QUERY        = (1 << 4),		// ê²Œìž„ ì¢…ë£Œì‹œì—ë§Œ SQLì— ì¿¼ë¦¬í•¨
 			ITEM_FLAG_RARE              = (1 << 5),
 			ITEM_FLAG_UNIQUE            = (1 << 6),
 			ITEM_FLAG_MAKECOUNT			= (1 << 7),
 			ITEM_FLAG_IRREMOVABLE		= (1 << 8),
 			ITEM_FLAG_CONFIRM_WHEN_USE	= (1 << 9),
-			ITEM_FLAG_QUEST_USE         = (1 << 10),    // Äù½ºÆ® ½ºÅ©¸³Æ® µ¹¸®´ÂÁö?
-			ITEM_FLAG_QUEST_USE_MULTIPLE= (1 << 11),    // Äù½ºÆ® ½ºÅ©¸³Æ® µ¹¸®´ÂÁö?
+			ITEM_FLAG_QUEST_USE         = (1 << 10),    // í€˜ìŠ¤íŠ¸ ìŠ¤í¬ë¦½íŠ¸ ëŒë¦¬ëŠ”ì§€?
+			ITEM_FLAG_QUEST_USE_MULTIPLE= (1 << 11),    // í€˜ìŠ¤íŠ¸ ìŠ¤í¬ë¦½íŠ¸ ëŒë¦¬ëŠ”ì§€?
 			ITEM_FLAG_UNUSED03          = (1 << 12),    // UNUSED03
-			ITEM_FLAG_LOG               = (1 << 13),    // »ç¿ë½Ã ·Î±×¸¦ ³²±â´Â ¾ÆÀÌÅÛÀÎ°¡?
+			ITEM_FLAG_LOG               = (1 << 13),    // ì‚¬ìš©ì‹œ ë¡œê·¸ë¥¼ ë‚¨ê¸°ëŠ” ì•„ì´í…œì¸ê°€?
 			ITEM_FLAG_APPLICABLE		= (1 << 14),
 		};
 
@@ -319,17 +319,17 @@ class CItemData
 			APPLY_ATT_BONUS_TO_SURA,    // 61
 			APPLY_ATT_BONUS_TO_SHAMAN,  // 62
 			APPLY_ATT_BONUS_TO_MONSTER, // 63
-			APPLY_MALL_ATTBONUS,        // 64 °ø°Ý·Â +x%
-			APPLY_MALL_DEFBONUS,        // 65 ¹æ¾î·Â +x%
-			APPLY_MALL_EXPBONUS,        // 66 °æÇèÄ¡ +x%
-			APPLY_MALL_ITEMBONUS,       // 67 ¾ÆÀÌÅÛ µå·ÓÀ² x/10¹è
-			APPLY_MALL_GOLDBONUS,       // 68 µ· µå·ÓÀ² x/10¹è
-			APPLY_MAX_HP_PCT,           // 69 ÃÖ´ë »ý¸í·Â +x%
-			APPLY_MAX_SP_PCT,           // 70 ÃÖ´ë Á¤½Å·Â +x%
-			APPLY_SKILL_DAMAGE_BONUS,   // 71 ½ºÅ³ µ¥¹ÌÁö * (100+x)%
-			APPLY_NORMAL_HIT_DAMAGE_BONUS,      // 72 ÆòÅ¸ µ¥¹ÌÁö * (100+x)%
-			APPLY_SKILL_DEFEND_BONUS,   // 73 ½ºÅ³ µ¥¹ÌÁö ¹æ¾î * (100-x)%
-			APPLY_NORMAL_HIT_DEFEND_BONUS,      // 74 ÆòÅ¸ µ¥¹ÌÁö ¹æ¾î * (100-x)%
+			APPLY_MALL_ATTBONUS,        // 64 ê³µê²©ë ¥ +x%
+			APPLY_MALL_DEFBONUS,        // 65 ë°©ì–´ë ¥ +x%
+			APPLY_MALL_EXPBONUS,        // 66 ê²½í—˜ì¹˜ +x%
+			APPLY_MALL_ITEMBONUS,       // 67 ì•„ì´í…œ ë“œë¡­ìœ¨ x/10ë°°
+			APPLY_MALL_GOLDBONUS,       // 68 ëˆ ë“œë¡­ìœ¨ x/10ë°°
+			APPLY_MAX_HP_PCT,           // 69 ìµœëŒ€ ìƒëª…ë ¥ +x%
+			APPLY_MAX_SP_PCT,           // 70 ìµœëŒ€ ì •ì‹ ë ¥ +x%
+			APPLY_SKILL_DAMAGE_BONUS,   // 71 ìŠ¤í‚¬ ë°ë¯¸ì§€ * (100+x)%
+			APPLY_NORMAL_HIT_DAMAGE_BONUS,      // 72 í‰íƒ€ ë°ë¯¸ì§€ * (100+x)%
+			APPLY_SKILL_DEFEND_BONUS,   // 73 ìŠ¤í‚¬ ë°ë¯¸ì§€ ë°©ì–´ * (100-x)%
+			APPLY_NORMAL_HIT_DEFEND_BONUS,      // 74 í‰íƒ€ ë°ë¯¸ì§€ ë°©ì–´ * (100-x)%
 			APPLY_EXTRACT_HP_PCT,		//75
 			APPLY_PC_BANG_EXP_BONUS,		//76
 			APPLY_PC_BANG_DROP_BONUS,		//77
@@ -338,17 +338,17 @@ class CItemData
 			APPLY_RESIST_SURA,				//80
 			APPLY_RESIST_SHAMAN,			//81
 			APPLY_ENERGY,					//82
-			APPLY_DEF_GRADE,				// 83 ¹æ¾î·Â. DEF_GRADE_BONUS´Â Å¬¶ó¿¡¼­ µÎ¹è·Î º¸¿©Áö´Â ÀÇµµµÈ ¹ö±×(...)°¡ ÀÖ´Ù.
-			APPLY_COSTUME_ATTR_BONUS,		// 84 ÄÚ½ºÆ¬ ¾ÆÀÌÅÛ¿¡ ºÙÀº ¼Ó¼ºÄ¡ º¸³Ê½º
-			APPLY_MAGIC_ATTBONUS_PER,		// 85 ¸¶¹ý °ø°Ý·Â +x%
-			APPLY_MELEE_MAGIC_ATTBONUS_PER,			// 86 ¸¶¹ý + ¹Ð¸® °ø°Ý·Â +x%
+			APPLY_DEF_GRADE,				// 83 ë°©ì–´ë ¥. DEF_GRADE_BONUSëŠ” í´ë¼ì—ì„œ ë‘ë°°ë¡œ ë³´ì—¬ì§€ëŠ” ì˜ë„ëœ ë²„ê·¸(...)ê°€ ìžˆë‹¤.
+			APPLY_COSTUME_ATTR_BONUS,		// 84 ì½”ìŠ¤íŠ¬ ì•„ì´í…œì— ë¶™ì€ ì†ì„±ì¹˜ ë³´ë„ˆìŠ¤
+			APPLY_MAGIC_ATTBONUS_PER,		// 85 ë§ˆë²• ê³µê²©ë ¥ +x%
+			APPLY_MELEE_MAGIC_ATTBONUS_PER,			// 86 ë§ˆë²• + ë°€ë¦¬ ê³µê²©ë ¥ +x%
 			
-			APPLY_RESIST_ICE,		// 87 ³Ã±â ÀúÇ×
-			APPLY_RESIST_EARTH,		// 88 ´ëÁö ÀúÇ×
-			APPLY_RESIST_DARK,		// 89 ¾îµÒ ÀúÇ×
+			APPLY_RESIST_ICE,		// 87 ëƒ‰ê¸° ì €í•­
+			APPLY_RESIST_EARTH,		// 88 ëŒ€ì§€ ì €í•­
+			APPLY_RESIST_DARK,		// 89 ì–´ë‘  ì €í•­
 
-			APPLY_ANTI_CRITICAL_PCT,	//90 Å©¸®Æ¼ÄÃ ÀúÇ×
-			APPLY_ANTI_PENETRATE_PCT,	//91 °üÅëÅ¸°Ý ÀúÇ×
+			APPLY_ANTI_CRITICAL_PCT,	//90 í¬ë¦¬í‹°ì»¬ ì €í•­
+			APPLY_ANTI_PENETRATE_PCT,	//91 ê´€í†µíƒ€ê²© ì €í•­
 
    			MAX_APPLY_NUM,              // 
 		};

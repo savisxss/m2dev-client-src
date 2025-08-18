@@ -252,7 +252,7 @@ void CSlotWindow::SetCoverButton(DWORD dwIndex, const char * c_szUpImageName, co
 	rpCoverButton->Enable();
 	rpCoverButton->Show();
 
-	// NOTE : Cover ¹öÆ°ÀÌ Plus ¹öÆ°À» °¡·Á¹ö·Á¼­ ÀÓ½Ã ÄÚµå¸¦..
+	// NOTE : Cover ë²„íŠ¼ì´ Plus ë²„íŠ¼ì„ ê°€ë ¤ë²„ë ¤ì„œ ìž„ì‹œ ì½”ë“œë¥¼..
 	if (pSlot->pSlotButton)
 	{
 		SetTop(pSlot->pSlotButton);
@@ -585,7 +585,7 @@ void CSlotWindow::RefreshSlot()
 {
 	OnRefreshSlot();
 
-	// NOTE : Refresh µÉ¶§ ToolTip µµ °»½Å ÇÕ´Ï´Ù - [levites]
+	// NOTE : Refresh ë ë•Œ ToolTip ë„ ê°±ì‹  í•©ë‹ˆë‹¤ - [levites]
 	if (IsRendering())
 	{
 		TSlot * pSlot;
@@ -862,8 +862,8 @@ void CSlotWindow::OnMouseOverOut()
 
 void CSlotWindow::OnMouseOver()
 {
-	// FIXME : À©µµ¿ì¸¦ µå·¡±ë ÇÏ´Â µµÁß¿¡ SetTopÀÌ µÇ¾î¹ö¸®¸é Capture°¡ Ç®¾îÁ® ¹ö¸°´Ù. ±×°ÍÀÇ ¹æÁö ÄÚµå.
-	//         Á» ´õ ±Ùº»ÀûÀÎ ÇØ°áÃ¥À» Ã£¾Æ¾ß ÇÒ µí - [levites]
+	// FIXME : ìœˆë„ìš°ë¥¼ ë“œëž˜ê¹… í•˜ëŠ” ë„ì¤‘ì— SetTopì´ ë˜ì–´ë²„ë¦¬ë©´ Captureê°€ í’€ì–´ì ¸ ë²„ë¦°ë‹¤. ê·¸ê²ƒì˜ ë°©ì§€ ì½”ë“œ.
+	//         ì¢€ ë” ê·¼ë³¸ì ì¸ í•´ê²°ì±…ì„ ì°¾ì•„ì•¼ í•  ë“¯ - [levites]
 //	if (UI::CWindowManager::Instance().IsCapture())
 //	if (!UI::CWindowManager::Instance().IsAttaching())
 //		return;
@@ -991,7 +991,7 @@ void CSlotWindow::OnRender()
 	TSlotListIterator itor;
 
 	//
-	// ¸ðµç ½½·Ô »óÀÚ ±×¸®±â
+	// ëª¨ë“  ìŠ¬ë¡¯ ìƒìž ê·¸ë¦¬ê¸°
 	//////////////////////////////////////////////////////////////////////////
 #ifdef __RENDER_SLOT_AREA__
 	CPythonGraphic::Instance().SetDiffuseColor(0.5f, 0.5f, 0.5f);
@@ -1056,7 +1056,7 @@ void CSlotWindow::OnRender()
 
 			if (fcurTime - rSlot.fStartCoolTime >= rSlot.fCoolTime)
 			{
-				// ÄðÅ¸ÀÓÀÌ ³¡³­Áö 1ÃÊ ÀÌ³»¶ó¸é..
+				// ì¿¨íƒ€ìž„ì´ ëë‚œì§€ 1ì´ˆ ì´ë‚´ë¼ë©´..
 				if ((fcurTime - rSlot.fStartCoolTime) - rSlot.fCoolTime < 1.0f)
 					__CreateFinishCoolTimeEffect(&rSlot);
 
@@ -1218,8 +1218,8 @@ BOOL CSlotWindow::GetPickedSlotPointer(TSlot ** ppSlot)
 	int ixLocal = lx - m_rect.left;
 	int iyLocal = ly - m_rect.top;
 
-	// NOTE : ¿ÞÂÊ ¸ÇÀ§ »ó´Ü ÇÑ°÷ÀÌ ±âÁØ ÀÌ¶ó´Â Á¡À» ÀÌ¿ëÇØ ¿ÞÂÊ À§¿¡¼­ºÎÅÍ ¿À¸¥ÂÊ ¾Æ·¡·Î
-	//        Â÷·Ê·Î °Ë»öÇØ °¨À¸·Î½á µ¤Çô ÀÖ´Â SlotÀº ÀÚµ¿ ¹«½Ã µÈ´Ù´Â Æ¯¼ºÀ» ÀÌ¿ëÇÑ´Ù. - [levites]
+	// NOTE : ì™¼ìª½ ë§¨ìœ„ ìƒë‹¨ í•œê³³ì´ ê¸°ì¤€ ì´ë¼ëŠ” ì ì„ ì´ìš©í•´ ì™¼ìª½ ìœ„ì—ì„œë¶€í„° ì˜¤ë¥¸ìª½ ì•„ëž˜ë¡œ
+	//        ì°¨ë¡€ë¡œ ê²€ìƒ‰í•´ ê°ìœ¼ë¡œì¨ ë®í˜€ ìžˆëŠ” Slotì€ ìžë™ ë¬´ì‹œ ëœë‹¤ëŠ” íŠ¹ì„±ì„ ì´ìš©í•œë‹¤. - [levites]
 	for (TSlotListIterator itor = m_SlotList.begin(); itor != m_SlotList.end(); ++itor)
 	{
 		TSlot & rSlot = *itor;
@@ -1227,7 +1227,7 @@ BOOL CSlotWindow::GetPickedSlotPointer(TSlot ** ppSlot)
 		int ixCellSize = rSlot.ixCellSize;
 		int iyCellSize = rSlot.iyCellSize;
 
-		// NOTE : ItemÀÌ Hide µÇ¾îÀÖÀ» °æ¿ì¸¦ À§ÇÑ..
+		// NOTE : Itemì´ Hide ë˜ì–´ìžˆì„ ê²½ìš°ë¥¼ ìœ„í•œ..
 		if (rSlot.isItem)
 		{
 			ixCellSize = std::max(rSlot.ixCellSize, int(rSlot.byxPlacedItemSize * ITEM_WIDTH));

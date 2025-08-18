@@ -121,7 +121,7 @@ bool SplitToken(const char * c_szLine, CTokenVector * pstTokenVector, const char
 
 		pstTokenVector->push_back(strLine.substr(beginPos, endPos - beginPos));
 
-		// Ãß°¡ ÄÚµå. ¸ÇµÚ¿¡ ÅÇÀÌ ÀÖ´Â °æ¿ì¸¦ Ã¼Å©ÇÑ´Ù. - [levites]
+		// ì¶”ê°€ ì½”ë“œ. ë§¨ë’¤ì— íƒ­ì´ ìˆëŠ” ê²½ìš°ë¥¼ ì²´í¬í•œë‹¤. - [levites]
 		if (int(strLine.find_first_not_of(c_szDelimeter, basePos)) < 0)
 			break;
 	} while (basePos < strLine.length());
@@ -131,7 +131,7 @@ bool SplitToken(const char * c_szLine, CTokenVector * pstTokenVector, const char
 
 void CPythonNetworkStream::ServerCommand(char * c_szCommand)
 {
-	// #0000811: [M2EU] ÄÜ¼ÖÃ¢ ±â´É Â÷´Ü 
+	// #0000811: [M2EU] ì½˜ì†”ì°½ ê¸°ëŠ¥ ì°¨ë‹¨ 
 	if (strcmpi(c_szCommand, "ConsoleEnable") == 0)
 		return;
 
@@ -246,7 +246,7 @@ void CPythonNetworkStream::ServerCommand(char * c_szCommand)
 		else if ("r_list" == TokenVector[1])
 		{
 			// result list (/cube r_list npcVNUM resultCount resultText)
-			// 20383 4 72723,1/72725,1/72730.1/50001,5 <- ÀÌ·±½ÄÀ¸·Î "/" ¹®ÀÚ·Î ±¸ºĞµÈ ¸®½ºÆ®¸¦ ÁÜ
+			// 20383 4 72723,1/72725,1/72730.1/50001,5 <- ì´ëŸ°ì‹ìœ¼ë¡œ "/" ë¬¸ìë¡œ êµ¬ë¶„ëœ ë¦¬ìŠ¤íŠ¸ë¥¼ ì¤Œ
 			if (5 != TokenVector.size())
 			{
 				TraceError("CPythonNetworkStream::ServerCommand(c_szCommand=%s) - Strange Parameter Count : %d", c_szCommand, 5);
@@ -260,9 +260,9 @@ void CPythonNetworkStream::ServerCommand(char * c_szCommand)
 		else if ("m_info" == TokenVector[1])
 		{
 			// material list (/cube m_info requestStartIndex resultCount MaterialText)
-			// ex) requestStartIndex: 0, resultCount : 5 - ÇØ´ç NPC°¡ ¸¸µé¼ö ÀÖ´Â ¾ÆÀÌÅÛ Áß 0~4¹øÂ°¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀ» ¸¸µå´Â µ¥ ÇÊ¿äÇÑ ¸ğµç Àç·áµéÀÌ MaterialText¿¡ µé¾îÀÖÀ½
-			// À§ ¿¹½ÃÃ³·³ ¾ÆÀÌÅÛÀÌ ´Ù¼öÀÎ °æ¿ì ±¸ºĞÀÚ "@" ¹®ÀÚ¸¦ »ç¿ë
-			// 0 5 125,1|126,2|127,2|123,5&555,5&555,4/120000 <- ÀÌ·±½ÄÀ¸·Î ¼­¹ö¿¡¼­ Å¬¶ó·Î ¸®½ºÆ®¸¦ ÁÜ
+			// ex) requestStartIndex: 0, resultCount : 5 - í•´ë‹¹ NPCê°€ ë§Œë“¤ìˆ˜ ìˆëŠ” ì•„ì´í…œ ì¤‘ 0~4ë²ˆì§¸ì— í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì„ ë§Œë“œëŠ” ë° í•„ìš”í•œ ëª¨ë“  ì¬ë£Œë“¤ì´ MaterialTextì— ë“¤ì–´ìˆìŒ
+			// ìœ„ ì˜ˆì‹œì²˜ëŸ¼ ì•„ì´í…œì´ ë‹¤ìˆ˜ì¸ ê²½ìš° êµ¬ë¶„ì "@" ë¬¸ìë¥¼ ì‚¬ìš©
+			// 0 5 125,1|126,2|127,2|123,5&555,5&555,4/120000 <- ì´ëŸ°ì‹ìœ¼ë¡œ ì„œë²„ì—ì„œ í´ë¼ë¡œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì¤Œ
 
 			if (5 != TokenVector.size())
 			{

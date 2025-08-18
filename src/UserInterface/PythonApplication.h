@@ -80,7 +80,7 @@ class CPythonApplication : public CMSApplication, public CInputKeyboard, public 
 
 			CURSOR_SHAPE_COUNT,
 
-			// ¾ÈÁ¤ÀûÀÎ ³×ÀÌ¹Ö º¯È¯À» À§ÇÑ ÀÓ½Ã enumerate
+			// ì•ˆì •ì ì¸ ë„¤ì´ë° ë³€í™˜ì„ ìœ„í•œ ì„ì‹œ enumerate
 			NORMAL = CURSOR_SHAPE_NORMAL,
 			ATTACK = CURSOR_SHAPE_ATTACK,
 			TARGET = CURSOR_SHAPE_TARGET,
@@ -254,16 +254,16 @@ class CPythonApplication : public CMSApplication, public CInputKeyboard, public 
 
 	protected:
 		IGraphBuilder*			m_pGraphBuilder;			// Graph Builder
-		IBaseFilter*			m_pFilterSG;				// Sample Grabber ÇÊÅÍ
-		ISampleGrabber*			m_pSampleGrabber;			// ¿µ»ó ÀÌ¹ÌÁö Ä¸Ã³¸¦ À§ÇÑ »ùÇÃ ±×·¡¹ö
+		IBaseFilter*			m_pFilterSG;				// Sample Grabber í•„í„°
+		ISampleGrabber*			m_pSampleGrabber;			// ì˜ìƒ ì´ë¯¸ì§€ ìº¡ì²˜ë¥¼ ìœ„í•œ ìƒ˜í”Œ ê·¸ë˜ë²„
 		IMediaControl*			m_pMediaCtrl;				// Media Control
 		IMediaEventEx*			m_pMediaEvent;				// Media Event
 		IVideoWindow*			m_pVideoWnd;				// Video Window
 		IBasicVideo*			m_pBasicVideo;
-		uint8_t*					m_pCaptureBuffer;			// ¿µ»ó ÀÌ¹ÌÁö¸¦ Ä¸Ã³ÇÑ ¹öÆÛ
-		LONG					m_lBufferSize;				// Video ¹öÆÛ Å©±â º¯¼ö 
-		CGraphicImageTexture*	m_pLogoTex;					// Ãâ·ÂÇÒ ÅØ½ºÃÄ
-		bool					m_bLogoError;				// ¿µ»ó ÀĞ±â »óÅÂ
+		uint8_t*					m_pCaptureBuffer;			// ì˜ìƒ ì´ë¯¸ì§€ë¥¼ ìº¡ì²˜í•œ ë²„í¼
+		LONG					m_lBufferSize;				// Video ë²„í¼ í¬ê¸° ë³€ìˆ˜ 
+		CGraphicImageTexture*	m_pLogoTex;					// ì¶œë ¥í•  í…ìŠ¤ì³
+		bool					m_bLogoError;				// ì˜ìƒ ì½ê¸° ìƒíƒœ
 		bool					m_bLogoPlay;
 
 		int						m_nLeft, m_nRight, m_nTop, m_nBottom;

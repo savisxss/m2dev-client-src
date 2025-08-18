@@ -182,7 +182,7 @@ LRESULT CPythonApplication::WindowProcedure(HWND hWnd, UINT uiMsg, WPARAM wParam
 		case 0x20a:
 			if (WebBrowser_IsVisible())
 			{
-				// À¥ºê¶ó¿ìÀú »óÅÂÀÏ¶§´Â ÈÙ ÀÛµ¿ ¾ÈµÇµµ·Ï Ã³¸®
+				// ì›¹ë¸Œë¼ìš°ì € ìƒíƒœì¼ë•ŒëŠ” íœ  ìž‘ë™ ì•ˆë˜ë„ë¡ ì²˜ë¦¬
 			}
 			else
 			{

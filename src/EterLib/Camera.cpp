@@ -437,7 +437,7 @@ void CCamera::RotateEyeAroundTarget(float fPitchDegree, float fRollDegree)
 
 	D3DXMATRIX matRot, matRotPitch, matRotRoll;
 
-	// ¸Ó¸®À§·Î ³Ñ¾î°¡±â ¸·±â...
+	// ë¨¸ë¦¬ìœ„ë¡œ ë„˜ì–´ê°€ê¸° ë§‰ê¸°...
 	if (m_fPitch + fPitchDegree > 80.0f)
 	{
 		fPitchDegree = 80.0f - m_fPitch;
@@ -594,7 +594,7 @@ bool CCameraManager::isCurrentCamera(unsigned char ucCameraNum)
 	return false;
 }
 
-// Àâ½º·¯¿î ÇÔ¼öµé...
+// ì¡ìŠ¤ëŸ¬ìš´ í•¨ìˆ˜ë“¤...
 bool CCameraManager::AddCamera(unsigned char ucCameraNum)
 {
 	if(m_CameraMap.end() != m_CameraMap.find(ucCameraNum))

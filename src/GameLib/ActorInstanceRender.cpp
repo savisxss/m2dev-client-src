@@ -38,8 +38,8 @@ void CActorInstance::OnRender()
 	kMtrl.Diffuse=D3DXCOLOR(m_dwMtrlColor);	
 	STATEMANAGER.SetMaterial(&kMtrl);
 
-	// ÇöÀç´Â ÀÌ·¸°Ô.. ÃÖÁ¾ÀûÀÎ ÇüÅÂ´Â Diffuse¿Í BlendÀÇ ºĞ¸®·Î..
-	// ¾Æ´Ï¸é ÀÌ·± ÇüÅÂ·Î °¡µÇ Texture & State Sorting Áö¿øÀ¸·Î.. - [levites]
+	// í˜„ì¬ëŠ” ì´ë ‡ê²Œ.. ìµœì¢…ì ì¸ í˜•íƒœëŠ” Diffuseì™€ Blendì˜ ë¶„ë¦¬ë¡œ..
+	// ì•„ë‹ˆë©´ ì´ëŸ° í˜•íƒœë¡œ ê°€ë˜ Texture & State Sorting ì§€ì›ìœ¼ë¡œ.. - [levites]
 	STATEMANAGER.SaveRenderState(D3DRS_CULLMODE, D3DCULL_NONE);	
 
 	switch(m_iRenderMode)

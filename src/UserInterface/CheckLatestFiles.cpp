@@ -20,7 +20,7 @@ bool CheckLatestFiles_PollEvent( void )
 	return gs_bQuit;
 }
 
-// µ¥ÀÌÅ¸ ÆÄÀÏ CRC32 °ª °Ë»çÇÏ±â
+// ë°ì´íƒ€ íŒŒì¼ CRC32 ê°’ ê²€ì‚¬í•˜ê¸°
 bool CheckFileCRC32( LPCSTR szFileName, DWORD dwCRC32 )
 {
 	char szMessage[256];

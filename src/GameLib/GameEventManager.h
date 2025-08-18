@@ -6,10 +6,10 @@
 //
 //	CGameEventManager
 //
-//		Note : Game»ó¿¡¼­ ÀÏ¾î³ª´Â Æø¹ß, È­¸é Èçµé¸², Range ¹«±âµéÀÇ ¿òÁ÷ÀÓ°ú Å¸°İ µîÀÇ Event
-//             ¸¦ Á¾ÇÕÀûÀ¸·Î °ü¸®ÇÏ´Â Å¬·¡½º. - [levites]
+//		Note : Gameìƒì—ì„œ ì¼ì–´ë‚˜ëŠ” í­ë°œ, í™”ë©´ í”ë“¤ë¦¼, Range ë¬´ê¸°ë“¤ì˜ ì›€ì§ì„ê³¼ íƒ€ê²© ë“±ì˜ Event
+//             ë¥¼ ì¢…í•©ì ìœ¼ë¡œ ê´€ë¦¬í•˜ëŠ” í´ë˜ìŠ¤. - [levites]
 //
-//		Note : °ÔÀÓ»óÀÇ Cinematic Event ¸¦ ÄÁÆ®·ÑÇÏ´Â ¸Å´ÏÁ®·Î »ç¿ëÇÑ´Ù. 2004.07.19 - [levites]
+//		Note : ê²Œì„ìƒì˜ Cinematic Event ë¥¼ ì»¨íŠ¸ë¡¤í•˜ëŠ” ë§¤ë‹ˆì ¸ë¡œ ì‚¬ìš©í•œë‹¤. 2004.07.19 - [levites]
 //
 
 class CGameEventManager : public CSingleton<CGameEventManager>, public CScreen

@@ -6,7 +6,7 @@
 
 #ifndef METIN2HS_INCLUDE
 //#define METIN2HS_INCLUDE				hshield-5.4.8.1
-#define METIN2HS_INCLUDE				hackshield  //2012³â 3¿ù
+#define METIN2HS_INCLUDE				hackshield  //2012ë…„ 3ì›”
 #endif
 
 #define METIN2HS_INCLUDE_HSUPCHK		<METIN2HS_INCLUDE/hsupchk.h>

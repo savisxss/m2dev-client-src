@@ -3,7 +3,7 @@
 #include "../eterBase/Singleton.h"
 
 /*
- *	µû¶ó´Ù´Ï´Â ÅØ½ºÆ® Ã³¸®
+ *	ë”°ë¼ë‹¤ë‹ˆëŠ” í…ìŠ¤íŠ¸ ì²˜ë¦¬
  */
 class CPythonTextTail : public CSingleton<CPythonTextTail>
 {
@@ -20,8 +20,8 @@ class CPythonTextTail : public CSingleton<CPythonTextTail>
 			CGraphicTextInstance*			pLevelTextInstance;
 
 
-			// Todo : ÀÌ°Ç ÀüºÎ VID·Î ¹Ù²Ùµµ·Ï ÇÑ´Ù.
-			//        µµÁß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú °æ¿ì Æ¨±æ °¡´É¼ºÀÌ ÀÖÀ½
+			// Todo : ì´ê±´ ì „ë¶€ VIDë¡œ ë°”ê¾¸ë„ë¡ í•œë‹¤.
+			//        ë„ì¤‘ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆ ê²½ìš° íŠ•ê¸¸ ê°€ëŠ¥ì„±ì´ ìˆìŒ
 			CGraphicObjectInstance *		pOwner;
 
 			DWORD							dwVirtualID;
@@ -29,7 +29,7 @@ class CPythonTextTail : public CSingleton<CPythonTextTail>
 			float							x, y, z;
 			float							fDistanceFromPlayer;
 			D3DXCOLOR						Color;
-			BOOL							bNameFlag;		// ÀÌ¸§µµ ÇÔ²² ÄÓ°ÍÀÎÁöÀÇ ÇÃ·¡±×
+			BOOL							bNameFlag;		// ì´ë¦„ë„ í•¨ê»˜ ì¼¤ê²ƒì¸ì§€ì˜ í”Œë˜ê·¸
 
 			float							xStart, yStart;
 			float							xEnd, yEnd;

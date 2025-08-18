@@ -16,8 +16,8 @@ class CRaceData
 		enum EParts
 		{
 			// Share index with server 
-			// ECharacterEquipmentPartµµ ¼öÁ¤ÇØÁÖ¼¼¿ä.
-			//ÆĞÅ¶ Å©±â°¡ º¯ÇÕ´Ï´Ù ¼­¹ö¿Í »óÀÇÈÄ Ãß°¡ÇØÁÖ¼¼¿ä.
+			// ECharacterEquipmentPartë„ ìˆ˜ì •í•´ì£¼ì„¸ìš”.
+			//íŒ¨í‚· í¬ê¸°ê°€ ë³€í•©ë‹ˆë‹¤ ì„œë²„ì™€ ìƒì˜í›„ ì¶”ê°€í•´ì£¼ì„¸ìš”.
 			PART_MAIN,
 			PART_WEAPON,
 			PART_HEAD,

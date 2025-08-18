@@ -144,7 +144,7 @@ void CPythonBackground::SelectViewDistanceNum(int eNum)
 
 	TEnvironmentData * env = ((TEnvironmentData *) mc_pcurEnvironmentData);
 
-	// °ÔÀÓ ºÐÀ§±â¸¦ ¹Ù²ã³õÀ» ¼ö ÀÖÀ¸¹Ç·Î reserve·Î µÇ¾îÀÖÀ¸¸é °íÄ¡Áö ¾Ê´Â´Ù.
+	// ê²Œìž„ ë¶„ìœ„ê¸°ë¥¼ ë°”ê¿”ë†“ì„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ reserveë¡œ ë˜ì–´ìžˆìœ¼ë©´ ê³ ì¹˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (env->bReserve)
 	{
 		env->m_fFogNearDistance = m_ViewDistanceSet[m_eViewDistanceNum].m_fFogStart;

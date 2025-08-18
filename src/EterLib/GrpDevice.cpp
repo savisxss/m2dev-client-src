@@ -261,7 +261,7 @@ static DWORD   s_MaxTextureWidth, s_MaxTextureHeight;
 
 BOOL EL3D_ConfirmDevice(D3DCAPS8& rkD3DCaps, UINT uBehavior, D3DFORMAT /*eD3DFmt*/)
 {
-	// PUREDEVICE´Â GetTransform / GetViewport µîÀÌ µÇÁö ¾Ê´Â´Ù.
+	// PUREDEVICEëŠ” GetTransform / GetViewport ë“±ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (uBehavior & D3DCREATE_PUREDEVICE) 
         return FALSE;
 	
@@ -447,7 +447,7 @@ RETRY:
 				ms_iD3DAdapterInfo,
 				D3DDEVTYPE_HAL,
 				hWnd,
-				// 2004. 1. 9 myevan ¹öÅØ½º ÇÁ·Î¼¼½Ì ¹æ½Ä ÀÚµ¿ ¼±ÅÃ Ãß°¡
+				// 2004. 1. 9 myevan ë²„í…ìŠ¤ í”„ë¡œì„¸ì‹± ë°©ì‹ ìë™ ì„ íƒ ì¶”ê°€
 				pkD3DModeInfo->m_dwD3DBehavior,
 				&ms_d3dPresentParameter,
 				&ms_lpd3dDevice)))
@@ -471,7 +471,7 @@ RETRY:
 		if (ErrorCorrection)
 			return CREATE_DEVICE;
 	
-		// 2004. 1. 9 myevan Å«ÀÇ¹Ì ¾ø´Â ÄÚµåÀÎµí.. ¿¡·¯³ª¸é Ç¥½ÃÇÏ°í Á¾·áÇÏÀÚ
+		// 2004. 1. 9 myevan í°ì˜ë¯¸ ì—†ëŠ” ì½”ë“œì¸ë“¯.. ì—ëŸ¬ë‚˜ë©´ í‘œì‹œí•˜ê³  ì¢…ë£Œí•˜ì
 		iReflashRate = 0;
 		++ErrorCorrection;
 		iRet = CREATE_REFRESHRATE;

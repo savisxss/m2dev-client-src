@@ -12,9 +12,9 @@ class CLZObject
 			typedef struct SHeader
 			{
 				DWORD	dwFourCC;
-				DWORD	dwEncryptSize;		// ╬охёх╜╣х е╘╠Б
-				DWORD	dwCompressedSize;	// ╬пцЮ╣х ╣╔юлем е╘╠Б
-				DWORD	dwRealSize;		// ╫га╕ ╣╔юлем е╘╠Б
+				DWORD	dwEncryptSize;		// Л∙■М≤╦М≥■К░° М│╛Й╦╟
+				DWORD	dwCompressedSize;	// Л∙∙Л╤∙К░° К█╟Л²╢М└╟ М│╛Й╦╟
+				DWORD	dwRealSize;		// Л▀╓Л═° К█╟Л²╢М└╟ М│╛Й╦╟
 			} THeader;
 		#pragma pack()
 		

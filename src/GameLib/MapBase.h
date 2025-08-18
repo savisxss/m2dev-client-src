@@ -22,13 +22,13 @@ class CMapBase : public CScreen
 		virtual bool	Update(float fX, float fY, float fZ) = 0;
 		virtual void	UpdateAroundAmbience(float fX, float fY, float fZ) = 0;
 		virtual float	GetHeight(float fx, float fy) = 0;
-		virtual void	OnBeginEnvironment() = 0; // ·»´õ¸µ ÇÒ ¶§ ºÒ·ÁÁö¸ç ¿©±â¼­ Environment¿¡ °ü·Ã ÀÖ´Â °ÍµéÀ» ¼ÂÆÃ ÇÑ´Ù.
+		virtual void	OnBeginEnvironment() = 0; // ë Œë”ë§ í•  ë•Œ ë¶ˆë ¤ì§€ë©° ì—¬ê¸°ì„œ Environmentì— ê´€ë ¨ ìˆëŠ” ê²ƒë“¤ì„ ì…‹íŒ… í•œë‹¤.
 
 		virtual void 	ApplyLight(DWORD dwVersion, const D3DLIGHT8& c_rkLight) = 0;
 
 	protected:
 		virtual void	OnRender() = 0;
-		virtual void	OnSetEnvironmentDataPtr() = 0;	// Environment µ¥ÀÌÅÍ°¡ ¼³Á¤µÉ ¶§ ºÒ·ÁÁø´Ù.
+		virtual void	OnSetEnvironmentDataPtr() = 0;	// Environment ë°ì´í„°ê°€ ì„¤ì •ë  ë•Œ ë¶ˆë ¤ì§„ë‹¤.
 		virtual void	OnResetEnvironmentDataPtr() = 0;
 
 	public:
@@ -50,14 +50,14 @@ class CMapBase : public CScreen
 		const std::string & GetName() const { return m_strName; }
 		void SetName(const std::string & cr_strName) { m_strName = cr_strName; }
 
-		bool IsCopiedMap() const { return m_strParentMapName.length() > 0; }		// "¿øº» µ¥ÀÌÅÍ´Â µû·Î ÀÖ´Â" º¹»ç ¸ÊÀÎ°¡?
-		const std::string& GetParentMapName() const { return m_strParentMapName; }	// ¿øº» µ¥ÀÌÅÍ¸¦ °®°íÀÖ´Â ¸ÊÀÇ ÀÌ¸§À» ¸®ÅÏ (º¹»ç¸ÊÀÇ °æ¿ì ÇÊ¼ö·Î ¼¼ÆÃµÇ¾î¾ß ÇÔ)
+		bool IsCopiedMap() const { return m_strParentMapName.length() > 0; }		// "ì›ë³¸ ë°ì´í„°ëŠ” ë”°ë¡œ ìˆëŠ”" ë³µì‚¬ ë§µì¸ê°€?
+		const std::string& GetParentMapName() const { return m_strParentMapName; }	// ì›ë³¸ ë°ì´í„°ë¥¼ ê°–ê³ ìˆëŠ” ë§µì˜ ì´ë¦„ì„ ë¦¬í„´ (ë³µì‚¬ë§µì˜ ê²½ìš° í•„ìˆ˜ë¡œ ì„¸íŒ…ë˜ì–´ì•¼ í•¨)
 		const std::string& GetMapDataDirectory() const { return IsCopiedMap() ? m_strParentMapName : m_strName; }
 
 	protected:
-		EMAPTYPE				m_eType;				// ¸Ê Á¾·ù... ÇöÀç´Â Indoor¿Í Ourdoor°¡ ÀÖ´Ù.
-		std::string				m_strName;				// ¸Ê ÀÌ¸§. ¸Ê ÀÌ¸§ÀÌ ¸Ê ½Äº°ÀÚ°¡ µÉ ¼ö ÀÖÀ»±î?
-		std::string				m_strParentMapName;		// ¿øº» ¸ÊÀÇ ÀÌ¸§. ÀÌ °ªÀÌ ¼¼ÆÃµÇ¾î ÀÖ´Ù¸é ½ÇÁ¦ ¸ğµç ¸Ê µ¥ÀÌÅÍ´Â ParentMap/* °æ·Î¿¡¼­ ÀĞ¾î¿Â´Ù. ¸ÊÀÇ ÀÏºÎ¸¸ ÀĞ¾î¿À´Â ±â´ÉÀº ÇÊ¿ä¾ø´ë¼­ ÆĞ½º.
+		EMAPTYPE				m_eType;				// ë§µ ì¢…ë¥˜... í˜„ì¬ëŠ” Indoorì™€ Ourdoorê°€ ìˆë‹¤.
+		std::string				m_strName;				// ë§µ ì´ë¦„. ë§µ ì´ë¦„ì´ ë§µ ì‹ë³„ìê°€ ë  ìˆ˜ ìˆì„ê¹Œ?
+		std::string				m_strParentMapName;		// ì›ë³¸ ë§µì˜ ì´ë¦„. ì´ ê°’ì´ ì„¸íŒ…ë˜ì–´ ìˆë‹¤ë©´ ì‹¤ì œ ëª¨ë“  ë§µ ë°ì´í„°ëŠ” ParentMap/* ê²½ë¡œì—ì„œ ì½ì–´ì˜¨ë‹¤. ë§µì˜ ì¼ë¶€ë§Œ ì½ì–´ì˜¤ëŠ” ê¸°ëŠ¥ì€ í•„ìš”ì—†ëŒ€ì„œ íŒ¨ìŠ¤.
 		bool					m_bReady;
 
 		const TEnvironmentData *	mc_pEnvironmentData;

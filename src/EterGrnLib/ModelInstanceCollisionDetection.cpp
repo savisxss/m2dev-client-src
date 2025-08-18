@@ -239,7 +239,7 @@ void CGraphicThingInstance::DrawBoundBox()
 	D3DXVECTOR3 vtMax;
 
 	SetDiffuseColor(0.0f, 1.0f, 0.0f);
-	// Ä³¸¯ÅÍ ²ËÂ÷´Â ¹Ù¿îµù ¹Ú½º
+	// ìºë¦­í„° ê½‰ì°¨ëŠ” ë°”ìš´ë”© ë°•ìŠ¤
 	//GetBoundBox(&vtMin, &vtMax);
 	//DrawLineCube(vtMin.x, vtMin.y, vtMin.z, vtMax.x, vtMax.y, vtMax.z);
 	//const CThing::TMeshVector& rmeshVector=mc_pModel->meshVector;    

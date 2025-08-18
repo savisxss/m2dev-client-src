@@ -6,8 +6,8 @@
 
 void CPythonSystem::SetInterfaceHandler(PyObject * poHandler)
 {
-// NOTE : ·¹ÆÛ·±½º Ä«¿îÆ®´Â ¹Ù²ÙÁö ¾Ê´Â´Ù. ·¹ÆÛ·±½º°¡ ³²¾Æ ÀÖ¾î Python¿¡¼­ ¿ÏÀüÈ÷ Áö¿öÁöÁö ¾Ê±â ¶§¹®.
-//        ´ë½Å¿¡ __del__¶§ Destroy¸¦ È£ÃâÇØ Handler¸¦ NULL·Î ¼ÂÆÃÇÑ´Ù. - [levites]
+// NOTE : ë ˆí¼ëŸ°ìŠ¤ ì¹´ìš´íŠ¸ëŠ” ë°”ê¾¸ì§€ ì•ŠëŠ”ë‹¤. ë ˆí¼ëŸ°ìŠ¤ê°€ ë‚¨ì•„ ìˆì–´ Pythonì—ì„œ ì™„ì „íˆ ì§€ì›Œì§€ì§€ ì•Šê¸° ë•Œë¬¸.
+//        ëŒ€ì‹ ì— __del__ë•Œ Destroyë¥¼ í˜¸ì¶œí•´ Handlerë¥¼ NULLë¡œ ì…‹íŒ…í•œë‹¤. - [levites]
 //	if (m_poInterfaceHandler)
 //		Py_DECREF(m_poInterfaceHandler);
 
@@ -44,7 +44,7 @@ void CPythonSystem::GetDisplaySettings()
 	lpD3D->GetAdapterIdentifier(0, D3DENUM_NO_WHQL_LEVEL, &d3dAdapterIdentifier);
 	lpD3D->GetAdapterDisplayMode(0, &d3ddmDesktop);
 
-	// ÀÌ ¾îµªÅÍ°¡ °¡Áö°í ÀÖ´Â µğ½ºÇÃ·¡ÀÌ ¸ğµå°¹¼ö¸¦ ³ª¿­ÇÑ´Ù..
+	// ì´ ì–´ëí„°ê°€ ê°€ì§€ê³  ìˆëŠ” ë””ìŠ¤í”Œë˜ì´ ëª¨ë“œê°¯ìˆ˜ë¥¼ ë‚˜ì—´í•œë‹¤..
 	DWORD dwNumAdapterModes = lpD3D->GetAdapterModeCount(0);
 
 	for (UINT iMode = 0; iMode < dwNumAdapterModes; iMode++)
@@ -53,12 +53,12 @@ void CPythonSystem::GetDisplaySettings()
 		lpD3D->EnumAdapterModes(0, iMode, &DisplayMode);
 		DWORD bpp = 0;
 
-		// 800 600 ÀÌ»ó¸¸ °É·¯³½´Ù.
+		// 800 600 ì´ìƒë§Œ ê±¸ëŸ¬ë‚¸ë‹¤.
 		if (DisplayMode.Width < 800 || DisplayMode.Height < 600)
 			continue;
 
-		// ÀÏ´Ü 16bbp ¿Í 32bbp¸¸ Ãë±ŞÇÏÀÚ.
-		// 16bbp¸¸ Ã³¸®ÇÏ°Ô²û ÇßÀ½ - [levites]
+		// ì¼ë‹¨ 16bbp ì™€ 32bbpë§Œ ì·¨ê¸‰í•˜ì.
+		// 16bbpë§Œ ì²˜ë¦¬í•˜ê²Œë” í–ˆìŒ - [levites]
 		if (DisplayMode.Format == D3DFMT_R5G6B5)
 			bpp = 16;
 		else if (DisplayMode.Format == D3DFMT_X8R8G8B8)
@@ -77,7 +77,7 @@ void CPythonSystem::GetDisplaySettings()
 
 			int check_fre = false;
 
-			// ÇÁ¸®Äö½Ã¸¸ ´Ù¸£¹Ç·Î ÇÁ¸®Äö½Ã¸¸ ¼ÂÆÃÇØÁØ´Ù.
+			// í”„ë¦¬í€€ì‹œë§Œ ë‹¤ë¥´ë¯€ë¡œ í”„ë¦¬í€€ì‹œë§Œ ì…‹íŒ…í•´ì¤€ë‹¤.
 			for (int j = 0; j < m_ResolutionList[i].frequency_count; ++j)
 			{
 				if (m_ResolutionList[i].frequency[j] == DisplayMode.RefreshRate)
@@ -96,7 +96,7 @@ void CPythonSystem::GetDisplaySettings()
 
 		if (!check_res)
 		{
-			// »õ·Î¿î °Å´Ï±î Ãß°¡ÇØÁÖÀÚ.
+			// ìƒˆë¡œìš´ ê±°ë‹ˆê¹Œ ì¶”ê°€í•´ì£¼ì.
 			if (m_ResolutionCount < RESOLUTION_MAX_NUM)
 			{
 				m_ResolutionList[m_ResolutionCount].width			= DisplayMode.Width;
@@ -592,7 +592,7 @@ const CPythonSystem::TWindowStatus & CPythonSystem::GetWindowStatusReference(int
 	return m_WindowStatus[iIndex];
 }
 
-void CPythonSystem::ApplyConfig() // ÀÌÀü ¼³Á¤°ú ÇöÀç ¼³Á¤À» ºñ±³ÇØ¼­ ¹Ù²ï ¼³Á¤À» Àû¿ë ÇÑ´Ù.
+void CPythonSystem::ApplyConfig() // ì´ì „ ì„¤ì •ê³¼ í˜„ì¬ ì„¤ì •ì„ ë¹„êµí•´ì„œ ë°”ë€ ì„¤ì •ì„ ì ìš© í•œë‹¤.
 {
 	if (m_OldConfig.gamma != m_Config.gamma)
 	{

@@ -1,4 +1,4 @@
-#define LOCALE_SERVICE_NEWCIBN			// Áß±¹ ÀÚÀ¯¼¼°è
+#define LOCALE_SERVICE_NEWCIBN			// ì¤‘êµ­ ìžìœ ì„¸ê³„
 
 #define ENABLE_COSTUME_SYSTEM
 #define ENABLE_ENERGY_SYSTEM

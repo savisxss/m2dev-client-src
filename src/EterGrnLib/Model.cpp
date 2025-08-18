@@ -155,7 +155,7 @@ bool CGrannyModel::LoadMeshs()
 	assert(m_meshs == NULL);
 	assert(m_pgrnModel != NULL);
 
-	if (m_pgrnModel->MeshBindingCount <= 0)	// ¸Þ½¬°¡ ¾ø´Â ¸ðµ¨
+	if (m_pgrnModel->MeshBindingCount <= 0)	// ë©”ì‰¬ê°€ ì—†ëŠ” ëª¨ë¸
 		return true;
 
 	granny_skeleton * pgrnSkeleton = m_pgrnModel->Skeleton;

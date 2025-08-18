@@ -287,7 +287,7 @@ PyObject* grpGetSplitingTextLineCount(PyObject* poSelf, PyObject* poArgs)
 		{
 			i += 1;
 			
-			// ÀÚµ¿ ÁÙ ¹Ù²ŞµÇ°í ¹Ù·Î | °¡ ÀÖÀ» °æ¿ì
+			// ìë™ ì¤„ ë°”ê¿ˆë˜ê³  ë°”ë¡œ | ê°€ ìˆì„ ê²½ìš°
 			if (iPosition>0)
 				++iLineCount;
 
@@ -337,15 +337,15 @@ PyObject* grpGetSplitingTextLine(PyObject* poSelf, PyObject* poArgs)
 	int iPosition = 0;
 	int iLineCount = 0;
 
-	// 1Â÷ : Á¶±İ ´õ ±ò²ûÇÏ°Ô ¾ÈµÉ±î -_-a
-	// 2Â÷ : ¿À.. Á» ³ª¾ÆÁ³´Ù +_+
+	// 1ì°¨ : ì¡°ê¸ˆ ë” ê¹”ë”í•˜ê²Œ ì•ˆë ê¹Œ -_-a
+	// 2ì°¨ : ì˜¤.. ì¢€ ë‚˜ì•„ì¡Œë‹¤ +_+
 	for (DWORD i = 0; i < strlen(szText);)
 	{
 		if ('|' == szText[i])
 		{
 			i += 1;
 
-			// ÀÚµ¿ ÁÙ ¹Ù²ŞµÇ°í ¹Ù·Î | °¡ ÀÖÀ» °æ¿ì
+			// ìë™ ì¤„ ë°”ê¿ˆë˜ê³  ë°”ë¡œ | ê°€ ìˆì„ ê²½ìš°
 			if (iPosition>0)
 				++iLineCount;
 			iPosition = 0;

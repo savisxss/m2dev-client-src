@@ -171,28 +171,28 @@ bool CActorInstance::InputComboAttackCommand(float fDirRot)
 	}
 	else if (m_pkCurRaceMotionData->IsComboInputTimeData())
 	{
-		// µ¿ÀÛ °æ°ú ½Ã°£
+		// ë™ì‘ ê²½ê³¼ ì‹œê°„
  		float fElapsedTime = GetAttackingElapsedTime();	
 
-		// ÀÌ¹Ì ÀÔ·Â ÇÑ°è ½Ã°£ÀÌ Áö³µ´Ù¸é..
+		// ì´ë¯¸ ì…ë ¥ í•œê³„ ì‹œê°„ì´ ì§€ë‚¬ë‹¤ë©´..
 		if (fElapsedTime > m_pkCurRaceMotionData->GetComboInputEndTime())
 		{
-			//Tracen("ÀÔ·Â ÇÑ°è ½Ã°£ Áö³²");
+			//Tracen("ì…ë ¥ í•œê³„ ì‹œê°„ ì§€ë‚¨");
 			if (IsBowMode())
 				m_isNextPreInput = TRUE;
 			return false;
 		}
 
-		if (fElapsedTime > m_pkCurRaceMotionData->GetNextComboTime()) // ÄŞº¸ ¹ßµ¿ ½Ã°£ ÀÌ ÈÄ¶ó¸é
+		if (fElapsedTime > m_pkCurRaceMotionData->GetNextComboTime()) // ì½¤ë³´ ë°œë™ ì‹œê°„ ì´ í›„ë¼ë©´
 		{
-			//Tracen("´ÙÀ½ ÄŞº¸ µ¿ÀÛ");
+			//Tracen("ë‹¤ìŒ ì½¤ë³´ ë™ì‘");
 			// args : BlendingTime
 			__RunNextCombo();
 			return true;
 		}
-		else if (fElapsedTime > m_pkCurRaceMotionData->GetComboInputStartTime()) // ¼± ÀÔ·Â ½Ã°£ ¹üÀ§ ¶ó¸é..
+		else if (fElapsedTime > m_pkCurRaceMotionData->GetComboInputStartTime()) // ì„  ì…ë ¥ ì‹œê°„ ë²”ìœ„ ë¼ë©´..
 		{
-			//Tracen("¼± ÀÔ·Â ¼³Á¤");
+			//Tracen("ì„  ì…ë ¥ ì„¤ì •");
 			m_isPreInput = TRUE;
 			return false;
 		}
@@ -200,9 +200,9 @@ bool CActorInstance::InputComboAttackCommand(float fDirRot)
 	else
 	{
 		float fElapsedTime = GetAttackingElapsedTime();	
-		if (fElapsedTime > m_pkCurRaceMotionData->GetMotionDuration()*0.9f) // ÄŞº¸ ¹ßµ¿ ½Ã°£ ÀÌ ÈÄ¶ó¸é
+		if (fElapsedTime > m_pkCurRaceMotionData->GetMotionDuration()*0.9f) // ì½¤ë³´ ë°œë™ ì‹œê°„ ì´ í›„ë¼ë©´
 		{
-			//Tracen("´ÙÀ½ ÄŞº¸ µ¿ÀÛ");
+			//Tracen("ë‹¤ìŒ ì½¤ë³´ ë™ì‘");
 			// args : BlendingTime
 			__RunNextCombo();
 			return true;
@@ -230,7 +230,7 @@ void CActorInstance::ComboProcess()
 		// Process PreInput
 		if (m_isPreInput)
 		{
-			//Tracenf("¼±ÀÔ·Â %f ´ÙÀ½ÄŞº¸½Ã°£ %f", fElapsedTime, m_pkCurRaceMotionData->GetNextComboTime());
+			//Tracenf("ì„ ì…ë ¥ %f ë‹¤ìŒì½¤ë³´ì‹œê°„ %f", fElapsedTime, m_pkCurRaceMotionData->GetNextComboTime());
 			if (fElapsedTime > m_pkCurRaceMotionData->GetNextComboTime())
 			{
   				__RunNextCombo();
@@ -244,8 +244,8 @@ void CActorInstance::ComboProcess()
 	{
 		m_isPreInput = FALSE;
 
-		if (!IsUsingSkill())	// m_isNextPreInput´Â È°¸ğµå ÀÏ¶§¸¸ »ç¿ëÇÏ´Â º¯¼ö
-		if (m_isNextPreInput)	// È°ÀÏ¶§¸¸ ½ºÅ³ÀÌ Äµ½½ µÇ´Â°Ç ÀÌ°÷ ¶§¹®ÀÓ
+		if (!IsUsingSkill())	// m_isNextPreInputëŠ” í™œëª¨ë“œ ì¼ë•Œë§Œ ì‚¬ìš©í•˜ëŠ” ë³€ìˆ˜
+		if (m_isNextPreInput)	// í™œì¼ë•Œë§Œ ìŠ¤í‚¬ì´ ìº”ìŠ¬ ë˜ëŠ”ê±´ ì´ê³³ ë•Œë¬¸ì„
 		{
 			__RunNextCombo();
 			m_isNextPreInput = FALSE;
@@ -289,7 +289,7 @@ void CActorInstance::__RunNextCombo()
 	ComboAttack(wcurComboMotionIndex, m_fAtkDirRot, 0.1f);
 
 	////////////////////////////////
-	// ÄŞº¸°¡ ³¡³µ´Ù¸é
+	// ì½¤ë³´ê°€ ëë‚¬ë‹¤ë©´
 	if (m_dwcurComboIndex == pComboData->ComboIndexVector.size())
 	{
 		__OnEndCombo();
@@ -303,8 +303,8 @@ void CActorInstance::__OnEndCombo()
 		m_dwcurComboIndex = 1;
 	}
 
-	// ¿©±â¼­ ÄŞº¸¸¦ ÃÊ±âÈ­ ÇØ¼± ¾ÈµÈ´Ù.
-	// ÄŞº¸°¡ ÃÊ±âÈ­ µÇ´Â °÷Àº ¸¶Áö¸· ÄŞº¸°¡ ³¡³ª°í Motion ÀÌ ÀÚµ¿À¸·Î Wait À¸·Î µ¹¾Æ°¡´Â ½ÃÁ¡ÀÌ´Ù.
+	// ì—¬ê¸°ì„œ ì½¤ë³´ë¥¼ ì´ˆê¸°í™” í•´ì„  ì•ˆëœë‹¤.
+	// ì½¤ë³´ê°€ ì´ˆê¸°í™” ë˜ëŠ” ê³³ì€ ë§ˆì§€ë§‰ ì½¤ë³´ê°€ ëë‚˜ê³  Motion ì´ ìë™ìœ¼ë¡œ Wait ìœ¼ë¡œ ëŒì•„ê°€ëŠ” ì‹œì ì´ë‹¤.
 }
 
 void CActorInstance::__ClearCombo()
@@ -567,7 +567,7 @@ bool CActorInstance::__CanPushDestActor(CActorInstance& rkActorDst)
 	if (rkActorDst.IsNPC())
 		return false;
 
-	// °Å´ë ¸ó½ºÅÍ ¹Ğ¸² Á¦¿Ü
+	// ê±°ëŒ€ ëª¬ìŠ¤í„° ë°€ë¦¼ ì œì™¸
 	extern bool IS_HUGE_RACE(unsigned int vnum);
 	if (IS_HUGE_RACE(rkActorDst.GetRace()))
 		return false;
@@ -588,15 +588,15 @@ bool IS_PARTY_HUNTING_RACE(unsigned int vnum)
 {
 	return true;
 
-	// ¸ğµç ¸ó½ºÅÍ ÆÄÆ¼ »ç³É Àû¿ë
+	// ëª¨ë“  ëª¬ìŠ¤í„° íŒŒí‹° ì‚¬ëƒ¥ ì ìš©
 	/*
-	if (vnum < 8) // ÇÃ·¹ÀÌ¾î
+	if (vnum < 8) // í”Œë ˆì´ì–´
 		return true;
 
-	if (vnum >= 8000 && vnum <= 8112) // ¸ŞÆ¾¼®
+	if (vnum >= 8000 && vnum <= 8112) // ë©”í‹´ì„
 		return true;
 
-	if (vnum >= 2400 && vnum <  5000) // ÃµÀÇ µ¿±¼ ÀÌÈÄ ¸ó½ºÅÍ
+	if (vnum >= 2400 && vnum <  5000) // ì²œì˜ ë™êµ´ ì´í›„ ëª¬ìŠ¤í„°
 		return true;
 
 	return false;
@@ -624,13 +624,13 @@ void CActorInstance::__ProcessDataAttackSuccess(const NRaceData::TAttackData & c
 	// Invisible Time
 	if (IS_PARTY_HUNTING_RACE(rVictim.GetRace()))
 	{
-		if (uiSkill) // ÆÄÆ¼ »ç³É ¸ó½ºÅÍ¶óµµ ½ºÅ³ÀÌ¸é ¹«Àû½Ã°£ Àû¿ë
+		if (uiSkill) // íŒŒí‹° ì‚¬ëƒ¥ ëª¬ìŠ¤í„°ë¼ë„ ìŠ¤í‚¬ì´ë©´ ë¬´ì ì‹œê°„ ì ìš©
 			rVictim.m_fInvisibleTime = CTimer::Instance().GetCurrentSecond() + c_rAttackData.fInvisibleTime;
 
-		if (m_isMain) // #0000794: [M2KR] Æú¸®¸ğÇÁ - ¹ë·±½Ì ¹®Á¦ Å¸ÀÎ °ø°İ¿¡ ÀÇÇÑ ¹«Àû Å¸ÀÓÀº °í·ÁÇÏÁö ¾Ê°í ÀÚ½Å °ø°İ¿¡ ÀÇÇÑ°Í¸¸ Ã¼Å©ÇÑ´Ù
+		if (m_isMain) // #0000794: [M2KR] í´ë¦¬ëª¨í”„ - ë°¸ëŸ°ì‹± ë¬¸ì œ íƒ€ì¸ ê³µê²©ì— ì˜í•œ ë¬´ì  íƒ€ì„ì€ ê³ ë ¤í•˜ì§€ ì•Šê³  ìì‹  ê³µê²©ì— ì˜í•œê²ƒë§Œ ì²´í¬í•œë‹¤
 			rVictim.m_fInvisibleTime = CTimer::Instance().GetCurrentSecond() + c_rAttackData.fInvisibleTime;
 	}
-	else // ÆÄÆ¼ »ç³É ¸ó½ºÅÍ°¡ ¾Æ´Ò °æ¿ì¸¸ Àû¿ë
+	else // íŒŒí‹° ì‚¬ëƒ¥ ëª¬ìŠ¤í„°ê°€ ì•„ë‹ ê²½ìš°ë§Œ ì ìš©
 	{
 		rVictim.m_fInvisibleTime = CTimer::Instance().GetCurrentSecond() + c_rAttackData.fInvisibleTime;
 	}
@@ -641,7 +641,7 @@ void CActorInstance::__ProcessDataAttackSuccess(const NRaceData::TAttackData & c
 	// Hit Effect
 	D3DXVECTOR3 vec3Effect(rVictim.m_x, rVictim.m_y, rVictim.m_z);
 	
-	// #0000780: [M2KR] ¼ö·æ Å¸°İ±¸ ¹®Á¦
+	// #0000780: [M2KR] ìˆ˜ë£¡ íƒ€ê²©êµ¬ ë¬¸ì œ
 	extern bool IS_HUGE_RACE(unsigned int vnum);
 	if (IS_HUGE_RACE(rVictim.GetRace()))
 	{
@@ -652,7 +652,7 @@ void CActorInstance::__ProcessDataAttackSuccess(const NRaceData::TAttackData & c
 
 	float fHeight = D3DXToDegree(atan2(-vec3Effect.x + v3Pos.x,+vec3Effect.y - v3Pos.y));
 
-	// 2004.08.03.myevan.ºôµùÀÌ³ª ¹®ÀÇ °æ¿ì Å¸°İ È¿°ú°¡ º¸ÀÌÁö ¾Ê´Â´Ù
+	// 2004.08.03.myevan.ë¹Œë”©ì´ë‚˜ ë¬¸ì˜ ê²½ìš° íƒ€ê²© íš¨ê³¼ê°€ ë³´ì´ì§€ ì•ŠëŠ”ë‹¤
 	if (rVictim.IsBuilding()||rVictim.IsDoor())
 	{
 		D3DXVECTOR3 vec3Delta=vec3Effect-v3Pos;
@@ -674,7 +674,7 @@ void CActorInstance::__ProcessDataAttackSuccess(const NRaceData::TAttackData & c
 
 	if (rVictim.IsBuilding())
 	{
-		// 2004.08.03.ºôµùÀÇ °æ¿ì Èçµé¸®¸é ÀÌ»óÇÏ´Ù
+		// 2004.08.03.ë¹Œë”©ì˜ ê²½ìš° í”ë“¤ë¦¬ë©´ ì´ìƒí•˜ë‹¤
 	}
 	else if (rVictim.IsStone() || rVictim.IsDoor())
 	{

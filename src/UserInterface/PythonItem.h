@@ -1,8 +1,8 @@
 #pragma once
 
-// Note : È­¸é»ó¿¡ ¶³¾îÁø ItemÀÇ Update¿Í RenderingÀ» Ã¥ÀÓÁö´Â ÇÑÆí
-//        °¢ ¾ÆÀÌÅÛÀÇ µ¥ÀÌÅ¸¿Í Icon Image InstanceÀÇ ¸Å´ÏÁ® ¿ªÇÒ±îÁö ÁÖ°ü
-//        Á¶±İ ³­ÀâÇØÁø°Å °°±âµµ ÇÏ´Ù - 2003. 01. 13. [levites]
+// Note : í™”ë©´ìƒì— ë–¨ì–´ì§„ Itemì˜ Updateì™€ Renderingì„ ì±…ì„ì§€ëŠ” í•œí¸
+//        ê° ì•„ì´í…œì˜ ë°ì´íƒ€ì™€ Icon Image Instanceì˜ ë§¤ë‹ˆì ¸ ì—­í• ê¹Œì§€ ì£¼ê´€
+//        ì¡°ê¸ˆ ë‚œì¡í•´ì§„ê±° ê°™ê¸°ë„ í•˜ë‹¤ - 2003. 01. 13. [levites]
 
 #include "../EterGrnLib/ThingInstance.h"
 

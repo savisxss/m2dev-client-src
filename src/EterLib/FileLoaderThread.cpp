@@ -79,7 +79,7 @@ void CFileLoaderThread::Shutdown()
 	}
 	while (!bRet);
 
-	WaitForSingleObject(m_hThread, 10000);	// ¾²·¹µå°¡ Á¾·á µÇ±â¸¦ 10ÃÊ ±â´Ù¸²
+	WaitForSingleObject(m_hThread, 10000);	// ì“°ë ˆë“œê°€ ì¢…ë£Œ ë˜ê¸°ë¥¼ 10ì´ˆ ê¸°ë‹¤ë¦¼
 }
 
 UINT CFileLoaderThread::Execute(void * /*pvArg*/)

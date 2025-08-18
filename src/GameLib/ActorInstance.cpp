@@ -112,7 +112,7 @@ void CActorInstance::OnUpdate()
 }
 
 
-// 2004.07.05.myevan. ±Ã½ÅÅº¿µ ¸Ê¿¡ ³¢ÀÌ´Â ¹®Á¦ÇØ°á
+// 2004.07.05.myevan. ê¶ì‹ íƒ„ì˜ ë§µì— ë¼ì´ëŠ” ë¬¸ì œí•´ê²°
 IBackground& CActorInstance::GetBackground()
 {
 	return IBackground::Instance();
@@ -202,7 +202,7 @@ void CActorInstance::SetFishingPosition(D3DXVECTOR3 & rv3Position)
 	m_v3FishingPosition = rv3Position;
 }
 
-// ActorInstanceMotion.cpp ¿¡ ³Öµµ·Ï ÇÏÀÚ
+// ActorInstanceMotion.cpp ì— ë„£ë„ë¡ í•˜ì
 void  CActorInstance::Move()
 {
 	if (m_isWalking)
@@ -459,8 +459,8 @@ void CActorInstance::PhysicsProcess()
 
 void CActorInstance::__AccumulationMovement(float fRot)
 {
-	// NOTE - ÀÏ´ÜÀº WAIT·Î ¹Ì²ô·¯Áü ¹æÁö
-	//        ÃßÈÄ¿¡´Â RaceMotionData°¡ ÀÌµ¿µÇ´Â ¸ğ¼ÇÀÎÁö¿¡ ´ëÇÑ Flag¸¦ °®°í ÀÖ°Ô²û ÇÑ´Ù. - [levites]
+	// NOTE - ì¼ë‹¨ì€ WAITë¡œ ë¯¸ë„ëŸ¬ì§ ë°©ì§€
+	//        ì¶”í›„ì—ëŠ” RaceMotionDataê°€ ì´ë™ë˜ëŠ” ëª¨ì…˜ì¸ì§€ì— ëŒ€í•œ Flagë¥¼ ê°–ê³  ìˆê²Œë” í•œë‹¤. - [levites]
 	if (CRaceMotionData::NAME_WAIT == __GetCurrentMotionIndex())
 		return;
 
@@ -606,9 +606,9 @@ void CActorInstance::AdjustDynamicCollisionMovement(const CActorInstance * c_pAc
 		return;
 	}
 
-	// NOTE : ±âÁ¸ÀÇ Sphere Overlap‰çÀ»°æ¿ì Ã³¸®°¡ ºñºñ±â¸¦ ÇÏ¸éÀº PenetrationµÉ À§ÇèÀÌ ¸¹¾Æ¼­ ( ½ÇÁ¦·Îµµ ³ª¿Ô°í --)
-	// Sphere°£ CollisionÀÌ »ı°åÀ» °æ¿ì ÀÌÀüÀ§Ä¡·Î RollBackÇÏ´Â ¹æ½ÄÀ¸·Î ¹Ù²å´Ù.
-	// ´Ü BGObject¿¡ ´ëÇØ¼­¸¸.
+	// NOTE : ê¸°ì¡´ì˜ Sphere Overlapë¬ì„ê²½ìš° ì²˜ë¦¬ê°€ ë¹„ë¹„ê¸°ë¥¼ í•˜ë©´ì€ Penetrationë  ìœ„í—˜ì´ ë§ì•„ì„œ ( ì‹¤ì œë¡œë„ ë‚˜ì™”ê³  --)
+	// Sphereê°„ Collisionì´ ìƒê²¼ì„ ê²½ìš° ì´ì „ìœ„ì¹˜ë¡œ RollBackí•˜ëŠ” ë°©ì‹ìœ¼ë¡œ ë°”ê¿¨ë‹¤.
+	// ë‹¨ BGObjectì— ëŒ€í•´ì„œë§Œ.
 
 	if (isAttacking() )
 		return;
@@ -618,7 +618,7 @@ void CActorInstance::AdjustDynamicCollisionMovement(const CActorInstance * c_pAc
 	{
 		BlockMovement();
 
-		//MovementÃÊ±âÈ­
+		//Movementì´ˆê¸°í™”
 	/*	m_v3Movement = D3DXVECTOR3(0.f,0.f,0.f);
 
 		TCollisionPointInstanceListIterator itMain = m_BodyPointInstanceList.begin();
@@ -682,7 +682,7 @@ void CActorInstance::__AdjustCollisionMovement(const CGraphicObjectInstance * c_
 		return;
 	}
 
-	// Body´Â ÇÏ³ªÀÓÀ» °¡Á¤ÇÕ´Ï´Ù.
+	// BodyëŠ” í•˜ë‚˜ì„ì„ ê°€ì •í•©ë‹ˆë‹¤.
 
 	if (m_v3Movement.x == 0.0f && m_v3Movement.y == 0.0f && m_v3Movement.z == 0.0f) 
 		return;

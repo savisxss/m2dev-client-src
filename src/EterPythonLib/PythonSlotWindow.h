@@ -24,7 +24,7 @@ namespace UI
 		SLOT_STATE_LOCK		= (1 << 0),
 		SLOT_STATE_CANT_USE	= (1 << 1),
 		SLOT_STATE_DISABLE	= (1 << 2),
-		SLOT_STATE_ALWAYS_RENDER_COVER = (1 << 3),			// ÇöÀç Cover ¹öÆ°Àº ½½·Ô¿¡ ¹«¾ð°¡ µé¾î¿Í ÀÖÀ» ¶§¿¡¸¸ ·»´õ¸µ ÇÏ´Âµ¥, ÀÌ flag°¡ ÀÖÀ¸¸é ºó ½½·ÔÀÌ¾îµµ Ä¿¹ö ·»´õ¸µ
+		SLOT_STATE_ALWAYS_RENDER_COVER = (1 << 3),			// í˜„ìž¬ Cover ë²„íŠ¼ì€ ìŠ¬ë¡¯ì— ë¬´ì–¸ê°€ ë“¤ì–´ì™€ ìžˆì„ ë•Œì—ë§Œ ë Œë”ë§ í•˜ëŠ”ë°, ì´ flagê°€ ìžˆìœ¼ë©´ ë¹ˆ ìŠ¬ë¡¯ì´ì–´ë„ ì»¤ë²„ ë Œë”ë§
 	};
 
 	class CSlotWindow : public CWindow
@@ -44,9 +44,9 @@ namespace UI
 			{
 				DWORD	dwState;
 				DWORD	dwSlotNumber;
-				DWORD	dwCenterSlotNumber;		// NOTE : »çÀÌÁî°¡ Å« ¾ÆÀÌÅÛÀÇ °æ¿ì ¾ÆÀÌÅÛÀÇ ½ÇÁ¦ À§Ä¡ ¹øÈ£
-				DWORD	dwItemIndex;			// NOTE : ¿©±â¼­ »ç¿ëµÇ´Â ItemÀÌ¶ó´Â ´Ü¾î´Â Á¼Àº °³³äÀÇ °ÍÀÌ ¾Æ´Ñ,
-				BOOL	isItem;					//        "½½·ÔÀÇ ³»¿ë¹°"ÀÌ¶ó´Â Æ÷°ýÀûÀÎ °³³ä¾î. ´õ ÁÁÀº °ÍÀÌ ÀÖÀ»±î? - [levites]
+				DWORD	dwCenterSlotNumber;		// NOTE : ì‚¬ì´ì¦ˆê°€ í° ì•„ì´í…œì˜ ê²½ìš° ì•„ì´í…œì˜ ì‹¤ì œ ìœ„ì¹˜ ë²ˆí˜¸
+				DWORD	dwItemIndex;			// NOTE : ì—¬ê¸°ì„œ ì‚¬ìš©ë˜ëŠ” Itemì´ë¼ëŠ” ë‹¨ì–´ëŠ” ì¢ì€ ê°œë…ì˜ ê²ƒì´ ì•„ë‹Œ,
+				BOOL	isItem;					//        "ìŠ¬ë¡¯ì˜ ë‚´ìš©ë¬¼"ì´ë¼ëŠ” í¬ê´„ì ì¸ ê°œë…ì–´. ë” ì¢‹ì€ ê²ƒì´ ìžˆì„ê¹Œ? - [levites]
 
 				// CoolTime
 				float	fCoolTime;

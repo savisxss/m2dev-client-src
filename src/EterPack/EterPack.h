@@ -139,7 +139,7 @@ class CEterPack
 		bool				EncryptIndexFile();
 		bool				DecryptIndexFile();
 
-		DWORD				DeleteUnreferencedData();	// ¸î°³°¡ »èÁ¦ µÇ¾ú´ÂÁö ¸®ÅÏ ÇÑ´Ù.
+		DWORD				DeleteUnreferencedData();	// ëª‡ê°œê°€ ì‚­ì œ ë˜ì—ˆëŠ”ì§€ ë¦¬í„´ í•œë‹¤.
 
 		bool				GetNames(std::vector<std::string>* retNames);
 		
@@ -182,7 +182,7 @@ class CEterPack
 
 		std::unordered_map<DWORD, DWORD> m_map_indexRefCount;
 		TDataPositionMap		m_DataPositionMap;
-		TFreeIndexList			m_FreeIndexList[FREE_INDEX_MAX_SIZE + 1];	// MAX µµ ¾ï¼¼½º ÇÏ¹Ç·Î + 1 Å©±â¸¸Å­ ¸¸µç´Ù.
+		TFreeIndexList			m_FreeIndexList[FREE_INDEX_MAX_SIZE + 1];	// MAX ë„ ì–µì„¸ìŠ¤ í•˜ë¯€ë¡œ + 1 í¬ê¸°ë§Œí¼ ë§Œë“ ë‹¤.
 
 		std::string				m_stDataFileName;
 		std::string				m_stPathName;
@@ -198,8 +198,8 @@ class CEterPack
 
 	//private:
 	//	bool				m_bIsDataLoaded;
-	//	// ±×³É time_t¸¦ ¾²¸é, 32bit time_t¸¦ »ç¿ëÇÏ´Â ¼Ò½º¿¡¼­´Â, 
-	//	// CEterPackÀÇ size¸¦ ½ÇÁ¦ size - 4·Î ÀÎ½ÄÇÏ±â ¶§¹®¿¡ ¹®Á¦°¡ ¹ß»ıÇÒ ¼ö ÀÖ´Ù.
+	//	// ê·¸ëƒ¥ time_të¥¼ ì“°ë©´, 32bit time_të¥¼ ì‚¬ìš©í•˜ëŠ” ì†ŒìŠ¤ì—ì„œëŠ”, 
+	//	// CEterPackì˜ sizeë¥¼ ì‹¤ì œ size - 4ë¡œ ì¸ì‹í•˜ê¸° ë•Œë¬¸ì— ë¬¸ì œê°€ ë°œìƒí•  ìˆ˜ ìˆë‹¤.
 	//	__time64_t			m_tLastAccessTime;
 	//public:
 	//	__time64_t			GetLastAccessTime() { return m_tLastAccessTime; }

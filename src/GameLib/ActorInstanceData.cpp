@@ -79,7 +79,7 @@ bool CActorInstance::SetRace(DWORD eRace)
 
 	CGraphicThingInstance::Clear();
 
-	//NOTE : PC¸¸ Partº°·Î ´Ù »ı¼ºÇÏ°Ô ÇØÁØ´Ù.
+	//NOTE : PCë§Œ Partë³„ë¡œ ë‹¤ ìƒì„±í•˜ê²Œ í•´ì¤€ë‹¤.
 	if( IsPC())
 	{
 		CGraphicThingInstance::ReserveModelThing(CRaceData::PART_MAX_NUM);

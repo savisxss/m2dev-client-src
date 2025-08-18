@@ -78,7 +78,7 @@ BOOL CSpeedTreeForest::GetMainTree(DWORD dwCRC, CSpeedTreeWrapper ** ppMainTree,
 		CMappedFile file;
 		LPCVOID c_pvData;
 
-		// NOTE : ÆÄÀÏÀÌ ¾øÀ»¶§´Â return FALSE ¾Æ´Ñ°¡¿ä? - [levites]
+		// NOTE : íŒŒì¼ì´ ì—†ì„ë•ŒëŠ” return FALSE ì•„ë‹Œê°€ìš”? - [levites]
 		if (!CEterPackManager::Instance().Get(file, c_pszFileName, &c_pvData))
 			return FALSE;
 
@@ -126,7 +126,7 @@ void CSpeedTreeForest::DeleteInstance(CSpeedTreeWrapper * pInstance)
 
 void CSpeedTreeForest::UpdateSystem(float fCurrentTime)
 {
-	// ¾÷µ¥ÀÌÆ® ÇÒ ¶§ ÇÑ¹ø
+	// ì—…ë°ì´íŠ¸ í•  ë•Œ í•œë²ˆ
 	static float fLastTime = fCurrentTime;
 	float fElapsedTime = fCurrentTime - fLastTime;
 	CSpeedTreeRT::SetTime(fElapsedTime);

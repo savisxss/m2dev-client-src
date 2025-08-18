@@ -3,7 +3,7 @@
 #include "Packet.h"
 
 /*
- *	±³È¯ Ã¢ °ü·Ã
+ *	êµí™˜ ì°½ ê´€ë ¨
  */
 class CPythonExchange : public CSingleton<CPythonExchange>
 {
@@ -86,7 +86,7 @@ class CPythonExchange : public CSingleton<CPythonExchange>
 	protected:
 		bool				m_isTrading;
 
-		bool				m_elk_mode;   // ¿¤Å©¸¦ Å¬¸¯ÇØ¼­ ±³È¯ÇßÀ»¶§¸¦ À§ÇÑ º¯Á¾ÀÓ.
+		bool				m_elk_mode;   // ì—˜í¬ë¥¼ í´ë¦­í•´ì„œ êµí™˜í–ˆì„ë•Œë¥¼ ìœ„í•œ ë³€ì¢…ì„.
 		TExchangeData		m_self;
 		TExchangeData		m_victim;
 };

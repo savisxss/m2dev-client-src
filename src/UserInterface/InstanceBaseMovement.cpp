@@ -166,7 +166,7 @@ void CInstanceBase::EndWalking(float fBlendingTime)
 
 	m_isGoing = FALSE;
 
-	// °È°í ÀÖÀ»¶§´Â ¹«Á¶°Ç ¸ØÃß°Ô ÇØ¾ß ÇÑ´Ù
+	// ê±·ê³  ìˆì„ë•ŒëŠ” ë¬´ì¡°ê±´ ë©ˆì¶”ê²Œ í•´ì•¼ í•œë‹¤
 	if (IsWalking()||!IsAttacked())
 	{
 		m_GraphicThingInstance.Stop(fBlendingTime);

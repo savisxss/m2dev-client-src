@@ -1883,13 +1883,13 @@ PyObject * wndMarkBox_SetImageFilename(PyObject * poSelf, PyObject * poArgs)
 
 PyObject * wndMarkBox_SetImage(PyObject * poSelf, PyObject * poArgs)
 {
-	// ¾Æ¹«°Íµµ ÇÏÁö ¾ÊÀ½
+	// ì•„ë¬´ê²ƒë„ í•˜ì§€ ì•ŠìŒ
 	return Py_BuildNone();
 }
 
 PyObject * wndMarkBox_Load(PyObject * poSelf, PyObject * poArgs)
 {
-	// ¾Æ¹«°Íµµ ÇÏÁö ¾ÊÀ½
+	// ì•„ë¬´ê²ƒë„ í•˜ì§€ ì•ŠìŒ
 	return Py_BuildNone();
 }
 
@@ -2495,7 +2495,7 @@ void initwndMgr()
 
 	PyObject * poModule = Py_InitModule("wndMgr", s_methods);
 
-// ÇÏ³ªÀÇ µñ¼Å³Ê¸®¿¡ ³Ê¹« ¸¹Àº FunctionÀÌ Æ÷ÇÔ µÇ´Â °Í °°¾Æ ÀÌ·±½ÄÀ¸·Î µñ¼Å³Ê¸®¸¦ ³ª´©´Â °ÍÀ» °í·Á Áß - [levites]
+// í•˜ë‚˜ì˜ ë”•ì…”ë„ˆë¦¬ì— ë„ˆë¬´ ë§ì€ Functionì´ í¬í•¨ ë˜ëŠ” ê²ƒ ê°™ì•„ ì´ëŸ°ì‹ìœ¼ë¡œ ë”•ì…”ë„ˆë¦¬ë¥¼ ë‚˜ëˆ„ëŠ” ê²ƒì„ ê³ ë ¤ ì¤‘ - [levites]
 //	PyObject * poMgrModule = Py_InitModule("wndMgr", s_methods);
 //	PyObject * poTextModule = Py_InitModule("wndText", s_methods);
 //	PyObject * poSlotModule = Py_InitModule("wndSlot", s_methods);

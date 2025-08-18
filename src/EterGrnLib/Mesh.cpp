@@ -159,7 +159,7 @@ bool CGrannyMesh::LoadTriGroupNodeList(CGrannyMaterialPalette& rkMtrlPal)
 	assert(m_triGroupNodes == NULL);
 
 	int mtrlCount		= m_pgrnMesh->MaterialBindingCount;
-	if (mtrlCount <= 0) // ÃµÀÇ µ¿±¼ 2Ãþ Å©·¡½¬ ¹ß»ý
+	if (mtrlCount <= 0) // ì²œì˜ ë™êµ´ 2ì¸µ í¬ëž˜ì‰¬ ë°œìƒ
 		return true;
 
 	int GroupNodeCount	= GrannyGetMeshTriangleGroupCount(m_pgrnMesh);
@@ -199,7 +199,7 @@ bool CGrannyMesh::LoadTriGroupNodeList(CGrannyMaterialPalette& rkMtrlPal)
 
 void CGrannyMesh::RebuildTriGroupNodeList()
 {
-	assert(!"CGrannyMesh::RebuildTriGroupNodeList() - ¿Ö ¸®ºôµå¸¦ ÇÏ´Â°¡- -?");
+	assert(!"CGrannyMesh::RebuildTriGroupNodeList() - ì™œ ë¦¬ë¹Œë“œë¥¼ í•˜ëŠ”ê°€- -?");
 	/*
 	int mtrlCount = m_pgrnMesh->MaterialBindingCount;
 	int GroupNodeCount = GrannyGetMeshTriangleGroupCount(m_pgrnMesh);

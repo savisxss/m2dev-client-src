@@ -39,8 +39,8 @@ void CPythonCharacterManager::AdjustCollisionWithOtherObjects(CActorInstance* pI
 
 		if(pInst->TestPhysicsBlendingCollision(*rkActorEach) )
 		{
-			// NOTE : ÀÏ´Ü ±âÁ¸À§Ä¡·Î ¿øº¹
-			// TODO : ÇâÈÄ Á¶±İ´õ Àß Ã³¸®ÇÑ´Ù¸é physic movement°Å¸®¸¦ stepingÇØ¼­ iterationÃ³¸®ÇØ¾ß ÇÔ.
+			// NOTE : ì¼ë‹¨ ê¸°ì¡´ìœ„ì¹˜ë¡œ ì›ë³µ
+			// TODO : í–¥í›„ ì¡°ê¸ˆë” ì˜ ì²˜ë¦¬í•œë‹¤ë©´ physic movementê±°ë¦¬ë¥¼ stepingí•´ì„œ iterationì²˜ë¦¬í•´ì•¼ í•¨.
 			TPixelPosition curPos;
 			pInst->GetPixelPosition(&curPos);
 			pInst->SetBlendingPosition(curPos);
@@ -276,8 +276,8 @@ void CPythonCharacterManager::UpdateTransform()
 
 			pSrcInstance->CheckAdvancing();
 
-			// 2004.08.02.myevan.IsAttacked ÀÏ °æ¿ì Á×¾úÀ»¶§µµ Ã¼Å©ÇÏ¹Ç·Î, 
-			// ½ÇÁúÀûÀ¸·Î °Å¸®°¡ º¯°æµÇ´Â IsPushingÀÏ¶§¸¸ Ã¼Å©ÇÏµµ·Ï ÇÑ´Ù
+			// 2004.08.02.myevan.IsAttacked ì¼ ê²½ìš° ì£½ì—ˆì„ë•Œë„ ì²´í¬í•˜ë¯€ë¡œ, 
+			// ì‹¤ì§ˆì ìœ¼ë¡œ ê±°ë¦¬ê°€ ë³€ê²½ë˜ëŠ” IsPushingì¼ë•Œë§Œ ì²´í¬í•˜ë„ë¡ í•œë‹¤
 			if (pSrcInstance->IsPushing())
 				rkBG.CheckAdvancing(pSrcInstance);
 		}
@@ -688,7 +688,7 @@ void CPythonCharacterManager::__UpdatePickedActorList()
 	for (i=m_kAliveInstMap.begin(); i!=m_kAliveInstMap.end(); ++i)
 	{
 		CInstanceBase* pkInstEach=i->second;
-		// 2004.07.17.levites.isShow¸¦ ViewFrustumCheck·Î º¯°æ
+		// 2004.07.17.levites.isShowë¥¼ ViewFrustumCheckë¡œ ë³€ê²½
 		if (pkInstEach->CanPickInstance())
 		{
 			if (pkInstEach->IsDead())
@@ -751,7 +751,7 @@ void CPythonCharacterManager::__NEW_Pick()
 		}
 #endif
 
-	// Á¤¹ĞÇÑ Ã¼Å©
+	// ì •ë°€í•œ ì²´í¬
 	{
 		std::vector<CInstanceBase*>::iterator f;
 		for (f=m_kVct_pkInstPicked.begin(); f!=m_kVct_pkInstPicked.end(); ++f)
@@ -773,7 +773,7 @@ void CPythonCharacterManager::__NEW_Pick()
 		}
 	}
 
-	// ¸øÃ£°ÚÀ¸¸é °Á ¼ø¼­´ë·Î
+	// ëª»ì°¾ê² ìœ¼ë©´ ê± ìˆœì„œëŒ€ë¡œ
 	{
 		std::vector<CInstanceBase*>::iterator f;
 		for (f=m_kVct_pkInstPicked.begin(); f!=m_kVct_pkInstPicked.end(); ++f)

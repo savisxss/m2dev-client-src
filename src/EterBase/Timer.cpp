@@ -27,7 +27,7 @@ BOOL ELTimer_Init()
 
 DWORD ELTimer_GetMSec()
 {
-	//assert(gs_dwBaseTime!=0 && "ELTimer_Init ¸¦ ¸ÕÀú ½ÇÇàÇÏ¼¼¿ä");
+	//assert(gs_dwBaseTime!=0 && "ELTimer_Init ë¥¼ ë¨¼ì € ì‹¤í–‰í•˜ì„¸ìš”");
 	//LARGE_INTEGER liTickCount;
 	//QueryPerformanceCounter(&liTickCount);
 	return timeGetTime() - gs_dwBaseTime; //(liTickCount.QuadPart*1000  / gs_liTickCountPerSec.QuadPart)-gs_dwBaseTime;		
@@ -36,7 +36,7 @@ DWORD ELTimer_GetMSec()
 VOID	ELTimer_SetServerMSec(DWORD dwServerTime)
 {
 	NANOBEGIN
-	if (0 != dwServerTime) // nanomite¸¦ À§ÇÑ ´õ¹Ì if
+	if (0 != dwServerTime) // nanomiteë¥¼ ìœ„í•œ ë”ë¯¸ if
 	{
 		gs_dwServerTime = dwServerTime;
 		gs_dwClientTime = CTimer::instance().GetCurrentMillisecond();
@@ -70,7 +70,7 @@ CTimer::CTimer()
 	ELTimer_Init();
 
 	NANOBEGIN
-	if (this) // nanomite¸¦ À§ÇÑ ´õ¹Ì if
+	if (this) // nanomiteë¥¼ ìœ„í•œ ë”ë¯¸ if
 	{
 		m_dwCurrentTime = 0;
 		m_bUseRealTime = true;

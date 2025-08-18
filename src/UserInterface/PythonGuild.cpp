@@ -515,7 +515,7 @@ PyObject * guildGetDragonPowerPoint(PyObject * poSelf, PyObject * poArgs)
 
 PyObject * guildGetGuildSkillLevel(PyObject * poSelf, PyObject * poArgs)
 {
-	assert(FALSE && !"guildGetGuildSkillLevel - »ç¿ëÇÏÁö ¾Ê´Â ÇÔ¼öÀÔ´Ï´Ù.");
+	assert(FALSE && !"guildGetGuildSkillLevel - ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤.");
 
 	int iSkillIndex;
 	if (!PyTuple_GetInteger(poArgs, 0, &iSkillIndex))

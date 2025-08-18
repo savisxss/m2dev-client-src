@@ -159,7 +159,7 @@ void CActorInstance::AttachWeapon(DWORD dwItemIndex,DWORD dwParentPartIndex, DWO
 	}
 
 	__DestroyWeaponTrace();
-	//¾ç¼Õ¹«±â(ÀÚ°´ ÀÌµµ·ù) ¿Þ¼Õ,¿À¸¥¼Õ ¸ðµÎ¿¡ ÀåÂø.
+	//ì–‘ì†ë¬´ê¸°(ìžê° ì´ë„ë¥˜) ì™¼ì†,ì˜¤ë¥¸ì† ëª¨ë‘ì— ìž¥ì°©.
 	if (__IsRightHandWeapon(pItemData->GetWeaponType()))
 		AttachWeapon(dwParentPartIndex, CRaceData::PART_WEAPON, pItemData);
 	if (__IsLeftHandWeapon(pItemData->GetWeaponType()))
@@ -182,7 +182,7 @@ void CActorInstance::AttachWeapon(DWORD dwParentPartIndex, DWORD dwPartIndex, CI
 	if (!GetAttachingBoneName(dwPartIndex, &szBoneName))
 		return;
 
-	// NOTE : (ÀÌµµ·ùÃ³¸®)´ÜµµÀÏ °æ¿ì ÇüÅÂ°¡ ´Ù¸¥ °ÍÀ¸·Î ¾ò´Â´Ù. ¾øÀ» °æ¿ì µðÆúÆ®¸¦ ¸®ÅÏ
+	// NOTE : (ì´ë„ë¥˜ì²˜ë¦¬)ë‹¨ë„ì¼ ê²½ìš° í˜•íƒœê°€ ë‹¤ë¥¸ ê²ƒìœ¼ë¡œ ì–»ëŠ”ë‹¤. ì—†ì„ ê²½ìš° ë””í´íŠ¸ë¥¼ ë¦¬í„´
 	if (CRaceData::PART_WEAPON_LEFT == dwPartIndex)
 	{
 		RegisterModelThing(dwPartIndex, pItemData->GetSubModelThing());
@@ -205,7 +205,7 @@ void CActorInstance::AttachWeapon(DWORD dwParentPartIndex, DWORD dwPartIndex, CI
 	SetModelInstance(dwPartIndex, dwPartIndex, 0);
 	AttachModelInstance(dwParentPartIndex, szBoneName, dwPartIndex);
 
-	// 20041208.myevan.¹«±â½ºÆåÅ§·¯(°ª¿ÊÀº SetShape¿¡¼­ Á÷Á¢ ÇØÁØ´Ù.)
+	// 20041208.myevan.ë¬´ê¸°ìŠ¤íŽ™í˜ëŸ¬(ê°’ì˜·ì€ SetShapeì—ì„œ ì§ì ‘ í•´ì¤€ë‹¤.)
 	if (USE_WEAPON_SPECULAR)
 	{
 		SMaterialData kMaterialData;
@@ -424,8 +424,8 @@ void CActorInstance::RefreshActorInstance()
 					{
 						const NRaceData::TCollisionData * c_pCollisionData = c_pAttachingData->pCollisionData;
 						
-						// FIXME : Ã¹¹øÂ° ÀÎÀÚ´Â PartÀÇ ¹øÈ£´Ù.
-						//         Base´Â ¹«Á¶°Ç 0ÀÎ°¡? - [levites]
+						// FIXME : ì²«ë²ˆì§¸ ì¸ìžëŠ” Partì˜ ë²ˆí˜¸ë‹¤.
+						//         BaseëŠ” ë¬´ì¡°ê±´ 0ì¸ê°€? - [levites]
 						TCollisionPointInstance PointInstance;
 						if (NRaceData::COLLISION_TYPE_ATTACKING == c_pCollisionData->iCollisionType)
 							continue;

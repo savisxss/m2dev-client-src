@@ -93,8 +93,8 @@ class CLightManager : public CGraphicBase, public CLightBase, public CSingleton<
 
 		void		Initialize();
 
-		// NOTE : FlushLightÈÄ ·»´õ¸µ
-		//        ±× ÈÄ ¹Ýµå½Ã RestoreLight¸¦ ÇØÁà¾ß¸¸ ÇÑ´Ù.
+		// NOTE : FlushLightí›„ ë Œë”ë§
+		//        ê·¸ í›„ ë°˜ë“œì‹œ RestoreLightë¥¼ í•´ì¤˜ì•¼ë§Œ í•œë‹¤.
 		void		Update();
 		void		FlushLight();
 		void		RestoreLight();

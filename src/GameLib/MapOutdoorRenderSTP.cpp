@@ -221,7 +221,7 @@ void CMapOutdoor::__SoftwareTransformPatch_RenderPatchSplat(SoftwareTransformPat
 			break;
 	}	
 
-	// ±×¸²ÀÚ
+	// ê·¸ë¦¼ì
 	if (m_bDrawShadow)
 	{	
 		__SoftwareTransformPatch_SetShadowStream(akTransVertex);

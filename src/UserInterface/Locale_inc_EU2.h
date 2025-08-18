@@ -1,4 +1,4 @@
-#define LOCALE_SERVICE_EUROPE				// À¯·´
+#define LOCALE_SERVICE_EUROPE				// ìœ ëŸ½
 
 //#define USE_AHNLAB_HACKSHIELD
 

@@ -55,9 +55,9 @@ PyObject * packGet(PyObject * poSelf, PyObject * poArgs)
 	if (!PyTuple_GetString(poArgs, 0, &strFileName))
 		return Py_BuildException();
 
-	// ÆÄÀÌ½ã¿¡¼­ ÀĞ¾îµå¸®´Â ÆĞÅ· ÆÄÀÏÀº python ÆÄÀÏ°ú txt ÆÄÀÏ¿¡ ÇÑÁ¤ÇÑ´Ù
+	// íŒŒì´ì¬ì—ì„œ ì½ì–´ë“œë¦¬ëŠ” íŒ¨í‚¹ íŒŒì¼ì€ python íŒŒì¼ê³¼ txt íŒŒì¼ì— í•œì •í•œë‹¤
 	const char* pcExt = strrchr(strFileName, '.');
-	if (pcExt) // È®ÀåÀÚ°¡ ÀÖ°í
+	if (pcExt) // í™•ì¥ìê°€ ìˆê³ 
 	{
 		if ((stricmp(pcExt, ".py") == 0) ||
 			(stricmp(pcExt, ".pyc") == 0) ||

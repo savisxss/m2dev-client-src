@@ -47,7 +47,7 @@ void CGrannyModelInstance::DeformNoSkin(const D3DXMATRIX * c_pWorldMatrix)
 // With One Texture
 void CGrannyModelInstance::RenderWithOneTexture()
 {
-	// FIXME : Deform, Render, BlendRender¸¦ ¹­¾î »óÀ§¿¡¼­ °É·¯ÁÖ´Â °ÍÀÌ ´õ ³ªÀ» µí - [levites]
+	// FIXME : Deform, Render, BlendRenderë¥¼ ë¬¶ì–´ ìƒìœ„ì—ì„œ ê±¸ëŸ¬ì£¼ëŠ” ê²ƒì´ ë” ë‚˜ì„ ë“¯ - [levites]
 	if (IsEmpty())
 		return;
 
@@ -106,7 +106,7 @@ void CGrannyModelInstance::BlendRenderWithOneTexture()
 // With Two Texture
 void CGrannyModelInstance::RenderWithTwoTexture()
 {
-	// FIXME : Deform, Render, BlendRender¸¦ ¹­¾î »óÀ§¿¡¼­ °É·¯ÁÖ´Â °ÍÀÌ ´õ ³ªÀ» µí - [levites]
+	// FIXME : Deform, Render, BlendRenderë¥¼ ë¬¶ì–´ ìƒìœ„ì—ì„œ ê±¸ëŸ¬ì£¼ëŠ” ê²ƒì´ ë” ë‚˜ì„ ë“¯ - [levites]
 	if (IsEmpty())
 		return;
 

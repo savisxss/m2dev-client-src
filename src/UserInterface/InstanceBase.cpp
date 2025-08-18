@@ -139,10 +139,10 @@ UINT CInstanceBase::SHORSE::GetLevel()
 			case 20107:
 			case 20108:
 			case 20109:
-			case 20110: // #0000673: [M2EU] »õ·Î¿î Å»°Í Å¸°í °ø°İ ¾ÈµÊ 
-			case 20111: // #0000673: [M2EU] »õ·Î¿î Å»°Í Å¸°í °ø°İ ¾ÈµÊ 
-			case 20112: // #0000673: [M2EU] »õ·Î¿î Å»°Í Å¸°í °ø°İ ¾ÈµÊ 
-			case 20113: // #0000673: [M2EU] »õ·Î¿î Å»°Í Å¸°í °ø°İ ¾ÈµÊ 
+			case 20110: // #0000673: [M2EU] ìƒˆë¡œìš´ íƒˆê²ƒ íƒ€ê³  ê³µê²© ì•ˆë¨ 
+			case 20111: // #0000673: [M2EU] ìƒˆë¡œìš´ íƒˆê²ƒ íƒ€ê³  ê³µê²© ì•ˆë¨ 
+			case 20112: // #0000673: [M2EU] ìƒˆë¡œìš´ íƒˆê²ƒ íƒ€ê³  ê³µê²© ì•ˆë¨ 
+			case 20113: // #0000673: [M2EU] ìƒˆë¡œìš´ íƒˆê²ƒ íƒ€ê³  ê³µê²© ì•ˆë¨ 
 			case 20114:
 			case 20115:
 			case 20116:
@@ -155,27 +155,27 @@ UINT CInstanceBase::SHORSE::GetLevel()
 			case 20124:
 			case 20125:
 				return 3;
-			case 20119: // ¶ó¸¶´Ü ÀÌº¥Æ®¿ë Èæ¸¶´Â ½ºÅ³ºÒ°¡, °ø°İ°¡´ÉÇÑ ·¹º§2·Î ¼³Á¤
-			case 20219: // ÇÒ·ÎÀ© ÀÌº¥Æ®¿ë Èæ¸¶´Â ½ºÅ³ºÒ°¡, °ø°İ°¡´ÉÇÑ ·¹º§2·Î ¼³Á¤ (=¶ó¸¶´Ü Èæ¸¶ Å¬·Ğ)
+			case 20119: // ë¼ë§ˆë‹¨ ì´ë²¤íŠ¸ìš© í‘ë§ˆëŠ” ìŠ¤í‚¬ë¶ˆê°€, ê³µê²©ê°€ëŠ¥í•œ ë ˆë²¨2ë¡œ ì„¤ì •
+			case 20219: // í• ë¡œìœˆ ì´ë²¤íŠ¸ìš© í‘ë§ˆëŠ” ìŠ¤í‚¬ë¶ˆê°€, ê³µê²©ê°€ëŠ¥í•œ ë ˆë²¨2ë¡œ ì„¤ì • (=ë¼ë§ˆë‹¨ í‘ë§ˆ í´ë¡ )
 			case 20220:
 			case 20221:
 			case 20222:
 				return 2;
 		}
 
-		// ¸¶¿îÆ® È®Àå ½Ã½ºÅÛ¿ë Æ¯¼ö Ã³¸® (20201 ~ 20212 ´ë¿ªÀ» »ç¿ëÇÏ°í ¼ø¼­´ë·Î 4°³¾¿ ³ª´²¼­ ÃÊ±Ş, Áß±Ş, °í±ŞÀÓ)
-		//	-- Å»°Í ·¹º§À» Å¬¶ó¿¡¼­ ÃøÁ¤ÇÏ°í °ø°İ/½ºÅ³ »ç¿ë°¡´É ¿©ºÎµµ Å¬¶ó¿¡¼­ Ã³¸®ÇÏ´Â °Í ÀÚÃ¼¿¡ ¹®Á¦°¡ ÀÖ´Â µí.. [hyo]
+		// ë§ˆìš´íŠ¸ í™•ì¥ ì‹œìŠ¤í…œìš© íŠ¹ìˆ˜ ì²˜ë¦¬ (20201 ~ 20212 ëŒ€ì—­ì„ ì‚¬ìš©í•˜ê³  ìˆœì„œëŒ€ë¡œ 4ê°œì”© ë‚˜ëˆ ì„œ ì´ˆê¸‰, ì¤‘ê¸‰, ê³ ê¸‰ì„)
+		//	-- íƒˆê²ƒ ë ˆë²¨ì„ í´ë¼ì—ì„œ ì¸¡ì •í•˜ê³  ê³µê²©/ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ ì—¬ë¶€ë„ í´ë¼ì—ì„œ ì²˜ë¦¬í•˜ëŠ” ê²ƒ ìì²´ì— ë¬¸ì œê°€ ìˆëŠ” ë“¯.. [hyo]
 		{
-			// Áß±Ş Å»°ÍÀº ·¹º§2 (°ø°İ °¡´É, ½ºÅ³ ºÒ°¡)
+			// ì¤‘ê¸‰ íƒˆê²ƒì€ ë ˆë²¨2 (ê³µê²© ê°€ëŠ¥, ìŠ¤í‚¬ ë¶ˆê°€)
 			if ((20205 <= mount &&  20208 >= mount) ||
-				(20214 == mount) || (20217 == mount) ||			// ³­ÆøÇÑ Àü°©¼ø¼ø·Ï, ³­ÆøÇÑ Àü°©¾Ï¼ø·Ï
+				(20214 == mount) || (20217 == mount) ||			// ë‚œí­í•œ ì „ê°‘ìˆœìˆœë¡, ë‚œí­í•œ ì „ê°‘ì•”ìˆœë¡
 				(20224 == mount) || (20229 == mount)
 				)
 				return 2;
 
-			// °í±Ş Å»°ÍÀº ·¹º§3 (°ø°İ °¡´É, ½ºÅ³ °¡´É)
+			// ê³ ê¸‰ íƒˆê²ƒì€ ë ˆë²¨3 (ê³µê²© ê°€ëŠ¥, ìŠ¤í‚¬ ê°€ëŠ¥)
 			if ((20209 <= mount &&  20212 >= mount) || 
-				(20215 == mount) || (20218 == mount) ||			// ¿ë¸ÍÇÑ Àü°©¼ø¼ø·Ï, ¿ë¸ÍÇÑ Àü°©¾Ï¼ø·Ï
+				(20215 == mount) || (20218 == mount) ||			// ìš©ë§¹í•œ ì „ê°‘ìˆœìˆœë¡, ìš©ë§¹í•œ ì „ê°‘ì•”ìˆœë¡
 				(20220 == mount) || (20225 == mount) || (20230 == mount)
 				)
 				return 3;
@@ -191,13 +191,13 @@ bool CInstanceBase::SHORSE::IsNewMount()
 	DWORD mount = m_pkActor->GetRace();
 
 	if ((20205 <= mount &&  20208 >= mount) ||
-		(20214 == mount) || (20217 == mount)			// ³­ÆøÇÑ Àü°©¼ø¼ø·Ï, ³­ÆøÇÑ Àü°©¾Ï¼ø·Ï
+		(20214 == mount) || (20217 == mount)			// ë‚œí­í•œ ì „ê°‘ìˆœìˆœë¡, ë‚œí­í•œ ì „ê°‘ì•”ìˆœë¡
 		)
 		return true;
 
-	// °í±Ş Å»°Í
+	// ê³ ê¸‰ íƒˆê²ƒ
 	if ((20209 <= mount &&  20212 >= mount) || 
-		(20215 == mount) || (20218 == mount) ||			// ¿ë¸ÍÇÑ Àü°©¼ø¼ø·Ï, ¿ë¸ÍÇÑ Àü°©¾Ï¼ø·Ï
+		(20215 == mount) || (20218 == mount) ||			// ìš©ë§¹í•œ ì „ê°‘ìˆœìˆœë¡, ìš©ë§¹í•œ ì „ê°‘ì•”ìˆœë¡
 		(20220 == mount)
 		)
 		return true;
@@ -206,7 +206,7 @@ bool CInstanceBase::SHORSE::IsNewMount()
 }
 bool CInstanceBase::SHORSE::CanUseSkill()
 {
-	// ¸¶»ó½ºÅ³Àº ¸»ÀÇ ·¹º§ÀÌ 3 ÀÌ»óÀÌ¾î¾ß¸¸ ÇÔ.
+	// ë§ˆìƒìŠ¤í‚¬ì€ ë§ì˜ ë ˆë²¨ì´ 3 ì´ìƒì´ì–´ì•¼ë§Œ í•¨.
 	if (IsMounting())
 		return 2 < GetLevel();
 
@@ -304,7 +304,7 @@ bool __ArmorVnumToShape(int iVnum, DWORD * pdwShape)
 	return true;
 }
 
-// 2004.07.05.myevan.±Ã½ÅÅº¿µ ³¢ÀÌ´Â ¹®Á¦
+// 2004.07.05.myevan.ê¶ì‹ íƒ„ì˜ ë¼ì´ëŠ” ë¬¸ì œ
 class CActorInstanceBackground : public IBackground
 {
 	public:
@@ -411,7 +411,7 @@ void CInstanceBase::__EnableSkipCollision()
 {
 	if (__IsMainInstance())
 	{
-		TraceError("CInstanceBase::__EnableSkipCollision - ÀÚ½ÅÀº Ãæµ¹°Ë»ç½ºÅµÀÌ µÇ¸é ¾ÈµÈ´Ù!!");
+		TraceError("CInstanceBase::__EnableSkipCollision - ìì‹ ì€ ì¶©ëŒê²€ì‚¬ìŠ¤í‚µì´ ë˜ë©´ ì•ˆëœë‹¤!!");
 		return;
 	}
 	m_GraphicThingInstance.EnableSkipCollision();
@@ -667,7 +667,7 @@ void CInstanceBase::__ClearMainInstance()
 	rkChrMgr.ClearMainInstance();
 }
 
-/* ½ÇÁ¦ ÇÃ·¹ÀÌ¾î Ä³¸¯ÅÍÀÎÁö Á¶»ç.*/
+/* ì‹¤ì œ í”Œë ˆì´ì–´ ìºë¦­í„°ì¸ì§€ ì¡°ì‚¬.*/
 bool CInstanceBase::__IsMainInstance()
 {
 	if (this==__GetMainInstancePtr())
@@ -772,10 +772,10 @@ bool CInstanceBase::Create(const SCreateData& c_rkCreateData)
 	SetMoveSpeed(c_rkCreateData.m_dwMovSpd);
 	SetAttackSpeed(c_rkCreateData.m_dwAtkSpd);
 	
-	// NOTE : Dress ¸¦ ÀÔ°í ÀÖÀ¸¸é Alpha ¸¦ ³ÖÁö ¾Ê´Â´Ù.
+	// NOTE : Dress ë¥¼ ì…ê³  ìˆìœ¼ë©´ Alpha ë¥¼ ë„£ì§€ ì•ŠëŠ”ë‹¤.
 	if (!IsWearingDress())
 	{
-		// NOTE : ¹İµå½Ã Affect ¼ÂÆÃ À­ÂÊ¿¡ ÀÖ¾î¾ß ÇÔ
+		// NOTE : ë°˜ë“œì‹œ Affect ì…‹íŒ… ìœ—ìª½ì— ìˆì–´ì•¼ í•¨
 		m_GraphicThingInstance.SetAlphaValue(0.0f);
 		m_GraphicThingInstance.BlendAlphaValue(1.0f, 0.5f);
 	}
@@ -785,7 +785,7 @@ bool CInstanceBase::Create(const SCreateData& c_rkCreateData)
 		SetAffectFlagContainer(c_rkCreateData.m_kAffectFlags);
 	}	
 
-	// NOTE : ¹İµå½Ã Affect ¼ÂÆÃ ÈÄ¿¡ ÇØ¾ß ÇÔ
+	// NOTE : ë°˜ë“œì‹œ Affect ì…‹íŒ… í›„ì— í•´ì•¼ í•¨
 	AttachTextTail();
 	RefreshTextTail();
 
@@ -831,7 +831,7 @@ bool CInstanceBase::Create(const SCreateData& c_rkCreateData)
 
 	__AttachHorseSaddle();
 
-	// ±æµå ½Éº¼À» À§ÇÑ ÀÓ½Ã ÄÚµå, ÀûÁ¤ À§Ä¡¸¦ Ã£´Â Áß
+	// ê¸¸ë“œ ì‹¬ë³¼ì„ ìœ„í•œ ì„ì‹œ ì½”ë“œ, ì ì • ìœ„ì¹˜ë¥¼ ì°¾ëŠ” ì¤‘
 	const int c_iGuildSymbolRace = 14200;
 	if (c_iGuildSymbolRace == GetRace())
 	{
@@ -900,7 +900,7 @@ bool CInstanceBase::SetRace(DWORD eRace)
 
 BOOL CInstanceBase::__IsChangableWeapon(int iWeaponID)
 {	
-	// µå·¹½º ÀÔ°í ÀÖÀ»¶§´Â ºÎÄÉ¿ÜÀÇ Àåºñ´Â ³ª¿ÀÁö ¾Ê°Ô..
+	// ë“œë ˆìŠ¤ ì…ê³  ìˆì„ë•ŒëŠ” ë¶€ì¼€ì™¸ì˜ ì¥ë¹„ëŠ” ë‚˜ì˜¤ì§€ ì•Šê²Œ..
 	if (IsWearingDress())
 	{
 		const int c_iBouquets[] =
@@ -909,7 +909,7 @@ BOOL CInstanceBase::__IsChangableWeapon(int iWeaponID)
 			50202,	// Bouquet for Shaman
 			50203,
 			50204,
-			0, // #0000545: [M2CN] ¿şµù µå·¹½º¿Í Àåºñ Âø¿ë ¹®Á¦
+			0, // #0000545: [M2CN] ì›¨ë”© ë“œë ˆìŠ¤ì™€ ì¥ë¹„ ì°©ìš© ë¬¸ì œ
 		};
 
 		for (int i = 0; c_iBouquets[i] != 0; ++i)
@@ -1190,8 +1190,8 @@ void CInstanceBase::PushTCPState(DWORD dwCmdTime, const TPixelPosition& c_rkPPos
 {	
 	if (__IsMainInstance())
 	{
-		//assert(!"CInstanceBase::PushTCPState ÇÃ·¹ÀÌ¾î ÀÚ½Å¿¡°Ô ÀÌµ¿ÆĞÅ¶Àº ¿À¸é ¾ÈµÈ´Ù!");
-		TraceError("CInstanceBase::PushTCPState ÇÃ·¹ÀÌ¾î ÀÚ½Å¿¡°Ô ÀÌµ¿ÆĞÅ¶Àº ¿À¸é ¾ÈµÈ´Ù!");
+		//assert(!"CInstanceBase::PushTCPState í”Œë ˆì´ì–´ ìì‹ ì—ê²Œ ì´ë™íŒ¨í‚·ì€ ì˜¤ë©´ ì•ˆëœë‹¤!");
+		TraceError("CInstanceBase::PushTCPState í”Œë ˆì´ì–´ ìì‹ ì—ê²Œ ì´ë™íŒ¨í‚·ì€ ì˜¤ë©´ ì•ˆëœë‹¤!");
 		return;
 	}
 
@@ -1205,7 +1205,7 @@ void CInstanceBase::PushTCPState(DWORD dwCmdTime, const TPixelPosition& c_rkPPos
 		m_dwBaseChkTime = ELTimer_GetFrameMSec()-nNetworkGap;
 		m_dwBaseCmdTime = dwCmdTime;
 
-		Tracenf("VID[%d] ³×Æ®¿÷°¸ [%d]", GetVirtualID(), nNetworkGap);
+		Tracenf("VID[%d] ë„¤íŠ¸ì›ê°­ [%d]", GetVirtualID(), nNetworkGap);
 	}
 	*/
 
@@ -1223,7 +1223,7 @@ void CInstanceBase::PushTCPState(DWORD dwCmdTime, const TPixelPosition& c_rkPPos
 	//int nApplyGap=kCmdNew.m_dwChkTime-ELTimer_GetServerFrameMSec();
 
 	//if (nApplyGap<-500 || nApplyGap>500)
-	//	Tracenf("VID[%d] NAME[%s] ³×Æ®¿÷°¸ [cur:%d ave:%d] ÀÛµ¿½Ã°£ (%d)", GetVirtualID(), GetNameString(), nNetworkGap, m_nAverageNetworkGap, nApplyGap);
+	//	Tracenf("VID[%d] NAME[%s] ë„¤íŠ¸ì›ê°­ [cur:%d ave:%d] ì‘ë™ì‹œê°„ (%d)", GetVirtualID(), GetNameString(), nNetworkGap, m_nAverageNetworkGap, nApplyGap);
 }
 
 /*
@@ -1314,11 +1314,11 @@ void CInstanceBase::StateProcess()
 		TPixelPosition kPPosDir = kPPosDst - kPPosCur;
 		float fDirLen = (float)sqrt(kPPosDir.x * kPPosDir.x + kPPosDir.y * kPPosDir.y);
 
-		//Tracenf("°Å¸® %f", fDirLen);
+		//Tracenf("ê±°ë¦¬ %f", fDirLen);
 
 		if (!__CanProcessNetworkStatePacket())
 		{
-			Lognf(0, "vid=%d ¿òÁ÷ÀÏ ¼ö ¾ø´Â »óÅÂ¶ó ½ºÅµ IsDead=%d, IsKnockDown=%d", uVID, m_GraphicThingInstance.IsDead(), m_GraphicThingInstance.IsKnockDown());
+			Lognf(0, "vid=%d ì›€ì§ì¼ ìˆ˜ ì—†ëŠ” ìƒíƒœë¼ ìŠ¤í‚µ IsDead=%d, IsKnockDown=%d", uVID, m_GraphicThingInstance.IsDead(), m_GraphicThingInstance.IsKnockDown());
 			return;
 		}
 
@@ -1331,7 +1331,7 @@ void CInstanceBase::StateProcess()
 		{
 			case FUNC_WAIT:
 			{
-				//Tracenf("%s (%f, %f) -> (%f, %f) ³²Àº°Å¸® %f", GetNameString(), kPPosCur.x, kPPosCur.y, kPPosDst.x, kPPosDst.y, fDirLen);
+				//Tracenf("%s (%f, %f) -> (%f, %f) ë‚¨ì€ê±°ë¦¬ %f", GetNameString(), kPPosCur.x, kPPosCur.y, kPPosDst.x, kPPosDst.y, fDirLen);
 				if (fDirLen > 1.0f)
 				{
 					//NEW_GetSrcPixelPositionRef() = kPPosCur;
@@ -1349,11 +1349,11 @@ void CInstanceBase::StateProcess()
 					if (!IsWalking())
 						StartWalking();
 
-					//Tracen("¸ñÇ¥Á¤Áö");
+					//Tracen("ëª©í‘œì •ì§€");
 				}
 				else
 				{
-					//Tracen("ÇöÀç Á¤Áö");
+					//Tracen("í˜„ì¬ ì •ì§€");
 
 					m_isGoing = FALSE;
 
@@ -1382,12 +1382,12 @@ void CInstanceBase::StateProcess()
 
 				if (!IsWalking())
 				{
-					//Tracen("°È°í ÀÖÁö ¾Ê¾Æ °È±â ½ÃÀÛ");
+					//Tracen("ê±·ê³  ìˆì§€ ì•Šì•„ ê±·ê¸° ì‹œì‘");
 					StartWalking();
 				}
 				else
 				{
-					//Tracen("ÀÌ¹Ì °È´ÂÁß ");
+					//Tracen("ì´ë¯¸ ê±·ëŠ”ì¤‘ ");
 				}
 				break;
 			}
@@ -1410,7 +1410,7 @@ void CInstanceBase::StateProcess()
 				}
 				else
 				{
-					//Tracen("´ë±â °ø°İ Á¤Áö");
+					//Tracen("ëŒ€ê¸° ê³µê²© ì •ì§€");
 
 					m_isGoing = FALSE;
 
@@ -1441,11 +1441,11 @@ void CInstanceBase::StateProcess()
 					if (!IsWalking())
 						StartWalking();
 
-					//Tracen("³Ê¹« ¸Ö¾î¼­ ÀÌµ¿ ÈÄ °ø°İ");
+					//Tracen("ë„ˆë¬´ ë©€ì–´ì„œ ì´ë™ í›„ ê³µê²©");
 				}
 				else
 				{
-					//Tracen("³ë¸» °ø°İ Á¤Áö");
+					//Tracen("ë…¸ë§ ê³µê²© ì •ì§€");
 
 					m_isGoing = FALSE;
 
@@ -1457,7 +1457,7 @@ void CInstanceBase::StateProcess()
 
 					RunNormalAttack(fRotDst);
 
-					//Tracen("°¡±õ±â ¶§¹®¿¡ ¿öÇÁ °ø°İ");
+					//Tracen("ê°€ê¹ê¸° ë•Œë¬¸ì— ì›Œí”„ ê³µê²©");
 				}
 				break;
 			}
@@ -1541,11 +1541,11 @@ void CInstanceBase::StateProcess()
 						if (!IsWalking())
 							StartWalking();
 
-						//Tracen("³Ê¹« ¸Ö¾î¼­ ÀÌµ¿ ÈÄ °ø°İ");
+						//Tracen("ë„ˆë¬´ ë©€ì–´ì„œ ì´ë™ í›„ ê³µê²©");
 					}
 					else
 					{
-						//Tracen("½ºÅ³ Á¤Áö");
+						//Tracen("ìŠ¤í‚¬ ì •ì§€");
 
 						m_isGoing = FALSE;
 
@@ -1557,7 +1557,7 @@ void CInstanceBase::StateProcess()
 						SetRotation(fRotDst);
 
 						NEW_UseSkill(0, eFunc & 0x7f, uArg&0x0f, (uArg>>4) ? true : false);
-						//Tracen("°¡±õ±â ¶§¹®¿¡ ¿öÇÁ °ø°İ");
+						//Tracen("ê°€ê¹ê¸° ë•Œë¬¸ì— ì›Œí”„ ê³µê²©");
 					}
 				}
 				break;
@@ -1572,7 +1572,7 @@ void CInstanceBase::MovementProcess()
 	TPixelPosition kPPosCur;
 	NEW_GetPixelPosition(&kPPosCur);
 
-	// ·»´õ¸µ ÁÂÇ¥°èÀÌ¹Ç·Î y¸¦ -È­ÇØ¼­ ´õÇÑ´Ù.
+	// ë Œë”ë§ ì¢Œí‘œê³„ì´ë¯€ë¡œ yë¥¼ -í™”í•´ì„œ ë”í•œë‹¤.
 
 	TPixelPosition kPPosNext;
 	{
@@ -1605,7 +1605,7 @@ void CInstanceBase::MovementProcess()
 				if (IsWalking())
 					EndWalking();
 
-				//Tracen("¸ñÇ¥ µµ´Ş Á¤Áö");
+				//Tracen("ëª©í‘œ ë„ë‹¬ ì •ì§€");
 
 				m_isGoing = FALSE;
 
@@ -1630,33 +1630,33 @@ void CInstanceBase::MovementProcess()
 
 			SetAdvancingRotation(fDstRot);
 
-			// ¸¸¾à ·»ÅÏ½Ã°¡ ´Ê¾î ³Ê¹« ¸¹ÀÌ ÀÌµ¿Çß´Ù¸é..
+			// ë§Œì•½ ë Œí„´ì‹œê°€ ëŠ¦ì–´ ë„ˆë¬´ ë§ì´ ì´ë™í–ˆë‹¤ë©´..
 			if (fRestLen < -100.0f)
 			{
 				NEW_SetSrcPixelPosition(kPPosCur);
 
 				float fDstRot = NEW_GetAdvancingRotationFromPixelPosition(kPPosCur, NEW_GetDstPixelPositionRef());
 				SetAdvancingRotation(fDstRot);
-				//Tracenf("VID %d ¿À¹ö ¹æÇâ¼³Á¤ (%f, %f) %f rest %f", GetVirtualID(), kPPosCur.x, kPPosCur.y, fDstRot, fRestLen);			
+				//Tracenf("VID %d ì˜¤ë²„ ë°©í–¥ì„¤ì • (%f, %f) %f rest %f", GetVirtualID(), kPPosCur.x, kPPosCur.y, fDstRot, fRestLen);			
 
-				// ÀÌµ¿ÁßÀÌ¶ó¸é ´ÙÀ½¹ø¿¡ ¸ØÃß°Ô ÇÑ´Ù
+				// ì´ë™ì¤‘ì´ë¼ë©´ ë‹¤ìŒë²ˆì— ë©ˆì¶”ê²Œ í•œë‹¤
 				if (FUNC_MOVE == m_kMovAfterFunc.eFunc)
 				{
 					m_kMovAfterFunc.eFunc = FUNC_WAIT;
 				}
 			}
-			// µµÂøÇß´Ù¸é...
+			// ë„ì°©í–ˆë‹¤ë©´...
 			else if (fCurLen <= fTotalLen && fTotalLen <= fNextLen)
 			{
 				if (m_GraphicThingInstance.IsDead() || m_GraphicThingInstance.IsKnockDown())
 				{
 					__DisableSkipCollision();
 
-					//Tracen("»ç¸Á »óÅÂ¶ó µ¿ÀÛ ½ºÅµ");
+					//Tracen("ì‚¬ë§ ìƒíƒœë¼ ë™ì‘ ìŠ¤í‚µ");
 
 					m_isGoing = FALSE;
 
-					//Tracen("Çàµ¿ ºÒ´É »óÅÂ¶ó ÀÌÈÄ µ¿ÀÛ ½ºÅµ");
+					//Tracen("í–‰ë™ ë¶ˆëŠ¥ ìƒíƒœë¼ ì´í›„ ë™ì‘ ìŠ¤í‚µ");
 				}
 				else
 				{
@@ -1738,7 +1738,7 @@ void CInstanceBase::MovementProcess()
 							}
 							else
 							{
-								//Tracenf("VID %d ½ºÅ³ °ø°İ (%f, %f) rot %f", GetVirtualID(), NEW_GetDstPixelPositionRef().x, NEW_GetDstPixelPositionRef().y, m_fDstRot);
+								//Tracenf("VID %d ìŠ¤í‚¬ ê³µê²© (%f, %f) rot %f", GetVirtualID(), NEW_GetDstPixelPositionRef().x, NEW_GetDstPixelPositionRef().y, m_fDstRot);
 
 								__DisableSkipCollision();
 								m_isGoing = FALSE;
@@ -1752,7 +1752,7 @@ void CInstanceBase::MovementProcess()
 									EndWalking();
 								}
 
-								//Tracenf("VID %d Á¤Áö (%f, %f) rot %f IsWalking %d", GetVirtualID(), NEW_GetDstPixelPositionRef().x, NEW_GetDstPixelPositionRef().y, m_fDstRot, IsWalking());
+								//Tracenf("VID %d ì •ì§€ (%f, %f) rot %f IsWalking %d", GetVirtualID(), NEW_GetDstPixelPositionRef().x, NEW_GetDstPixelPositionRef().y, m_fDstRot, IsWalking());
 							}
 							break;
 						}
@@ -1937,7 +1937,7 @@ void CInstanceBase::Transform()
 
 void CInstanceBase::Deform()
 {
-	// 2004.07.17.levites.isShow¸¦ ViewFrustumCheck·Î º¯°æ
+	// 2004.07.17.levites.isShowë¥¼ ViewFrustumCheckë¡œ ë³€ê²½
 	if (!__CanRender())
 		return;
 
@@ -1961,7 +1961,7 @@ void CInstanceBase::RenderTrace()
 
 void CInstanceBase::Render()
 {
-	// 2004.07.17.levites.isShow¸¦ ViewFrustumCheck·Î º¯°æ
+	// 2004.07.17.levites.isShowë¥¼ ViewFrustumCheckë¡œ ë³€ê²½
 	if (!__CanRender())
 		return;
 
@@ -2253,13 +2253,13 @@ bool CInstanceBase::IsTargetableInstance(CInstanceBase& rkInstVictim)
 	return rkInstVictim.CanPickInstance();
 }
 
-// 2004. 07. 07. [levites] - ½ºÅ³ »ç¿ëÁß Å¸°ÙÀÌ ¹Ù²î´Â ¹®Á¦ ÇØ°áÀ» À§ÇÑ ÄÚµå
+// 2004. 07. 07. [levites] - ìŠ¤í‚¬ ì‚¬ìš©ì¤‘ íƒ€ê²Ÿì´ ë°”ë€ŒëŠ” ë¬¸ì œ í•´ê²°ì„ ìœ„í•œ ì½”ë“œ
 bool CInstanceBase::CanChangeTarget()
 {
 	return m_GraphicThingInstance.CanChangeTarget();
 }
 
-// 2004.07.17.levites.isShow¸¦ ViewFrustumCheck·Î º¯°æ
+// 2004.07.17.levites.isShowë¥¼ ViewFrustumCheckë¡œ ë³€ê²½
 bool CInstanceBase::CanPickInstance()
 {
 	if (!__IsInViewFrustum())
@@ -2328,7 +2328,7 @@ BOOL CInstanceBase::IsStone()
 }
 
 
-BOOL CInstanceBase::IsGuildWall()	//IsBuilding ±æµå°Ç¹°ÀüÃ¼ IsGuildWallÀº ´ãÀåº®¸¸(¹®Àº Á¦¿Ü)
+BOOL CInstanceBase::IsGuildWall()	//IsBuilding ê¸¸ë“œê±´ë¬¼ì „ì²´ IsGuildWallì€ ë‹´ì¥ë²½ë§Œ(ë¬¸ì€ ì œì™¸)
 {
 	return IsWall(m_dwRace);		
 }
@@ -2392,9 +2392,9 @@ BOOL CInstanceBase::IsWoodenDoor()
 	if (m_GraphicThingInstance.IsDoor())
 	{
 		int vnum = GetVirtualNumber();
-		if (vnum == 13000) // ³ª¹«¹®
+		if (vnum == 13000) // ë‚˜ë¬´ë¬¸
 			return true;
-		else if (vnum >= 30111 && vnum <= 30119) // »ç±Í¹®
+		else if (vnum >= 30111 && vnum <= 30119) // ì‚¬ê·€ë¬¸
 			return true;
 		else
 			return false;
@@ -2448,7 +2448,7 @@ DWORD CInstanceBase::GetVirtualNumber()
 	return m_dwVirtualNumber;
 }
 
-// 2004.07.17.levites.isShow¸¦ ViewFrustumCheck·Î º¯°æ
+// 2004.07.17.levites.isShowë¥¼ ViewFrustumCheckë¡œ ë³€ê²½
 bool CInstanceBase::__IsInViewFrustum()
 {
 	return m_GraphicThingInstance.isShow();
@@ -2690,7 +2690,7 @@ UINT CInstanceBase::__GetRefinedEffect(CItemData* pItem)
 	{
 	case CItemData::ITEM_TYPE_WEAPON:
 		__ClearWeaponRefineEffect();		
-		if (refine < 7)	//ÇöÀç Á¦·Ãµµ 7 ÀÌ»ó¸¸ ÀÌÆåÆ®°¡ ÀÖ½À´Ï´Ù.
+		if (refine < 7)	//í˜„ì¬ ì œë ¨ë„ 7 ì´ìƒë§Œ ì´í™íŠ¸ê°€ ìˆìŠµë‹ˆë‹¤.
 			return 0;
 		switch(pItem->GetSubType())
 		{
@@ -2719,7 +2719,7 @@ UINT CInstanceBase::__GetRefinedEffect(CItemData* pItem)
 	case CItemData::ITEM_TYPE_ARMOR:
 		__ClearArmorRefineEffect();
 
-		// °©¿Ê Æ¯È­ ÀÌÆåÆ®
+		// ê°‘ì˜· íŠ¹í™” ì´í™íŠ¸
 		if (pItem->GetSubType() == CItemData::ARMOR_BODY)
 		{
 			DWORD vnum = pItem->GetIndex();
@@ -2731,7 +2731,7 @@ UINT CInstanceBase::__GetRefinedEffect(CItemData* pItem)
 			}
 		}
 
-		if (refine < 7)	//ÇöÀç Á¦·Ãµµ 7 ÀÌ»ó¸¸ ÀÌÆåÆ®°¡ ÀÖ½À´Ï´Ù.
+		if (refine < 7)	//í˜„ì¬ ì œë ¨ë„ 7 ì´ìƒë§Œ ì´í™íŠ¸ê°€ ìˆìŠµë‹ˆë‹¤.
 			return 0;
 
 		if (pItem->GetSubType() == CItemData::ARMOR_BODY)
@@ -2798,7 +2798,7 @@ bool CInstanceBase::ChangeArmor(DWORD dwArmor)
 	if (IsWalking())
 		EndWalking();
 
-	// 2004.07.25.myevan.ÀÌÆåÆ® ¾È ºÙ´Â ¹®Á¦
+	// 2004.07.25.myevan.ì´í™íŠ¸ ì•ˆ ë¶™ëŠ” ë¬¸ì œ
 	//////////////////////////////////////////////////////
 	__ClearAffects();
 	//////////////////////////////////////////////////////
@@ -2820,7 +2820,7 @@ bool CInstanceBase::ChangeArmor(DWORD dwArmor)
 
 	RefreshState(CRaceMotionData::NAME_WAIT, TRUE);
 
-	// 2004.07.25.myevan.ÀÌÆåÆ® ¾È ºÙ´Â ¹®Á¦
+	// 2004.07.25.myevan.ì´í™íŠ¸ ì•ˆ ë¶™ëŠ” ë¬¸ì œ
 	/////////////////////////////////////////////////
 	SetAffectFlagContainer(kAffectFlagContainer);
 	/////////////////////////////////////////////////
@@ -2975,9 +2975,9 @@ void CInstanceBase::RefreshState(DWORD dwMotIndex, bool isLoop)
 
 void CInstanceBase::RegisterBoundingSphere()
 {
-	// Stone ÀÏ °æ¿ì DeforomNoSkin À» ÇÏ¸é
-	// ³«ÇÏÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç °°Àº °æ¿ì ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ
-	// ¹Ù¿îµå ¹Ú½º¿¡ ¿µÇâÀ» ¹ÌÃÄ ÄÃ¸µÀÌ Á¦´ë·Î ÀÌ·ç¾îÁöÁö ¾Ê´Â´Ù.
+	// Stone ì¼ ê²½ìš° DeforomNoSkin ì„ í•˜ë©´
+	// ë‚™í•˜í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ê°™ì€ ê²½ìš° ì• ë‹ˆë©”ì´ì…˜ì´
+	// ë°”ìš´ë“œ ë°•ìŠ¤ì— ì˜í–¥ì„ ë¯¸ì³ ì»¬ë§ì´ ì œëŒ€ë¡œ ì´ë£¨ì–´ì§€ì§€ ì•ŠëŠ”ë‹¤.
 	if (!IsStone())
 	{
 		m_GraphicThingInstance.DeformNoSkin();

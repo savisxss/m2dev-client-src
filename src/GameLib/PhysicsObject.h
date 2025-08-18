@@ -29,8 +29,8 @@ private:
 };
 
 class CActorInstance;
-//NOTE : ¸¾¿¡ ¾ÈµéÁö¸¸ Dependency InversionÀ» ¸·°í ÀÌÀü°ú µ¿ÀÏÇÑ interface¸¦ À¯ÁöÇÏ±â À§ÇØ¼­ ÀÌ¹æ½Ä´ë·Î °£´Ù
-//ÇÏÁö¸¸ Á¦´ë·Î ¼³°è¸¦ ÇÑ´Ù¸é world¿Í live objectµéÀÇ °ü¸®´Â Á¶±İ´õ base project¿¡¼­ (gamelibÀÌ³ª ´õ base project¿¡¼­ ÇØ¾ß ÇÑ´Ù )
+//NOTE : ë§˜ì— ì•ˆë“¤ì§€ë§Œ Dependency Inversionì„ ë§‰ê³  ì´ì „ê³¼ ë™ì¼í•œ interfaceë¥¼ ìœ ì§€í•˜ê¸° ìœ„í•´ì„œ ì´ë°©ì‹ëŒ€ë¡œ ê°„ë‹¤
+//í•˜ì§€ë§Œ ì œëŒ€ë¡œ ì„¤ê³„ë¥¼ í•œë‹¤ë©´ worldì™€ live objectë“¤ì˜ ê´€ë¦¬ëŠ” ì¡°ê¸ˆë” base projectì—ì„œ (gamelibì´ë‚˜ ë” base projectì—ì„œ í•´ì•¼ í•œë‹¤ )
 class IObjectManager 
 {
 public:

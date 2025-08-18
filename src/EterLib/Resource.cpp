@@ -131,8 +131,8 @@ int CResource::ConvertPathName(const char * c_szPathName, char * pszRetPathName,
 
 void CResource::SetFileName(const char* c_szFileName)
 {
-	// 2004. 2. 1. myevan. ¾²·¹µå°¡ »ç¿ëµÇ´Â »óÈ²¿¡¼­ static º¯¼ö´Â »ç¿ëÇÏÁö ¾Ê´Â°ÍÀÌ ÁÁ´Ù.
-	// 2004. 2. 1. myevan. ÆÄÀÏ ÀÌ¸§ Ã³¸®¸¦ std::string »ç¿ë
+	// 2004. 2. 1. myevan. ì“°ë ˆë“œê°€ ì‚¬ìš©ë˜ëŠ” ìƒí™©ì—ì„œ static ë³€ìˆ˜ëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ê²ƒì´ ì¢‹ë‹¤.
+	// 2004. 2. 1. myevan. íŒŒì¼ ì´ë¦„ ì²˜ë¦¬ë¥¼ std::string ì‚¬ìš©
 	m_stFileName=c_szFileName;
 }
 

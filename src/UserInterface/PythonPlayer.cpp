@@ -213,7 +213,7 @@ void CPythonPlayer::__Update_AutoAttack()
 	if (!pkInstMain)
 		return;
 
-	// ÅºÈ¯°Ý ¾²°í ´Þ·Á°¡´Â µµÁß¿¡´Â ½ºÅµ
+	// íƒ„í™˜ê²© ì“°ê³  ë‹¬ë ¤ê°€ëŠ” ë„ì¤‘ì—ëŠ” ìŠ¤í‚µ
 	if (__IsUsingChargeSkill())
 		return;
 
@@ -982,7 +982,7 @@ float CPythonPlayer::GetSkillNextEfficientPercentage(DWORD dwSlotIndex)
 
 void CPythonPlayer::SetSkillLevel(DWORD dwSlotIndex, DWORD dwSkillLevel)
 {
-	assert(!"CPythonPlayer::SetSkillLevel - »ç¿ëÇÏÁö ¾Ê´Â ÇÔ¼ö");
+	assert(!"CPythonPlayer::SetSkillLevel - ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” í•¨ìˆ˜");
 	if (dwSlotIndex >= SKILL_MAX_NUM)
 		return;
 
@@ -1195,7 +1195,7 @@ void CPythonPlayer::SendClickItemPacket(DWORD dwIID)
 
 void CPythonPlayer::__SendClickActorPacket(CInstanceBase& rkInstVictim)
 {
-	// ¸»À» Å¸°í ±¤»êÀ» Ä³´Â °Í¿¡ ´ëÇÑ ¿¹¿Ü Ã³¸®
+	// ë§ì„ íƒ€ê³  ê´‘ì‚°ì„ ìºëŠ” ê²ƒì— ëŒ€í•œ ì˜ˆì™¸ ì²˜ë¦¬
 	CInstanceBase* pkInstMain=NEW_GetMainActorPtr();
 	if (pkInstMain)
 	if (pkInstMain->IsHoldingPickAxe())
@@ -1581,7 +1581,7 @@ void CPythonPlayer::NEW_ClearSkillData(bool bAll)
 
 	for (int j = 0; j < SKILL_MAX_NUM; ++j)
 	{
-		// 2004.09.30.myevan.½ºÅ³°»½Å½Ã ½ºÅ³ Æ÷ÀÎÆ®¾÷[+] ¹öÆ°ÀÌ ¾È³ª¿Í Ã³¸®
+		// 2004.09.30.myevan.ìŠ¤í‚¬ê°±ì‹ ì‹œ ìŠ¤í‚¬ í¬ì¸íŠ¸ì—…[+] ë²„íŠ¼ì´ ì•ˆë‚˜ì™€ ì²˜ë¦¬
 		m_playerStatus.aSkill[j].iGrade = 0;
 		m_playerStatus.aSkill[j].fcurEfficientPercentage=0.0f;
 		m_playerStatus.aSkill[j].fnextEfficientPercentage=0.05f;

@@ -1,5 +1,5 @@
-#define LOCALE_SERVICE_WE_JAPAN				// World Edition(À¯·´ ¹öÁ¯) ¹öÁ¯ÀÇ ÀÏº»
-#define LOCALE_SERVICE_EUROPE				// À¯·´
+#define LOCALE_SERVICE_WE_JAPAN				// World Edition(ìœ ëŸ½ ë²„ì ¼) ë²„ì ¼ì˜ ì¼ë³¸
+#define LOCALE_SERVICE_EUROPE				// ìœ ëŸ½
 
 #define LSS_SECURITY_KEY		"1234abcd5678efgh"
 

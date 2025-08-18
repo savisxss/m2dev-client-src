@@ -213,7 +213,7 @@ CGraphicFontTexture::TCharacterInfomation* CGraphicFontTexture::UpdateCharacterI
 	wchar_t keyValue = code.second;
 
 	if (keyValue == 0x08)
-		keyValue = L' '; // ÅÇÀº °ø¹éÀ¸·Î ¹Ù²Û´Ù (¾Æ¶ø Ãâ·Â½Ã ÅÇ »ç¿ë: NAME:\tTEXT -> TEXT\t:NAME ·Î ÀüÈ¯µÊ )
+		keyValue = L' '; // íƒ­ì€ ê³µë°±ìœ¼ë¡œ ë°”ê¾¼ë‹¤ (ì•„ëž ì¶œë ¥ì‹œ íƒ­ ì‚¬ìš©: NAME:\tTEXT -> TEXT\t:NAME ë¡œ ì „í™˜ë¨ )
 
 	ABCFLOAT	stABC;
 	SIZE		size;

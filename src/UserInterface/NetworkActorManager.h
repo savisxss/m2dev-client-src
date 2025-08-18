@@ -90,7 +90,7 @@ struct SNetworkUpdateActorData
 	short m_sAlignment;
 	BYTE m_byPKMode;
 	DWORD m_dwMountVnum;
-	DWORD m_dwStateFlags; // º»·¡ Create ¶§¸¸ ¾²ÀÌ´Â º¯¼öÀÓ
+	DWORD m_dwStateFlags; // ë³¸ë˜ Create ë•Œë§Œ ì“°ì´ëŠ” ë³€ìˆ˜ì„
 	CAffectFlagContainer m_kAffectFlags;
 
 	SNetworkUpdateActorData()

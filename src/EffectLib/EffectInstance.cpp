@@ -56,7 +56,7 @@ void CEffectInstance::UpdateSound()
 			m_matGlobal._42,
 			m_matGlobal._43,
 			false);
-		// NOTE : ¸ÅÆ®¸¯½º¿¡¼­ À§Ä¡¸¦ Á÷Á¢ ¾ò¾î¿Â´Ù - [levites]
+		// NOTE : ë§¤íŠ¸ë¦­ìŠ¤ì—ì„œ ìœ„ì¹˜ë¥¼ ì§ì ‘ ì–»ì–´ì˜¨ë‹¤ - [levites]
 	}
 	++m_dwFrame;
 }

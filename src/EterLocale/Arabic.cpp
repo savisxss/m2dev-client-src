@@ -258,7 +258,7 @@ size_t Arabic_MakeShape(wchar_t* src, size_t srcLen, wchar_t* dst, size_t dstLen
 
 		if (Arabic_IsInMap(cur))
 		{
-			// ÀÌÀü ±ÛÀÚ ¾ò¾î³»±â
+			// ì´ì „ ê¸€ì ì–»ì–´ë‚´ê¸°
 			wchar_t prev = 0;			
 			{
 				size_t prevIndex = srcIndex;
@@ -282,7 +282,7 @@ size_t Arabic_MakeShape(wchar_t* src, size_t srcLen, wchar_t* dst, size_t dstLen
 				}
 			}
 
-			// ´ÙÀ½ ±ÛÀÚ ¾ò¾î³»±â
+			// ë‹¤ìŒ ê¸€ì ì–»ì–´ë‚´ê¸°
 			wchar_t next = 0;
 			{
 				size_t nextIndex = srcIndex;

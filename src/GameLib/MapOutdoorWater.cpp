@@ -69,14 +69,14 @@ void CMapOutdoor::RenderWater()
 	// RenderState
 	//////////////////////////////////////////////////////////////////////////
 
-	// ¹° À§ ¾Æ·¡ ¾Ö´Ï½ÃÅ°±â...
+	// ë¬¼ ìœ„ ì•„ëž˜ ì• ë‹ˆì‹œí‚¤ê¸°...
 	static float s_fWaterHeightCurrent = 0;
 	static float s_fWaterHeightBegin = 0;
 	static float s_fWaterHeightEnd = 0;
 	static DWORD s_dwLastHeightChangeTime = CTimer::Instance().GetCurrentMillisecond();
 	static DWORD s_dwBlendtime = 300;
 
-	// 1.5ÃÊ ¸¶´Ù º¯°æ
+	// 1.5ì´ˆ ë§ˆë‹¤ ë³€ê²½
 	if ((CTimer::Instance().GetCurrentMillisecond() - s_dwLastHeightChangeTime) > s_dwBlendtime)
 	{
 		s_dwBlendtime = random_range(1000, 3000);
@@ -116,7 +116,7 @@ void CMapOutdoor::RenderWater()
 			DrawWater(i->second);
 	}
 
-	// ·»´õ¸µ ÇÑ ÈÄ¿¡´Â ¹° z À§Ä¡¸¦ º¹±¸
+	// ë Œë”ë§ í•œ í›„ì—ëŠ” ë¬¼ z ìœ„ì¹˜ë¥¼ ë³µêµ¬
 	m_matWorldForCommonUse._43 = 0.0f;
 
 	//////////////////////////////////////////////////////////////////////////

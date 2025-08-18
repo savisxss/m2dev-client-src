@@ -112,7 +112,7 @@ void CGrannyModelInstance::ChangeMotionPointer(const CGrannyMotion* pMotion, int
 	if (!pgrnModelInstance)
 		return;
 
-	// º¸°£ µÇ´Â ¾ÕºÎºĞÀ» ½ºÅµ ÇÏ±â À§ÇØ LocalTime À» ¾î´À Á¤µµ ¹«½ÃÇÑ´Ù. - [levites]
+	// ë³´ê°„ ë˜ëŠ” ì•ë¶€ë¶„ì„ ìŠ¤í‚µ í•˜ê¸° ìœ„í•´ LocalTime ì„ ì–´ëŠ ì •ë„ ë¬´ì‹œí•œë‹¤. - [levites]
 	float fSkipTime = 0.3f;
 	float localTime = GetLocalTime() - fSkipTime;
 

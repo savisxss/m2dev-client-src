@@ -81,7 +81,7 @@ public:
 	CLensFlare();
 	virtual ~CLensFlare();
 	
-	void			Compute(const D3DXVECTOR3 & c_rv3LightDirection); // D3DTS_VIEW·Î ºÎÅÍ Ä«¸Ş¶ó ¹æÇâÀ» ¾ò¾î¿À¹Ç·Î, Ä«¸Ş¶ó ¼³Á¤ µÚ¿¡ ÇØ¾ß ÇÔ.
+	void			Compute(const D3DXVECTOR3 & c_rv3LightDirection); // D3DTS_VIEWë¡œ ë¶€í„° ì¹´ë©”ë¼ ë°©í–¥ì„ ì–»ì–´ì˜¤ë¯€ë¡œ, ì¹´ë©”ë¼ ì„¤ì • ë’¤ì— í•´ì•¼ í•¨.
 
 	void			DrawBeforeFlare();
 	void			DrawAfterFlare();

@@ -9,7 +9,7 @@ void CMapOutdoor::BuildQuadTree()
 {
 	FreeQuadTree();
 
-	// m_wPatchCount´Â ConvertPatchSplat¿¡¼­µµ Á¤ÇÑ´Ù, ¾ÈÀüÀ» À§ÇØ ¿©±â¼­ Ã¼Å©ÇÑ´Ù.
+	// m_wPatchCountëŠ” ConvertPatchSplatì—ì„œë„ ì •í•œë‹¤, ì•ˆì „ì„ ìœ„í•´ ì—¬ê¸°ì„œ ì²´í¬í•œë‹¤.
 	if (0 == m_wPatchCount)
 	{
 		TraceError("MapOutdoor::BuildQuadTree : m_wPatchCount is zero, you must call ConvertPatchSplat before call this method.");

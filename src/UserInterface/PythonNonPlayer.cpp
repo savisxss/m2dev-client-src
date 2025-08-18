@@ -84,7 +84,7 @@ bool CPythonNonPlayer::GetInstanceType(DWORD dwVnum, BYTE* pbType)
 {
 	const TMobTable * p = GetTable(dwVnum);
 
-	// dwVnum¸¦ Ã£À» ¼ö ¾øÀ¸¸é ÇÃ·¹ÀÌ¾î Ä³¸¯ÅÍ·Î °£ÁÖ ÇÑ´Ù. ¹®Á¦¼º ÄÚµå -_- [cronan]
+	// dwVnumë¥¼ ì°¾ì„ ìˆ˜ ì—†ìœ¼ë©´ í”Œë ˆì´ì–´ ìºë¦­í„°ë¡œ ê°„ì£¼ í•œë‹¤. ë¬¸ì œì„± ì½”ë“œ -_- [cronan]
 	if (!p)
 		return false;
 

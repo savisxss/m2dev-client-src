@@ -23,8 +23,8 @@ public:
 		CREATE_GET_DEVICE_CAPS2 = (1 << 3),
 		CREATE_DEVICE			= (1 << 4),
 		CREATE_REFRESHRATE		= (1 << 5),
-		CREATE_ENUM				= (1 << 6), // 2003. 01. 09. myevan ¸ðµå ¸®½ºÆ® ¾ò±â ½ÇÆÐ
-		CREATE_DETECT			= (1 << 7), // 2003. 01. 09. myevan ¸ðµå ¼±ÅÃ ½ÇÆÐ
+		CREATE_ENUM				= (1 << 6), // 2003. 01. 09. myevan ëª¨ë“œ ë¦¬ìŠ¤íŠ¸ ì–»ê¸° ì‹¤íŒ¨
+		CREATE_DETECT			= (1 << 7), // 2003. 01. 09. myevan ëª¨ë“œ ì„ íƒ ì‹¤íŒ¨
 		CREATE_NO_TNL			= (1 << 8),
 		CREATE_BAD_DRIVER		= (1 << 9),
 		CREATE_FORMAT			= (1 << 10),

@@ -73,7 +73,7 @@ BOOL CRaceData::LoadRaceData(const char * c_szFileName)
 				}
 
 				/////////////////////////
-				// Temporary - ÀÌº¥Æ®¸¦ À§ÇÑ ÀÓ½Ã ±â´É
+				// Temporary - ì´ë²¤íŠ¸ë¥¼ ìœ„í•œ ì„ì‹œ ê¸°ëŠ¥
 				TextFileLoader.GetTokenString("specialpath", &strPathName);
 				/////////////////////////
 
@@ -146,7 +146,7 @@ BOOL CRaceData::LoadRaceData(const char * c_szFileName)
 				}
 
 				/////////////////////////
-				// Temporary - ÀÌº¥Æ®¸¦ À§ÇÑ ÀÓ½Ã ±â´É
+				// Temporary - ì´ë²¤íŠ¸ë¥¼ ìœ„í•œ ì„ì‹œ ê¸°ëŠ¥
 				TextFileLoader.GetTokenString("specialpath", &strPathName);
 				/////////////////////////
 

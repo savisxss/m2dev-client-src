@@ -104,7 +104,7 @@ class CPythonSkill : public CSingleton<CPythonSkill>
 			SKILL_ATTRIBUTE_NEED_EMPTY_BOTTLE		= (1 << 12),
 			SKILL_ATTRIBUTE_NEED_POISON_BOTTLE		= (1 << 13),
 			SKILL_ATTRIBUTE_ATTACK_SKILL			= (1 << 14),
-			SKILL_ATTRIBUTE_TIME_INCREASE_SKILL		= (1 << 15), // ÁõÁö¼ú Àü¿ë attribute
+			SKILL_ATTRIBUTE_TIME_INCREASE_SKILL		= (1 << 15), // ì¦ì§€ìˆ  ì „ìš© attribute
 			SKILL_ATTRIBUTE_CHARGE_ATTACK			= (1 << 16),
 			SKILL_ATTRIBUTE_PASSIVE					= (1 << 17),
 			SKILL_ATTRIBUTE_CANNOT_LEVEL_UP			= (1 << 18),
@@ -138,7 +138,7 @@ class CPythonSkill : public CSingleton<CPythonSkill>
 		enum
 		{
 			SKILL_GRADE_COUNT = 3,
-			SKILL_EFFECT_COUNT = 4,	//½ºÅ³Àº ÃÊ,Áß,°í±Ş ÀÌ¿Ü¿¡ ¸¶½ºÅÍÀÏ¶§ ÀÌÆåÆ® Ãß°¡.
+			SKILL_EFFECT_COUNT = 4,	//ìŠ¤í‚¬ì€ ì´ˆ,ì¤‘,ê³ ê¸‰ ì´ì™¸ì— ë§ˆìŠ¤í„°ì¼ë•Œ ì´í™íŠ¸ ì¶”ê°€.
 			SKILL_GRADE_STEP_COUNT = 20,
 			SKILL_GRADEGAP = 25,
 		};
@@ -243,8 +243,8 @@ class CPythonSkill : public CSingleton<CPythonSkill>
 			DWORD dwSkillAttribute;
 			DWORD dwNeedWeapon;
 			DWORD dwTargetRange;
-			WORD wMotionIndex; // ¾ø¾îÁú º¯¼ö
-			WORD wMotionIndexForMe; // ¾ø¾îÁú º¯¼ö
+			WORD wMotionIndex; // ì—†ì–´ì§ˆ ë³€ìˆ˜
+			WORD wMotionIndexForMe; // ì—†ì–´ì§ˆ ë³€ìˆ˜
 
 			BOOL isRequirement;
 			std::string strRequireSkillName;

@@ -130,7 +130,7 @@ bool CTerrain::LoadShadowMap(const char * c_pszFileName)
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Seamless¿ë »õ·Î¿î ÇÔ¼öµé...
+// Seamlessìš© ìƒˆë¡œìš´ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////
 
 void CTerrain::CopySettingFromGlobalSetting()
@@ -893,7 +893,7 @@ void CTerrain::PutImage16(BYTE *src, BYTE *dst, long src_pitch, long dst_pitch, 
 		for (int x = 0; x < texturewidth; ++x)
 		{
 			WORD packed_pixel = src[x] << 8;
-			//& ¿¬»ê ÇÑ¹øÀÌ ¾Æ±õ´Ù
+			//& ì—°ì‚° í•œë²ˆì´ ì•„ê¹ë‹¤
 			//WORD packed_pixel = (src[x]&0xF0) << 8;
 			*((WORD*)(dst+x*2)) = packed_pixel;
 		}
@@ -1000,11 +1000,11 @@ void CTerrain::_CalculateTerrainPatch(BYTE byPatchNumX, BYTE byPatchNumY)
 			lpTerrainVertex->kPosition = kPosition;
 			lpTerrainVertex->kNormal = kNormal;
 
-			if (0.5f > kNormal.z)				// ¼öÆòÀ¸·Î ºÎÅÍ 30µµ ÀÌÇÏ °¢À¸·Î  ±â¿ï¾îÁ® ÀÖ´Ù. Cliff typeÀ¸·Î Á¤ÀÇ
+			if (0.5f > kNormal.z)				// ìˆ˜í‰ìœ¼ë¡œ ë¶€í„° 30ë„ ì´í•˜ ê°ìœ¼ë¡œ  ê¸°ìš¸ì–´ì ¸ ìžˆë‹¤. Cliff typeìœ¼ë¡œ ì •ì˜
 				++wNumCliffType;
-			else if (0.8660254f > kNormal.z)	// ¼öÆòÀ¸·Î ºÎÅÍ 60µµ ÀÌÇÏ °¢À¸·Î  ±â¿ï¾îÁ® ÀÖ´Ù. Hill typeÀ¸·Î Á¤ÀÇ
+			else if (0.8660254f > kNormal.z)	// ìˆ˜í‰ìœ¼ë¡œ ë¶€í„° 60ë„ ì´í•˜ ê°ìœ¼ë¡œ  ê¸°ìš¸ì–´ì ¸ ìžˆë‹¤. Hill typeìœ¼ë¡œ ì •ì˜
 				++wNumHillType;
-			else										// ±× ÀÌ»óÀº plain Å¸ÀÔ
+			else										// ê·¸ ì´ìƒì€ plain íƒ€ìž…
 				++wNumPlainType;
 			
 			if (kPosition.z > fMaxZ)

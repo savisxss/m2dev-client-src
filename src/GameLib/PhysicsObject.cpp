@@ -61,7 +61,7 @@ void CPhysicsObject::IncreaseExternalForce(const D3DXVECTOR3 & c_rvBasePosition,
 		m_v3Acceleration.y,
 		m_v3Acceleration.z);
 */
-	// NOTE : ÃÖÁ¾ À§Ä¡¸¦ ±¸ÇØµĞ´Ù. ±Ùµ¥ 100º¸´Ù Å©´Ù¸é? ;
+	// NOTE : ìµœì¢… ìœ„ì¹˜ë¥¼ êµ¬í•´ë‘”ë‹¤. ê·¼ë° 100ë³´ë‹¤ í¬ë‹¤ë©´? ;
 	const int LoopValue = 100;
 	D3DXVECTOR3 v3Movement(0.0f, 0.0f, 0.0f);
 
@@ -80,7 +80,7 @@ void CPhysicsObject::IncreaseExternalForce(const D3DXVECTOR3 & c_rvBasePosition,
 
 				//for (float fRatio = 0.0f; fRatio < 1.0f; fRatio += 0.1f)
 				//{
-				//	// Á»´õ Á¤¹ĞÇÏ°Ô Ã¼Å©ÇÑ´Ù
+				//	// ì¢€ë” ì •ë°€í•˜ê²Œ ì²´í¬í•œë‹¤
 				//	if (pWorld->isPhysicalCollision(c_rvBasePosition + v3Movement * fRatio))
 				//	{
 				//		v3Movement = D3DXVECTOR3 (0.0f, 0.0f, 0.0f);
@@ -142,11 +142,11 @@ float CPhysicsObject::GetYMovement()
 
 bool CPhysicsObject::isBlending()
 {
-	// NOTE : IncreaseExternalForce() ¿¡ ÀÇÇØ ¹Ğ¸®´Â Ã³¸®ÁßÀÎ°¡?
+	// NOTE : IncreaseExternalForce() ì— ì˜í•´ ë°€ë¦¬ëŠ” ì²˜ë¦¬ì¤‘ì¸ê°€?
 	if (0.0f != D3DXVec3Length(&m_v3Velocity))
 		return true;
 
-	// NOTE : SetLastPosition() ¿¡ ÀÇÇØ ¹Ğ¸®´Â Ã³¸®ÁßÀÎ°¡?
+	// NOTE : SetLastPosition() ì— ì˜í•´ ë°€ë¦¬ëŠ” ì²˜ë¦¬ì¤‘ì¸ê°€?
 	if (m_xPushingPosition.isPlaying() ||
 		m_yPushingPosition.isPlaying())
 		return true;

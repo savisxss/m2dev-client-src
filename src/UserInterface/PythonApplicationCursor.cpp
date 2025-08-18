@@ -122,9 +122,9 @@ BOOL CPythonApplication::SetCursorNum(int iCursorNum)
 	}
 	else
 	{
-		if (__IsContinuousChangeTypeCursor(m_iCursorNum))		// ÇöÀç Ä¿¼­°¡ Áö¼Ó Ä¿¼­ÀÏ¶§¸¸
+		if (__IsContinuousChangeTypeCursor(m_iCursorNum))		// í˜„ì¬ ì»¤ì„œê°€ ì§€ì† ì»¤ì„œì¼ë•Œë§Œ
 		{
-			m_iContinuousCursorNum = m_iCursorNum;			// ÇöÀçÀÇ Ä¿¼­¸¦ ÀúÀåÇÑ´Ù.
+			m_iContinuousCursorNum = m_iCursorNum;			// í˜„ì¬ì˜ ì»¤ì„œë¥¼ ì €ì¥í•œë‹¤.
 		}
 	}
 

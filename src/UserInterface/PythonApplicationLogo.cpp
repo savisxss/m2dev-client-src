@@ -23,7 +23,7 @@ int CPythonApplication::OnLogoOpen(char* szName)
 	m_nLeft = 0; m_nRight = 0; m_nTop = 0; m_nBottom = 0;
 
 
-	// Ã³À½¿¡´Â 1/1 Å©±âÀÇ ÅØ½ºÃÄ¸¦ »ı¼ºÇØµĞ´Ù.
+	// ÃƒÂ³Ã€Â½Â¿Â¡Â´Ã‚ 1/1 Ã…Â©Â±Ã¢Ã€Ã‡ Ã…Ã˜Â½ÂºÃƒÃ„Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã˜ÂµÃÂ´Ã™.
 	if(!m_pLogoTex->Create(1, 1, D3DFMT_A8R8G8B8)) { return 0; }
 
 	// Set GraphBuilder / SampleGrabber
@@ -60,7 +60,7 @@ int CPythonApplication::OnLogoOpen(char* szName)
 	// Media Event
 	if(FAILED(m_pGraphBuilder->QueryInterface(IID_IMediaEventEx, (VOID**) &m_pMediaEvent))) { return 0; }
 
-	// Window ¾Èº¸ÀÌ°Ô
+	// Window Â¾ÃˆÂºÂ¸Ã€ÃŒÂ°Ã”
 	m_pVideoWnd->SetWindowPosition( 3000, 3000, 0, 0 );
 	m_pVideoWnd->put_Visible(0);
 	m_pSampleGrabber->SetBufferSamples(TRUE);
@@ -80,8 +80,8 @@ int CPythonApplication::OnLogoUpdate()
 	//osvi.dwOSVersionInfoSize = sizeof(osvi);
 	//GetVersionEx(&osvi);
 
-	//// windows xp ÀÌÇÏÀÎ ¹öÀüÀº logo skip.
-	////	m_pSampleGrabber->GetCurrentBuffer(&m_lBufferSize,  (LONG*)m_pCaptureBuffer) fail ³ª±â ¶§¹®.
+	//// windows xp Ã€ÃŒÃ‡ÃÃ€Ã Â¹Ã¶Ã€Ã¼Ã€Âº logo skip.
+	////	m_pSampleGrabber->GetCurrentBuffer(&m_lBufferSize,  (LONG*)m_pCaptureBuffer) fail Â³ÂªÂ±Ã¢ Â¶Â§Â¹Â®.
 	//if (osvi.dwMajorVersion <= 5)
 	//{
 	//	return 0;
@@ -94,10 +94,10 @@ int CPythonApplication::OnLogoUpdate()
 
 	uint8_t* pBuffer = m_pCaptureBuffer; LONG lBufferSize = m_lBufferSize;
 
-	// Àç»ıÀÌ ¾È‰çÀ?°æ¿ì Àç»ı.
+	// Ã€Ã§Â»Ã½Ã€ÃŒ Â¾ÃˆÂ‰Ã§Ã€?Â°Ã¦Â¿Ã¬ Ã€Ã§Â»Ã½.
 	if(!m_bLogoPlay) { m_pMediaCtrl->Run(); m_bLogoPlay = true; }
 
-	// ÀĞ¾î¿Â ¹öÆÛ°¡ 0ÀÎ°æ¿ì ¹öÆÛ¸¦ ÀçÇÒ´ç.
+	// Ã€ÃÂ¾Ã®Â¿Ã‚ Â¹Ã¶Ã†Ã›Â°Â¡ 0Ã€ÃÂ°Ã¦Â¿Ã¬ Â¹Ã¶Ã†Ã›Â¸Â¦ Ã€Ã§Ã‡Ã’Â´Ã§.
 	if( lBufferSize == 0  ) {
 		m_pSampleGrabber->GetCurrentBuffer(&m_lBufferSize, NULL);
 
@@ -107,8 +107,8 @@ int CPythonApplication::OnLogoUpdate()
 		lBufferSize = m_lBufferSize;
 	}
 	
-	// ¿µ»ó ·ÎµùÁß¿¡ UpdateµÇ´Â °æ¿ì, ¹öÆÛ ¾ò±â¿¡ ½ÇÆĞÇÏ´Â °æ¿ì°¡ ¸¹´Ù.
-	// ½ÇÆĞÇÏ´õ¶óµµ ¿ÏÀüÈ÷ Á¾·áµÇ´Â °æ¿ì´Â ¾Æ´Ï¹Ç·Î, ½ÇÇàÀ» Áß´ÜÇÏÁö´Â ¾Ê´Â´Ù.
+	// Â¿ÂµÂ»Ã³ Â·ÃÂµÃ¹ÃÃŸÂ¿Â¡ UpdateÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬, Â¹Ã¶Ã†Ã› Â¾Ã²Â±Ã¢Â¿Â¡ Â½Ã‡Ã†ÃÃ‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Â¸Â¹Â´Ã™.
+	// Â½Ã‡Ã†ÃÃ‡ÃÂ´ÃµÂ¶Ã³ÂµÂµ Â¿ÃÃ€Ã¼ÃˆÃ· ÃÂ¾Â·Ã¡ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¾Ã†Â´ÃÂ¹Ã‡Â·Ã, Â½Ã‡Ã‡Ã Ã€Â» ÃÃŸÂ´ÃœÃ‡ÃÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã‚Â´Ã™.
 	if(FAILED(m_pSampleGrabber->GetCurrentBuffer(&m_lBufferSize,  (LONG*)m_pCaptureBuffer)))
 	{
 		m_bLogoError = true;
@@ -117,7 +117,7 @@ int CPythonApplication::OnLogoUpdate()
 		D3DLOCKED_RECT rt;
 		ZeroMemory(&rt, sizeof(rt));
 
-		// ½ÇÆĞÇÑ °æ¿ì¿¡´Â ÅØ½ºÃÄ¸¦ ±î¸Ä°Ô ºñ¿î´Ù.
+		// Â½Ã‡Ã†ÃÃ‡Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Ã…Ã˜Â½ÂºÃƒÃ„Â¸Â¦ Â±Ã®Â¸Ã„Â°Ã” ÂºÃ±Â¿Ã®Â´Ã™.
 		tex->LockRect(0, &rt, 0, 0);
 		uint8_t* destb = static_cast<unsigned char*>(rt.pBits);
 		for(int a = 0; a < 4; a+= 4)
@@ -150,14 +150,14 @@ int CPythonApplication::OnLogoUpdate()
 
 
 
-	// Å©±â°¡ 1, Áï ÅØ½ºÃÄ °ø°£ÀÌ Á¦´ë·Î ÁØºñ ¾ÈµÈ°æ¿ì ´Ù½Ã ¸¸µç´Ù.
+	// Ã…Â©Â±Ã¢Â°Â¡ 1, ÃÃ¯ Ã…Ã˜Â½ÂºÃƒÃ„ Â°Ã¸Â°Â£Ã€ÃŒ ÃÂ¦Â´Ã«Â·Ã ÃÃ˜ÂºÃ± Â¾ÃˆÂµÃˆÂ°Ã¦Â¿Ã¬ Â´Ã™Â½Ãƒ Â¸Â¸ÂµÃ§Â´Ã™.
 	if(m_pLogoTex->GetWidth() == 1)
 	{
 		m_pLogoTex->Destroy(); m_pLogoTex->Create(lWidth, lHeight, D3DFMT_A8R8G8B8);
 		
 	}
 
-	// ÁØºñ‰çÀ¸¸?¹öÆÛ¿¡¼­ ÅØ½ºÃÄ·Î º¹»çÇØ¿Â´Ù.
+	// ÃÃ˜ÂºÃ±Â‰Ã§Ã€Â¸Â¸?Â¹Ã¶Ã†Ã›Â¿Â¡Â¼Â­ Ã…Ã˜Â½ÂºÃƒÃ„Â·Ã ÂºÂ¹Â»Ã§Ã‡Ã˜Â¿Ã‚Â´Ã™.
 	LPDIRECT3DTEXTURE8 tex = m_pLogoTex->GetD3DTexture();
 	D3DLOCKED_RECT rt;
 	ZeroMemory(&rt, sizeof(rt));
@@ -207,7 +207,7 @@ void CPythonApplication::OnLogoRender()
 
 void CPythonApplication::OnLogoClose()
 {
-	// NOTE: LOGO µ¿¿µ»óÀÌ ÇÑ ¹øµµ ¾È ºÒ·ÈÀ» °æ¿ì¿¡´Â OnLogoClose °úÁ¤¿¡¼­ Å©·¡½Ã°¡ ³ª´Â ¹®Á¦ ¼öÁ¤
+	// NOTE: LOGO ÂµÂ¿Â¿ÂµÂ»Ã³Ã€ÃŒ Ã‡Ã‘ Â¹Ã¸ÂµÂµ Â¾Ãˆ ÂºÃ’Â·ÃˆÃ€Â» Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ OnLogoClose Â°ÃºÃÂ¤Â¿Â¡Â¼Â­ Ã…Â©Â·Â¡Â½ÃƒÂ°Â¡ Â³ÂªÂ´Ã‚ Â¹Â®ÃÂ¦ Â¼Ã¶ÃÂ¤
 	if (false == bInitializedLogo)
 		return;
 

@@ -91,11 +91,11 @@ void CPythonMiniMap::Update(float fCenterX, float fCenterY)
 	if (!rkBG.IsMapOutdoor())
 		return;
 	
-	// ¹Ì´Ï¸Ê ±×¸² °»½Å
+	// ë¯¸ë‹ˆë§µ ê·¸ë¦¼ ê°±ì‹ 
 	if (m_fCenterX != fCenterX || m_fCenterY != fCenterY )
 		SetCenterPosition(fCenterX, fCenterY);
 
-	// Ä³¸¯ÅÍ ¸®½ºÆ® °»½Å
+	// ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ ê°±ì‹ 
 	m_OtherPCPositionVector.clear();
 	m_PartyPCPositionVector.clear();
 	m_NPCPositionVector.clear();
@@ -434,7 +434,7 @@ void CPythonMiniMap::Render(float fScreenX, float fScreenY)
 	STATEMANAGER.SaveTextureStageState(0, D3DTSS_MINFILTER, D3DTEXF_LINEAR);
 	STATEMANAGER.SaveTextureStageState(0, D3DTSS_MAGFILTER, D3DTEXF_LINEAR);
 
-	// Ä³¸¯ÅÍ ¸¶Å©
+	// ìºë¦­í„° ë§ˆí¬
 	CInstanceBase * pkInst = CPythonCharacterManager::Instance().GetMainInstancePtr();
 
 	if (pkInst)
@@ -470,7 +470,7 @@ void CPythonMiniMap::Render(float fScreenX, float fScreenY)
 
 	CCamera* pkCmrCur=CCameraManager::Instance().GetCurrentCamera();
 
-	// Ä«¸Ş¶ó ¹æÇâ
+	// ì¹´ë©”ë¼ ë°©í–¥
 	if (pkCmrCur)
 	{
 		m_MiniMapCameraraphicImageInstance.SetRotation(pkCmrCur->GetRoll());
@@ -530,7 +530,7 @@ bool CPythonMiniMap::Create()
 	const std::string strPlayerMark = strImageRoot + "minimap/playermark.sub";
 	const std::string strWhiteMark = strImageRoot + "minimap/whitemark.sub";
 
-	// ¹Ì´Ï¸Ê Ä¿¹ö
+	// ë¯¸ë‹ˆë§µ ì»¤ë²„
 	CGraphicImage * pImage = (CGraphicImage *) CResourceManager::Instance().GetResourcePointer(strImageFilter.c_str());
 	m_MiniMapFilterGraphicImageInstance.SetImagePointer(pImage);
 	pImage = (CGraphicImage *) CResourceManager::Instance().GetResourcePointer(strImageCamera.c_str());
@@ -540,7 +540,7 @@ bool CPythonMiniMap::Create()
 	m_matMiniMapCover._22 = 1.0f / ((float)m_MiniMapFilterGraphicImageInstance.GetHeight());
 	m_matMiniMapCover._33 = 0.0f;
 
-	// Ä³¸¯ÅÍ ¸¶Å©
+	// ìºë¦­í„° ë§ˆí¬
 	CGraphicSubImage * pSubImage = (CGraphicSubImage *) CResourceManager::Instance().GetResourcePointer(strPlayerMark.c_str());
 	m_PlayerMark.SetImagePointer(pSubImage);
 
@@ -569,7 +569,7 @@ bool CPythonMiniMap::Create()
 
 	m_GuildAreaFlagImageInstance.SetImagePointer((CGraphicSubImage *) CResourceManager::Instance().GetResourcePointer("d:/ymir work/ui/minimap/GuildArea01.sub"));
 
-	// ±×·ÁÁú Æú¸®°ï ¼¼ÆÃ
+	// ê·¸ë ¤ì§ˆ í´ë¦¬ê³¤ ì„¸íŒ…
 #pragma pack(push)
 #pragma pack(1)
 	LPMINIMAPVERTEX		lpMiniMapVertex;

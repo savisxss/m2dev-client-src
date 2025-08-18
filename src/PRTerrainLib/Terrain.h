@@ -74,7 +74,7 @@ class CTerrainImpl
 
 	public:
 		static void				SetTextureSet(CTextureSet * pTextureSet);
-		static CTextureSet *	GetTextureSet();	// ¹«Á¶°Ç ¼º°øÇØ¾ß ÇÔ
+		static CTextureSet *	GetTextureSet();	// ë¬´ì¡°ê±´ ì„±ê³µí•´ì•¼ í•¨
 
 	protected:
 		static CTextureSet	*	ms_pTextureSet;
@@ -134,7 +134,7 @@ class CTerrainImpl
 		//////////////////////////////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////////////////////////////
-		// TileMap°ú HeightMap ºñÀ²
+		// TileMapê³¼ HeightMap ë¹„ìœ¨
 // 		int						m_iHeightTileRatio;
 
 		//////////////////////////////////////////////////////////////////////////

@@ -11,8 +11,8 @@ class CActorInstance;
 class CFlyingInstance 
 {	
 public:
-	// 2004. 3. 26. myevan. ÀûÀıÇÑ ³×ÀÌ¹ÖÀÌ ÇÊ¿ä. °ÔÀÓ¿¡¼­ »ç¿ëÇÏÁö ¾Ê´Â´Ù¸é Åø¿¡¼­ Åø Àü¿ëÀ¸·Î »ó¼Ó¹Ş¾Æ ¸¸µéµµ·Ï ÇÏÀÚ
-	void Clear(); // Destroy¿Í °°´Ù
+	// 2004. 3. 26. myevan. ì ì ˆí•œ ë„¤ì´ë°ì´ í•„ìš”. ê²Œì„ì—ì„œ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ íˆ´ì—ì„œ íˆ´ ì „ìš©ìœ¼ë¡œ ìƒì†ë°›ì•„ ë§Œë“¤ë„ë¡ í•˜ì
+	void Clear(); // Destroyì™€ ê°™ë‹¤
 	void SetDataPointer(CFlyingData * pData, const D3DXVECTOR3 & v3StartPosition);
 	void SetFlyTarget(const CFlyTarget & cr_Target); // Shot at Target	
 	
@@ -56,7 +56,7 @@ public:
 	void SetOwner(IActorInstance * pOwner) { m_pOwner = pOwner; }
 	void SetSkillIndex(DWORD dwIndex) { m_dwSkillIndex = dwIndex; }
 
-	// FIXME : Åø¿¡¼­ »ç¿ëÇÏ°í ÀÖ½À´Ï´Ù. ÀÓ½Ã·Î À§·Î.. - [levites]
+	// FIXME : íˆ´ì—ì„œ ì‚¬ìš©í•˜ê³  ìˆìŠµë‹ˆë‹¤. ì„ì‹œë¡œ ìœ„ë¡œ.. - [levites]
 	void __Explode(bool bBomb=true);
 	void __Bomb();
 
@@ -67,7 +67,7 @@ protected:
 
 	void __SetDataPointer(CFlyingData * pData, const D3DXVECTOR3 & v3StartPosition);
 	void __SetTargetDirection(const CFlyTarget& c_rkTarget);
-	void __SetTargetNormalizedDirection(const D3DXVECTOR3 & v3NormalizedDirection ); // ½ÃÀÛ Å¸°Ù ¹æÇâ ¼³Á¤
+	void __SetTargetNormalizedDirection(const D3DXVECTOR3 & v3NormalizedDirection ); // ì‹œì‘ íƒ€ê²Ÿ ë°©í–¥ ì„¤ì •
 
 protected:
 	

@@ -220,11 +220,11 @@ bool Group::GetArg(const char *c_arg_base, int arg_len, TArgList & argList)
 			{
 				isValue = true;
 			}
-			// °ªÀÌ ¾Æ´Ï°í, ÀÌ¸§ÀÌ ½ÃÀÛµÇÁö ¾Ê¾ÒÀ» °æ¿ì ºóÄ­Àº °Ç³Ê ¶Ú´Ù.
+			// ê°’ì´ ì•„ë‹ˆê³ , ì´ë¦„ì´ ì‹œì‘ë˜ì§€ ì•Šì•˜ì„ ê²½ìš° ë¹ˆì¹¸ì€ ê±´ë„ˆ ë›´ë‹¤.
 			else if (!isValue && iNameLen == 0 && isspace((unsigned char) c))
 			{
 			}
-			// ¿£ÅÍ´Â °Ç³Ê ¶Ú´Ù
+			// ì—”í„°ëŠ” ê±´ë„ˆ ë›´ë‹¤
 			else if (c == '\r' || c == '\n')
 			{
 			}
@@ -350,12 +350,12 @@ bool Group::Create(const std::string & stSource)
 					memcpy(box_data, data_begin, data_len);
 					box_data[data_len] = '\0';
 
-					data_len = LocaleString_RightTrim(box_data, data_len); // ¿À¸¥ÂÊ ºóÄ­ ÀÚ¸£±â
+					data_len = LocaleString_RightTrim(box_data, data_len); // ì˜¤ë¥¸ìª½ ë¹ˆì¹¸ ìë¥´ê¸°
 				}
 
 				{
 					const char* space = LocaleString_FindChar(box_data, data_len, ' ');
-					if (space)  // ÀÎÀÚ°¡ ÀÖÀ½
+					if (space)  // ì¸ìê°€ ìˆìŒ
 					{
 						int name_len = space - box_data;
 						cmd.name.assign(box_data, name_len);
@@ -371,7 +371,7 @@ bool Group::Create(const std::string & stSource)
 							return false;
 						}
 					}
-					else        // ÀÎÀÚ°¡ ¾øÀ¸¹Ç·Î ¸ğµç ½ºÆ®¸µÀÌ ¸í·É¾î´Ù.
+					else        // ì¸ìê°€ ì—†ìœ¼ë¯€ë¡œ ëª¨ë“  ìŠ¤íŠ¸ë§ì´ ëª…ë ¹ì–´ë‹¤.
 					{
 						cmd.name.assign(box_data);
 						cmd.argList.clear();

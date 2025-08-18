@@ -282,8 +282,8 @@ void CGrannyLODController::AddModel(CGraphicThing * pThing, int iSrcModel, CGran
 	}
 	else
 	{
-		// FIXME : CModelInstance::m_pgrnWorldPose¸¦ Update¿¡¼­ »ç¿ëÇÏ´Âµ¥,
-		//         DeformÀ» ÇÏÁö ¾ÊÀ¸¸é NULL ÀÔ´Ï´Ù. ±¸Á¶°¡ Á¶±Ý ¹Ù²î¾î¾ß ÇÒÁöµµ.. - [levites]
+		// FIXME : CModelInstance::m_pgrnWorldPoseë¥¼ Updateì—ì„œ ì‚¬ìš©í•˜ëŠ”ë°,
+		//         Deformì„ í•˜ì§€ ì•Šìœ¼ë©´ NULL ìž…ë‹ˆë‹¤. êµ¬ì¡°ê°€ ì¡°ê¸ˆ ë°”ë€Œì–´ì•¼ í• ì§€ë„.. - [levites]
  		pModelInstance->DeformNoSkin(&ms_matIdentity);
 	}	
 
@@ -460,10 +460,10 @@ void CGrannyLODController::UpdateLODLevel(float fDistanceFromCenter, float fDist
 	assert(m_pCurrentModelInstance != NULL);
 
 	
-	if (fDistanceFromCenter > LOD_APPLY_MIN) // Áß½É LOD ¿¹¿Ü Ãë¼Ò
+	if (fDistanceFromCenter > LOD_APPLY_MIN) // ì¤‘ì‹¬ LOD ì˜ˆì™¸ ì·¨ì†Œ
 	{	
-		// Ä«¸Þ¶óºÎÅÍ ¸Ö¾îÁú ¼ö·Ï fLODRate°¡ ÀÛ¾ÆÁø´Ù
-		// 3°³ LOD°¡ ÀÖÀ»¶§.. °¡Àå ¸Õ°Ô 0, °¡±î¿ï ¼ö·Ï ¼ýÀÚ°¡ Ä¿Áø´Ù
+		// ì¹´ë©”ë¼ë¶€í„° ë©€ì–´ì§ˆ ìˆ˜ë¡ fLODRateê°€ ìž‘ì•„ì§„ë‹¤
+		// 3ê°œ LODê°€ ìžˆì„ë•Œ.. ê°€ìž¥ ë¨¼ê²Œ 0, ê°€ê¹Œìš¸ ìˆ˜ë¡ ìˆ«ìžê°€ ì»¤ì§„ë‹¤
 
 		// 100fps 50fps 33fps 25fps 20fps
 		// 10ms 20ms 30ms 40ms 50ms

@@ -1,2 +1,2 @@
-#define LOCALE_SERVICE_HONGKONG			// ȫ��
+#define LOCALE_SERVICE_HONGKONG			// 홍콩
 

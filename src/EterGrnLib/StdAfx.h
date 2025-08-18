@@ -1,6 +1,6 @@
 #pragma once
 
-#pragma warning(disable:4786)	// character 255 ³Ñ¾î°¡´Â°Å ²ô±â
+#pragma warning(disable:4786)	// character 255 ë„˜ì–´ê°€ëŠ”ê±° ë„ê¸°
 
 //#include <crtdbg.h>
 #include <granny.h>

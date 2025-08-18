@@ -534,7 +534,7 @@ namespace UI
 		if (m_pActiveWindow)
 			m_pActiveWindow->OnKillFocus();
 
-		// ÀÌ¹Ì ¶ôµÈ À©µµ¿ì¸®½ºÆ®¾È¿¡ ÀÖ´Ù¸é Á¦°ÅÇÑ´Ù..
+		// ì´ë¯¸ ë½ëœ ìœˆë„ìš°ë¦¬ìŠ¤íŠ¸ì•ˆì— ìˆë‹¤ë©´ ì œê±°í•œë‹¤..
 		m_LockWindowList.remove(pWin);
 
 		if (m_pLockWindow)
@@ -575,8 +575,8 @@ namespace UI
 
 		if (m_pActiveWindow)
 		{
-			// NOTE : ´©ÀûµÈ Window°¡ ¸¹¾ÆÁö¸é Clear¸¦ ÇØÁà¾ß ÇÒ±î?
-			//        ÀÏ´ÜÀº Áßº¹ ´©ÀûÀÌ ¾ÈµÇ¸ç Æ÷Ä¿½º µÇ´Â °¹¼ö ÀÚÃ¼°¡ 5°³ ¹Ì¸¸ÀÌ´Ï ±»ÀÌ ÇÊ¿äÇÏÁö´Â ¾ÊÀ» µí.. - [levites]
+			// NOTE : ëˆ„ì ëœ Windowê°€ ë§ì•„ì§€ë©´ Clearë¥¼ í•´ì¤˜ì•¼ í• ê¹Œ?
+			//        ì¼ë‹¨ì€ ì¤‘ë³µ ëˆ„ì ì´ ì•ˆë˜ë©° í¬ì»¤ìŠ¤ ë˜ëŠ” ê°¯ìˆ˜ ìì²´ê°€ 5ê°œ ë¯¸ë§Œì´ë‹ˆ êµ³ì´ í•„ìš”í•˜ì§€ëŠ” ì•Šì„ ë“¯.. - [levites]
 			m_ActiveWindowList.push_back(m_pActiveWindow);
 			m_pActiveWindow->OnKillFocus();
 		}
@@ -618,8 +618,8 @@ namespace UI
 		CWindow * pParentWindow = pWin->GetParent();
 		pParentWindow->SetTop(pWin);
 
-		// NOTE : Capture°¡ ¸®¼ÂµÈ´Ù..? - [levites]
-		// NOTE : ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛÀ» µå·¡±× ÇØ¼­ ¹Û¿¡´Ù ³õÀ»¶§ Ä¸Ãç°¡ ³²¾Æ¼­ Ã¢ÀÇ ¹öÆ°À» µÎ¹ø ´­·¯¾ß ÇÏ´Â ¹ö±×¸¦ À§ÇØ Ãß°¡
+		// NOTE : Captureê°€ ë¦¬ì…‹ëœë‹¤..? - [levites]
+		// NOTE : ì¸ë²¤í† ë¦¬ì—ì„œ ì•„ì´í…œì„ ë“œë˜ê·¸ í•´ì„œ ë°–ì—ë‹¤ ë†“ì„ë•Œ ìº¡ì¶°ê°€ ë‚¨ì•„ì„œ ì°½ì˜ ë²„íŠ¼ì„ ë‘ë²ˆ ëˆŒëŸ¬ì•¼ í•˜ëŠ” ë²„ê·¸ë¥¼ ìœ„í•´ ì¶”ê°€
 //		ResetCapture();
 	}
 
@@ -628,7 +628,7 @@ namespace UI
 		if (m_pLockWindow)
 			return;
 
-		// GameLayer¿¡ ¼ÓÇØ ÀÖ´Â À©µµ¿ì°¡ ÇÇÅ· µÆ´Ù¸é ¹«Á¶°Ç SetTopÀ» ÇØÁØ´Ù.
+		// GameLayerì— ì†í•´ ìˆëŠ” ìœˆë„ìš°ê°€ í”¼í‚¹ ëë‹¤ë©´ ë¬´ì¡°ê±´ SetTopì„ í•´ì¤€ë‹¤.
 		TLayerContainer::iterator itor = m_LayerWindowMap.find("UI");
 		if (itor == m_LayerWindowMap.end())
 			return;
@@ -896,7 +896,7 @@ namespace UI
 		{
 			if (m_pLeftCaptureWindow->OnMouseLeftButtonUp())
 			{
-				// NOTE : ¿©±â¼­ m_pLeftCaptureWindow°¡ NULL ÀÏ ¼ö ÀÖ½À´Ï´Ù!! - [levites]
+				// NOTE : ì—¬ê¸°ì„œ m_pLeftCaptureWindowê°€ NULL ì¼ ìˆ˜ ìˆìŠµë‹ˆë‹¤!! - [levites]
 				m_pLeftCaptureWindow = NULL;
 				return;
 			}
@@ -1099,7 +1099,7 @@ namespace UI
 				return;
 		}
 
-		// NOTE : ÀüÃ¼·Î µ¹¸®Áö ¾Ê°í ActivateµÇ¾îÀÖ´Â EditLine¿¡¸¸ º¸³»´Â ÀÌº¥Æ®
+		// NOTE : ì „ì²´ë¡œ ëŒë¦¬ì§€ ì•Šê³  Activateë˜ì–´ìˆëŠ” EditLineì—ë§Œ ë³´ë‚´ëŠ” ì´ë²¤íŠ¸
 	}
 
 	void CWindowManager::RunChangeCodePage()

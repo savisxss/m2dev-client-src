@@ -161,8 +161,8 @@ void CParticleSystemInstance::CreateParticles(float fElapsedTime)
 			D3DXVec3TransformCoord(&v3TimePosition, &v3TimePosition, mc_pmatLocal);
 		}
 		pInstance->m_v3StartPosition = v3TimePosition;
-		// NOTE : Update¸¦ È£ÃâÇÏÁö ¾Ê°í Rendering µÇ±â ¶§¹®¿¡ length°¡ 0ÀÌ µÇ´Â ¹®Á¦°¡ ÀÖ´Ù.
-		//        Velocity¸¦ ±¸ÇÑ ÈÄ ±×¸¸Å­ »©ÁØ °ªÀ¸·Î ÃÊ±âÈ­ ÇØÁÖµµ·Ï ¹Ù²åÀ½ - [levites]
+		// NOTE : Updateë¥¼ í˜¸ì¶œí•˜ì§€ ì•Šê³  Rendering ë˜ê¸° ë•Œë¬¸ì— lengthê°€ 0ì´ ë˜ëŠ” ë¬¸ì œê°€ ìˆë‹¤.
+		//        Velocityë¥¼ êµ¬í•œ í›„ ê·¸ë§Œí¼ ë¹¼ì¤€ ê°’ìœ¼ë¡œ ì´ˆê¸°í™” í•´ì£¼ë„ë¡ ë°”ê¿¨ìŒ - [levites]
 		//pInstance->m_v3LastPosition = pInstance->m_v3Position;
 
 		// Direction & Velocity
@@ -214,8 +214,8 @@ void CParticleSystemInstance::CreateParticles(float fElapsedTime)
 		// Rotation
 		pInstance->m_fRotation = m_pParticleProperty->m_wRotationRandomStartingBegin;
 		pInstance->m_fRotation = frandom(m_pParticleProperty->m_wRotationRandomStartingBegin,m_pParticleProperty->m_wRotationRandomStartingEnd);
-		// Rotation - Lie ÀÏ °æ¿ì LocalMatrix ÀÇ Rotation °ªÀ» Random ¿¡ Àû¿ëÇÑ´Ù.
-		//            ¸Å¹ø ÇÒ ÇÊ¿ä´Â ¾øÀ»µí. ¾î´À Á¤µµÀÇ ÃÖÀûÈ­°¡ ÇÊ¿ä. - [levites]
+		// Rotation - Lie ì¼ ê²½ìš° LocalMatrix ì˜ Rotation ê°’ì„ Random ì— ì ìš©í•œë‹¤.
+		//            ë§¤ë²ˆ í•  í•„ìš”ëŠ” ì—†ì„ë“¯. ì–´ëŠ ì •ë„ì˜ ìµœì í™”ê°€ í•„ìš”. - [levites]
 		if (BILLBOARD_TYPE_LIE == m_pParticleProperty->m_byBillboardType && mc_pmatLocal)
 		{
 			pInstance->m_fRotation += fLieRotation;
@@ -495,7 +495,7 @@ void CParticleSystemInstance::OnInitialize()
 
 void CParticleSystemInstance::OnDestroy()
 {
-	// 2004. 3. 1. myevan. ÆÄÆ¼Å¬ Á¦°Å ·çÆ¾
+	// 2004. 3. 1. myevan. íŒŒí‹°í´ ì œê±° ë£¨í‹´
 	TParticleInstanceListVector::iterator i;
 	for(i = m_ParticleInstanceListVector.begin(); i!=m_ParticleInstanceListVector.end(); ++i)
 	{

@@ -18,10 +18,10 @@ void CGridSlotWindow::OnRenderPickingSlot()
 		DWORD dwSlotNumber = UI::CWindowManager::Instance().GetAttachingSlotNumber();
 		DWORD dwItemIndex = UI::CWindowManager::Instance().GetAttachingIndex();
 
-		// UseMode ÀÌ°í..
+		// UseMode ì´ê³ ..
 		if (m_isUseMode)
 		{
-			// Pick µÈ ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é..
+			// Pick ëœ ì•„ì´í…œì´ ìˆìœ¼ë©´..
 			TSlot * pSlot = *SlotList.begin();
 			TSlot * pCenterSlot;
 			if (GetSlotPointer(pSlot->dwCenterSlotNumber, &pCenterSlot))
@@ -40,7 +40,7 @@ void CGridSlotWindow::OnRenderPickingSlot()
 			}
 		}
 
-		// ¾Æ´Ï¸é ±×³É ¿Å±â±â
+		// ì•„ë‹ˆë©´ ê·¸ëƒ¥ ì˜®ê¸°ê¸°
 		if (CheckMoving(dwSlotNumber, dwItemIndex, SlotList))
 			CPythonGraphic::Instance().SetDiffuseColor(1.0f, 1.0f, 1.0f, 0.5f);
 		else
@@ -85,8 +85,8 @@ BOOL CGridSlotWindow::GetPickedSlotPointer(TSlot ** ppSlot)
 	{
 		TSlot * pSlot = *itor;
 
-		// NOTE : ÇÑ ½½·Ô ÀÌ»ó »çÀÌÁîÀÇ ¾ÆÀÌÅÛÀÇ °æ¿ì °¡Àå ¿ŞÂÊ À§ÀÇ ½½·Ô Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
-		//        ¸í½ÃÀûÀÌÁö ¸øÇÑ ÄÚµå.. ´õ ÁÁÀº ¹æ¹ıÀº ¾ø´Â°¡? - [levites]
+		// NOTE : í•œ ìŠ¬ë¡¯ ì´ìƒ ì‚¬ì´ì¦ˆì˜ ì•„ì´í…œì˜ ê²½ìš° ê°€ì¥ ì™¼ìª½ ìœ„ì˜ ìŠ¬ë¡¯ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
+		//        ëª…ì‹œì ì´ì§€ ëª»í•œ ì½”ë“œ.. ë” ì¢‹ì€ ë°©ë²•ì€ ì—†ëŠ”ê°€? - [levites]
 		if (!pMinSlot)
 		{
 			pMinSlot = pSlot;
@@ -119,7 +119,7 @@ BOOL CGridSlotWindow::GetPickedSlotPointer(TSlot ** ppSlot)
 
 		*ppSlot = pCenterSlot;
 
-		// ÇöÀç ¾ÆÀÌÅÛÀ» µé°í ÀÖ´Â ÁßÀÌ°í..
+		// í˜„ì¬ ì•„ì´í…œì„ ë“¤ê³  ìˆëŠ” ì¤‘ì´ê³ ..
 		if (UI::CWindowManager::Instance().IsAttaching())
 		{
 			DWORD dwSlotNumber = UI::CWindowManager::Instance().GetAttachingSlotNumber();
@@ -159,7 +159,7 @@ BOOL CGridSlotWindow::GetPickedSlotList(int iWidth, int iHeight, std::list<TSlot
 		int ixStart = int(ix) - int(ixHalfStep - (ixHalfStep % 2));
 		int ixEnd = int(ix) + int(ixHalfStep);
 
-		// FIXME : Á¦´ë·Î µÈ °è»ê °ø½ÄÀ» Ã£ÀÚ - [levites]
+		// FIXME : ì œëŒ€ë¡œ ëœ ê³„ì‚° ê³µì‹ì„ ì°¾ì - [levites]
 		int iyStart = 0, iyEnd = 0;
 
 		if (1 == iHeight)
@@ -214,7 +214,7 @@ BOOL CGridSlotWindow::GetPickedSlotList(int iWidth, int iHeight, std::list<TSlot
 			}
 		}
 
-		// Refine Scroll µîÀ» À§ÇÑ ¿¹¿Ü Ã³¸®
+		// Refine Scroll ë“±ì„ ìœ„í•œ ì˜ˆì™¸ ì²˜ë¦¬
 		if (m_isUseMode && 1 == pSlotPointerList->size())
 		{
 			TSlot * pMainSlot = *pSlotPointerList->begin();
@@ -349,11 +349,11 @@ BOOL CGridSlotWindow::CheckMoving(DWORD dwSlotNumber, DWORD dwItemIndex, const s
 	{
 		TSlot * pSlot = *itor;
 
-		if (dwSlotNumber != pSlot->dwCenterSlotNumber) // µé¾ú´ø ÀÚ¸®°¡ ¾Æ´Ò °æ¿ì¿¡
+		if (dwSlotNumber != pSlot->dwCenterSlotNumber) // ë“¤ì—ˆë˜ ìë¦¬ê°€ ì•„ë‹ ê²½ìš°ì—
 		{
-			if (0 != pSlot->dwItemIndex || pSlot->dwCenterSlotNumber != pSlot->dwSlotNumber) // ¾ÆÀÌÅÛÀÌ ÀÖ°í
+			if (0 != pSlot->dwItemIndex || pSlot->dwCenterSlotNumber != pSlot->dwSlotNumber) // ì•„ì´í…œì´ ìˆê³ 
 			{
-				if (dwItemIndex != pSlot->dwItemIndex) // ´Ù¸¥ ¾ÆÀÌÅÛÀÌ¸é ¸ø ¿Å±è
+				if (dwItemIndex != pSlot->dwItemIndex) // ë‹¤ë¥¸ ì•„ì´í…œì´ë©´ ëª» ì˜®ê¹€
 					return false;
 			}
 		}

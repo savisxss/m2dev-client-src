@@ -323,17 +323,17 @@ CGraphicThing* CRaceData::RegisterMotionData(WORD wMotionMode, WORD wMotionIndex
 		return NULL;
 	}
 
-	// 2004. 3. 15. myevan. ¿ø·¡´Â ¸ð¼Ç³» ÀÎµ¦½º Á¤º¸°¡ ÀÖ¾î¾ß ÇÑ´Ù.
+	// 2004. 3. 15. myevan. ì›ëž˜ëŠ” ëª¨ì…˜ë‚´ ì¸ë±ìŠ¤ ì •ë³´ê°€ ìžˆì–´ì•¼ í•œë‹¤.
 	pRaceMotionData->SetName(wMotionIndex);
 
 	/////
 
-	// FIXME : ÀÌ¹Ì GR2°¡ ·Îµå µÇ¾î ÀÖÀ» °æ¿ì¿¡´Â ¾î¶»°Ô ÇØ¾ß ÇÏ´Â°¡?
-	//         ÇöÀç´Â ¶È°°Àº °ÍÀÌ ÇÏ³ª ´õ Ãß°¡ µÇ¾î ¹ö¸°´Ù. - [levites]
+	// FIXME : ì´ë¯¸ GR2ê°€ ë¡œë“œ ë˜ì–´ ìžˆì„ ê²½ìš°ì—ëŠ” ì–´ë–»ê²Œ í•´ì•¼ í•˜ëŠ”ê°€?
+	//         í˜„ìž¬ëŠ” ë˜‘ê°™ì€ ê²ƒì´ í•˜ë‚˜ ë” ì¶”ê°€ ë˜ì–´ ë²„ë¦°ë‹¤. - [levites]
 
 	return NEW_RegisterMotion(pRaceMotionData, wMotionMode, wMotionIndex, pRaceMotionData->GetMotionFileName(), byPercentage);
 
-	// 2004.09.03.myevan.»õ·Î¿îÇÔ¼ö·Î ´ëÃ³	
+	// 2004.09.03.myevan.ìƒˆë¡œìš´í•¨ìˆ˜ë¡œ ëŒ€ì²˜	
 	//TMotion	Motion;
 	//Motion.byPercentage	= byPercentage;
 	//Motion.pMotion = (CGraphicThing *)CResourceManager::Instance().GetResourcePointer(pRaceMotionData->GetMotionFileName());

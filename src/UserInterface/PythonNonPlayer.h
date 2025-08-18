@@ -1,7 +1,7 @@
 #pragma once
 
 /*
- *	NPC ╣╔юлем га╥неД е╦юыю╩ ╟Э╦╝ гя╢ы.
+ *	NPC К█╟Л²╢М└╟ М■└К║°М├═ М┐─Л·▌Л²└ Й╢─К╕╛ М∙°К▀╓.
  */
 class CPythonNonPlayer : public CSingleton<CPythonNonPlayer>
 {

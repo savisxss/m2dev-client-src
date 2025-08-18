@@ -1,1 +1,1 @@
-#define LOCALE_SERVICE_VIETNAM			// º£Æ®³²
+#define LOCALE_SERVICE_VIETNAM			// ë² íŠ¸ë‚¨

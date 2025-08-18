@@ -63,7 +63,7 @@ public:
 	
 private:
 	TPDTVertex m_Vertex[4];
-	TIndex m_Indices[4];					// ÀÎµ¦½º ¹öÆÛ...
+	TIndex m_Indices[4];					// ì¸ë±ìŠ¤ ë²„í¼...
 	CColorTransitionHelper m_Helper[4];
 };
 
@@ -99,7 +99,7 @@ protected:
 
 protected:
 	//////////////////////////////////////////////////////////////////////////
-	// Å¸ÀÔ Á¤ÀÇ
+	// íƒ€ì… ì •ì˜
 
 	typedef std::vector<CSkyObjectQuad> TSkyObjectQuadVector;
 	typedef TSkyObjectQuadVector::iterator TSkyObjectQuadIterator;
@@ -118,8 +118,8 @@ protected:
 
 	//////////////////////////////////////////////////////////////////////////
 	
-	// ±¸¸§...
-	TSkyObjectFace m_FaceCloud;		// ±¸¸§ ÀÏ´Ü ÇÑÀå...
+	// êµ¬ë¦„...
+	TSkyObjectFace m_FaceCloud;		// êµ¬ë¦„ ì¼ë‹¨ í•œì¥...
 	D3DXMATRIX m_matWorldCloud, m_matTranslationCloud, m_matTextureCloud;
 	D3DXVECTOR3 m_v3PositionCloud;
 	float m_fCloudScaleX, m_fCloudScaleY, m_fCloudHeight;
@@ -129,7 +129,7 @@ protected:
 
 	DWORD m_dwlastTime;
 
-	// ½ºÄ«ÀÌ ¹Ú½º ÀÌ¹ÌÁö...
+	// ìŠ¤ì¹´ì´ ë°•ìŠ¤ ì´ë¯¸ì§€...
 	TGraphicImageInstanceMap m_GraphicImageInstanceMap;
 	
 	// Transform...
@@ -137,7 +137,7 @@ protected:
 	D3DXVECTOR3 m_v3Position;
 	float m_fScaleX, m_fScaleY, m_fScaleZ;
 
-	// ·£´õ¸µ °ü·Ã... ÀÓ½Ã º¯¼ö..
+	// ëœë”ë§ ê´€ë ¨... ì„ì‹œ ë³€ìˆ˜..
 	unsigned char m_ucRenderMode;
 
 	std::string m_strCurTime;

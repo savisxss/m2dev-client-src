@@ -63,9 +63,9 @@ class CPythonPlayerEventHandler : public CActorInstance::IEventHandler
 				virtual void OnSetFlyTarget();
 				virtual void OnShoot(DWORD dwSkillIndex);
 
-				virtual void OnNoTarget() { /*Tracenf("Shoot : targetÀÌ ¾ø½À´Ï´Ù.");*/ }
-				virtual void OnExplodingOutOfRange() { /*Tracenf("Shoot : »çÁ¤°Å¸®°¡ ³¡³µ½À´Ï´Ù.");*/ }
-				virtual void OnExplodingAtBackground() { /*Tracenf("Shoot : ¹è°æ¿¡ ¸Â¾Ò½À´Ï´Ù.");*/ }
+				virtual void OnNoTarget() { /*Tracenf("Shoot : targetì´ ì—†ìŠµë‹ˆë‹¤.");*/ }
+				virtual void OnExplodingOutOfRange() { /*Tracenf("Shoot : ì‚¬ì •ê±°ë¦¬ê°€ ëë‚¬ìŠµë‹ˆë‹¤.");*/ }
+				virtual void OnExplodingAtBackground() { /*Tracenf("Shoot : ë°°ê²½ì— ë§ì•˜ìŠµë‹ˆë‹¤.");*/ }
 				virtual void OnExplodingAtAnotherTarget(DWORD dwSkillIndex, DWORD dwVID);
 				virtual void OnExplodingAtTarget(DWORD dwSkillIndex);
 

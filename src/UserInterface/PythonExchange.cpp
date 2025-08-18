@@ -239,9 +239,9 @@ CPythonExchange::CPythonExchange()
 	Clear();
 	m_isTrading = false;
 	m_elk_mode = false;
-		// Clear·Î ¿È°Ü³õÀ¸¸é ¾ÈµÊ. 
-		// trade_start ÆäÅ¶ÀÌ ¿À¸é Clear¸¦ ½ÇÇàÇÏ´Âµ¥
-		// m_elk_mode´Â Å¬¸®¾î µÇ¼± ¾ÈµÊ.;  
+		// Clearë¡œ ì˜´ê²¨ë†“ìœ¼ë©´ ì•ˆë¨. 
+		// trade_start í˜í‚·ì´ ì˜¤ë©´ Clearë¥¼ ì‹¤í–‰í•˜ëŠ”ë°
+		// m_elk_modeëŠ” í´ë¦¬ì–´ ë˜ì„  ì•ˆë¨.;  
 }
 CPythonExchange::~CPythonExchange()
 {

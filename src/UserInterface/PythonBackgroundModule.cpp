@@ -95,7 +95,7 @@ PyObject * backgroundRegisterEnvironmentData(PyObject * poSelf, PyObject * poArg
 		TraceError("background.RegisterEnvironmentData(iIndex=%d, szEnvironmentFileName=%s)", iIndex, pszEnvironmentFileName);
 
 		// TODO:
-		// µğÆúÆ® È¯°æ ¼³Á¤ ÀÛ¾÷À» ÇØÁÖÀÚ
+		// ë””í´íŠ¸ í™˜ê²½ ì„¤ì • ì‘ì—…ì„ í•´ì£¼ì
 	}
 
 	return Py_BuildNone();
@@ -248,7 +248,7 @@ PyObject * backgroundRenderCharacterShadowToTexture(PyObject * poSelf, PyObject 
 
 PyObject * backgroundRenderDungeon(PyObject * poSelf, PyObject * poArgs)
 {
-	assert(!"background.RenderDungeon() - »ç¿ëÇÏÁö ¾Ê´Â ÇÔ¼öÀÔ´Ï´Ù - [levites]");
+	assert(!"background.RenderDungeon() - ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” í•¨ìˆ˜ì…ë‹ˆë‹¤ - [levites]");
 	return Py_BuildNone();
 }
 

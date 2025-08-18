@@ -32,7 +32,7 @@ void CWeaponTrace::Update(float fReachScale)
 	if (!m_pInstance)
 		return;
 	{
-		// ÀÜ»óÀ» ³²±â´Â ½Ã°£ ¹üÀ§ ³»ÀÇ Á¡µé¸¸ À¯ÁöÇÕ´Ï´Ù.
+		// ìž”ìƒì„ ë‚¨ê¸°ëŠ” ì‹œê°„ ë²”ìœ„ ë‚´ì˜ ì ë“¤ë§Œ ìœ ì§€í•©ë‹ˆë‹¤.
 		TTimePointList::iterator it;
 		for(it=m_ShortTimePointList.begin();it!=m_ShortTimePointList.end();++it)
 		{
@@ -69,7 +69,7 @@ void CWeaponTrace::Update(float fReachScale)
 			mat._41 = pBoneMat->_41;
 			mat._42 = pBoneMat->_42;
 			mat._43 = pBoneMat->_43;
-			// ÇöÀç À§Ä¡¸¦ Ãß°¡ÇÕ´Ï´Ù.
+			// í˜„ìž¬ ìœ„ì¹˜ë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 			D3DXMATRIX matPoint;
 			D3DXMATRIX matTranslation;
 			D3DXMATRIX matRotation;

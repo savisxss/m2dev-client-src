@@ -49,7 +49,7 @@ void CInstanceBase::ClearFlyTargetInstance()
 
 void CInstanceBase::SetFlyTargetInstance(CInstanceBase& rkInstDst)
 {
-// NOTE : NEW_Attack ¶§ TargetÀ» ¹Ù²Ü¶§ ¿©±â¼­ ¸®ÅÏ µÇ¾î¹ö¸² - [levites]
+// NOTE : NEW_Attack ë•Œ Targetì„ ë°”ê¿€ë•Œ ì—¬ê¸°ì„œ ë¦¬í„´ ë˜ì–´ë²„ë¦¼ - [levites]
 //	if (isLock())
 //		return;
 
@@ -188,7 +188,7 @@ bool CInstanceBase::NEW_GetFrontInstance(CInstanceBase ** ppoutTargetInstance, f
 	return true;
 }
 
-// 2004.07.21.levites - ºñÆÄºÎ ´ÙÁß Å¸°Ù Áö¿ø
+// 2004.07.21.levites - ë¹„íŒŒë¶€ ë‹¤ì¤‘ íƒ€ê²Ÿ ì§€ì›
 bool CInstanceBase::NEW_GetInstanceVectorInFanRange(float fSkillDistance, CInstanceBase& rkInstTarget, std::vector<CInstanceBase*>* pkVct_pkInst)
 {
 	const float HALF_FAN_ROT_MIN = 20.0f;
@@ -198,7 +198,7 @@ bool CInstanceBase::NEW_GetInstanceVectorInFanRange(float fSkillDistance, CInsta
 
 	float fDstDirRot=NEW_GetRotationFromDestInstance(rkInstTarget);
 
-	// 2004.07.24.myevan - ºñÆÄºÎ °¡±îÀÌ ÀÖ´Â ÀûºÎÅÍ °ø°İ
+	// 2004.07.24.myevan - ë¹„íŒŒë¶€ ê°€ê¹Œì´ ìˆëŠ” ì ë¶€í„° ê³µê²©
 	std::multimap<float, CInstanceBase*> kMap_pkInstNear;
 	{
 		CPythonCharacterManager& rkChrMgr=CPythonCharacterManager::Instance();
@@ -209,11 +209,11 @@ bool CInstanceBase::NEW_GetInstanceVectorInFanRange(float fSkillDistance, CInsta
 			if (pkInstEach==this)
 				continue;
 
-			// 2004.07.25.myevan - ÀûÀÎ °æ¿ì¸¸ Ãß°¡ÇÑ´Ù
+			// 2004.07.25.myevan - ì ì¸ ê²½ìš°ë§Œ ì¶”ê°€í•œë‹¤
 			if (!IsAttackableInstance(*pkInstEach))
 				continue;
 
-			// 2004.07.21.levites - ºñÆÄºÎ ´ÙÁß Å¸°Ù Áö¿ø
+			// 2004.07.21.levites - ë¹„íŒŒë¶€ ë‹¤ì¤‘ íƒ€ê²Ÿ ì§€ì›
 			if (m_GraphicThingInstance.IsClickableDistanceDestInstance(pkInstEach->m_GraphicThingInstance, fSkillDistance))
 			{
 				float fEachInstDistance=std::min(NEW_GetDistanceFromDestInstance(*pkInstEach), HALF_FAN_ROT_MIN_DISTANCE);
@@ -253,11 +253,11 @@ bool CInstanceBase::NEW_GetInstanceVectorInCircleRange(float fSkillDistance, std
 		{
 			CInstanceBase* pkInstEach=*i;
 
-			// ÀÚ½ÅÀÎ °æ¿ì Ãß°¡ÇÏÁö ¾Ê´Â´Ù
+			// ìì‹ ì¸ ê²½ìš° ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤
 			if (pkInstEach==this)
 				continue;
 
-			// ÀûÀÎ °æ¿ì¸¸ Ãß°¡ÇÑ´Ù
+			// ì ì¸ ê²½ìš°ë§Œ ì¶”ê°€í•œë‹¤
 			if (!IsAttackableInstance(*pkInstEach))
 				continue;
 
@@ -423,7 +423,7 @@ void CInstanceBase::AttackProcess()
 		CInstanceBase* pkInstEach=*i;
 		++i;
 
-		// ¼­·Î°£ÀÇ InstanceType ºñ±³
+		// ì„œë¡œê°„ì˜ InstanceType ë¹„êµ
 		if (!IsAttackableInstance(*pkInstEach))
 			continue;
 
@@ -465,7 +465,7 @@ void CInstanceBase::RunComboAttack(float fAtkDirRot, DWORD wMotionIndex)
 	m_GraphicThingInstance.ComboAttack(wMotionIndex, fAtkDirRot);
 }
 
-// ¸®ÅÏ°ª TRUE°¡ ¹«¾ùÀÎ°¡°¡ ÀÖ´Ù
+// ë¦¬í„´ê°’ TRUEê°€ ë¬´ì—‡ì¸ê°€ê°€ ìˆë‹¤
 BOOL CInstanceBase::CheckAdvancing()
 {
 #ifdef __MOVIE_MODE__
@@ -497,7 +497,7 @@ BOOL CInstanceBase::CheckAdvancing()
 
 	if (m_GraphicThingInstance.CanSkipCollision())
 	{
-		//Tracenf("%x VID %d Ãæµ¹ ½ºÅµ", ELTimer_GetMSec(), GetVirtualID());
+		//Tracenf("%x VID %d ì¶©ëŒ ìŠ¤í‚µ", ELTimer_GetMSec(), GetVirtualID());
 		return FALSE;
 	}
 
@@ -517,11 +517,11 @@ BOOL CInstanceBase::CheckAdvancing()
 		CActorInstance& rkActorSelf=m_GraphicThingInstance;
 		CActorInstance& rkActorEach=pkInstEach->GetGraphicThingInstanceRef();
 
-		//NOTE : SkilÀ» ¾²´õ¶óµµ Door Type°ú´Â CollisionÃ¼Å© ÇÑ´Ù.
+		//NOTE : Skilì„ ì“°ë”ë¼ë„ Door Typeê³¼ëŠ” Collisionì²´í¬ í•œë‹¤.
 		if( bUsingSkill && !rkActorEach.IsDoor() )
 			continue;
 			
-		// ¾ÕÀ¸·Î ÀüÁøÇÒ¼ö ÀÖ´Â°¡?
+		// ì•ìœ¼ë¡œ ì „ì§„í• ìˆ˜ ìˆëŠ”ê°€?
 		if (rkActorSelf.TestActorCollision(rkActorEach))
 		{
 			uCollisionCount++;
@@ -544,13 +544,13 @@ BOOL CInstanceBase::CheckAdvancing()
 		}
 	}
 
-	// ¸Ê¼Ó¼º Ã¼Å©
+	// ë§µì†ì„± ì²´í¬
 	CPythonBackground& rkBG=CPythonBackground::Instance();
 	const D3DXVECTOR3 & rv3Position = m_GraphicThingInstance.GetPosition();
 	const D3DXVECTOR3 & rv3MoveDirection = m_GraphicThingInstance.GetMovementVectorRef();
 
-	// NOTE : ¸¸¾à ÀÌµ¿ °Å¸®°¡ Å©´Ù¸é ÂÉ°³¼­ ±¸°£ º°·Î ¼Ó¼ºÀ» Ã¼Å©ÇØ º»´Ù
-	//        ÇöÀç ¼³Á¤ÇØ ³õÀº 10.0f´Â ÀÓÀÇÀÇ °Å¸® - [levites]
+	// NOTE : ë§Œì•½ ì´ë™ ê±°ë¦¬ê°€ í¬ë‹¤ë©´ ìª¼ê°œì„œ êµ¬ê°„ ë³„ë¡œ ì†ì„±ì„ ì²´í¬í•´ ë³¸ë‹¤
+	//        í˜„ì¬ ì„¤ì •í•´ ë†“ì€ 10.0fëŠ” ì„ì˜ì˜ ê±°ë¦¬ - [levites]
 	int iStep = int(D3DXVec3Length(&rv3MoveDirection) / 10.0f);
 	D3DXVECTOR3 v3CheckStep = rv3MoveDirection / float(iStep);
 	D3DXVECTOR3 v3CheckPosition = rv3Position;
@@ -695,7 +695,7 @@ void CInstanceBase::Die()
 	if (IsAffect(AFFECT_SPAWN))
 		__AttachEffect(EFFECT_SPAWN_DISAPPEAR);
 
-	// 2004.07.25.ÀÌÆåÆ® ¾ÈºÙ´Â ¹®Á¦ÇØ°á
+	// 2004.07.25.ì´í™íŠ¸ ì•ˆë¶™ëŠ” ë¬¸ì œí•´ê²°
 	////////////////////////////////////////
 	__ClearAffects();
 	////////////////////////////////////////

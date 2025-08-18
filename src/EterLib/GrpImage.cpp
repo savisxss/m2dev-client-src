@@ -68,7 +68,7 @@ bool CGraphicImage::OnLoad(int iSize, const void * c_pvBuf)
 
 	m_imageTexture.SetFileName(CResource::GetFileName());
 
-	// Æ¯Á¤ ÄÄÇ»ÅÍ¿¡¼­ UnknownÀ¸·Î '¾È'ÇÏ¸é Æ¨±â´Â Çö»óÀÌ ÀÖÀ½-_-; -ºñ¿±
+	// íŠ¹ì • ì»´í“¨í„°ì—ì„œ Unknownìœ¼ë¡œ 'ì•ˆ'í•˜ë©´ íŠ•ê¸°ëŠ” í˜„ìƒì´ ìˆìŒ-_-; -ë¹„ì—½
 	if (!m_imageTexture.CreateFromMemoryFile(iSize, c_pvBuf, D3DFMT_UNKNOWN, m_dwFilter))
 		return false;
 

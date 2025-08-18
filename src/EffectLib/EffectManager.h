@@ -62,8 +62,8 @@ class CEffectManager : public CScreen, public CSingleton<CEffectManager>
 		bool GetEffectData(DWORD dwID, CEffectData ** ppEffect);
 		bool GetEffectData(DWORD dwID, const CEffectData ** c_ppEffect);
 
-		// Area¿¡ Á÷Á¢ Âï´Â Effect¿ë ÇÔ¼ö... EffectInstanceÀÇ Pointer¸¦ ¹İÈ¯ÇÑ´Ù.
-		// EffectManager ³»ºÎ EffectInstanceMapÀ» ÀÌ¿ëÇÏÁö ¾Ê´Â´Ù.
+		// Areaì— ì§ì ‘ ì°ëŠ” Effectìš© í•¨ìˆ˜... EffectInstanceì˜ Pointerë¥¼ ë°˜í™˜í•œë‹¤.
+		// EffectManager ë‚´ë¶€ EffectInstanceMapì„ ì´ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		void CreateUnsafeEffectInstance(DWORD dwEffectDataID, CEffectInstance ** ppEffectInstance);
 		bool DestroyUnsafeEffectInstance(CEffectInstance * pEffectInstance);
 

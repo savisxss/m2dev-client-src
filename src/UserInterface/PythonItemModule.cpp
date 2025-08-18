@@ -310,7 +310,7 @@ PyObject * itemIsEquipmentVID(PyObject * poSelf, PyObject * poArgs)
 	return Py_BuildValue("i", pItemData->IsEquipment());
 }
 
-// 2005.05.20.myevan.ÅëÇÕ USE_TYPE Ã¼Å©
+// 2005.05.20.myevan.í†µí•© USE_TYPE ì²´í¬
 PyObject* itemGetUseType(PyObject * poSelf, PyObject * poArgs)
 {
 	int iItemVID;
@@ -619,7 +619,7 @@ void initItem()
 	PyModule_AddIntConstant(poModule, "COSTUME_TYPE_BODY",			CItemData::COSTUME_BODY);
 	PyModule_AddIntConstant(poModule, "COSTUME_TYPE_HAIR",			CItemData::COSTUME_HAIR);
 
-	// ÀÎº¥Åä¸® ¹× ÀåºñÃ¢¿¡¼­ÀÇ ½½·Ô ¹øÈ£
+	// ì¸ë²¤í† ë¦¬ ë° ìž¥ë¹„ì°½ì—ì„œì˜ ìŠ¬ë¡¯ ë²ˆí˜¸
 	PyModule_AddIntConstant(poModule, "COSTUME_SLOT_START",			c_Costume_Slot_Start);
 	PyModule_AddIntConstant(poModule, "COSTUME_SLOT_COUNT",			c_Costume_Slot_Count);
 	PyModule_AddIntConstant(poModule, "COSTUME_SLOT_BODY",			c_Costume_Slot_Body);
@@ -772,37 +772,37 @@ void initItem()
     PyModule_AddIntConstant(poModule, "APPLY_POISON_PCT",			CItemData::APPLY_POISON_PCT);
     PyModule_AddIntConstant(poModule, "APPLY_SLOW_PCT", 			CItemData::APPLY_SLOW_PCT);
     PyModule_AddIntConstant(poModule, "APPLY_STUN_PCT", 			CItemData::APPLY_STUN_PCT);
-	PyModule_AddIntConstant(poModule, "APPLY_CRITICAL_PCT",			CItemData::APPLY_CRITICAL_PCT);			// n% È®·ü·Î µÎ¹è Å¸°Ý
-	PyModule_AddIntConstant(poModule, "APPLY_PENETRATE_PCT",		CItemData::APPLY_PENETRATE_PCT);		// n% È®·ü·Î ÀûÀÇ ¹æ¾î·Â ¹«½Ã
-	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_ORC",			CItemData::APPLY_ATTBONUS_ORC);			// ¿õ±Í¿¡°Ô n% Ãß°¡ µ¥¹ÌÁö
-	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_MILGYO",		CItemData::APPLY_ATTBONUS_MILGYO);		// ¹Ð±³¿¡°Ô n% Ãß°¡ µ¥¹ÌÁö
-	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_UNDEAD",		CItemData::APPLY_ATTBONUS_UNDEAD);		// ½ÃÃ¼¿¡°Ô n% Ãß°¡ µ¥¹ÌÁö
-	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_DEVIL",		CItemData::APPLY_ATTBONUS_DEVIL);		// ¾Ç¸¶¿¡°Ô n% Ãß°¡ µ¥¹ÌÁö
-	PyModule_AddIntConstant(poModule, "APPLY_STEAL_HP",				CItemData::APPLY_STEAL_HP);				// n% È®·ü·Î Å¸°ÝÀÇ 10% ¸¦ »ý¸í·ÂÀ¸·Î Èí¼ö
-	PyModule_AddIntConstant(poModule, "APPLY_STEAL_SP",				CItemData::APPLY_STEAL_SP);				// n% È®·ü·Î Å¸°ÝÀÇ 10% ¸¦ Á¤½Å·ÂÀ¸·Î Èí¼ö
-	PyModule_AddIntConstant(poModule, "APPLY_MANA_BURN_PCT",		CItemData::APPLY_MANA_BURN_PCT);		// n% È®·ü·Î »ó´ëÀÇ ¸¶³ª¸¦ ±ð´Â´Ù
-	PyModule_AddIntConstant(poModule, "APPLY_DAMAGE_SP_RECOVER",	CItemData::APPLY_DAMAGE_SP_RECOVER);	// n% È®·ü·Î Á¤½Å·Â 2 È¸º¹
-	PyModule_AddIntConstant(poModule, "APPLY_BLOCK",				CItemData::APPLY_BLOCK);				// n% È®·ü·Î ¹°¸®°ø°Ý ¿Ïº® ¹æ¾î
-	PyModule_AddIntConstant(poModule, "APPLY_DODGE",				CItemData::APPLY_DODGE);				// n% È®·ü·Î ¹°¸®°ø°Ý ¿Ïº® È¸ÇÇ
-	PyModule_AddIntConstant(poModule, "APPLY_RESIST_SWORD",			CItemData::APPLY_RESIST_SWORD);			// ÇÑ¼Õ°Ë¿¡ ÀÇÇÑ ÇÇÇØ¸¦ n% °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_RESIST_TWOHAND",		CItemData::APPLY_RESIST_TWOHAND);		// ¾ç¼Õ°Ë¿¡ ÀÇÇÑ ÇÇÇØ¸¦ n% °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_RESIST_DAGGER",		CItemData::APPLY_RESIST_DAGGER);		// ´Üµµ¿¡ ÀÇÇÑ ÇÇÇØ¸¦ n% °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_RESIST_BELL",			CItemData::APPLY_RESIST_BELL);			// ¹æ¿ï¿¡ ÀÇÇÑ ÇÇÇØ¸¦ n% °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_RESIST_FAN",			CItemData::APPLY_RESIST_FAN);			// ºÎÃ¤¿¡ ÀÇÇÑ ÇÇÇØ¸¦ n% °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_RESIST_WIND",			CItemData::APPLY_RESIST_WIND);			// ¹Ù¶÷¿¡ ÀÇÇÑ ÇÇÇØ¸¦ n% °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_REFLECT_MELEE",		CItemData::APPLY_REFLECT_MELEE);		// ±ÙÁ¢ Å¸°Ý n% ¸¦ Àû¿¡°Ô µÇµ¹¸°´Ù
-	PyModule_AddIntConstant(poModule, "APPLY_REFLECT_CURSE",		CItemData::APPLY_REFLECT_CURSE);		// ÀûÀÌ ³ª¿¡°Ô ÀúÁÖ »ç¿ë½Ã n% È®·ü·Î µÇµ¹¸°´Ù
-	PyModule_AddIntConstant(poModule, "APPLY_POISON_REDUCE",		CItemData::APPLY_POISON_REDUCE);		// µ¶¿¡ ÀÇÇÑ µ¥¹ÌÁö °¨¼Ò
-	PyModule_AddIntConstant(poModule, "APPLY_KILL_SP_RECOVER",		CItemData::APPLY_KILL_SP_RECOVER);		// ÀûÀ» Á×¿´À»¶§ n% È®·ü·Î Á¤½Å·Â 10 È¸º¹
-	PyModule_AddIntConstant(poModule, "APPLY_EXP_DOUBLE_BONUS",		CItemData::APPLY_EXP_DOUBLE_BONUS);		// n% È®·ü·Î °æÇèÄ¡ È¹µæ·® 2¹è
-	PyModule_AddIntConstant(poModule, "APPLY_GOLD_DOUBLE_BONUS",	CItemData::APPLY_GOLD_DOUBLE_BONUS);	// n% È®·ü·Î µ· È¹µæ·® 2¹è
-	PyModule_AddIntConstant(poModule, "APPLY_ITEM_DROP_BONUS",		CItemData::APPLY_ITEM_DROP_BONUS);		// n% È®·ü·Î ¾ÆÀÌÅÛ È¹µæ·® 2¹è
-	PyModule_AddIntConstant(poModule, "APPLY_POTION_BONUS",			CItemData::APPLY_POTION_BONUS);			// ¹°¾à º¹¿ë½Ã n% ¸¸Å­ ¼º´É Áõ´ë
-	PyModule_AddIntConstant(poModule, "APPLY_KILL_HP_RECOVER",		CItemData::APPLY_KILL_HP_RECOVER);		// Á×ÀÏ¶§¸¶´Ù »ý¸í·Â È¸º¹ 
-	PyModule_AddIntConstant(poModule, "APPLY_IMMUNE_STUN",			CItemData::APPLY_IMMUNE_STUN);			// ±âÀý ÇÏÁö ¾Ê´Â´Ù
-	PyModule_AddIntConstant(poModule, "APPLY_IMMUNE_SLOW",			CItemData::APPLY_IMMUNE_SLOW);			// ´À·ÁÁöÁö ¾Ê´Â´Ù
-	PyModule_AddIntConstant(poModule, "APPLY_IMMUNE_FALL",			CItemData::APPLY_IMMUNE_FALL);			// ³Ñ¾îÁöÁö ¾Ê´Â´Ù
-	PyModule_AddIntConstant(poModule, "APPLY_MAX_STAMINA",			CItemData::APPLY_MAX_STAMINA);			// ÃÖ´ë ½ºÅ×¹Ì³Ê Áõ°¡
+	PyModule_AddIntConstant(poModule, "APPLY_CRITICAL_PCT",			CItemData::APPLY_CRITICAL_PCT);			// n% í™•ë¥ ë¡œ ë‘ë°° íƒ€ê²©
+	PyModule_AddIntConstant(poModule, "APPLY_PENETRATE_PCT",		CItemData::APPLY_PENETRATE_PCT);		// n% í™•ë¥ ë¡œ ì ì˜ ë°©ì–´ë ¥ ë¬´ì‹œ
+	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_ORC",			CItemData::APPLY_ATTBONUS_ORC);			// ì›…ê·€ì—ê²Œ n% ì¶”ê°€ ë°ë¯¸ì§€
+	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_MILGYO",		CItemData::APPLY_ATTBONUS_MILGYO);		// ë°€êµì—ê²Œ n% ì¶”ê°€ ë°ë¯¸ì§€
+	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_UNDEAD",		CItemData::APPLY_ATTBONUS_UNDEAD);		// ì‹œì²´ì—ê²Œ n% ì¶”ê°€ ë°ë¯¸ì§€
+	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_DEVIL",		CItemData::APPLY_ATTBONUS_DEVIL);		// ì•…ë§ˆì—ê²Œ n% ì¶”ê°€ ë°ë¯¸ì§€
+	PyModule_AddIntConstant(poModule, "APPLY_STEAL_HP",				CItemData::APPLY_STEAL_HP);				// n% í™•ë¥ ë¡œ íƒ€ê²©ì˜ 10% ë¥¼ ìƒëª…ë ¥ìœ¼ë¡œ í¡ìˆ˜
+	PyModule_AddIntConstant(poModule, "APPLY_STEAL_SP",				CItemData::APPLY_STEAL_SP);				// n% í™•ë¥ ë¡œ íƒ€ê²©ì˜ 10% ë¥¼ ì •ì‹ ë ¥ìœ¼ë¡œ í¡ìˆ˜
+	PyModule_AddIntConstant(poModule, "APPLY_MANA_BURN_PCT",		CItemData::APPLY_MANA_BURN_PCT);		// n% í™•ë¥ ë¡œ ìƒëŒ€ì˜ ë§ˆë‚˜ë¥¼ ê¹ŽëŠ”ë‹¤
+	PyModule_AddIntConstant(poModule, "APPLY_DAMAGE_SP_RECOVER",	CItemData::APPLY_DAMAGE_SP_RECOVER);	// n% í™•ë¥ ë¡œ ì •ì‹ ë ¥ 2 íšŒë³µ
+	PyModule_AddIntConstant(poModule, "APPLY_BLOCK",				CItemData::APPLY_BLOCK);				// n% í™•ë¥ ë¡œ ë¬¼ë¦¬ê³µê²© ì™„ë²½ ë°©ì–´
+	PyModule_AddIntConstant(poModule, "APPLY_DODGE",				CItemData::APPLY_DODGE);				// n% í™•ë¥ ë¡œ ë¬¼ë¦¬ê³µê²© ì™„ë²½ íšŒí”¼
+	PyModule_AddIntConstant(poModule, "APPLY_RESIST_SWORD",			CItemData::APPLY_RESIST_SWORD);			// í•œì†ê²€ì— ì˜í•œ í”¼í•´ë¥¼ n% ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_RESIST_TWOHAND",		CItemData::APPLY_RESIST_TWOHAND);		// ì–‘ì†ê²€ì— ì˜í•œ í”¼í•´ë¥¼ n% ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_RESIST_DAGGER",		CItemData::APPLY_RESIST_DAGGER);		// ë‹¨ë„ì— ì˜í•œ í”¼í•´ë¥¼ n% ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_RESIST_BELL",			CItemData::APPLY_RESIST_BELL);			// ë°©ìš¸ì— ì˜í•œ í”¼í•´ë¥¼ n% ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_RESIST_FAN",			CItemData::APPLY_RESIST_FAN);			// ë¶€ì±„ì— ì˜í•œ í”¼í•´ë¥¼ n% ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_RESIST_WIND",			CItemData::APPLY_RESIST_WIND);			// ë°”ëžŒì— ì˜í•œ í”¼í•´ë¥¼ n% ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_REFLECT_MELEE",		CItemData::APPLY_REFLECT_MELEE);		// ê·¼ì ‘ íƒ€ê²© n% ë¥¼ ì ì—ê²Œ ë˜ëŒë¦°ë‹¤
+	PyModule_AddIntConstant(poModule, "APPLY_REFLECT_CURSE",		CItemData::APPLY_REFLECT_CURSE);		// ì ì´ ë‚˜ì—ê²Œ ì €ì£¼ ì‚¬ìš©ì‹œ n% í™•ë¥ ë¡œ ë˜ëŒë¦°ë‹¤
+	PyModule_AddIntConstant(poModule, "APPLY_POISON_REDUCE",		CItemData::APPLY_POISON_REDUCE);		// ë…ì— ì˜í•œ ë°ë¯¸ì§€ ê°ì†Œ
+	PyModule_AddIntConstant(poModule, "APPLY_KILL_SP_RECOVER",		CItemData::APPLY_KILL_SP_RECOVER);		// ì ì„ ì£½ì˜€ì„ë•Œ n% í™•ë¥ ë¡œ ì •ì‹ ë ¥ 10 íšŒë³µ
+	PyModule_AddIntConstant(poModule, "APPLY_EXP_DOUBLE_BONUS",		CItemData::APPLY_EXP_DOUBLE_BONUS);		// n% í™•ë¥ ë¡œ ê²½í—˜ì¹˜ íšë“ëŸ‰ 2ë°°
+	PyModule_AddIntConstant(poModule, "APPLY_GOLD_DOUBLE_BONUS",	CItemData::APPLY_GOLD_DOUBLE_BONUS);	// n% í™•ë¥ ë¡œ ëˆ íšë“ëŸ‰ 2ë°°
+	PyModule_AddIntConstant(poModule, "APPLY_ITEM_DROP_BONUS",		CItemData::APPLY_ITEM_DROP_BONUS);		// n% í™•ë¥ ë¡œ ì•„ì´í…œ íšë“ëŸ‰ 2ë°°
+	PyModule_AddIntConstant(poModule, "APPLY_POTION_BONUS",			CItemData::APPLY_POTION_BONUS);			// ë¬¼ì•½ ë³µìš©ì‹œ n% ë§Œí¼ ì„±ëŠ¥ ì¦ëŒ€
+	PyModule_AddIntConstant(poModule, "APPLY_KILL_HP_RECOVER",		CItemData::APPLY_KILL_HP_RECOVER);		// ì£½ì¼ë•Œë§ˆë‹¤ ìƒëª…ë ¥ íšŒë³µ 
+	PyModule_AddIntConstant(poModule, "APPLY_IMMUNE_STUN",			CItemData::APPLY_IMMUNE_STUN);			// ê¸°ì ˆ í•˜ì§€ ì•ŠëŠ”ë‹¤
+	PyModule_AddIntConstant(poModule, "APPLY_IMMUNE_SLOW",			CItemData::APPLY_IMMUNE_SLOW);			// ëŠë ¤ì§€ì§€ ì•ŠëŠ”ë‹¤
+	PyModule_AddIntConstant(poModule, "APPLY_IMMUNE_FALL",			CItemData::APPLY_IMMUNE_FALL);			// ë„˜ì–´ì§€ì§€ ì•ŠëŠ”ë‹¤
+	PyModule_AddIntConstant(poModule, "APPLY_MAX_STAMINA",			CItemData::APPLY_MAX_STAMINA);			// ìµœëŒ€ ìŠ¤í…Œë¯¸ë„ˆ ì¦ê°€
 	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_WARRIOR",		CItemData::APPLY_ATT_BONUS_TO_WARRIOR);
 	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_ASSASSIN",	CItemData::APPLY_ATT_BONUS_TO_ASSASSIN);
 	PyModule_AddIntConstant(poModule, "APPLY_ATTBONUS_SURA",		CItemData::APPLY_ATT_BONUS_TO_SURA);
@@ -827,7 +827,7 @@ void initItem()
 	PyModule_AddIntConstant(poModule, "APPLY_RESIST_ASSASSIN",	CItemData::APPLY_RESIST_ASSASSIN );
 	PyModule_AddIntConstant(poModule, "APPLY_RESIST_SURA",		CItemData::APPLY_RESIST_SURA );
 	PyModule_AddIntConstant(poModule, "APPLY_RESIST_SHAMAN",	CItemData::APPLY_RESIST_SHAMAN );
-	PyModule_AddIntConstant(poModule, "APPLY_ENERGY",	CItemData::APPLY_ENERGY );		// ±â·Â
+	PyModule_AddIntConstant(poModule, "APPLY_ENERGY",	CItemData::APPLY_ENERGY );		// ê¸°ë ¥
 	PyModule_AddIntConstant(poModule, "APPLY_COSTUME_ATTR_BONUS",	CItemData::APPLY_COSTUME_ATTR_BONUS );		
 
 	PyModule_AddIntConstant(poModule, "APPLY_MAGIC_ATTBONUS_PER",	CItemData::APPLY_MAGIC_ATTBONUS_PER );		

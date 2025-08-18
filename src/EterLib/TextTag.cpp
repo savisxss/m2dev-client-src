@@ -19,7 +19,7 @@ int GetTextTag(const wchar_t * src, int maxLen, int & tagLen, std::wstring & ext
         extraInfo.assign(++cur, 8);
         return TEXT_TAG_COLOR;
     }
-    else if (*cur == L'|') // ||´Â |·Î Ç¥½ÃÇÑ´Ù.
+    else if (*cur == L'|') // ||ëŠ” |ë¡œ í‘œì‹œí•œë‹¤.
     {
         tagLen = 2;
         return TEXT_TAG_TAG;
@@ -29,7 +29,7 @@ int GetTextTag(const wchar_t * src, int maxLen, int & tagLen, std::wstring & ext
         tagLen = 2;
         return TEXT_TAG_RESTORE_COLOR;
     }
-    else if (*cur == L'H') // hyperlink |Hitem:10000:0:0:0:0|h[ÀÌ¸§]|h
+    else if (*cur == L'H') // hyperlink |Hitem:10000:0:0:0:0|h[ì´ë¦„]|h
     {
         tagLen = 2;
         return TEXT_TAG_HYPERLINK_START;
@@ -154,20 +154,20 @@ int FindColorTagStartPosition(const wchar_t * src, int src_len)
 
     const wchar_t * cur = src;
 
-    // |rÀÇ °æ¿ì
+    // |rì˜ ê²½ìš°
     if (*cur == L'r' && *(cur - 1) == L'|')
     {
 	    int len = src_len;
 
-        // ||rÀº ¹«½Ã
+        // ||rì€ ë¬´ì‹œ
         if (len >= 2 && *(cur - 2) == L'|')
             return 1;
 
         cur -= 2;
         len -= 2;
 
-        // |c±îÁö Ã£¾Æ¼­ |À§Ä¡±îÁö ¸®ÅÏÇÑ´Ù.
-        while (len > 1) // ÃÖ¼Ò 2ÀÚ¸¦ °Ë»çÇØ¾ß µÈ´Ù.
+        // |cê¹Œì§€ ì°¾ì•„ì„œ |ìœ„ì¹˜ê¹Œì§€ ë¦¬í„´í•œë‹¤.
+        while (len > 1) // ìµœì†Œ 2ìë¥¼ ê²€ì‚¬í•´ì•¼ ëœë‹¤.
         {
             if (*cur == L'c' && *(cur - 1) == L'|')
                 return (src - cur) + 1;
@@ -175,9 +175,9 @@ int FindColorTagStartPosition(const wchar_t * src, int src_len)
             --cur;
             --len;
         }
-        return (src_len); // ¸øÃ£À¸¸é ÀüºÎ;;
+        return (src_len); // ëª»ì°¾ìœ¼ë©´ ì „ë¶€;;
     }
-	// ||ÀÇ °æ¿ì
+	// ||ì˜ ê²½ìš°
 	else if (*cur == L'|' && *(cur - 1) == L'|')
 		return 1;
 

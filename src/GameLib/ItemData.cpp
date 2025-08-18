@@ -137,7 +137,7 @@ BOOL CItemData::LoadItemData(const char * c_szFileName)
 	}
 
 	// Attaching Data
-	// Item ¿¡ Attaching Data ÀÏ´Ü ¾øÀ½.
+	// Item ì— Attaching Data ì¼ë‹¨ ì—†ìŒ.
 //	if (TextFileLoader.SetChildNode("attachingdata"))
 //	{
 //		if (!NRaceData::LoadAttachingData(TextFileLoader, &m_AttachingDataVector))
@@ -203,7 +203,7 @@ void CItemData::__SetIconImage(const char * c_szFileName)
 {
 	if (!CResourceManager::Instance().IsFileExist(c_szFileName))
 	{
-		TraceError("%s ÆÄÀÏÀÌ ¾ø½À´Ï´Ù.CItemData::__SetIconImage",c_szFileName);
+		TraceError("%s íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.CItemData::__SetIconImage",c_szFileName);
 		m_pIconImage = NULL;
 	}
 	else if (m_pIconImage == NULL) 
@@ -389,10 +389,10 @@ long CItemData::GetSocket(BYTE byIndex) const
 	return m_ItemTable.alSockets[byIndex];
 }
 
-//¼­¹ö¿Í µ¿ÀÏ ¼­¹ö ÇÔ¼ö º¯°æ½Ã °°ÀÌ º¯°æ!!(ÀÌÈÄ¿¡ ÇÕÄ£´Ù)
-//SocketCount = 1 ÀÌ¸é ÃÊ±Ş¹«±â
-//SocketCount = 2 ÀÌ¸é Áß±Ş¹«±â
-//SocketCount = 3 ÀÌ¸é °í±Ş¹«±â
+//ì„œë²„ì™€ ë™ì¼ ì„œë²„ í•¨ìˆ˜ ë³€ê²½ì‹œ ê°™ì´ ë³€ê²½!!(ì´í›„ì— í•©ì¹œë‹¤)
+//SocketCount = 1 ì´ë©´ ì´ˆê¸‰ë¬´ê¸°
+//SocketCount = 2 ì´ë©´ ì¤‘ê¸‰ë¬´ê¸°
+//SocketCount = 3 ì´ë©´ ê³ ê¸‰ë¬´ê¸°
 int CItemData::GetSocketCount() const		
 {
 	return m_ItemTable.bGainSocketPct;
@@ -417,7 +417,7 @@ float CItemData::GetSpecularPowerf() const
 	return float(uSpecularPower) / 100.0f;	
 }
 
-//refine °ªÀº ¾ÆÀÌÅÛ¹øÈ£ ³¡ÀÚ¸®¿Í ÀÏÄ¡ÇÑ´Ù-_-(Å×ÀÌºíÀÌ¿ëÀ¸·Î ¹Ù²Ü ¿¹Á¤)
+//refine ê°’ì€ ì•„ì´í…œë²ˆí˜¸ ëìë¦¬ì™€ ì¼ì¹˜í•œë‹¤-_-(í…Œì´ë¸”ì´ìš©ìœ¼ë¡œ ë°”ê¿€ ì˜ˆì •)
 UINT CItemData::GetRefine() const
 {
 	return GetIndex()%10;

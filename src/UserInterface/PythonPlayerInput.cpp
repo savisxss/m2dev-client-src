@@ -115,7 +115,7 @@ void CPythonPlayer::SetTarget(DWORD dwVID, BOOL bForceChange)
 	if (!pkInstMain)
 		return;
 
-	// 2004. 07. 07. [levites] - ½ºÅ³ »ç¿ëÁß Å¸°ÙÀÌ ¹Ù²î´Â ¹®Á¦ ÇØ°áÀ» À§ÇÑ ÄÚµå
+	// 2004. 07. 07. [levites] - ìŠ¤í‚¬ ì‚¬ìš©ì¤‘ íƒ€ê²Ÿì´ ë°”ë€ŒëŠ” ë¬¸ì œ í•´ê²°ì„ ìœ„í•œ ì½”ë“œ
 	if (!pkInstMain->CanChangeTarget())
 	{
 		return;
@@ -259,15 +259,15 @@ void CPythonPlayer::__OnClickItem(CInstanceBase& rkInstMain, DWORD dwItemID)
 
 void CPythonPlayer::__OnClickActor(CInstanceBase& rkInstMain, DWORD dwPickedActorID, bool isAuto)
 {
-	// ¸¸¾à ½ºÅ³À» ½á¼­ Á¢±ÙÁßÀÌ¶ó¸é..
+	// ë§Œì•½ ìŠ¤í‚¬ì„ ì¨ì„œ ì ‘ê·¼ì¤‘ì´ë¼ë©´..
 	if (MODE_USE_SKILL == m_eReservedMode)
 	{
-		// °°Àº Ä³¸¯ÅÍ¸¦ Å¬¸¯ ÇßÀ¸¸é ¸®ÅÏ
+		// ê°™ì€ ìºë¦­í„°ë¥¼ í´ë¦­ í–ˆìœ¼ë©´ ë¦¬í„´
 		if (__GetTargetVID() == dwPickedActorID)
 			return;
 
 		// 2005.03.25.levites
-		// ÅºÈ¯°İÀ» ¾²°í ´Ş·Á°¡´ÂÁß °ø°İÇÒ ¼ö ÀÖ´Â ´Ù¸¥ Å¸°ÙÀ» Å¬¸¯ÇÏ¸é
+		// íƒ„í™˜ê²©ì„ ì“°ê³  ë‹¬ë ¤ê°€ëŠ”ì¤‘ ê³µê²©í•  ìˆ˜ ìˆëŠ” ë‹¤ë¥¸ íƒ€ê²Ÿì„ í´ë¦­í•˜ë©´
 		if (__CheckDashAffect(rkInstMain))
 		{
 			m_dwVIDReserved = dwPickedActorID;
@@ -283,7 +283,7 @@ void CPythonPlayer::__OnClickActor(CInstanceBase& rkInstMain, DWORD dwPickedActo
 		return;
 	
 	// 2005.01.28.myevan
-	// ÃÊ±Ş¸» »óÅÂ¿¡¼­´Â °ø°İÀÌ ¾ÈµÇ³ª NPC Å¬¸¯ÀÌµÇ¾î¾ßÇÔ
+	// ì´ˆê¸‰ë§ ìƒíƒœì—ì„œëŠ” ê³µê²©ì´ ì•ˆë˜ë‚˜ NPC í´ë¦­ì´ë˜ì–´ì•¼í•¨
 	if (rkInstMain.IsAttackableInstance(*pkInstVictim))
 		if (!__CanAttack())
 			return;
@@ -305,15 +305,15 @@ void CPythonPlayer::__OnClickActor(CInstanceBase& rkInstMain, DWORD dwPickedActo
 
 void CPythonPlayer::__OnPressActor(CInstanceBase& rkInstMain, DWORD dwPickedActorID, bool isAuto)
 {
-	// ¸¸¾à ½ºÅ³À» ½á¼­ Á¢±ÙÁßÀÌ¶ó¸é..
+	// ë§Œì•½ ìŠ¤í‚¬ì„ ì¨ì„œ ì ‘ê·¼ì¤‘ì´ë¼ë©´..
 	if (MODE_USE_SKILL == m_eReservedMode)
 	{
-		// °°Àº Ä³¸¯ÅÍ¸¦ Å¬¸¯ ÇßÀ¸¸é ¸®ÅÏ
+		// ê°™ì€ ìºë¦­í„°ë¥¼ í´ë¦­ í–ˆìœ¼ë©´ ë¦¬í„´
 		if (__GetTargetVID() == dwPickedActorID)
 			return;
 
 		// 2005.03.25.levites
-		// ÅºÈ¯°İÀ» ¾²°í ´Ş·Á°¡´ÂÁß °ø°İÇÒ ¼ö ÀÖ´Â ´Ù¸¥ Å¸°ÙÀ» Å¬¸¯ÇÏ¸é
+		// íƒ„í™˜ê²©ì„ ì“°ê³  ë‹¬ë ¤ê°€ëŠ”ì¤‘ ê³µê²©í•  ìˆ˜ ìˆëŠ” ë‹¤ë¥¸ íƒ€ê²Ÿì„ í´ë¦­í•˜ë©´
 		if (__CheckDashAffect(rkInstMain))
 		{
 			m_dwVIDReserved = dwPickedActorID;
@@ -335,7 +335,7 @@ void CPythonPlayer::__OnPressActor(CInstanceBase& rkInstMain, DWORD dwPickedActo
 
 	if (isAuto)
 	{
-		// 2004.10.21.myevan.°ø°İ°¡´ÉÇÑ »ó´ë¸¸ ÀÚµ¿ °ø°İ
+		// 2004.10.21.myevan.ê³µê²©ê°€ëŠ¥í•œ ìƒëŒ€ë§Œ ìë™ ê³µê²©
 		if (rkInstMain.IsAttackableInstance(rkInstVictim))
 			__SetAutoAttackTargetActorID(rkInstVictim.GetVirtualID());
 	}
@@ -463,7 +463,7 @@ bool CPythonPlayer::NEW_MoveToDirection(float fDirRot)
 	{
 		float fCmrCurRot=CameraRotationToCharacterRotation(pkCmrCur->GetRoll());
 
-		// ÇöÀç 
+		// í˜„ì¬ 
 		if (m_isCmrRot)
 		{
 			float fSigDirRot=fDirRot;
@@ -612,7 +612,7 @@ void CPythonPlayer::NEW_Attack()
 	}
 	else
 	{
-		//!@# ¸»¿¡ Åº »óÅÂ¿¡¼­ ¸Ç¼Õ °ø°İÀº Áö¿øµÇÁö ¾Ê´Â´Ù - [levites]
+		//!@# ë§ì— íƒ„ ìƒíƒœì—ì„œ ë§¨ì† ê³µê²©ì€ ì§€ì›ë˜ì§€ ì•ŠëŠ”ë‹¤ - [levites]
 		if (pkInstMain->IsMountingHorse())
 		{
 			if (pkInstMain->IsHandMode())
@@ -752,10 +752,10 @@ bool CPythonPlayer::__CanAttack()
 		return false;
 	
 	// Fix me
-	// ´º¸¶¿îÆ® 25·¹º§ ÀÌ»ó 35·¹º§ ¹Ì¸¸ÀÎ °æ¿ì Áß±Ş ¸¶¿îÆ®¸¦ Å¸°í °ø°İ¸øÇÏµµ·Ï ÇÏµå ÄÚµù... 
-	// ³ªÁß¿¡ ½Ã°£ ³ª¸é can attack Ã¼Å©¸¦ ¼­¹ö¿¡¼­ ÇØÁÖÀÚ...
-	// ¤Ñ_¤Ñ unique ½½·Ô¿¡ Â÷´Â Å»°ÍÀº ÀÌ Á¶°ÇÀÌ¶û °ü°è¾øÀÌ °ø°İÇÒ ¼ö ÀÖ¾î¾ß ÇÑ´Ù ¤Ñ_¤Ñ
-	// ¤Ñ_¤Ñ ´º¸¶¿îÆ®¸¸ ÀÌ Ã¼Å©¸¦ ÇÏ°Ô ÇÔ... ¤Ñ_¤Ñ_¤Ñ_¤Ñ_¤Ñ
+	// ë‰´ë§ˆìš´íŠ¸ 25ë ˆë²¨ ì´ìƒ 35ë ˆë²¨ ë¯¸ë§Œì¸ ê²½ìš° ì¤‘ê¸‰ ë§ˆìš´íŠ¸ë¥¼ íƒ€ê³  ê³µê²©ëª»í•˜ë„ë¡ í•˜ë“œ ì½”ë”©... 
+	// ë‚˜ì¤‘ì— ì‹œê°„ ë‚˜ë©´ can attack ì²´í¬ë¥¼ ì„œë²„ì—ì„œ í•´ì£¼ì...
+	// ã…¡_ã…¡ unique ìŠ¬ë¡¯ì— ì°¨ëŠ” íƒˆê²ƒì€ ì´ ì¡°ê±´ì´ë‘ ê´€ê³„ì—†ì´ ê³µê²©í•  ìˆ˜ ìˆì–´ì•¼ í•œë‹¤ ã…¡_ã…¡
+	// ã…¡_ã…¡ ë‰´ë§ˆìš´íŠ¸ë§Œ ì´ ì²´í¬ë¥¼ í•˜ê²Œ í•¨... ã…¡_ã…¡_ã…¡_ã…¡_ã…¡
 	if (pkInstMain->IsMountingHorse() && pkInstMain->IsNewMount() && (GetSkillGrade(109) < 1 && GetSkillLevel(109) < 11))
 	{
 		return false;
@@ -858,7 +858,7 @@ void CPythonPlayer::__ReserveUseSkill(DWORD dwActorID, DWORD dwSkillSlotIndex, D
 	m_dwSkillSlotIndexReserved=dwSkillSlotIndex;
 	m_dwSkillRangeReserved=dwRange;
 
-	// NOTE : ¾Æ½½¾Æ½½ÇÏ°Ô °Å¸®°¡ ²¿ÀÌ´Â ¹®Á¦°¡ ÀÖ¾î¼­ ¾à°£ ´À½¼ÇÏ°Ô..
+	// NOTE : ì•„ìŠ¬ì•„ìŠ¬í•˜ê²Œ ê±°ë¦¬ê°€ ê¼¬ì´ëŠ” ë¬¸ì œê°€ ìˆì–´ì„œ ì•½ê°„ ëŠìŠ¨í•˜ê²Œ..
 	if (m_dwSkillRangeReserved > 100)
 		m_dwSkillRangeReserved -= 10;
 }
@@ -920,7 +920,7 @@ void CPythonPlayer::__ReserveProcess_ClickActor()
 		return;
 	}
 
-	// ÅºÈ¯°İ ¾²°í ´Ş·Á°¡´Â µµÁß¿¡´Â °ø°İÇÏÁö ¾Ê´Â´Ù.
+	// íƒ„í™˜ê²© ì“°ê³  ë‹¬ë ¤ê°€ëŠ” ë„ì¤‘ì—ëŠ” ê³µê²©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (__CheckDashAffect(*pkInstMain))
 	{
 		return;

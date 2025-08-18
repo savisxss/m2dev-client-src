@@ -98,8 +98,8 @@ class CNetworkStream
 #else
 		// Obsolete encryption stuff here
 		bool	m_isSecurityMode;
-		char	m_szEncryptKey[TEA_KEY_LENGTH]; // Client ¿¡¼­ º¸³¾ ÆĞÅ¶À» Encrypt ÇÒ¶§ »ç¿ëÇÏ´Â Key
-		char	m_szDecryptKey[TEA_KEY_LENGTH]; // Server ¿¡¼­ Àü¼ÛµÈ ÆĞÅ¶À» Decrypt ÇÒ¶§ »ç¿ëÇÏ´Â Key
+		char	m_szEncryptKey[TEA_KEY_LENGTH]; // Client ì—ì„œ ë³´ë‚¼ íŒ¨í‚·ì„ Encrypt í• ë•Œ ì‚¬ìš©í•˜ëŠ” Key
+		char	m_szDecryptKey[TEA_KEY_LENGTH]; // Server ì—ì„œ ì „ì†¡ëœ íŒ¨í‚·ì„ Decrypt í• ë•Œ ì‚¬ìš©í•˜ëŠ” Key
 #endif
 
 		SOCKET	m_sock;

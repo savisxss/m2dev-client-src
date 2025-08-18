@@ -244,7 +244,7 @@ void LocaleService_ForceSetLocale(const char* name, const char* localePath)
 	strcpy(MULTI_LOCALE_NAME, name);
 	strcpy(MULTI_LOCALE_PATH, localePath);
 
-	// ±âÁ¸ Ãµ¸¶ ¼­¹ö·Î Á¢¼Ó½Ã¿¡´Â security key º¯°æ (WE ¹öÀü Å¬¶ó·Î Ãµ¸¶¼­¹ö Á¢¼ÓÇÏ±â À§ÇÔ)
+	// ê¸°ì¡´ ì²œë§ˆ ì„œë²„ë¡œ ì ‘ì†ì‹œì—ëŠ” security key ë³€ê²½ (WE ë²„ì „ í´ë¼ë¡œ ì²œë§ˆì„œë²„ ì ‘ì†í•˜ê¸° ìœ„í•¨)
 	if (0 == stricmp(name, "ymir"))
 		__SECURITY_KEY_STRING__ = "testtesttesttest";
 	if (0 == stricmp(name, "we_korea"))

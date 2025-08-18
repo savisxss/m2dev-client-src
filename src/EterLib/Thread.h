@@ -10,8 +10,8 @@ class CThread
 	protected:
 		static UINT CALLBACK	EntryPoint(void * pThis);
 
-		virtual UINT			Setup() = 0;				// ExecuteÀÌ ºÒ·ÁÁö±â Àü¿¡ ºÒ·ÁÁø´Ù.
-		virtual UINT			Execute(void * arg) = 0;	// ½ÇÁ¦ ¾²·¹µå°¡ ÇÏ´Â ÀÏÀÌ µé¾î°¡´Â °÷
+		virtual UINT			Setup() = 0;				// Executeì´ ë¶ˆë ¤ì§€ê¸° ì „ì— ë¶ˆë ¤ì§„ë‹¤.
+		virtual UINT			Execute(void * arg) = 0;	// ì‹¤ì œ ì“°ë ˆë“œê°€ í•˜ëŠ” ì¼ì´ ë“¤ì–´ê°€ëŠ” ê³³
 
 		UINT					Run(void * arg);
 

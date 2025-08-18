@@ -5,12 +5,12 @@
 #include "PropertyManager.h"
 #include "Property.h"
 /*
- *	CProperty ÆÄÀÏ Æ÷¸Ë
+ *	CProperty íŒŒì¼ í¬ë§·
  *
  *  0 ~ 4 bytes: fourcc
  *  5 ~ 6 bytes: \r\n
  *
- *  ±× ÀÌÈÄÀÇ ¹ÙÀÌÆ®µéÀº ÅØ½ºÆ® ÆÄÀÏ ·Î´õ¿Í °°Àº ±¸Á¶
+ *  ê·¸ ì´í›„ì˜ ë°”ì´íŠ¸ë“¤ì€ í…ìŠ¤íŠ¸ íŒŒì¼ ë¡œë”ì™€ ê°™ì€ êµ¬ì¡°
  */
 CProperty::CProperty(const char * c_pszFileName) : mc_pFileName(NULL), m_dwCRC(0)
 {
@@ -68,9 +68,9 @@ bool CProperty::GetVector(const char * c_pszKey, CTokenVector & rTokenVector)
 	if (m_stTokenMap.end() == it)
 		return false;
 
-// NOTE : Æ¨±è Çö»ó ¹ß°ß
+// NOTE : íŠ•ê¹€ í˜„ìƒ ë°œê²¬
 //	std::copy(rTokenVector.begin(), it->second.begin(), it->second.end());
-// NOTE : ·¹ÆÛ·±½º¿¡´Â ÀÌ·± ½ÄÀ¸·Î ÇÏ°Ô²û µÇ¾î ÀÖÀ½
+// NOTE : ë ˆí¼ëŸ°ìŠ¤ì—ëŠ” ì´ëŸ° ì‹ìœ¼ë¡œ í•˜ê²Œë” ë˜ì–´ ìˆìŒ
 ///////////////////////////////////////////////////////////////////////////////
 //	template <class InputIterator, class OutputIterator>
 //	OutputIterator copy(InputIterator first, InputIterator last,
@@ -82,11 +82,11 @@ bool CProperty::GetVector(const char * c_pszKey, CTokenVector & rTokenVector)
 //	copy(V.begin(), V.end(), L.begin());
 //	assert(equal(V.begin(), V.end(), L.begin()));
 ///////////////////////////////////////////////////////////////////////////////
-// Çåµ¥ ±×·¡µµ Æ¨±è. - [levites]
+// í—Œë° ê·¸ë˜ë„ íŠ•ê¹€. - [levites]
 //	std::copy(it->second.begin(), it->second.end(), rTokenVector.begin());
 
-// °á±¹ ÀÌ·¸°Ô.. - [levites]
-// ÇöÀç »ç¿ëÇÏ´Â °÷ : WorldEditor/Dialog/MapObjectPropertyPageBuilding.cpp
+// ê²°êµ­ ì´ë ‡ê²Œ.. - [levites]
+// í˜„ì¬ ì‚¬ìš©í•˜ëŠ” ê³³ : WorldEditor/Dialog/MapObjectPropertyPageBuilding.cpp
 	CTokenVector & rSourceTokenVector = it->second;
 	CTokenVector::iterator itor = rSourceTokenVector.begin();
 	for (; itor != rSourceTokenVector.end(); ++itor)
@@ -102,7 +102,7 @@ void CProperty::PutString(const char * c_pszKey, const char * c_pszString)
 	std::string stTempKey = c_pszKey;
 	stl_lowers(stTempKey);
 
-	// ÀÌ¹Ì ÀÖ´Â°É Áö¿ò
+	// ì´ë¯¸ ìˆëŠ”ê±¸ ì§€ì›€
 	CTokenVectorMap::iterator itor = m_stTokenMap.find(stTempKey);
 
 	if (itor != m_stTokenMap.end())

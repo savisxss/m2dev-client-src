@@ -1,5 +1,5 @@
 //
-// Ä³¸¯ÅÍ¸¦ µû¶ó´Ù´Ï´Â ÅØ½ºÆ® °ü·Ã ¼Ò½º (ÀÌ¸§, ±æµåÀÌ¸§, ±æµå¸¶Å© µî)
+// ìºë¦­í„°ë¥¼ ë”°ë¼ë‹¤ë‹ˆëŠ” í…ìŠ¤íŠ¸ ê´€ë ¨ ì†ŒìŠ¤ (ì´ë¦„, ê¸¸ë“œì´ë¦„, ê¸¸ë“œë§ˆí¬ ë“±)
 //
 #include "stdafx.h"
 #include "InstanceBase.h"
@@ -75,7 +75,7 @@ void CPythonTextTail::UpdateAllTextTail()
 		{
 			UpdateDistance(pixelPos, itorChat->second);
 
-			// NOTE : Chat TextTailÀÌ ÀÖÀ¸¸é Ä³¸¯ÅÍ ÀÌ¸§µµ Ãâ·ÂÇÑ´Ù.
+			// NOTE : Chat TextTailì´ ìˆìœ¼ë©´ ìºë¦­í„° ì´ë¦„ë„ ì¶œë ¥í•œë‹¤.
 			if (itorChat->second->bNameFlag)
 			{
 				DWORD dwVID = itorChat->first;
@@ -104,7 +104,7 @@ void CPythonTextTail::UpdateShowingTextTail()
 		TTextTail * pTextTail = *itor;
 		UpdateTextTail(pTextTail);
 
-		// NOTE : Chat TextTailÀÌ ÀÖÀ» °æ¿ì À§Ä¡¸¦ ¹Ù²Û´Ù.
+		// NOTE : Chat TextTailì´ ìˆì„ ê²½ìš° ìœ„ì¹˜ë¥¼ ë°”ê¾¼ë‹¤.
 		TChatTailMap::iterator itor = m_ChatTailMap.find(pTextTail->dwVirtualID);
 		if (m_ChatTailMap.end() != itor)
 		{
@@ -138,7 +138,7 @@ void CPythonTextTail::UpdateTextTail(TTextTail * pTextTail)
 	pTextTail->x = floorf(pTextTail->x);
 	pTextTail->y = floorf(pTextTail->y);
 
-	// NOTE : 13m ¹Û¿¡ ÀÖÀ»¶§¸¸ ±íÀÌ¸¦ ³Ö½À´Ï´Ù - [levites]
+	// NOTE : 13m ë°–ì— ìˆì„ë•Œë§Œ ê¹Šì´ë¥¼ ë„£ìŠµë‹ˆë‹¤ - [levites]
 	if (pTextTail->fDistanceFromPlayer < 1300.0f)
 	{
 		pTextTail->z = 0.0f;
@@ -215,7 +215,7 @@ void CPythonTextTail::ArrangeTextTail()
 
 		float fxAdd = 0.0f;
 
-		// Mark À§Ä¡ ¾÷µ¥ÀÌÆ®
+		// Mark ìœ„ì¹˜ ì—…ë°ì´íŠ¸
 		CGraphicMarkInstance * pMarkInstance = pTextTail->pMarkInstance;
 		CGraphicTextInstance * pGuildNameInstance = pTextTail->pGuildNameTextInstance;
 		if (pMarkInstance && pGuildNameInstance)
@@ -232,7 +232,7 @@ void CPythonTextTail::ArrangeTextTail()
 		int iNameWidth, iNameHeight;
 		pTextTail->pTextInstance->GetTextSize(&iNameWidth, &iNameHeight);
 
-		// Title À§Ä¡ ¾÷µ¥ÀÌÆ®
+		// Title ìœ„ì¹˜ ì—…ë°ì´íŠ¸
 		CGraphicTextInstance * pTitle = pTextTail->pTitleTextInstance;
 		if (pTitle)
 		{			
@@ -241,7 +241,7 @@ void CPythonTextTail::ArrangeTextTail()
 
 			fxAdd = 8.0f;
 
-			if (LocaleService_IsEUROPE()) // µ¶ÀÏ¾î´Â ¸íÄªÀÌ ±æ¾î ¿À¸¥Á¤·Ä
+			if (LocaleService_IsEUROPE()) // ë…ì¼ì–´ëŠ” ëª…ì¹­ì´ ê¸¸ì–´ ì˜¤ë¥¸ì •ë ¬
 			{
 				if( GetDefaultCodePage() == CP_ARABIC )
 				{
@@ -259,14 +259,14 @@ void CPythonTextTail::ArrangeTextTail()
 			}			
 			pTitle->Update();
 
-			// Level À§Ä¡ ¾÷µ¥ÀÌÆ®
+			// Level ìœ„ì¹˜ ì—…ë°ì´íŠ¸
 			CGraphicTextInstance * pLevel = pTextTail->pLevelTextInstance;
 			if (pLevel)
 			{
 				int iLevelWidth, iLevelHeight;
 				pLevel->GetTextSize(&iLevelWidth, &iLevelHeight);
 				
-				if (LocaleService_IsEUROPE()) // µ¶ÀÏ¾î´Â ¸íÄªÀÌ ±æ¾î ¿À¸¥Á¤·Ä
+				if (LocaleService_IsEUROPE()) // ë…ì¼ì–´ëŠ” ëª…ì¹­ì´ ê¸¸ì–´ ì˜¤ë¥¸ì •ë ¬
 				{
 					if( GetDefaultCodePage() == CP_ARABIC )
 					{
@@ -289,14 +289,14 @@ void CPythonTextTail::ArrangeTextTail()
 		{
 			fxAdd = 4.0f;
 
-			// Level À§Ä¡ ¾÷µ¥ÀÌÆ®
+			// Level ìœ„ì¹˜ ì—…ë°ì´íŠ¸
 			CGraphicTextInstance * pLevel = pTextTail->pLevelTextInstance;
 			if (pLevel)
 			{
 				int iLevelWidth, iLevelHeight;
 				pLevel->GetTextSize(&iLevelWidth, &iLevelHeight);
 				
-				if (LocaleService_IsEUROPE()) // µ¶ÀÏ¾î´Â ¸íÄªÀÌ ±æ¾î ¿À¸¥Á¤·Ä
+				if (LocaleService_IsEUROPE()) // ë…ì¼ì–´ëŠ” ëª…ì¹­ì´ ê¸¸ì–´ ì˜¤ë¥¸ì •ë ¬
 				{
 					if( GetDefaultCodePage() == CP_ARABIC )
 					{
@@ -383,7 +383,7 @@ void CPythonTextTail::Render()
 
 void CPythonTextTail::RenderTextTailBox(TTextTail * pTextTail)
 {
-	// °ËÀº»ö Å×µÎ¸®
+	// ê²€ì€ìƒ‰ í…Œë‘ë¦¬
 	CPythonGraphic::Instance().SetDiffuseColor(0.0f, 0.0f, 0.0f, 1.0f);
 	CPythonGraphic::Instance().RenderBox2d(pTextTail->x + pTextTail->xStart,
 										   pTextTail->y + pTextTail->yStart,
@@ -391,7 +391,7 @@ void CPythonTextTail::RenderTextTailBox(TTextTail * pTextTail)
 										   pTextTail->y + pTextTail->yEnd,
 										   pTextTail->z);
 
-	// °ËÀº»ö Åõ¸í¹Ú½º
+	// ê²€ì€ìƒ‰ íˆ¬ëª…ë°•ìŠ¤
 	CPythonGraphic::Instance().SetDiffuseColor(0.0f, 0.0f, 0.0f, 0.3f);
 	CPythonGraphic::Instance().RenderBar2d(pTextTail->x + pTextTail->xStart,
 										   pTextTail->y + pTextTail->yStart,
@@ -407,8 +407,8 @@ void CPythonTextTail::RenderTextTailName(TTextTail * pTextTail)
 
 void CPythonTextTail::HideAllTextTail()
 {
-	// NOTE : Show AllÀ» ÇØÁØµÚ Hide AllÀ» ÇØÁÖÁö ¾ÊÀ¸¸é ¹®Á¦ ¹ß»ı °¡´É¼º ÀÖÀ½
-	//        µğÀÚÀÎ ÀÚÃ¼°¡ ±×·¸°Ô ±ò²ûÇÏ°Ô µÇÁö ¾Ê¾ÒÀ½ - [levites]
+	// NOTE : Show Allì„ í•´ì¤€ë’¤ Hide Allì„ í•´ì£¼ì§€ ì•Šìœ¼ë©´ ë¬¸ì œ ë°œìƒ ê°€ëŠ¥ì„± ìˆìŒ
+	//        ë””ìì¸ ìì²´ê°€ ê·¸ë ‡ê²Œ ê¹”ë”í•˜ê²Œ ë˜ì§€ ì•Šì•˜ìŒ - [levites]
 	m_CharacterTextTailList.clear();
 	m_ItemTextTailList.clear();
 }
@@ -448,12 +448,12 @@ void CPythonTextTail::ShowCharacterTextTail(DWORD VirtualID)
 
 	if (m_CharacterTextTailList.end() != std::find(m_CharacterTextTailList.begin(), m_CharacterTextTailList.end(), pTextTail))
 	{
-		//Tracef("ÀÌ¹Ì ¸®½ºÆ®¿¡ ÀÖÀ½ : %d\n", VirtualID);
+		//Tracef("ì´ë¯¸ ë¦¬ìŠ¤íŠ¸ì— ìˆìŒ : %d\n", VirtualID);
 		return;
 	}
 
-	// NOTE : ShowAll ½Ã¿¡´Â ¸ğµç Instance ÀÇ Pointer ¸¦ Ã£¾Æ¼­ Ã¼Å©ÇÏ¹Ç·Î ºÎÇÏ°¡ °É¸± °¡´É¼ºµµ ÀÖ´Ù.
-	//        CInstanceBase °¡ TextTail À» Á÷Á¢ °¡Áö°í ÀÖ´Â °ÍÀÌ °¡Àå ÁÁÀº ÇüÅÂÀÏ µí..
+	// NOTE : ShowAll ì‹œì—ëŠ” ëª¨ë“  Instance ì˜ Pointer ë¥¼ ì°¾ì•„ì„œ ì²´í¬í•˜ë¯€ë¡œ ë¶€í•˜ê°€ ê±¸ë¦´ ê°€ëŠ¥ì„±ë„ ìˆë‹¤.
+	//        CInstanceBase ê°€ TextTail ì„ ì§ì ‘ ê°€ì§€ê³  ìˆëŠ” ê²ƒì´ ê°€ì¥ ì¢‹ì€ í˜•íƒœì¼ ë“¯..
 	if (!pTextTail->pOwner->isShow())
 		return;
 	
@@ -479,7 +479,7 @@ void CPythonTextTail::ShowItemTextTail(DWORD VirtualID)
 
 	if (m_ItemTextTailList.end() != std::find(m_ItemTextTailList.begin(), m_ItemTextTailList.end(), pTextTail))
 	{
-		//Tracef("ÀÌ¹Ì ¸®½ºÆ®¿¡ ÀÖÀ½ : %d\n", VirtualID);
+		//Tracef("ì´ë¯¸ ë¦¬ìŠ¤íŠ¸ì— ìˆìŒ : %d\n", VirtualID);
 		return;
 	}
 

@@ -48,7 +48,7 @@ bool CEffectManager::IsAliveEffect(DWORD dwInstanceIndex)
 void CEffectManager::Update()
 {
 
-	// 2004. 3. 1. myevan. ÀÌÆåÆ® ¸ğ´ÏÅÍ¸µ ÇÏ´Â ÄÚµå
+	// 2004. 3. 1. myevan. ì´í™íŠ¸ ëª¨ë‹ˆí„°ë§ í•˜ëŠ” ì½”ë“œ
 	/*
 	if (GetAsyncKeyState(VK_F9))
 	{
@@ -173,8 +173,8 @@ BOOL CEffectManager::RegisterEffect(const char * c_szFileName,bool isExistDelete
 
 	return TRUE;
 }
-// CEffectData ¸¦ Æ÷ÀÎÅÍÇüÀ¸·Î ¸®ÅÏÇÏ°Ô ÇÏ°í..
-// CEffectData¿¡¼­ CRC¸¦ ¾òÀ»¼ö ÀÖ°Ô ÇÑ´Ù
+// CEffectData ë¥¼ í¬ì¸í„°í˜•ìœ¼ë¡œ ë¦¬í„´í•˜ê²Œ í•˜ê³ ..
+// CEffectDataì—ì„œ CRCë¥¼ ì–»ì„ìˆ˜ ìˆê²Œ í•œë‹¤
 BOOL CEffectManager::RegisterEffect2(const char * c_szFileName, DWORD* pdwRetCRC, bool isNeedCache)
 {	
 	std::string strFileName;

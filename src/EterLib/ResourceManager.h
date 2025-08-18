@@ -26,7 +26,7 @@ class CResourceManager : public CSingleton<CResourceManager>
 		CResource *	GetResourcePointer(const char * c_szFileName);
 		CResource *	GetTypeResourcePointer(const char * c_szFileName, int iType=-1);
 
-		// Ãß°¡
+		// ì¶”ê°€
 		bool		isResourcePointerData(DWORD dwFileCRC);
 
 		void		RegisterResourceNewFunctionPointer(const char* c_szFileExt, CResource* (*pResNewFunc)(const char* c_szFileName));
@@ -63,7 +63,7 @@ class CResourceManager : public CSingleton<CResourceManager>
 		TResourceNewFunctionPointerMap			m_pResNewFuncMap;
 		TResourceNewFunctionByTypePointerMap	m_pResNewFuncByTypeMap;
 		TResourceDeletingMap					m_ResourceDeletingMap;
-		TResourceRequestMap						m_RequestMap;	// ¾²·¹µå·Î ·Îµù ¿äÃ»ÇÑ ¸®½ºÆ®
+		TResourceRequestMap						m_RequestMap;	// ì“°ë ˆë“œë¡œ ë¡œë”© ìš”ì²­í•œ ë¦¬ìŠ¤íŠ¸
 		TResourceRequestMap						m_WaitingMap;
 		TResourceRefDecreaseWaitingMap			m_pResRefDecreaseWaitingMap;
 

@@ -819,7 +819,7 @@ void CIME::SetCurPos(int offset)
 	}
 	else
 	{
-		// offsetÀº º¸¿©Áö´Â ÅØ½ºÆ®ÀÇ À§Ä¡·Î ¿Â´Ù. µû¶ó¼­ »õ·Î °è»êÇØ¾ßÇÔ.
+		// offsetì€ ë³´ì—¬ì§€ëŠ” í…ìŠ¤íŠ¸ì˜ ìœ„ì¹˜ë¡œ ì˜¨ë‹¤. ë”°ë¼ì„œ ìƒˆë¡œ ê³„ì‚°í•´ì•¼í•¨.
 		//ms_curpos = min(ms_lastpos, offset);
 		ms_curpos = std::min(ms_lastpos, GetTextTagInternalPosFromRenderPos(m_wText, ms_lastpos, offset));
 	}
@@ -1503,8 +1503,8 @@ void CIME::CheckInputLocale()
         ms_wszCurrentIndicator[1] = towlower(szLang[1]);
     }
 
-	// ¾Æ¶ø¾î¿¡¼­ ¿µ¾î·Î º¯°æ½Ã ÄÚµå ÆäÀÌÁö¸¦ ¹Ù²ÙÁö ¾Ê´Â´Ù
-	// ³»¿ëµµ Áö¿ìÁö ¾Ê´Â´Ù.
+	// ì•„ëì–´ì—ì„œ ì˜ì–´ë¡œ ë³€ê²½ì‹œ ì½”ë“œ í˜ì´ì§€ë¥¼ ë°”ê¾¸ì§€ ì•ŠëŠ”ë‹¤
+	// ë‚´ìš©ë„ ì§€ìš°ì§€ ì•ŠëŠ”ë‹¤.
 	if(ms_uOutputCodePage != 1256) {
 		ms_uOutputCodePage = ms_uInputCodePage;
 		Clear();
@@ -2147,7 +2147,7 @@ LRESULT CIME::WMComposition(HWND hWnd, UINT /*uiMsg*/, WPARAM /*wParam*/, LPARAM
 		AttributeProcess(hImc);
 	if(lParam&GCS_COMPSTR)
 	{
-		if (ms_uOutputCodePage == 950) // ´ë¸¸ ÁÖÀ½ ÀÔ·Â Ã³¸®
+		if (ms_uOutputCodePage == 950) // ëŒ€ë§Œ ì£¼ìŒ ì…ë ¥ ì²˜ë¦¬
 		{
 			if (lParam&GCS_COMPATTR) 
 				CompositionProcessBuilding(hImc);

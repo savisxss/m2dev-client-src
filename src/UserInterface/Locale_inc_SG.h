@@ -1,3 +1,3 @@
-#define LOCALE_SERVICE_SINGAPORE			// ЅМ°ЎЖъ
+#define LOCALE_SERVICE_SINGAPORE			// м‹±к°ЂнЏґ
 #define ENABLE_COSTUME_SYSTEM
 #define ENABLE_ENERGY_SYSTEM

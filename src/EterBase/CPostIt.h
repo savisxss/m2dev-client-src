@@ -6,14 +6,14 @@ class _CPostItMemoryBlock;
 
 /**
  * @class	CPostIt
- * @brief	°ÔÀÓ·±Ã³¿¡¼­ °ÔÀÓ Å¬¶óÀÌ¾ðÆ®·Î Á¤º¸¸¦ Àü´Þ ¹× Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼ö½ÅÇÏ±â À§ÇÏ¿© »ç¿ëµÇ´Â Å¬·¡½º
+ * @brief	ê²Œìž„ëŸ°ì²˜ì—ì„œ ê²Œìž„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì •ë³´ë¥¼ ì „ë‹¬ ë° í´ë¼ì´ì–¸íŠ¸ì—ì„œ ìˆ˜ì‹ í•˜ê¸° ìœ„í•˜ì—¬ ì‚¬ìš©ë˜ëŠ” í´ëž˜ìŠ¤
  */
 class CPostIt
 {
 public:
 	/**
 	 * @brief	CPostIt constructor
-	 * @param [in]	szAppName	: °ÔÀÓÀÇ ÀÌ¸§ÀÌ µé¾î°£´Ù.
+	 * @param [in]	szAppName	: ê²Œìž„ì˜ ì´ë¦„ì´ ë“¤ì–´ê°„ë‹¤.
 	 */
 	explicit CPostIt( LPCSTR szAppName );
 
@@ -23,45 +23,45 @@ public:
 	~CPostIt( void );
 
 	/**
-	 * @brief	CPostIt class¿¡¼­ º¸À¯ÇÏ°í ÀÖ´Â µ¥ÀÌÅ¸¸¦ Å¬¸³º¸µå¿¡ ÀúÀåÇÑ´Ù.
+	 * @brief	CPostIt classì—ì„œ ë³´ìœ í•˜ê³  ìžˆëŠ” ë°ì´íƒ€ë¥¼ í´ë¦½ë³´ë“œì— ì €ìž¥í•œë‹¤.
 	 */
 	BOOL	Flush( void );
 
 	/**
-	 * @brief	CPostIt class¿¡¼­ º¸À¯ÇÏ°í ÀÖ´Â µ¥ÀÌÅ¸ ¹× Å¬¸³º¸µå¿¡ ÀÖ´Â ³»¿ëÀ» Áö¿î´Ù.
+	 * @brief	CPostIt classì—ì„œ ë³´ìœ í•˜ê³  ìžˆëŠ” ë°ì´íƒ€ ë° í´ë¦½ë³´ë“œì— ìžˆëŠ” ë‚´ìš©ì„ ì§€ìš´ë‹¤.
 	 */
 	void	Empty( void );
 
 	/**
-	 * @brief	µ¥ÀÌÅ¸¸¦ ÀÐ¾î¿Â´Ù.
-	 * @param [in]	lpszKeyName	: ºÒ·¯¿Ã µ¥ÀÌÅ¸ÀÇ Å°. "KEY" ½ÄÀÇ ³»¿ëÀ» ³Ö´Â´Ù.
-	 * @param [in]	lpszData	: ºÒ·¯¿Ã µ¥ÀÌÅ¸ÀÇ ¹öÆÛ
-	 * @param [in]	nSize		: lpszData ¹öÆÛÀÇ ÃÖ´ë»çÀÌÁî
+	 * @brief	ë°ì´íƒ€ë¥¼ ì½ì–´ì˜¨ë‹¤.
+	 * @param [in]	lpszKeyName	: ë¶ˆëŸ¬ì˜¬ ë°ì´íƒ€ì˜ í‚¤. "KEY" ì‹ì˜ ë‚´ìš©ì„ ë„£ëŠ”ë‹¤.
+	 * @param [in]	lpszData	: ë¶ˆëŸ¬ì˜¬ ë°ì´íƒ€ì˜ ë²„í¼
+	 * @param [in]	nSize		: lpszData ë²„í¼ì˜ ìµœëŒ€ì‚¬ì´ì¦ˆ
 	 */
 	BOOL	Get( LPCSTR lpszKeyName, LPSTR lpszData, DWORD nSize );
 
 	/**
-	 * @brief	ÀúÀåÇÒ µ¥ÀÌÅ¸¸¦ ³Ö´Â´Ù.
-	 * @param [in]	lpBuffer	: ÀúÀåÇÒ µ¥ÀÌÅ¸. "KEY=DATA" ½ÄÀÇ ³»¿ëÀ» ³Ö´Â´Ù.
+	 * @brief	ì €ìž¥í•  ë°ì´íƒ€ë¥¼ ë„£ëŠ”ë‹¤.
+	 * @param [in]	lpBuffer	: ì €ìž¥í•  ë°ì´íƒ€. "KEY=DATA" ì‹ì˜ ë‚´ìš©ì„ ë„£ëŠ”ë‹¤.
 	 */
 	BOOL	Set( LPCSTR lpszData );
 
 	/**
-	 * @brief	ÀúÀåÇÒ µ¥ÀÌÅ¸¸¦ ³Ö´Â´Ù.
-	 * @param [in]	lpszKeyName	: ÀúÀåÇÒ µ¥ÀÌÅ¸ÀÇ Å°. "KEY" ½ÄÀÇ ³»¿ëÀ» ³Ö´Â´Ù.
-	 * @param [in]	lpszData	: ÀúÀåÇÒ µ¥ÀÌÅ¸. "DATA" ½ÄÀÇ ³»¿ëÀ» ³Ö´Â´Ù.
+	 * @brief	ì €ìž¥í•  ë°ì´íƒ€ë¥¼ ë„£ëŠ”ë‹¤.
+	 * @param [in]	lpszKeyName	: ì €ìž¥í•  ë°ì´íƒ€ì˜ í‚¤. "KEY" ì‹ì˜ ë‚´ìš©ì„ ë„£ëŠ”ë‹¤.
+	 * @param [in]	lpszData	: ì €ìž¥í•  ë°ì´íƒ€. "DATA" ì‹ì˜ ë‚´ìš©ì„ ë„£ëŠ”ë‹¤.
 	 */
 	BOOL	Set( LPCSTR lpszKeyName, LPCSTR lpszData );
 
 	/**
-	 * @brief	ÀúÀåÇÒ µ¥ÀÌÅ¸(DWORD)¸¦ ³Ö´Â´Ù.
-	 * @param [in]	lpBuffer	: ÀúÀåÇÒ µ¥ÀÌÅ¸. "KEY=DATA" ½ÄÀÇ µ¥ÀÌÅ¸¸¦ ³Ö´Â´Ù.
-	 * @param [in]	dwValue		: ÀúÀåÇÒ µ¥ÀÌÅ¸. (DWORD)
+	 * @brief	ì €ìž¥í•  ë°ì´íƒ€(DWORD)ë¥¼ ë„£ëŠ”ë‹¤.
+	 * @param [in]	lpBuffer	: ì €ìž¥í•  ë°ì´íƒ€. "KEY=DATA" ì‹ì˜ ë°ì´íƒ€ë¥¼ ë„£ëŠ”ë‹¤.
+	 * @param [in]	dwValue		: ì €ìž¥í•  ë°ì´íƒ€. (DWORD)
 	 */
 	BOOL	Set( LPCSTR lpszKeyName, DWORD dwValue );
 
 	/**
-	 * @brief	CPostIt class¸¦ º¹»çÇÑ´Ù. (Å¬·¡½º constructor¿¡ ÀÌ¸§ ÀÎÀÚ°¡ ÀÖ±â ¶§¹®¿¡, »õ ÀÌ¸§À» ÁöÁ¤ÇØ¾ßÇÔ)
+	 * @brief	CPostIt classë¥¼ ë³µì‚¬í•œë‹¤. (í´ëž˜ìŠ¤ constructorì— ì´ë¦„ ì¸ìžê°€ ìžˆê¸° ë•Œë¬¸ì—, ìƒˆ ì´ë¦„ì„ ì§€ì •í•´ì•¼í•¨)
 	 * @param [in]	pPostIt		: Destination class
 	 * @param [in]	lpszKeyName	: Destination class's new app-name
 	 */

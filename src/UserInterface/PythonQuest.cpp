@@ -140,8 +140,8 @@ void CPythonQuest::__Initialize()
 		test.dwIndex = i;
 		test.strIconFileName = "";
 		test.strTitle = _getf("test%d", i);
-		test.strClockName = "³²Àº ½Ã°£";
-		test.strCounterName = "³²Àº ¸¶¸®¼ö";
+		test.strClockName = "ë‚¨ì€ ì‹œê°„";
+		test.strCounterName = "ë‚¨ì€ ë§ˆë¦¬ìˆ˜";
 		test.iClockValue = 1000;
 		test.iCounterValue = 1000;
 		test.iStartTime = 0;
@@ -196,7 +196,7 @@ PyObject * questGetQuestData(PyObject * poSelf, PyObject * poArgs)
 	else
 	{
 		{
-			// ºñ¾îÀÖÀ» °æ¿ì µðÆúÆ® ÀÌ¹ÌÁö¸¦ ³Ö´Â´Ù.
+			// ë¹„ì–´ìžˆì„ ê²½ìš° ë””í´íŠ¸ ì´ë¯¸ì§€ë¥¼ ë„£ëŠ”ë‹¤.
 			std::string strIconFileName = "season1/icon/scroll_open.tga";
 			pImage = (CGraphicImage *)CResourceManager::Instance().GetResourcePointer(strIconFileName.c_str());
 		}
@@ -238,7 +238,7 @@ PyObject * questGetQuestLastTime(PyObject * poSelf, PyObject * poArgs)
 		iLastTime = (pQuestInstance->iStartTime + pQuestInstance->iClockValue) - int(CTimer::Instance().GetCurrentSecond());
 	}
 
-	// ½Ã°£ Áõ°¡ Ã³¸® ÄÚµå
+	// ì‹œê°„ ì¦ê°€ ì²˜ë¦¬ ì½”ë“œ
 //	else
 //	{
 //		iLastTime = int(CTimer::Instance().GetCurrentSecond()) - pQuestInstance->iStartTime;

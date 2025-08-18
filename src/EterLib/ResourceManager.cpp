@@ -10,9 +10,9 @@
 
 int g_iLoadingDelayTime = 20;
 
-const long c_Deleting_Wait_Time = 30000;			// »èÁ¦ ´ë±â ½Ã°£ (30ÃÊ)
-const long c_DeletingCountPerFrame = 30;			// ÇÁ·¹ÀÓ´ç Ã¼Å© ¸®¼Ò½º °¹¼ö
-const long c_Reference_Decrease_Wait_Time = 30000;	// ¼±·Îµù ¸®¼Ò½ºÀÇ ÇØÁ¦ ´ë±â ½Ã°£ (30ÃÊ)
+const long c_Deleting_Wait_Time = 30000;			// ì‚­ì œ ëŒ€ê¸° ì‹œê°„ (30ì´ˆ)
+const long c_DeletingCountPerFrame = 30;			// í”„ë ˆì„ë‹¹ ì²´í¬ ë¦¬ì†ŒìŠ¤ ê°¯ìˆ˜
+const long c_Reference_Decrease_Wait_Time = 30000;	// ì„ ë¡œë”© ë¦¬ì†ŒìŠ¤ì˜ í•´ì œ ëŒ€ê¸° ì‹œê°„ (30ì´ˆ)
 
 CFileLoaderThread CResourceManager::ms_loadingThread;
 
@@ -56,7 +56,7 @@ void CResourceManager::ProcessBackgroundLoading()
 		ms_loadingThread.Request(stFileName);
 		m_WaitingMap.insert(TResourceRequestMap::value_type(dwFileCRC, stFileName));
 		itor = m_RequestMap.erase(itor);
-		//break; // NOTE: ¿©±â¼­ break ÇÏ¸é ÃµÃµÈ÷ ·Îµù µÈ´Ù.
+		//break; // NOTE: ì—¬ê¸°ì„œ break í•˜ë©´ ì²œì²œíˆ ë¡œë”© ëœë‹¤.
 	}
 
 	DWORD dwCurrentTime = ELTimer_GetMSec();
@@ -74,7 +74,7 @@ void CResourceManager::ProcessBackgroundLoading()
 				pResource->OnLoad(pData->dwSize, pData->pvBuf);
 				pResource->AddReferenceOnly();
 
-				// ¿©±â¼­ ¿Ã¶ó°£ ·¹ÆÛ·±½º Ä«¿îÆ®¸¦ ÀÏÁ¤ ½Ã°£ÀÌ Áö³­ µÚ¿¡ Ç®¾îÁÖ±â À§ÇÏ¿©
+				// ì—¬ê¸°ì„œ ì˜¬ë¼ê°„ ë ˆí¼ëŸ°ìŠ¤ ì¹´ìš´íŠ¸ë¥¼ ì¼ì • ì‹œê°„ì´ ì§€ë‚œ ë’¤ì— í’€ì–´ì£¼ê¸° ìœ„í•˜ì—¬
 				m_pResRefDecreaseWaitingMap.insert(TResourceRefDecreaseWaitingMap::value_type(dwCurrentTime, pResource));
 			}
 		}
@@ -85,7 +85,7 @@ void CResourceManager::ProcessBackgroundLoading()
 		delete pData;
 	}
 
-	// DO : ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª°í ³­µÚ ¹Ì¸® ·ÎµùÇØ µÎ¾ú´ø ¸®¼Ò½ºÀÇ ·¹ÆÛ·±½º Ä«¿îÆ®¸¦ °¨¼Ò ½ÃÅ²´Ù - [levites]
+	// DO : ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ê³  ë‚œë’¤ ë¯¸ë¦¬ ë¡œë”©í•´ ë‘ì—ˆë˜ ë¦¬ì†ŒìŠ¤ì˜ ë ˆí¼ëŸ°ìŠ¤ ì¹´ìš´íŠ¸ë¥¼ ê°ì†Œ ì‹œí‚¨ë‹¤ - [levites]
 	long lCurrentTime = ELTimer_GetMSec();
 
 	TResourceRefDecreaseWaitingMap::iterator itorRef = m_pResRefDecreaseWaitingMap.begin();
@@ -233,7 +233,7 @@ CResource * CResourceManager::GetTypeResourcePointer(const char * c_szFileName, 
 	DWORD dwFileCRC = __GetFileCRC(c_szFileName, &c_pszFile);
 	CResource * pResource = FindResourcePointer(dwFileCRC);
 
-	if (pResource)	// ÀÌ¹Ì ¸®¼Ò½º°¡ ÀÖÀ¸¸é ¸®ÅÏ ÇÑ´Ù.
+	if (pResource)	// ì´ë¯¸ ë¦¬ì†ŒìŠ¤ê°€ ìˆìœ¼ë©´ ë¦¬í„´ í•œë‹¤.
 		return pResource;
 
 	CResource *	(*newFunc) (const char *) = NULL;
@@ -283,7 +283,7 @@ CResource * CResourceManager::GetResourcePointer(const char * c_szFileName)
 	DWORD dwFileCRC = __GetFileCRC(c_szFileName, &c_pszFile);
 	CResource * pResource = FindResourcePointer(dwFileCRC);
 
-	if (pResource)	// ÀÌ¹Ì ¸®¼Ò½º°¡ ÀÖÀ¸¸é ¸®ÅÏ ÇÑ´Ù.
+	if (pResource)	// ì´ë¯¸ ë¦¬ì†ŒìŠ¤ê°€ ìˆìœ¼ë©´ ë¦¬í„´ í•œë‹¤.
 		return pResource;
 
 	const char * pcFileExt = strrchr(c_pszFile, '.');

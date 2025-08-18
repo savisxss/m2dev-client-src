@@ -238,7 +238,7 @@ bool CGrannyMaterial::CreateFromGrannyMaterialPointer(granny_material * pgrnMate
 			pgrnOpacityTexture = GrannyGetMaterialTextureByType(m_pgrnMaterial, GrannyOpacityTexture);
 		}
 
-		// Two-Side ·»´õ¸µÀÌ ÇÊ¿äÇÑ Áö °Ë»ç
+		// Two-Side ë Œë”ë§ì´ í•„ìš”í•œ ì§€ ê²€ì‚¬
 		{			
 			granny_int32 twoSided = 0;
 			granny_data_type_definition TwoSidedFieldType[] =
@@ -262,7 +262,7 @@ bool CGrannyMaterial::CreateFromGrannyMaterialPointer(granny_material * pgrnMate
 	if (pgrnOpacityTexture)
 		m_roImage[1].SetPointer(__GetImagePointer(pgrnOpacityTexture->FromFileName));
 
-	// ¿ÀÆÛ½ÃÆ¼°¡ ÀÖÀ¸¸é ºí·»µù ¸Ş½¬
+	// ì˜¤í¼ì‹œí‹°ê°€ ìˆìœ¼ë©´ ë¸”ë Œë”© ë©”ì‰¬
 	if (!m_roImage[1].IsNull())
 		m_eType = TYPE_BLEND_PNT;
 	else
@@ -285,7 +285,7 @@ void CGrannyMaterial::__ApplyDiffuseRenderState()
 
 	if (m_bTwoSideRender)
 	{
-		// -_-·»´õ¸µ ÇÁ·Î¼¼½º°¡ Á» ±¸·Á¼­... Save & Restore ÇÏ¸é ¼ø¼­¶§¹®¿¡ Á» ²¿ÀÎ´Ù. ±ÍÂúÀ¸´Ï Save & Restore ´ë½Å µû·Î ÀúÀåÇØ µÒ.
+		// -_-ë Œë”ë§ í”„ë¡œì„¸ìŠ¤ê°€ ì¢€ êµ¬ë ¤ì„œ... Save & Restore í•˜ë©´ ìˆœì„œë•Œë¬¸ì— ì¢€ ê¼¬ì¸ë‹¤. ê·€ì°®ìœ¼ë‹ˆ Save & Restore ëŒ€ì‹  ë”°ë¡œ ì €ì¥í•´ ë‘ .
 		m_dwLastCullRenderStateForTwoSideRendering = STATEMANAGER.GetRenderState(D3DRS_CULLMODE);
 		STATEMANAGER.SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	}
@@ -511,7 +511,7 @@ DWORD CGrannyMaterialPalette::GetMaterialCount() const
 /*
 void CActorInstance::BeginSpecularRender()
 {
-	// NOTE - BlendingÇØ¼­ Âï´Â ºÎºĞÀº Specular¸¦ Àû¿ë½ÃÅ°Áö ¾Ê´Â´Ù - [levites]
+	// NOTE - Blendingí•´ì„œ ì°ëŠ” ë¶€ë¶„ì€ Specularë¥¼ ì ìš©ì‹œí‚¤ì§€ ì•ŠëŠ”ë‹¤ - [levites]
 	STATEMANAGER.SaveRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_AddColor.r));

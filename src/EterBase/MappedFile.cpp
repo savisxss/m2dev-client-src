@@ -85,7 +85,7 @@ BYTE* CMappedFile::AppendDataBlock( const void* pBlock, DWORD dwBlockSize )
 
 void CMappedFile::Destroy()
 {
-	if (m_pLZObj)	// ¾ĞÃàµÈ µ¥ÀÌÅÍ°¡ ÀÌ Æ÷ÀÎÅÍ·Î ¿¬°á µÈ´Ù
+	if (m_pLZObj)	// ì••ì¶•ëœ ë°ì´í„°ê°€ ì´ í¬ì¸í„°ë¡œ ì—°ê²° ëœë‹¤
 	{
 		delete m_pLZObj;
 		m_pLZObj = NULL;
@@ -144,7 +144,7 @@ int CMappedFile::Seek(DWORD offset, int iSeekType)
 	return m_seekPosition;
 }
 
-// 2004.09.16.myevan.MemoryMappedFile 98/ME °³¼ö Á¦ÇÑ ¹®Á¦ Ã¼Å©
+// 2004.09.16.myevan.MemoryMappedFile 98/ME ê°œìˆ˜ ì œí•œ ë¬¸ì œ ì²´í¬
 //DWORD g_dwCount=0;
 
 int CMappedFile::Map(const void **dest, int offset, int size)
@@ -192,7 +192,7 @@ int CMappedFile::Map(const void **dest, int offset, int size)
 		return 0;
 	}
 	
-	// 2004.09.16.myevan.MemoryMappedFile 98/ME °³¼ö Á¦ÇÑ ¹®Á¦ Ã¼Å©
+	// 2004.09.16.myevan.MemoryMappedFile 98/ME ê°œìˆ˜ ì œí•œ ë¬¸ì œ ì²´í¬
 	//g_dwCount++;
 	//Tracenf("MAPFILE %d", g_dwCount);
 	
@@ -247,7 +247,7 @@ void CMappedFile::Unmap(LPCVOID data)
 {	
 	if (UnmapViewOfFile(data))
 	{
-		// 2004.09.16.myevan.MemoryMappedFile 98/ME °³¼ö Á¦ÇÑ ¹®Á¦ Ã¼Å©
+		// 2004.09.16.myevan.MemoryMappedFile 98/ME ê°œìˆ˜ ì œí•œ ë¬¸ì œ ì²´í¬
 		//g_dwCount--;
 		//Tracenf("UNMAPFILE %d", g_dwCount);
 	}

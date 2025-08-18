@@ -186,9 +186,9 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
 		case BILLBOARD_TYPE_ALL:
 		default:
 			{
-				// NOTE : Rotation Routine. CameraÀÇ Up Vector¿Í Cross Vector ÀÚÃ¼¸¦ View Vector ±âÁØÀ¸·Î
-				//        Rotation ½ÃÅ²´Ù.
-				// FIXME : ¹İµå½Ã ÃÖÀûÈ­ ÇÒ °Í!
+				// NOTE : Rotation Routine. Cameraì˜ Up Vectorì™€ Cross Vector ìì²´ë¥¼ View Vector ê¸°ì¤€ìœ¼ë¡œ
+				//        Rotation ì‹œí‚¨ë‹¤.
+				// FIXME : ë°˜ë“œì‹œ ìµœì í™” í•  ê²ƒ!
 				if (m_fRotation==0.0f)
 				{
 					v3Up = -c_rv3Cross;
@@ -240,7 +240,7 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
 				D3DXVec3TransformNormal(&v3Up, &v3Up, c_matLocal);
 		}
 
-		// NOTE: ¼Óµµ°¡ ±æÀÌ¿¡ ÁÖ´Â ¿µÇâ : log(velocity)¸¸Å­ ´Ã¾î³­´Ù.
+		// NOTE: ì†ë„ê°€ ê¸¸ì´ì— ì£¼ëŠ” ì˜í–¥ : log(velocity)ë§Œí¼ ëŠ˜ì–´ë‚œë‹¤.
 		float length = D3DXVec3Length(&v3Up);
 		if (length == 0.0f)
 		{
@@ -344,9 +344,9 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_f
 		case BILLBOARD_TYPE_ALL:
 		default:
 			{
-				// NOTE : Rotation Routine. CameraÀÇ Up Vector¿Í Cross Vector ÀÚÃ¼¸¦ View Vector ±âÁØÀ¸·Î
-				//        Rotation ½ÃÅ²´Ù.
-				// FIXME : ¹İµå½Ã ÃÖÀûÈ­ ÇÒ °Í!
+				// NOTE : Rotation Routine. Cameraì˜ Up Vectorì™€ Cross Vector ìì²´ë¥¼ View Vector ê¸°ì¤€ìœ¼ë¡œ
+				//        Rotation ì‹œí‚¨ë‹¤.
+				// FIXME : ë°˜ë“œì‹œ ìµœì í™” í•  ê²ƒ!
 				if (m_fRotation==0.0f)
 				{
 					v3Up = -c_rv3Cross;
@@ -376,7 +376,7 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_f
 				D3DXVec3TransformNormal(&v3Up, &v3Up, c_matLocal);
 		}
 
-		// NOTE: ¼Óµµ°¡ ±æÀÌ¿¡ ÁÖ´Â ¿µÇâ : log(velocity)¸¸Å­ ´Ã¾î³­´Ù.
+		// NOTE: ì†ë„ê°€ ê¸¸ì´ì— ì£¼ëŠ” ì˜í–¥ : log(velocity)ë§Œí¼ ëŠ˜ì–´ë‚œë‹¤.
 		float length = D3DXVec3Length(&v3Up);
 		if (length == 0.0f)
 		{

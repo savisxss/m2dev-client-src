@@ -230,7 +230,7 @@ class CGraphicBase
 		void		UpdatePipeLineMatrix();
 
 	protected:
-		// °¢Á¾ D3DX Mesh µé (ÄÃ·çÁ¯ µ¥ÀÌÅÍ µîÀ» Ç¥½ÃÈ° ¶§ ¾´´Ù)
+		// ê°ì¢… D3DX Mesh ë“¤ (ì»¬ë£¨ì ¼ ë°ì´í„° ë“±ì„ í‘œì‹œí™œ ë•Œ ì“´ë‹¤)
 		static LPD3DXMESH				ms_lpSphereMesh;
 		static LPD3DXMESH				ms_lpCylinderMesh;
 
@@ -274,7 +274,7 @@ class CGraphicBase
 		static float					ms_fNearY;
 		static float					ms_fFarY;
 
-		// 2004.11.18.myevan.DynamicVertexBuffer·Î ±³Ã¼
+		// 2004.11.18.myevan.DynamicVertexBufferë¡œ êµì²´
 		/*
 		static std::vector<TIndex>		ms_lineIdxVector;
 		static std::vector<TIndex>		ms_lineTriIdxVector;
@@ -292,7 +292,7 @@ class CGraphicBase
 		static DWORD					ms_dwFlashingEndTime;
 		static D3DXCOLOR				ms_FlashingColor;
 
-		// Terrain picking¿ë Ray... CCamera ÀÌ¿ëÇÏ´Â ¹öÀü.. ±âÁ¸ÀÇ Ray¿Í ÅëÇÕ ÇÊ¿ä...
+		// Terrain pickingìš© Ray... CCamera ì´ìš©í•˜ëŠ” ë²„ì „.. ê¸°ì¡´ì˜ Rayì™€ í†µí•© í•„ìš”...
  		static CRay						ms_Ray;
 
 		// 

@@ -80,48 +80,48 @@ void LocaleService_NoticeGameGuardInitError_HongKong()
 	switch (gs_gameGuard.msg)
 	{
 		case NPGAMEMON_ERROR_EXIST:
-			sprintf(msg, "GameGuard°õ?¤¤¡Cµyµ¥??©Î¬O?·s±Ò°Ê¤§«á¦A°õ?¡C ");
+			sprintf(msg, "GameGuardê³°?ã„´ì¢§íƒ™ë°??â’ì´‘?í†ê·‘ê±ºã„·ãƒ¡ìª¨ê³°?ì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_GAME_EXIST:
-			sprintf(msg, "¹CÀ¸?½Æ°õ?©ÎGameGuard¤w¦b°õ?¤¤¡Cµ²?¹CÀ¸«á½Ğ?·s°õ?¡C ");
+			sprintf(msg, "íˆ®ìœ¼?ì‹£ê³°?â’GameGuardì¨¢ì«‡ê³°?ã„´ì¢§ë¡?íˆ®ìœ¼ãƒ¡ì‹»?í†ê³°?ì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_INIT:
-			sprintf(msg, "GameGuardªì´Á¤Æ¿ù?¡C?·s±Ò°Ê«á¦A°õ?©Î¬OÃö³¬¥i??µo¥Í½Ä¬ğªº?¦¡¤§«á¦A°õ?¡C ");
+			sprintf(msg, "GameGuardã‚ŒëŠ‘ã…–ì›”?ì¢§?í†ê·‘ê±ºãƒ¡ìª¨ê³°?â’ì´‘ì¸™ë‚šì©³??íƒŠÎì‹Ñãš?â”€ã„·ãƒ¡ìª¨ê³°?ì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_AUTH_GAMEGUARD:
 		case NPGAMEMON_ERROR_NFOUND_GG:
 		case NPGAMEMON_ERROR_AUTH_INI:
 		case NPGAMEMON_ERROR_NFOUND_INI:
-			sprintf(msg, "µLGameGuardÀÉ?©Î²£¥Í²§ÅÜ¡C½Ğ¦w¸ËGameGuard ªº¦w¸ËÀÉ¡C ");
+			sprintf(msg, "í‚ GameGuardì ?â’ê¹¼ÎêºŒí…ì¢§ì‹»ì«¤ë§·GameGuard ãšì«¤ë§·ì ì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_CRYPTOAPI:
-			sprintf(msg, "Windowªº¬Y³¡¥÷¨t²ÎÀÉ?¨ü·l¡C½Ğ?·s¦w¸ËIE¡C ");
+			sprintf(msg, "Windowãšì´ŸëÏˆì®ê½ì ?â…œí†–ì¢§ì‹»?í†ì«¤ë§·IEì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_EXECUTE:
-			sprintf(msg, "GameGuard°õ?¥¢±Ñ¡C½Ğ?·s°õ?GameGuard¦w¸ËÀÉ¡C ");
+			sprintf(msg, "GameGuardê³°?â…±ê·ì¢§ì‹»?í†ê³°?GameGuardì«¤ë§·ì ì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_ILLEGAL_PRG:
-			sprintf(msg, "µo?«Dªk?¦¡¡C½Ğµ²?¤£»İ­nªº?¦¡¤§«á?·s°õ?¡C ");
+			sprintf(msg, "íƒŠ?ì²—ì±?â”€ì¢§ì‹»ë¡?ã„³ì¨ì¶ãš?â”€ã„·ãƒ¡?í†ê³°?ì¢§ ");
 			break;
 		case NPGMUP_ERROR_ABORT:
-			sprintf(msg, "GameGuard¤É?¨ú?¡C¦pªG?ª½µLªk³s½u¡A½Ğ?½Õ¾ãºô¸ô©Î?¤Hªº¨¾¤õÀğ?©w¡C ");
+			sprintf(msg, "GameGuardã…™?Â¾?ì¢§ì«œì°±?ãí‚ ì±í€‚í‘ì¢¥ì‹»?ìŒŒì–‡ë¹Œëª°â’?ì§©ãšã‰­ã†…ìŸˆ?ì¯¹ì¢§ ");
 			break;
 		case NPGMUP_ERROR_CONNECT:
 		case NPGMUP_ERROR_DOWNCFG:
-			sprintf(msg, "GameGuard§ïª©(¤É?)?ªA³s½u¥¢±Ñ¡Cµyµ¥¤§«á¦A?·s°õ?©Î¬O¦pªG¦³?¤H¨¾¤õÀğªº¸Ü½Ğ½Õ¾ã?¤H¨¾¤õÀğ?©w¤§«á¦A¸Õ¡C ");
+			sprintf(msg, "GameGuardã†ã‰(ã…™?)?ì°¥í€‚í‘â…±ê·ì¢§íƒ™ë°ã„·ãƒ¡ìª¨?í†ê³°?â’ì´‘ì«œì°±â”³?ì§©ã‰­ã†…ìŸˆãšë©ì‹»ìŒŒì–‡?ì§©ã‰­ã†…ìŸˆ?ì¯¹ã„·ãƒ¡ìª¨ë¨¼ì¢§ ");
 			break;
 		case NPGMUP_ERROR_AUTH:
-			sprintf(msg, "GameGuard§ïª©¨S?§¹¦¨¡C½Ğ?°±¤î°õ?¨¾¬r?¦¡«á¦A?·s°õ?©Î¬O¨Ï¥ÎPCºŞ²z?¦¡½Õ¾ã?©w«á¦A°õ?¡C ");
+			sprintf(msg, "GameGuardã†ã‰ì®?ãâ”¬ì¢§ì‹»?ê°šã…¾ê³°?ã‰­ì´µ?â”€ãƒ¡ìª¨?í†ê³°?â’ì´‘â“’ÎPCë¶¸ì¾©?â”€ìŒŒì–‡?ì¯¹ãƒ¡ìª¨ê³°?ì¢§ ");
 			break;
 		case NPGAMEMON_ERROR_NPSCAN:
-			sprintf(msg, "¯f¬r¤Îµn¤JÀb«È¤J«I¤u¨ãÀË¬d¼Ò²Õ¥¢±Ñ¡C¥i?¬O°O¾ĞÅé¤£¨¬©Î¬O·P¬V¤F¯f¬r¡C ");
+			sprintf(msg, "ì¹ì´µã…íƒ‡ì§«í”Ÿãƒˆì§«ì²Ÿì¨ â“¦ì«ì´¥ì†Œê¾â…±ê·ì¢§ì©³?ì´‘ìº¯ì••í†±ã„³Âºâ’ì´‘í…¾ì´šì§¦ì¹ì´µì¢§ ");
 			break;
 		default:
-			sprintf(msg, "GameGuard°õ??µo?¿ù?¡C½Ğ±N¹CÀ¸¸ê?§¨¸ÌªºGameGuard¸ê?§¨¤¤ªº*.erlÀÉ?ÀH¹q¤l¶l¥ó??±H¨ìgame2@inca.co.kr«H½c¡C ");
+			sprintf(msg, "GameGuardê³°??íƒŠ?ì›”?ì¢§ì‹»ì¼”íˆ®ìœ¼ë©¸?ã¤ë§¸ãšGameGuardë©¸?ã¤ã„´ãš*.erlì ?í”†í‰ì¨–í„«Ï„??ì¼‹â‘¥game2@inca.co.krì²íºì¢§ ");
 			break;
 	}
 
-	MessageBox(NULL, msg, "GameGuard ¿ù?", MB_OK);	
+	MessageBox(NULL, msg, "GameGuard ì›”?", MB_OK);	
 }
 
 void LocaleService_NoticeGameGuardInitError_International()
@@ -194,19 +194,19 @@ void LocaleService_NoticeGameGuardProcError_HongKong()
 		case NPGAMEMON_COMM_CLOSE:
 			return;
 		case NPGAMEMON_INIT_ERROR:
-			sprintf(msg, "GameGuardªì´Á¤Æ¿ù? : %lu", gs_gameGuard.arg);
+			sprintf(msg, "GameGuardã‚ŒëŠ‘ã…–ì›”? : %lu", gs_gameGuard.arg);
 			break;
 		case NPGAMEMON_SPEEDHACK:
-			sprintf(msg,  "µo?speed hack¡C ");
+			sprintf(msg,  "íƒŠ?speed hackì¢§ ");
 			break;
 		case NPGAMEMON_GAMEHACK_KILLED:
-			sprintf(msg,  "µo?¹CÀ¸hack¡C ");
+			sprintf(msg,  "íƒŠ?íˆ®ìœ¼hackì¢§ ");
 			break;
 		case NPGAMEMON_GAMEHACK_DETECT:
-			sprintf(msg,  "µo?¹CÀ¸hack¡C ");
+			sprintf(msg,  "íƒŠ?íˆ®ìœ¼hackì¢§ ");
 			break;
 		case NPGAMEMON_GAMEHACK_DOUBT:
-			sprintf(msg,  "¹CÀ¸©ÎGameGuard¤wÅÜ?¡C ");
+			sprintf(msg,  "íˆ®ìœ¼â’GameGuardì¨¢í…?ì¢§ ");
 			break;
 	}
 	MessageBox(NULL, msg, "GameGuard Error", MB_OK);

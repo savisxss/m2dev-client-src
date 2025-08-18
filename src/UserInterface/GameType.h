@@ -56,12 +56,12 @@ const DWORD c_Equipment_Unique2	= c_Equipment_Start + 8;
 const DWORD c_Equipment_Arrow	= c_Equipment_Start + 9;
 const DWORD c_Equipment_Shield	= c_Equipment_Start + 10;
 
-// »õ·Î Ãß°¡µÈ ½Å±Ô ¹ÝÁö & º§Æ®
-// ÀåÂøÇü ¾ÆÀÌÅÛ¿¡ ÇÒ´çÇÒ ¼ö ÀÖ´Â À§Ä¡°¡ ±âÁ¸ Àåºñ, Ã¤±â¶ø Äù½ºÆ® º¸»ó, ÄÚ½ºÆ¬ ½Ã½ºÅÛ µîÀ¸·Î ÀÎÇØ¼­ °ø°£ÀÌ Àß·ÁÀÖ´Ù.
-// ÀÌ°Ô ´Ù Ã¤±â¶ø º¸»ó ¹öÇÁ¸¦ ÀåÂø¾ÆÀÌÅÛÃ³·³ ±¸ÇöÇÑ ¤µ¤¢ ¶§¹®¿¡ ³­¸®³µµû... ¤¶¤²
+// ìƒˆë¡œ ì¶”ê°€ëœ ì‹ ê·œ ë°˜ì§€ & ë²¨íŠ¸
+// ìž¥ì°©í˜• ì•„ì´í…œì— í• ë‹¹í•  ìˆ˜ ìžˆëŠ” ìœ„ì¹˜ê°€ ê¸°ì¡´ ìž¥ë¹„, ì±„ê¸°ëž í€˜ìŠ¤íŠ¸ ë³´ìƒ, ì½”ìŠ¤íŠ¬ ì‹œìŠ¤í…œ ë“±ìœ¼ë¡œ ì¸í•´ì„œ ê³µê°„ì´ ìž˜ë ¤ìžˆë‹¤.
+// ì´ê²Œ ë‹¤ ì±„ê¸°ëž ë³´ìƒ ë²„í”„ë¥¼ ìž¥ì°©ì•„ì´í…œì²˜ëŸ¼ êµ¬í˜„í•œ ã……ã„² ë•Œë¬¸ì— ë‚œë¦¬ë‚¬ë”°... ã…†ã…‚
 // 
-// Á¤¸®ÇÏ¸é, ±âÁ¸ ÀåºñÃ¢µéÀº ¼­¹öDB»ó ¾ÆÀÌÅÛ Æ÷Áö¼ÇÀÌ 90 ~ 102 ÀÌ°í,
-// 2013³â ÃÊ¿¡ »õ·Î Ãß°¡µÇ´Â ½½·ÔµéÀº 111 ~ ºÎÅÍ ½ÃÀÛÇÑ´Ù. Âø¿ë Àåºñ¿¡¼­ ÃÖ´ë·Î »ç¿ëÇÒ ¼ö ÀÖ´Â °ªÀº 121 ±îÁöÀÌ°í, 122ºÎÅÍ´Â ¿ëÈ¥¼®¿¡¼­ »ç¿ëÇÑ´Ù.
+// ì •ë¦¬í•˜ë©´, ê¸°ì¡´ ìž¥ë¹„ì°½ë“¤ì€ ì„œë²„DBìƒ ì•„ì´í…œ í¬ì§€ì…˜ì´ 90 ~ 102 ì´ê³ ,
+// 2013ë…„ ì´ˆì— ìƒˆë¡œ ì¶”ê°€ë˜ëŠ” ìŠ¬ë¡¯ë“¤ì€ 111 ~ ë¶€í„° ì‹œìž‘í•œë‹¤. ì°©ìš© ìž¥ë¹„ì—ì„œ ìµœëŒ€ë¡œ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ê°’ì€ 121 ê¹Œì§€ì´ê³ , 122ë¶€í„°ëŠ” ìš©í˜¼ì„ì—ì„œ ì‚¬ìš©í•œë‹¤.
 #ifdef ENABLE_NEW_EQUIPMENT_SYSTEM
 	const DWORD c_New_Equipment_Start = c_Equipment_Start + 21;
 	const DWORD c_New_Equipment_Count = 3;
@@ -99,7 +99,7 @@ enum EDragonSoulStepTypes
 };
 
 #ifdef ENABLE_COSTUME_SYSTEM
-	const DWORD c_Costume_Slot_Start	= c_Equipment_Start + 19;	// [ÁÖÀÇ] ¼ýÀÚ(19) ÇÏµåÄÚµù ÁÖÀÇ. ÇöÀç ¼­¹ö¿¡¼­ ÄÚ½ºÃõ ½½·ÔÀº 19ºÎÅÍÀÓ. ¼­¹ö common/length.h ÆÄÀÏÀÇ EWearPositions ¿­°ÅÇü Âü°í.
+	const DWORD c_Costume_Slot_Start	= c_Equipment_Start + 19;	// [ì£¼ì˜] ìˆ«ìž(19) í•˜ë“œì½”ë”© ì£¼ì˜. í˜„ìž¬ ì„œë²„ì—ì„œ ì½”ìŠ¤ì¸” ìŠ¬ë¡¯ì€ 19ë¶€í„°ìž„. ì„œë²„ common/length.h íŒŒì¼ì˜ EWearPositions ì—´ê±°í˜• ì°¸ê³ .
 	const DWORD	c_Costume_Slot_Body		= c_Costume_Slot_Start + 0;
 	const DWORD	c_Costume_Slot_Hair		= c_Costume_Slot_Start + 1;
 	const DWORD c_Costume_Slot_Count	= 2;
@@ -107,19 +107,19 @@ enum EDragonSoulStepTypes
 #endif
 
 
-// [ÁÖÀÇ] ¼ýÀÚ(32) ÇÏµåÄÚµù ÁÖÀÇ. ÇöÀç ¼­¹ö¿¡¼­ ¿ëÈ¥¼® ½½·ÔÀº 32ºÎÅÍÀÓ. 
-// ¼­¹ö common/length.h ÆÄÀÏÀÇ EWearPositions ¿­°ÅÇüÀÌ 32±îÁö È®ÀåµÉ °ÍÀ» ¿°µÎÇÏ°í(32 ÀÌ»óÀº È®Àå ÇÏ±â Èûµé°Ô µÇ¾îÀÖÀ½.), 
-// ±× ÀÌÈÄºÎÅÍ¸¦ ¿ëÈ¥¼® ÀåÂø ½½·ÔÀ¸·Î »ç¿ë.
+// [ì£¼ì˜] ìˆ«ìž(32) í•˜ë“œì½”ë”© ì£¼ì˜. í˜„ìž¬ ì„œë²„ì—ì„œ ìš©í˜¼ì„ ìŠ¬ë¡¯ì€ 32ë¶€í„°ìž„. 
+// ì„œë²„ common/length.h íŒŒì¼ì˜ EWearPositions ì—´ê±°í˜•ì´ 32ê¹Œì§€ í™•ìž¥ë  ê²ƒì„ ì—¼ë‘í•˜ê³ (32 ì´ìƒì€ í™•ìž¥ í•˜ê¸° íž˜ë“¤ê²Œ ë˜ì–´ìžˆìŒ.), 
+// ê·¸ ì´í›„ë¶€í„°ë¥¼ ìš©í˜¼ì„ ìž¥ì°© ìŠ¬ë¡¯ìœ¼ë¡œ ì‚¬ìš©.
 const DWORD c_Wear_Max = 32;
 const DWORD c_DragonSoul_Equip_Start = c_ItemSlot_Count + c_Wear_Max;
 const DWORD c_DragonSoul_Equip_Slot_Max = 6;
 const DWORD c_DragonSoul_Equip_End = c_DragonSoul_Equip_Start + c_DragonSoul_Equip_Slot_Max * DS_DECK_MAX_NUM;
 
-// NOTE: 2013³â 2¿ù 5ÀÏ ÇöÀç... ¿ëÈ¥¼® µ¥Å©´Â 2°³°¡ Á¸ÀçÇÏ´Âµ¥, ÇâÈÄ È®Àå °¡´É¼ºÀÌ ÀÖ¾î¼­ 3°³ µ¥Å© ¿©À¯ºÐÀ» ÇÒ´ç ÇØ µÒ. ±× µÚ °ø°£Àº º§Æ® ÀÎº¥Åä¸®·Î »ç¿ë
+// NOTE: 2013ë…„ 2ì›” 5ì¼ í˜„ìž¬... ìš©í˜¼ì„ ë°í¬ëŠ” 2ê°œê°€ ì¡´ìž¬í•˜ëŠ”ë°, í–¥í›„ í™•ìž¥ ê°€ëŠ¥ì„±ì´ ìžˆì–´ì„œ 3ê°œ ë°í¬ ì—¬ìœ ë¶„ì„ í• ë‹¹ í•´ ë‘ . ê·¸ ë’¤ ê³µê°„ì€ ë²¨íŠ¸ ì¸ë²¤í† ë¦¬ë¡œ ì‚¬ìš©
 const DWORD c_DragonSoul_Equip_Reserved_Count = c_DragonSoul_Equip_Slot_Max * 3;		
 
 #ifdef ENABLE_NEW_EQUIPMENT_SYSTEM
-	// º§Æ® ¾ÆÀÌÅÛÀÌ Á¦°øÇÏ´Â ÀÎº¥Åä¸®
+	// ë²¨íŠ¸ ì•„ì´í…œì´ ì œê³µí•˜ëŠ” ì¸ë²¤í† ë¦¬
 	const DWORD c_Belt_Inventory_Slot_Start = c_DragonSoul_Equip_End + c_DragonSoul_Equip_Reserved_Count;
 	const DWORD c_Belt_Inventory_Width = 4;
 	const DWORD c_Belt_Inventory_Height= 4;
@@ -131,7 +131,7 @@ const DWORD c_DragonSoul_Equip_Reserved_Count = c_DragonSoul_Equip_Slot_Max * 3;
 	const DWORD c_Inventory_Count	= c_DragonSoul_Equip_End;
 #endif
 
-// ¿ëÈ¥¼® Àü¿ë ÀÎº¥Åä¸®
+// ìš©í˜¼ì„ ì „ìš© ì¸ë²¤í† ë¦¬
 const DWORD c_DragonSoul_Inventory_Start = 0;
 const DWORD c_DragonSoul_Inventory_Box_Size = 32;
 const DWORD c_DragonSoul_Inventory_Count = CItemData::DS_SLOT_NUM_TYPES * DRAGON_SOUL_GRADE_MAX * c_DragonSoul_Inventory_Box_Size;
@@ -157,13 +157,13 @@ enum ESlotType
 enum EWindows
 {
 	RESERVED_WINDOW,
-	INVENTORY,				// ±âº» ÀÎº¥Åä¸®. (45Ä­ Â¥¸®°¡ 2ÆäÀÌÁö Á¸Àç = 90Ä­)
+	INVENTORY,				// ê¸°ë³¸ ì¸ë²¤í† ë¦¬. (45ì¹¸ ì§œë¦¬ê°€ 2íŽ˜ì´ì§€ ì¡´ìž¬ = 90ì¹¸)
 	EQUIPMENT,
 	SAFEBOX,
 	MALL,
 	DRAGON_SOUL_INVENTORY,
-	GROUND,					// NOTE: 2013³â 2¿ù5ÀÏ ÇöÀç±îÁö unused.. ¿Ö ÀÖ´Â°ÅÁö???
-	BELT_INVENTORY,			// NOTE: W2.1 ¹öÀü¿¡ »õ·Î Ãß°¡µÇ´Â º§Æ® ½½·Ô ¾ÆÀÌÅÛÀÌ Á¦°øÇÏ´Â º§Æ® ÀÎº¥Åä¸®
+	GROUND,					// NOTE: 2013ë…„ 2ì›”5ì¼ í˜„ìž¬ê¹Œì§€ unused.. ì™œ ìžˆëŠ”ê±°ì§€???
+	BELT_INVENTORY,			// NOTE: W2.1 ë²„ì „ì— ìƒˆë¡œ ì¶”ê°€ë˜ëŠ” ë²¨íŠ¸ ìŠ¬ë¡¯ ì•„ì´í…œì´ ì œê³µí•˜ëŠ” ë²¨íŠ¸ ì¸ë²¤í† ë¦¬
 	
 	WINDOW_TYPE_MAX,
 };
@@ -192,9 +192,9 @@ typedef struct SItemPos
         cell = _cell;
     }
 
-	// ±âÁ¸¿¡ cellÀÇ ÇüÀ» º¸¸é BYTE°¡ ´ëºÎºÐÀÌÁö¸¸, oi
-	// ¾î¶² ºÎºÐÀº int, ¾î¶² ºÎºÐÀº WORD·Î µÇ¾îÀÖ¾î,
-	// °¡Àå Å« ÀÚ·áÇüÀÎ int·Î ¹Þ´Â´Ù.
+	// ê¸°ì¡´ì— cellì˜ í˜•ì„ ë³´ë©´ BYTEê°€ ëŒ€ë¶€ë¶„ì´ì§€ë§Œ, oi
+	// ì–´ë–¤ ë¶€ë¶„ì€ int, ì–´ë–¤ ë¶€ë¶„ì€ WORDë¡œ ë˜ì–´ìžˆì–´,
+	// ê°€ìž¥ í° ìžë£Œí˜•ì¸ intë¡œ ë°›ëŠ”ë‹¤.
   //  int operator=(const int _cell)
   //  {
 		//window_type = INVENTORY;

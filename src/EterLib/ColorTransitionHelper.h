@@ -27,10 +27,10 @@ class CColorTransitionHelper
 		bool isTransitionStarted() { return m_bTransitionStarted; }
 
 	private:
- 		D3DCOLOR m_dwCurColor;		// ÇöÀç »ö
+ 		D3DCOLOR m_dwCurColor;		// í˜„ì¬ ìƒ‰
 
-		DWORD m_dwStartTime;		// ¹Ù²î±â ½ÃÀÛÇÏ´Â ½Ã°£
-		DWORD m_dwDuration;			// ¾ó¸¶ µ¿¾È¿¡ ¹Ù²î´Â°¡?
+		DWORD m_dwStartTime;		// ë°”ë€Œê¸° ì‹œì‘í•˜ëŠ” ì‹œê°„
+		DWORD m_dwDuration;			// ì–¼ë§ˆ ë™ì•ˆì— ë°”ë€ŒëŠ”ê°€?
 
 		bool m_bTransitionStarted;
 

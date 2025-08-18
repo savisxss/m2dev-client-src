@@ -33,7 +33,7 @@ void CTGAImage::Create(int width, int height)
 	m_Header.width		= (short) width;
 	m_Header.height		= (short) height;
 	m_Header.colorBits	= 32;
-	m_Header.desc		= 0x08;	// alpha channel ÀÖÀ½
+	m_Header.desc		= 0x08;	// alpha channel ìˆìŒ
 
 	CImage::Create(width, height);
 }
@@ -54,7 +54,7 @@ bool CTGAImage::LoadFromMemory(int iSize, const BYTE * c_pbMem)
 
 	switch (m_Header.imgType)
 	{
-		case 3:	// ¾ËÆÄ¸¸ ÀÖ´Â °Í (1bytes per pixel, °ÅÀÇ ¾È¾²ÀÓ)
+		case 3:	// ì•ŒíŒŒë§Œ ìˆëŠ” ê²ƒ (1bytes per pixel, ê±°ì˜ ì•ˆì“°ì„)
 			{
 				for (i = 0; i < hxw; ++i)
 				{
@@ -64,7 +64,7 @@ bool CTGAImage::LoadFromMemory(int iSize, const BYTE * c_pbMem)
 			}
 			break;
 
-		case 2:	// ¾ĞÃà ¾ÈµÈ TGA
+		case 2:	// ì••ì¶• ì•ˆëœ TGA
 			{
 				if (m_Header.colorBits == 16)	// 16bit
 				{
@@ -112,7 +112,7 @@ bool CTGAImage::LoadFromMemory(int iSize, const BYTE * c_pbMem)
 			}
 			break;
 
-		case 10: // ¾ĞÃà µÈ TGA (RLE)
+		case 10: // ì••ì¶• ëœ TGA (RLE)
 			{
 				BYTE rle;
 
@@ -123,7 +123,7 @@ bool CTGAImage::LoadFromMemory(int iSize, const BYTE * c_pbMem)
 					{
 						rle = (BYTE) *(c_pbMem++); --iSize;
 
-						if (rle < 0x80)	// ¾ĞÃà ¾ÈµÈ °÷
+						if (rle < 0x80)	// ì••ì¶• ì•ˆëœ ê³³
 						{
 							rle++;
 
@@ -146,7 +146,7 @@ bool CTGAImage::LoadFromMemory(int iSize, const BYTE * c_pbMem)
 						}
 						else
 						{
-							// ¾ĞÃà µÈ °÷
+							// ì••ì¶• ëœ ê³³
 							rle -= 127;
 
 							b = (BYTE) *(c_pbMem++); --iSize;
@@ -315,7 +315,7 @@ bool CTGAImage::SaveToDiskFile(const char* c_szFileName)
 
 	fwrite(&m_Header, 18, 1, fp);
 	
-	if (m_Header.imgType == 10)	// RLE ¾ĞÃàÀ¸·Î ÀúÀå
+	if (m_Header.imgType == 10)	// RLE ì••ì¶•ìœ¼ë¡œ ì €ì¥
 	{
 		DWORD * data = GetBasePointer();
 		

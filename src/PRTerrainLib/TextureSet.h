@@ -28,7 +28,7 @@ typedef struct STerrainTexture
 	float						UOffset;
 	float						VOffset;
 	bool						bSplat;
-	unsigned short				Begin, End;	// 0 ~ 65535 ÀÇ 16bit heightfield ³ôÀÌ°ª.
+	unsigned short				Begin, End;	// 0 ~ 65535 ì˜ 16bit heightfield ë†’ì´ê°’.
 	D3DXMATRIX					m_matTransform;
 } TTerrainTexture;
 

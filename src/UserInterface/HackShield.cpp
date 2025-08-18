@@ -8,7 +8,7 @@
 #elif
 #define METIN2HS_MONITORING_SERVER_ADDR "79.110.88.84" // GF
 #endif
-//#define METIN2HS_MONITORING_SERVER_ADDR "119.192.130.160"  //±è¿ë¿í pc
+//#define METIN2HS_MONITORING_SERVER_ADDR "119.192.130.160"  //ê¹€ìš©ìš± pc
 
 #include METIN2HS_INCLUDE_HSUPCHK
 #include METIN2HS_INCLUDE_HSUSERUTIL
@@ -56,7 +56,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			gs_isHackDetected = true;
 			break;
 		}
-		//Ã¢¸ðµå ÇØÅ·Åø °¨Áö
+		//ì°½ëª¨ë“œ í•´í‚¹íˆ´ ê°ì§€
 	case AHNHS_ENGINE_DETECT_WINDOWED_HACK:
 		{
 			//MA_StringFormat(gs_szHackMsg, MA_ARRAYCOUNT(gs_szHackMsg), MA_T("DETECT_WINDOWED_HACK"));
@@ -64,7 +64,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			break;
 		}
 
-		//Speed °ü·Ã
+		//Speed ê´€ë ¨
 	case AHNHS_ACTAPC_DETECT_SPEEDHACK:
 		{
 			MA_StringFormat(gs_szHackMsg, MA_ARRAYCOUNT(gs_szHackMsg), MA_T("DETECT_SPEED_HACK"));
@@ -72,7 +72,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			break;
 		}
 
-		//µð¹ö±ë ¹æÁö 
+		//ë””ë²„ê¹… ë°©ì§€ 
 	case AHNHS_ACTAPC_DETECT_KDTRACE:
 //	case AHNHS_ACTAPC_DETECT_KDTRACE_CHANGED:
 		{
@@ -88,7 +88,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			break;
 		}
 
-		// ÄÚµå ÆÐÄ¡ °¨Áö
+		// ì½”ë“œ íŒ¨ì¹˜ ê°ì§€
 	case AHNHS_ACTAPC_DETECT_ABNORMAL_MEMORY_ACCESS:
 		{
 			MA_StringFormat(gs_szHackMsg, MA_ARRAYCOUNT(gs_szHackMsg), MA_T("DETECT_MEMORY_ACCESS\n%s"), (char*)pParam);
@@ -96,8 +96,8 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 			break;
 		}
 
-		//¸Þ¸ð¸® º¯Á¶ °¨Áö.
-	case AHNHS_ACTAPC_DETECT_MEM_MODIFY_FROM_LMP:  //ÀÓÀÇ ±âÁØ ÁÖ¼Ò (Randomized Base Address) È®ÀÎÇØº¸±â. Linker->Advanced->(/DYNAMICBASE:NO)
+		//ë©”ëª¨ë¦¬ ë³€ì¡° ê°ì§€.
+	case AHNHS_ACTAPC_DETECT_MEM_MODIFY_FROM_LMP:  //ìž„ì˜ ê¸°ì¤€ ì£¼ì†Œ (Randomized Base Address) í™•ì¸í•´ë³´ê¸°. Linker->Advanced->(/DYNAMICBASE:NO)
 		{
 			MA_StringFormat(gs_szHackMsg, MA_ARRAYCOUNT(gs_szHackMsg), MA_T("DETECT_MEMORY_MODIFY"));
 			gs_isHackDetected = true;
@@ -105,7 +105,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 		}
 		break;
 
-		// ÇÙ½¯µå ·ÎÄÃ ¸Þ¸ð¸® º¸È£ ±â´ÉÀÌ Á¤»óÀûÀÌÁö ¾Ê½À´Ï´Ù.
+		// í•µì‰´ë“œ ë¡œì»¬ ë©”ëª¨ë¦¬ ë³´í˜¸ ê¸°ëŠ¥ì´ ì •ìƒì ì´ì§€ ì•ŠìŠµë‹ˆë‹¤.
 	case AHNHS_ACTAPC_DETECT_LMP_FAILED:
 		{
 			MA_StringFormat(gs_szHackMsg, MA_ARRAYCOUNT(gs_szHackMsg), MA_T("LOCAL_MEMORY_PROTECT_FAILED"));
@@ -114,7 +114,7 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 		}
 		break;
 
-		//±×¿Ü ÇØÅ· ¹æÁö ±â´É ÀÌ»ó 
+		//ê·¸ì™¸ í•´í‚¹ ë°©ì§€ ê¸°ëŠ¥ ì´ìƒ 
 //	case AHNHS_ACTAPC_DETECT_AUTOMOUSE:
 	case AHNHS_ACTAPC_DETECT_DRIVERFAILED:
 	case AHNHS_ACTAPC_DETECT_HOOKFUNCTION:
@@ -145,27 +145,27 @@ bool HackShield_Init()
 	::GetCurrentDirectory(MA_ARRAYCOUNT(szModuleDirPath), szModuleDirPath);
 
 #ifndef _DEBUG
-	//ÇÙ½¯µå ¾÷µ¥ÀÌÆ®
+	//í•µì‰´ë“œ ì—…ë°ì´íŠ¸
 	DWORD dwUpRet = 0; 
 	MA_TCHAR szFullFilePath[MA_MAX_PATH];
-	// ÇÙ½¯µå Æú´õ À§Ä¡¸¦ ÁöÁ¤ÇÕ´Ï´Ù. 
+	// í•µì‰´ë“œ í´ë” ìœ„ì¹˜ë¥¼ ì§€ì •í•©ë‹ˆë‹¤. 
 	MA_PathMerge(szFullFilePath, MA_ARRAYCOUNT(szFullFilePath), szModuleDirPath, "hshield");
 	AHNHS_EXT_ERRORINFO HsExtError = {0,}; 
 	
-	// _AhnHS_HSUpdate ÇÔ¼ö È£Ãâ 
-	dwUpRet = _AhnHS_HSUpdateEx( szFullFilePath, // ÇÙ½¯µå Æú´õ °æ·Î 
-							1000 * 600, // ¾÷µ¥ÀÌÆ® ÀüÃ¼ Å¸ÀÓ ¾Æ¿ô 
-							METIN2HS_CODE, // °ÔÀÓ ÄÚµå 
+	// _AhnHS_HSUpdate í•¨ìˆ˜ í˜¸ì¶œ 
+	dwUpRet = _AhnHS_HSUpdateEx( szFullFilePath, // í•µì‰´ë“œ í´ë” ê²½ë¡œ 
+							1000 * 600, // ì—…ë°ì´íŠ¸ ì „ì²´ íƒ€ìž„ ì•„ì›ƒ 
+							METIN2HS_CODE, // ê²Œìž„ ì½”ë“œ 
 							AHNHSUPDATE_CHKOPT_HOSTFILE| AHNHSUPDATE_CHKOPT_GAMECODE, 
 							HsExtError, 
-							1000* 20 ); // ¼­¹ö ¿¬°á Å¸ÀÓ¾Æ¿ô 
+							1000* 20 ); // ì„œë²„ ì—°ê²° íƒ€ìž„ì•„ì›ƒ 
 							
-	// Ex ÇÔ¼ö¸¦ »ç¿ëÇÏ½Ç¶§´Â ¹Ýµå½Ã HSUpSetEnv.exe ¼³Á¤ Åø·Î env ÆÄÀÏ¿¡ 
-	// °ÔÀÓ ÄÚµå¸¦ ÀÔ·ÂÇÏ¼Å¾ß ÇÕ´Ï´Ù. 
+	// Ex í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ì‹¤ë•ŒëŠ” ë°˜ë“œì‹œ HSUpSetEnv.exe ì„¤ì • íˆ´ë¡œ env íŒŒì¼ì— 
+	// ê²Œìž„ ì½”ë“œë¥¼ ìž…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤. 
 	if ( dwUpRet != ERROR_SUCCESS) 
 	{ 
 		
-		// ¿¡·¯ Ã³¸® 
+		// ì—ëŸ¬ ì²˜ë¦¬ 
 		switch ( dwUpRet ) 
 		{ 
 			case HSERROR_ENVFILE_NOTREAD: 
@@ -206,9 +206,9 @@ bool HackShield_Init()
 			{
 			case HSUSERUTIL_ERR_OK: // pass
 				break;
-			case HSUSERUTIL_ERR_NOT_ADMIN: // À¯Àú ½ÇÇàÀ» Çã¿ëÇÏ¹Ç·Î ¿¡·¯ ¾Æ´Ô
+			case HSUSERUTIL_ERR_NOT_ADMIN: // ìœ ì € ì‹¤í–‰ì„ í—ˆìš©í•˜ë¯€ë¡œ ì—ëŸ¬ ì•„ë‹˜
 				break;
-			case HSUSERUTIL_ERR_NOT_NT: // 98 À¯Àú ½ÇÇàÀ» Çã¿ëÇÏ¹Ç·Î ¿¡·¯ ¾Æ´Ô
+			case HSUSERUTIL_ERR_NOT_NT: // 98 ìœ ì € ì‹¤í–‰ì„ í—ˆìš©í•˜ë¯€ë¡œ ì—ëŸ¬ ì•„ë‹˜
 				break;
 			case HSUSERUTIL_ERR_DELHIDEIDINFO_FAIL:
 				MessageBox(NULL, MA_T("DEL_SHADOW_HIDDEN_ERROR"), "HACK_SHIELD", MB_OK);
@@ -233,9 +233,9 @@ bool HackShield_Init()
 #ifndef _DEBUG
 	{
 		AHNHS_EXT_ERRORINFO HsExtError = { 0, };
-		strcpy(HsExtError.szServer, METIN2HS_MONITORING_SERVER_ADDR); //¸ð´ÏÅÍ¸µ ÁÖ¼Ò	
-		strcpy(HsExtError.szGameVersion, "1.0.0.0"); //Game ¹öÀü
-		strcpy(HsExtError.szUserId, "Metin2User_test"); //À¯Àú ID
+		strcpy(HsExtError.szServer, METIN2HS_MONITORING_SERVER_ADDR); //ëª¨ë‹ˆí„°ë§ ì£¼ì†Œ	
+		strcpy(HsExtError.szGameVersion, "1.0.0.0"); //Game ë²„ì „
+		strcpy(HsExtError.szUserId, "Metin2User_test"); //ìœ ì € ID
 
 		DWORD dwRet = _AhnHS_StartMonitor (HsExtError, szInterfaceFilePath);
 		if( dwRet != ERROR_SUCCESS )
@@ -256,24 +256,24 @@ bool HackShield_Init()
 			| AHNHS_CHKOPT_AUTOMOUSE 			
 			| AHNHS_CHKOPT_MESSAGEHOOK
 			| AHNHS_CHKOPT_PROTECT_D3DX
-			| AHNHS_CHKOPT_LOCAL_MEMORY_PROTECTION // ÄÚµå ¿µ¿ª ·Îµù º¸È£
-			//| AHNHS_CHKOPT_ANTIFREESERVER // ÇÁ¸® ¼­¹ö Á¢¼Ó ¹æÁö
+			| AHNHS_CHKOPT_LOCAL_MEMORY_PROTECTION // ì½”ë“œ ì˜ì—­ ë¡œë”© ë³´í˜¸
+			//| AHNHS_CHKOPT_ANTIFREESERVER // í”„ë¦¬ ì„œë²„ ì ‘ì† ë°©ì§€
 			| AHNHS_USE_LOG_FILE			
 //			| AHNHS_ALLOW_SVCHOST_OPENPROCESS
-			//| AHNHS_ALLOW_LSASS_OPENPROCESS // ½Å¿ë Ä«µå °áÁ¦ °ü·Ã
-			//| AHNHS_ALLOW_CSRSS_OPENPROCESS // ½Å¿ë Ä«µå °áÁ¦ °ü·Ã
-			//| AHNHS_CHKOPT_SELF_DESTRUCTION // °­Á¦ Á¾·á Ã³¸®: ÄÝ¹é Ã³¸® ÁÖÀÇ
+			//| AHNHS_ALLOW_LSASS_OPENPROCESS // ì‹ ìš© ì¹´ë“œ ê²°ì œ ê´€ë ¨
+			//| AHNHS_ALLOW_CSRSS_OPENPROCESS // ì‹ ìš© ì¹´ë“œ ê²°ì œ ê´€ë ¨
+			//| AHNHS_CHKOPT_SELF_DESTRUCTION // ê°•ì œ ì¢…ë£Œ ì²˜ë¦¬: ì½œë°± ì²˜ë¦¬ ì£¼ì˜
 			| AHNHS_CHKOPT_PROCESSSCAN
 			| AHNHS_CHKOPT_UPDATED_FILE_CHECK
-			| AHNHS_CHKOPT_SEND_MONITOR_ONCE // ¸ð´ÏÅÍ¸µ¿ë: 1È¸¸¸ º¸³¿
-			| AHNHS_CHKOPT_SEND_MONITOR_DELAY // ¸ð´ÏÅÍ¸µ¿ë: ¾ÆÀÌµð¸¦ ÃµÃµÈ÷ º¸³¿
-			| AHNHS_DONOT_TERMINATE_PROCESS, // ¼­¹ö ¾Ë¸²	
+			| AHNHS_CHKOPT_SEND_MONITOR_ONCE // ëª¨ë‹ˆí„°ë§ìš©: 1íšŒë§Œ ë³´ëƒ„
+			| AHNHS_CHKOPT_SEND_MONITOR_DELAY // ëª¨ë‹ˆí„°ë§ìš©: ì•„ì´ë””ë¥¼ ì²œì²œížˆ ë³´ëƒ„
+			| AHNHS_DONOT_TERMINATE_PROCESS, // ì„œë²„ ì•Œë¦¼	
 			AHNHS_SPEEDHACK_SENSING_RATIO_NORMAL
 			);
 
 		if (nRet != HS_ERR_OK) 
 		{
-			//Error Ã³¸® 
+			//Error ì²˜ë¦¬ 
 			switch(nRet)
 			{
 				case HS_ERR_ANOTHER_SERVICE_RUNNING:

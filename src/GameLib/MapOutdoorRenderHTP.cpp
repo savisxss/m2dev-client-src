@@ -101,7 +101,7 @@ void CMapOutdoor::__RenderTerrain_RenderHardwareTransformPatch()
 	std::vector<std::pair<float ,long> >::iterator far_it = std::upper_bound(m_PatchVector.begin(),m_PatchVector.end(),fog_far);
 	std::vector<std::pair<float ,long> >::iterator near_it = std::upper_bound(m_PatchVector.begin(),m_PatchVector.end(),fog_near);
 
-	// NOTE: Word Editor Åø¿¡¼­´Â fog farº¸´Ù ¸Ö¸®ÀÖ´Â ¹°Ã¼¸¦ ÅØ½ºÃÄ ¾øÀÌ ±×¸®´Â ÀÛ¾÷À» ÇÏÁö ¾ÊÀ½
+	// NOTE: Word Editor íˆ´ì—ì„œëŠ” fog farë³´ë‹¤ ë©€ë¦¬ìˆëŠ” ë¬¼ì²´ë¥¼ í…ìŠ¤ì³ ì—†ì´ ê·¸ë¦¬ëŠ” ì‘ì—…ì„ í•˜ì§€ ì•ŠìŒ
 #ifdef WORLD_EDITOR
 	near_it = m_PatchVector.begin();
 	far_it = m_PatchVector.end();
@@ -120,7 +120,7 @@ void CMapOutdoor::__RenderTerrain_RenderHardwareTransformPatch()
 	DWORD dwFogEnable = STATEMANAGER.GetRenderState(D3DRS_FOGENABLE);
 	std::vector<std::pair<float, long> >::iterator it = m_PatchVector.begin();
 
-	// NOTE: ¸ÊÅø¿¡¼­´Â view ~ fog near »çÀÌÀÇ ÁöÇüÀ» fog disabled »óÅÂ·Î ±×¸®´Â ÀÛ¾÷À» ÇÏÁö ¾ÊÀ½.
+	// NOTE: ë§µíˆ´ì—ì„œëŠ” view ~ fog near ì‚¬ì´ì˜ ì§€í˜•ì„ fog disabled ìƒíƒœë¡œ ê·¸ë¦¬ëŠ” ì‘ì—…ì„ í•˜ì§€ ì•ŠìŒ.
 #ifndef WORLD_EDITOR
 	STATEMANAGER.SetRenderState(D3DRS_FOGENABLE, FALSE);
 
@@ -380,7 +380,7 @@ void CMapOutdoor::__HardwareTransformPatch_RenderPatchSplat(long patchnum, WORD 
 		}
 		else
 		{
-			// 0¹ø ÅØ½ºÃ³
+			// 0ë²ˆ í…ìŠ¤ì²˜
 			if ( 0 < rTerrainSplatPatch.PatchTileCount[sPatchNum][0] )
 			{
 				DWORD dwTextureFactorFor0Texture = STATEMANAGER.GetRenderState(D3DRS_TEXTUREFACTOR);
@@ -603,7 +603,7 @@ void CMapOutdoor::__HardwareTransformPatch_RenderPatchSplat(long patchnum, WORD 
 */
 #endif
 
-	// ±×¸²ÀÚ
+	// ê·¸ë¦¼ì
 	if (m_bDrawShadow)
 	{
 		STATEMANAGER.SetRenderState(D3DRS_LIGHTING, TRUE);

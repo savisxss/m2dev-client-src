@@ -171,7 +171,7 @@ void CPythonPlayerEventHandler::OnHit(UINT uSkill, CActorInstance& rkActorVictim
 	if (!rkActorVictim.IsPushing())
 		return;
 
-	// °Å´ë ¸ó½ºÅÍ ¹Ð¸² Á¦¿Ü
+	// ê±°ëŒ€ ëª¬ìŠ¤í„° ë°€ë¦¼ ì œì™¸
 	extern bool IS_HUGE_RACE(unsigned int vnum);
 	if (IS_HUGE_RACE(rkActorVictim.GetRace()))
 		return;
@@ -196,7 +196,7 @@ void CPythonPlayerEventHandler::FlushVictimList()
 	if (m_kVctkVictim.empty())
 		return;
 
-	// #0000682: [M2EU] ´ëÁø°¢ ½ºÅ³ »ç¿ë½Ã Æ¨±è 
+	// #0000682: [M2EU] ëŒ€ì§„ê° ìŠ¤í‚¬ ì‚¬ìš©ì‹œ íŠ•ê¹€ 
 	unsigned int SYNC_POSITION_COUNT_LIMIT = 16;
 	unsigned int uiVictimCount = m_kVctkVictim.size();
 
@@ -260,7 +260,7 @@ void CPythonPlayerEventHandler::CNormalBowAttack_FlyEventHandler_AutoClear::OnEx
 {
 	return;
 
-	Tracef("Shoot : ´Ù¸¥ target¿¡ ¸Â¾Ò½À´Ï´Ù : %d, %d\n", dwSkillIndex, dwVID);
+	Tracef("Shoot : ë‹¤ë¥¸ targetì— ë§žì•˜ìŠµë‹ˆë‹¤ : %d, %d\n", dwSkillIndex, dwVID);
 
 	CPythonNetworkStream& rkStream=CPythonNetworkStream::Instance();
 	rkStream.SendAttackPacket(dwSkillIndex, dwVID);
@@ -274,7 +274,7 @@ void CPythonPlayerEventHandler::CNormalBowAttack_FlyEventHandler_AutoClear::OnEx
 }
 void CPythonPlayerEventHandler::CNormalBowAttack_FlyEventHandler_AutoClear::OnExplodingAtTarget(DWORD dwSkillIndex)
 {
-//	Tracef("Shoot : ¿øÇÏ´Â target¿¡ ¸Â¾Ò½À´Ï´Ù : %d, %d\n", dwSkillIndex, m_pInstTarget->GetVirtualID());
+//	Tracef("Shoot : ì›í•˜ëŠ” targetì— ë§žì•˜ìŠµë‹ˆë‹¤ : %d, %d\n", dwSkillIndex, m_pInstTarget->GetVirtualID());
 //	CPythonNetworkStream& rkStream=CPythonNetworkStream::Instance();
 //	rkStream.SendAttackPacket(dwSkillIndex, m_pInstTarget->GetVirtualID());
 }

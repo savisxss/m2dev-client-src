@@ -50,7 +50,7 @@ int SplitLine(const char * c_szText, CTokenVector* pstTokenVector, const char * 
 
 		pstTokenVector->push_back(stLine.substr(beginPos, endPos - beginPos));
 
-		// Ãß°¡ ÄÚµå. ¸ÇµÚ¿¡ ÅÇÀÌ ÀÖ´Â °æ¿ì¸¦ Ã¼Å©ÇÑ´Ù. - [levites]
+		// ì¶”ê°€ ì½”ë“œ. ë§¨ë’¤ì— íƒ­ì´ ìˆëŠ” ê²½ìš°ë¥¼ ì²´í¬í•œë‹¤. - [levites]
 		if (int(stLine.find_first_not_of(c_szDelimeter, basePos)) < 0)
 			break;
 	} while (basePos < stLine.length());
@@ -226,7 +226,7 @@ bool CPythonSkill::RegisterSkillTable(const char * c_szFileName)
 								
 				switch (iVnum)
 				{
-					case 1: // »ï¿¬Âü
+					case 1: // ì‚¼ì—°ì°¸
 						affect.strAffectMinFormula += "* 3";
 						affect.strAffectMaxFormula += "* 3";
 						break;					
@@ -405,7 +405,7 @@ bool CPythonSkill::RegisterSkillDesc(const char * c_szFileName)
 			const std::string & c_rstrJob = TokenVector[DESC_TOKEN_TYPE_JOB];
 			const std::string & c_rstrIconName = TokenVector[DESC_TOKEN_TYPE_ICON_NAME];
 
-			// NOTE : Support ½ºÅ³ÀÓ¿¡µµ 3´Ü°è¸¦ Áö¿øÇØ¾ß ÇØ¼­ ¿¹¿Ü Ã³¸® - [levites]
+			// NOTE : Support ìŠ¤í‚¬ì„ì—ë„ 3ë‹¨ê³„ë¥¼ ì§€ì›í•´ì•¼ í•´ì„œ ì˜ˆì™¸ ì²˜ë¦¬ - [levites]
 			if (c_iSkillIndex_Riding == iSkillIndex)
 			{
 				char szIconFileNameHeader[64+1];
@@ -496,7 +496,7 @@ bool CPythonSkill::RegisterSkillDesc(const char * c_szFileName)
 			int numGrade = atoi(TokenVector[DESC_TOKEN_TYPE_MOTION_INDEX_GRADE_NUM].c_str());
 			if (SKILL_EFFECT_COUNT < numGrade)
 			{
-				TraceError("%s[%s] °¡ µî±Ş Á¦ÇÑ[%d]À» ³Ñ¾î°¬½À´Ï´Ù.",rSkillData.strName.c_str(), TokenVector[DESC_TOKEN_TYPE_MOTION_INDEX_GRADE_NUM].c_str(), SKILL_EFFECT_COUNT);
+				TraceError("%s[%s] ê°€ ë“±ê¸‰ ì œí•œ[%d]ì„ ë„˜ì–´ê°”ìŠµë‹ˆë‹¤.",rSkillData.strName.c_str(), TokenVector[DESC_TOKEN_TYPE_MOTION_INDEX_GRADE_NUM].c_str(), SKILL_EFFECT_COUNT);
 				return false;
 			}
 			for (int iGrade = 0; iGrade < numGrade; iGrade++)
@@ -1231,7 +1231,7 @@ bool CPythonSkill::SSkillData::GetState(const char * c_szStateName, int * piStat
 	{
 		*piState = 0;
 
-		// ÁõÁö¼ú ÀÓ½Ã Á¦¿Ü
+		// ì¦ì§€ìˆ  ì„ì‹œ ì œì™¸
 /*
 		if (0 != ms_dwTimeIncreaseSkillNumber)
 		{
@@ -1307,7 +1307,7 @@ const char * CPythonSkill::SSkillData::GetAffectDescription(DWORD dwIndex, float
 
 	if (CP_ARABIC == ::GetDefaultCodePage())
 	{
-		// #0000870: [M2AE] ÇÑ±¹¾î ¸ğµåÀÏ¶§ Æ¯Á¤ ¾Æ¶ø¾î ¹®Àå¿¡¼­ Å©·¡½¬ ¹ß»ı 
+		// #0000870: [M2AE] í•œêµ­ì–´ ëª¨ë“œì¼ë•Œ íŠ¹ì • ì•„ëì–´ ë¬¸ì¥ì—ì„œ í¬ë˜ì‰¬ ë°œìƒ 
 		static std::string strDescription;
 		strDescription = c_rstrAffectDescription;
 		int first = strDescription.find("%.0f");
@@ -1990,7 +1990,7 @@ PyObject * skillIsLevelUpSkill(PyObject * poSelf, PyObject * poArgs)
 	if (!CPythonSkill::Instance().GetSkillData(iSkillIndex, &c_pSkillData))
 		return Py_BuildException("skill.IsLevelUpSkill - Failed to find skill by %d", iSkillIndex);
 
-	// ¸ğµÎ ·¹º§¾÷ °¡´É
+	// ëª¨ë‘ ë ˆë²¨ì—… ê°€ëŠ¥
 
 	return Py_BuildValue("i", TRUE);
 }
@@ -2016,7 +2016,7 @@ PyObject * skillGetIconImage(PyObject * poSelf, PyObject * poArgs)
 
 	CPythonSkill::SSkillData * c_pSkillData;
 	if (!CPythonSkill::Instance().GetSkillData(iSkillIndex, &c_pSkillData))
-		return Py_BuildValue("i", 0);	// ÀÍ¼Á¼ÇÀ» ³»´Â ´ë½Å 0À» ¸®ÅÏÇÑ´Ù.
+		return Py_BuildValue("i", 0);	// ìµì…‰ì…˜ì„ ë‚´ëŠ” ëŒ€ì‹  0ì„ ë¦¬í„´í•œë‹¤.
 
 	return Py_BuildValue("i", c_pSkillData->pImage);
 }
@@ -2051,7 +2051,7 @@ PyObject * skillGetIconImageNew(PyObject * poSelf, PyObject * poArgs)
 
 	CPythonSkill::SSkillData * c_pSkillData;
 	if (!CPythonSkill::Instance().GetSkillData(iSkillIndex, &c_pSkillData))
-		return Py_BuildValue("i", 0);	// ÀÍ¼Á¼ÇÀ» ³»´Â ´ë½Å 0À» ¸®ÅÏÇÑ´Ù.
+		return Py_BuildValue("i", 0);	// ìµì…‰ì…˜ì„ ë‚´ëŠ” ëŒ€ì‹  0ì„ ë¦¬í„´í•œë‹¤.
 
 	if (iGradeIndex < 0)
 		iGradeIndex = 0;

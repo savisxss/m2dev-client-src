@@ -27,7 +27,7 @@
 
 typedef struct SOutdoorMapCoordinate
 {
-	short m_sTerrainCoordX;		// Terrain ÁÂÇ¥
+	short m_sTerrainCoordX;		// Terrain ì¢Œí‘œ
 	short m_sTerrainCoordY;
 } TOutdoorMapCoordinate;
 
@@ -161,7 +161,7 @@ class CMapOutdoor : public CMapBase
 		bool			isTerrainLoaded(WORD wX, WORD wY);
 		bool			isAreaLoaded(WORD wX, WORD wY);
 
-		void			AssignTerrainPtr();				// ÇöÀç ÁÂÇ¥¿¡¼­ ÁÖÀ§(ex. 3x3)¿¡ ÀÖ´Â °ÍµéÀÇ Æ÷ÀÎÅÍ¸¦ ¿¬°áÇÑ´Ù. (¾÷µ¥ÀÌÆ® ½Ã ºÒ·ÁÁü)
+		void			AssignTerrainPtr();				// í˜„ì¬ ì¢Œí‘œì—ì„œ ì£¼ìœ„(ex. 3x3)ì— ìˆëŠ” ê²ƒë“¤ì˜ í¬ì¸í„°ë¥¼ ì—°ê²°í•œë‹¤. (ì—…ë°ì´íŠ¸ ì‹œ ë¶ˆë ¤ì§)
 
 		void			SaveAlphaFogOperation();
 		void			RestoreAlphaFogOperation();
@@ -169,7 +169,7 @@ class CMapOutdoor : public CMapBase
 		//////////////////////////////////////////////////////////////////////////
 		// New
 		//////////////////////////////////////////////////////////////////////////
-		// ¿©·¯°¡Áö ¸ÊµéÀ» ¾ò´Â´Ù.
+		// ì—¬ëŸ¬ê°€ì§€ ë§µë“¤ì„ ì–»ëŠ”ë‹¤.
 		void			GetHeightMap(const BYTE & c_rucTerrainNum, WORD ** pwHeightMap);
 		void			GetNormalMap(const BYTE & c_rucTerrainNum, char ** pucNormalMap);
 
@@ -182,19 +182,19 @@ class CMapOutdoor : public CMapBase
 	// Terrain
 	//////////////////////////////////////////////////////////////////////////
 	protected:
-		// µ¥ÀÌÅÍ
+		// ë°ì´í„°
 		CTerrain *					m_pTerrain[AROUND_AREA_NUM];	// Terrain
-		CTerrainPatchProxy *		m_pTerrainPatchProxyList;			// CTerrainÀ» ·£´õ¸µ ÇÒ¶§ ½ÇÁ¦·Î ·£´õ¸µÇÏ´Â Æú¸®°ï ÆĞÄ¡µé... Seamless Map À» À§ÇØ CTerrainÀ¸·ÎºÎÅÍ µ¶¸³...
+		CTerrainPatchProxy *		m_pTerrainPatchProxyList;			// CTerrainì„ ëœë”ë§ í• ë•Œ ì‹¤ì œë¡œ ëœë”ë§í•˜ëŠ” í´ë¦¬ê³¤ íŒ¨ì¹˜ë“¤... Seamless Map ì„ ìœ„í•´ CTerrainìœ¼ë¡œë¶€í„° ë…ë¦½...
 
-		long						m_lViewRadius;				// ½Ã¾ß °Å¸®.. ¼¿´ÜÀ§ÀÓ..
-		float						m_fHeightScale;				// ³ôÀÌ ½ºÄÉÀÏ... 1.0ÀÏ¶§ 0~655.35¹ÌÅÍ±îÁö Ç¥Çö °¡´É.
+		long						m_lViewRadius;				// ì‹œì•¼ ê±°ë¦¬.. ì…€ë‹¨ìœ„ì„..
+		float						m_fHeightScale;				// ë†’ì´ ìŠ¤ì¼€ì¼... 1.0ì¼ë•Œ 0~655.35ë¯¸í„°ê¹Œì§€ í‘œí˜„ ê°€ëŠ¥.
 
-		short						m_sTerrainCountX, m_sTerrainCountY;		// seamless map ¾È¿¡ µé¾î°¡´Â Terrain°³¼ö
+		short						m_sTerrainCountX, m_sTerrainCountY;		// seamless map ì•ˆì— ë“¤ì–´ê°€ëŠ” Terrainê°œìˆ˜
 
-		TOutdoorMapCoordinate		m_CurCoordinate;		// ÇöÀçÀÇ ÁÂÇ¥
+		TOutdoorMapCoordinate		m_CurCoordinate;		// í˜„ì¬ì˜ ì¢Œí‘œ
 
 		long						m_lCurCoordStartX, m_lCurCoordStartY;
-		TOutdoorMapCoordinate		m_PrevCoordinate;		// ÇöÀçÀÇ ÁÂÇ¥
+		TOutdoorMapCoordinate		m_PrevCoordinate;		// í˜„ì¬ì˜ ì¢Œí‘œ
 		TOutdoorMapCoordinateMap	m_EntryPointMap;
 
 		WORD						m_wPatchCount;
@@ -316,7 +316,7 @@ class CMapOutdoor : public CMapBase
 		//////////////////////////////////////////////////////////////////////////
 		// New
 		//////////////////////////////////////////////////////////////////////////
-		long					m_lCenterX, m_lCenterY;		// Terrain ÁÂÇ¥ ³»ÀÇ ¼¿ ÁÂÇ¥...
+		long					m_lCenterX, m_lCenterY;		// Terrain ì¢Œí‘œ ë‚´ì˜ ì…€ ì¢Œí‘œ...
 		long					m_lOldReadX, m_lOldReadY;	/* Last center */
 
 		//////////////////////////////////////////////////////////////////////////

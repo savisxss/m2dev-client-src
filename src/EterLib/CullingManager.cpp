@@ -93,7 +93,7 @@ void CCullingManager::Reset()
 void CCullingManager::Update()
 {
 	// TODO : update each object
-	// ÇÏÁö¸»°í °¢ÀÚ ÇÏ°Ô ÇØº¸ÀÚ
+	// í•˜ì§€ë§ê³  ê°ì í•˜ê²Œ í•´ë³´ì
 
 	//DWORD time = ELTimer_GetMSec();
 	//Reset();

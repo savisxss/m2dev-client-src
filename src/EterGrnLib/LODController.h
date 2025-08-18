@@ -269,7 +269,7 @@ class CGrannyLODController : public CGraphicBase
 
 		BOOL	isModelInstance();
 		CGrannyModelInstance*	GetModelInstance();
-		bool	HaveBlendThing() { return 0 != GetModelInstance() ? GetModelInstance()->HaveBlendThing() : false; }		// NOTE: GetModelInstance() == 0ÀÏ ¶§ Å¬¶ó Å©·¡½¬³ª´Â ¹®Á¦ ¼öÁ¤(2012. 05. 07)
+		bool	HaveBlendThing() { return 0 != GetModelInstance() ? GetModelInstance()->HaveBlendThing() : false; }		// NOTE: GetModelInstance() == 0ì¼ ë•Œ í´ë¼ í¬ë˜ì‰¬ë‚˜ëŠ” ë¬¸ì œ ìˆ˜ì •(2012. 05. 07)
 
 	protected:
 		void	SetCurrentModelInstance(CGrannyModelInstance * pgrnModelInstance);

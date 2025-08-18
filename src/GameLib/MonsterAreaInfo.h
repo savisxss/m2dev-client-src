@@ -89,17 +89,17 @@ protected:
 protected:
 	EMonsterAreaInfoType	m_eMonsterAreaInfoType;
 
-	// Group Type Á¤º¸
+	// Group Type ì •ë³´
 	DWORD			m_dwGroupID;
 	std::string		m_strGroupName;
 	std::string		m_strLeaderName;
 	DWORD			m_dwFollowerCount;
 
-	// Monster Type Á¤º¸
+	// Monster Type ì •ë³´
 	DWORD			m_dwVID;
 	std::string		m_strMonsterName;
 
-	// °øÅë Á¤º¸
+	// ê³µí†µ ì •ë³´
 	DWORD			m_dwMonsterCount;
 	EMonsterDir		m_eMonsterDir;
 	D3DXVECTOR2		m_v2Monsterdirection;

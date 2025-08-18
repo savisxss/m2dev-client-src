@@ -28,16 +28,16 @@ namespace UI
 
 			enum EFlags
 			{
-				FLAG_MOVABLE			= (1 <<  0),	// ¿òÁ÷ÀÏ ¼ö ÀÖ´Â Ã¢
-				FLAG_LIMIT				= (1 <<  1),	// Ã¢ÀÌ È­¸éÀ» ¹þ¾î³ªÁö ¾ÊÀ½
-				FLAG_SNAP				= (1 <<  2),	// ½º³À µÉ ¼ö ÀÖ´Â Ã¢
+				FLAG_MOVABLE			= (1 <<  0),	// ì›€ì§ì¼ ìˆ˜ ìžˆëŠ” ì°½
+				FLAG_LIMIT				= (1 <<  1),	// ì°½ì´ í™”ë©´ì„ ë²—ì–´ë‚˜ì§€ ì•ŠìŒ
+				FLAG_SNAP				= (1 <<  2),	// ìŠ¤ëƒ… ë  ìˆ˜ ìžˆëŠ” ì°½
 				FLAG_DRAGABLE			= (1 <<  3),
-				FLAG_ATTACH				= (1 <<  4),	// ¿ÏÀüÈ÷ ºÎ¸ð¿¡ ºÙ¾î ÀÖ´Â Ã¢ (For Drag / ex. ScriptWindow)
-				FLAG_RESTRICT_X			= (1 <<  5),	// ÁÂ¿ì ÀÌµ¿ Á¦ÇÑ
-				FLAG_RESTRICT_Y			= (1 <<  6),	// »óÇÏ ÀÌµ¿ Á¦ÇÑ
+				FLAG_ATTACH				= (1 <<  4),	// ì™„ì „ížˆ ë¶€ëª¨ì— ë¶™ì–´ ìžˆëŠ” ì°½ (For Drag / ex. ScriptWindow)
+				FLAG_RESTRICT_X			= (1 <<  5),	// ì¢Œìš° ì´ë™ ì œí•œ
+				FLAG_RESTRICT_Y			= (1 <<  6),	// ìƒí•˜ ì´ë™ ì œí•œ
 				FLAG_NOT_CAPTURE		= (1 <<  7),
-				FLAG_FLOAT				= (1 <<  8),	// °øÁß¿¡ ¶°ÀÖ¾î¼­ ¼ø¼­ Àç¹èÄ¡°¡ µÇ´Â Ã¢
-				FLAG_NOT_PICK			= (1 <<  9),	// ¸¶¿ì½º¿¡ ÀÇÇØ PickµÇÁö ¾Ê´Â Ã¢
+				FLAG_FLOAT				= (1 <<  8),	// ê³µì¤‘ì— ë– ìžˆì–´ì„œ ìˆœì„œ ìž¬ë°°ì¹˜ê°€ ë˜ëŠ” ì°½
+				FLAG_NOT_PICK			= (1 <<  9),	// ë§ˆìš°ìŠ¤ì— ì˜í•´ Pickë˜ì§€ ì•ŠëŠ” ì°½
 				FLAG_IGNORE_SIZE		= (1 << 10),
 				FLAG_RTL				= (1 << 11),	// Right-to-left
 			};
@@ -91,8 +91,8 @@ namespace UI
 			bool			IsIn(long x, long y);
 			bool			IsIn();
 			CWindow *		PickWindow(long x, long y);
-			CWindow *		PickTopWindow(long x, long y);	// NOTE : ChildrenÀ¸·Î ³»·Á°¡Áö ¾Ê°í »óÀ§¿¡¼­¸¸ 
-															//        Ã¼Å© ÇÏ´Â Æ¯È­µÈ ÇÔ¼ö
+			CWindow *		PickTopWindow(long x, long y);	// NOTE : Childrenìœ¼ë¡œ ë‚´ë ¤ê°€ì§€ ì•Šê³  ìƒìœ„ì—ì„œë§Œ 
+															//        ì²´í¬ í•˜ëŠ” íŠ¹í™”ëœ í•¨ìˆ˜
 
 			void			__RemoveReserveChildren();
 
@@ -166,10 +166,10 @@ namespace UI
 
 			EHorizontalAlign	m_HorizontalAlign;
 			EVerticalAlign		m_VerticalAlign;
-			long				m_x, m_y;				// X,Y »ó´ëÁÂÇ¥
-			long				m_lWidth, m_lHeight;	// Å©±â
-			RECT				m_rect;					// Global ÁÂÇ¥
-			RECT				m_limitBiasRect;		// limit bias °ª
+			long				m_x, m_y;				// X,Y ìƒëŒ€ì¢Œí‘œ
+			long				m_lWidth, m_lHeight;	// í¬ê¸°
+			RECT				m_rect;					// Global ì¢Œí‘œ
+			RECT				m_limitBiasRect;		// limit bias ê°’
 
 			bool				m_bMovable;
 			bool				m_bShow;

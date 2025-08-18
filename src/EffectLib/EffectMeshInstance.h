@@ -9,7 +9,7 @@
 class CEffectMeshInstance : public CEffectElementBaseInstance
 {
 	public:
-		// NOTE : Mesh ´ÜÀ§ ÅØ½ºÃç µ¥ÀÌÅ¸ÀÇ ÀÎ½ºÅÏ½ºÀÌ´Ù.
+		// NOTE : Mesh ë‹¨ìœ„ í…ìŠ¤ì¶° ë°ì´íƒ€ì˜ ì¸ìŠ¤í„´ìŠ¤ì´ë‹¤.
 		typedef struct STextureInstance
 		{
 			CFrameController							TextureFrameController;

@@ -8,7 +8,7 @@
 #include "PropertyLoader.h"
 
 //////////////////////////////////////////////////////////////////////////
-// ±âº» ÇÔ¼ö
+// ê¸°ë³¸ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////
 
 bool CMapManager::IsMapOutdoor()
@@ -184,7 +184,7 @@ float CMapManager::GetHeight(float fx, float fy)
 {
 	if (!m_pkMap)
 	{
-		TraceError("CMapManager::GetHeight(%f, %f) - ¸ÊÀÌ »ı¼ºµÇÁö ¾ÊÀº »óÅÂ¿¡¼­ Á¢±Ù", fx, fy);
+		TraceError("CMapManager::GetHeight(%f, %f) - ë§µì´ ìƒì„±ë˜ì§€ ì•Šì€ ìƒíƒœì—ì„œ ì ‘ê·¼", fx, fy);
 		return 0.0f;
 	}
 	CMapOutdoor& rkMap=GetMapOutdoorRef();
@@ -195,7 +195,7 @@ float CMapManager::GetTerrainHeight(float fx, float fy)
 {
 	if (!m_pkMap)
 	{
-		TraceError("CMapManager::GetTerrainHeight(%f, %f) - ¸ÊÀÌ »ı¼ºµÇÁö ¾ÊÀº »óÅÂ¿¡¼­ Á¢±Ù", fx, fy);
+		TraceError("CMapManager::GetTerrainHeight(%f, %f) - ë§µì´ ìƒì„±ë˜ì§€ ì•Šì€ ìƒíƒœì—ì„œ ì ‘ê·¼", fx, fy);
 		return 0.0f;
 	}
 	CMapOutdoor& rkMap=GetMapOutdoorRef();
@@ -206,7 +206,7 @@ bool CMapManager::GetWaterHeight(int iX, int iY, long * plWaterHeight)
 {
 	if (!m_pkMap)
 	{
-		TraceError("CMapManager::GetTerrainHeight(%f, %f) - ¸ÊÀÌ »ı¼ºµÇÁö ¾ÊÀº »óÅÂ¿¡¼­ Á¢±Ù", iX, iY);
+		TraceError("CMapManager::GetTerrainHeight(%f, %f) - ë§µì´ ìƒì„±ë˜ì§€ ì•Šì€ ìƒíƒœì—ì„œ ì ‘ê·¼", iX, iY);
 		return false;
 	}
 

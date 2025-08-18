@@ -43,10 +43,10 @@ void CMapOutdoor::RenderTerrain()
 	
 	__RenderTerrain_RecurseRenderQuadTree(m_pRootNode);
 	
-	// °Å¸®¼ø Á¤·Ä
+	// ê±°ë¦¬ìˆœ ì •ë ¬
 	std::sort(m_PatchVector.begin(),m_PatchVector.end());
 
-	// ±×¸®±â À§ÇÑ º¤ÅÍ ¼¼ÆÃ
+	// ê·¸ë¦¬ê¸° ìœ„í•œ ë²¡í„° ì„¸íŒ…
 	if (CTerrainPatch::SOFTWARE_TRANSFORM_PATCH_ENABLE)
 		__RenderTerrain_RenderSoftwareTransformPatch();
 	else
@@ -134,13 +134,13 @@ void CMapOutdoor::ApplyLight(DWORD dwVersion, const D3DLIGHT8& c_rkLight)
 	STATEMANAGER.SetLight(0, &c_rkLight);
 }
 
-// 2004. 2. 17. myevan. ¸ğµç ºÎºĞÀ» º¸ÀÌ°Ô ÃÊ±âÈ­ ÇÑ´Ù
+// 2004. 2. 17. myevan. ëª¨ë“  ë¶€ë¶„ì„ ë³´ì´ê²Œ ì´ˆê¸°í™” í•œë‹¤
 void CMapOutdoor::InitializeVisibleParts()
 {
 	m_dwVisiblePartFlags=0xffffffff;
 }
 
-// 2004. 2. 17. myevan. Æ¯Á¤ ºÎºĞÀ» º¸ÀÌ°Ô ÇÏ°Å³ª °¨Ãß´Â ÇÔ¼ö
+// 2004. 2. 17. myevan. íŠ¹ì • ë¶€ë¶„ì„ ë³´ì´ê²Œ í•˜ê±°ë‚˜ ê°ì¶”ëŠ” í•¨ìˆ˜
 void CMapOutdoor::SetVisiblePart(int ePart, bool isVisible)
 {
 	DWORD dwMask=(1<<ePart);
@@ -155,7 +155,7 @@ void CMapOutdoor::SetVisiblePart(int ePart, bool isVisible)
 	}
 }
 
-// 2004. 2. 17. myevan. Æ¯Á¤ ºÎºĞÀÌ º¸ÀÌ´ÂÁö ¾Ë¾Æ³»´Â ÇÔ¼ö
+// 2004. 2. 17. myevan. íŠ¹ì • ë¶€ë¶„ì´ ë³´ì´ëŠ”ì§€ ì•Œì•„ë‚´ëŠ” í•¨ìˆ˜
 bool CMapOutdoor::IsVisiblePart(int ePart)
 {
 	DWORD dwMask=(1<<ePart);
@@ -165,7 +165,7 @@ bool CMapOutdoor::IsVisiblePart(int ePart)
 	return false;
 }
 
-// Splat °³¼ö Á¦ÇÑ
+// Splat ê°œìˆ˜ ì œí•œ
 void CMapOutdoor::SetSplatLimit(int iSplatNum)
 {
 	m_iSplatLimit = iSplatNum;
@@ -355,7 +355,7 @@ struct CMapOutdoor_LessThingInstancePtrRenderOrder
 {
 	bool operator() (CGraphicThingInstance* pkLeft, CGraphicThingInstance* pkRight)
 	{
-		//TODO : CameraÀ§Ä¡±â¹İÀ¸·Î ¼ÒÆÃ
+		//TODO : Cameraìœ„ì¹˜ê¸°ë°˜ìœ¼ë¡œ ì†ŒíŒ…
 		CCamera * pCurrentCamera = CCameraManager::Instance().GetCurrentCamera();
 		const D3DXVECTOR3 & c_rv3CameraPos = pCurrentCamera->GetEye();
 		const D3DXVECTOR3 & c_v3LeftPos  = pkLeft->GetPosition();
@@ -391,7 +391,7 @@ void CMapOutdoor::RenderArea(bool bRenderAmbience)
 	m_dwRenderedGraphicThingInstanceNum = 0;
 	m_dwRenderedCRCWithNumberVector.clear();
 
-	// NOTE - 20041201.levites.´øÁ¯ ±×¸²ÀÚ Ãß°¡
+	// NOTE - 20041201.levites.ë˜ì ¼ ê·¸ë¦¼ì ì¶”ê°€
 	for (int j = 0; j < AROUND_AREA_NUM; ++j)
 	{
 		CArea * pArea;

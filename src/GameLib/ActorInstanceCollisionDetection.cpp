@@ -34,7 +34,7 @@ void CActorInstance::UpdatePointInstance(TCollisionPointInstance * pPointInstanc
 {
 	if (!pPointInstance)
 	{
-		assert(!"CActorInstance::UpdatePointInstance - pPointInstance is NULL"); // ·¹ÆÛ·±½º·Î ±³Ã¼ÇÏ½Ã¿À
+		assert(!"CActorInstance::UpdatePointInstance - pPointInstance is NULL"); // ë ˆí¼ëŸ°ìŠ¤ë¡œ êµì²´í•˜ì‹œì˜¤
 		return;
 	}
 
@@ -95,12 +95,12 @@ void CActorInstance::UpdatePointInstance(TCollisionPointInstance * pPointInstanc
 
 void CActorInstance::UpdateAdvancingPointInstance()
 {
-	// ¸»À» ÅÀÀ» °æ¿ì »ç¶÷Àº ÀÌµ¿°ªÀ» °¡Áö°í ÀÖÁö ¾Ê±â ¶§¹®¿¡ ¸»·Î ºÎÅÍ ¾ò¾î¿Í¾ß ÇÑ´Ù - [levites]
+	// ë§ì„ íƒ”ì„ ê²½ìš° ì‚¬ëŒì€ ì´ë™ê°’ì„ ê°€ì§€ê³  ìˆì§€ ì•Šê¸° ë•Œë¬¸ì— ë§ë¡œ ë¶€í„° ì–»ì–´ì™€ì•¼ í•œë‹¤ - [levites]
 	D3DXVECTOR3 v3Movement = m_v3Movement;
 	if (m_pkHorse)
 		v3Movement = m_pkHorse->m_v3Movement;
 
-	// ¸»Àº ¾÷µ¥ÀÌÆ® ÇÏÁö ¾Ê¾Æµµ µÈ´Ù - [levites]
+	// ë§ì€ ì—…ë°ì´íŠ¸ í•˜ì§€ ì•Šì•„ë„ ëœë‹¤ - [levites]
 	if (m_pkHorse)
 		m_pkHorse->UpdateAdvancingPointInstance();
 
@@ -169,7 +169,7 @@ bool CActorInstance::CheckCollisionDetection(const CDynamicSphereInstanceVector 
 {
 	if (!c_pAttackingSphereVector)
 	{
-		assert(!"CActorInstance::CheckCollisionDetection - c_pAttackingSphereVector is NULL"); // ·¹ÆÛ·±½º·Î ±³Ã¼ÇÏ½Ã¿À
+		assert(!"CActorInstance::CheckCollisionDetection - c_pAttackingSphereVector is NULL"); // ë ˆí¼ëŸ°ìŠ¤ë¡œ êµì²´í•˜ì‹œì˜¤
 		return false;
 	}
 
@@ -186,7 +186,7 @@ bool CActorInstance::CheckCollisionDetection(const CDynamicSphereInstanceVector 
 
 			if (DetectCollisionDynamicSphereVSDynamicSphere(c_rAttackingSphere, c_rDefendingSphere))
 			{
-				// FIXME : µÎ ¿øÀÇ ±³Á¡À» Ã£¾Æ³»´Â ½ÄÀ¸·Î ¹Ù²ã¾ß ÇÑ´Ù.
+				// FIXME : ë‘ ì›ì˜ êµì ì„ ì°¾ì•„ë‚´ëŠ” ì‹ìœ¼ë¡œ ë°”ê¿”ì•¼ í•œë‹¤.
 				*pv3Position = (c_rAttackingSphere.v3Position + c_rDefendingSphere.v3Position) / 2.0f;
 				return true;
 			}
@@ -200,19 +200,19 @@ bool CActorInstance::CreateCollisionInstancePiece(DWORD dwAttachingModelIndex, c
 {
 	if (!c_pAttachingData)
 	{
-		assert(!"CActorInstance::CreateCollisionInstancePiece - c_pAttachingData is NULL"); // ·¹ÆÛ·±½º·Î ±³Ã¼ÇÏ½Ã¿À
+		assert(!"CActorInstance::CreateCollisionInstancePiece - c_pAttachingData is NULL"); // ë ˆí¼ëŸ°ìŠ¤ë¡œ êµì²´í•˜ì‹œì˜¤
 		return false;
 	}
 
 	if (!c_pAttachingData->pCollisionData)
 	{
-		assert(!"CActorInstance::CreateCollisionInstancePiece - c_pAttachingData->pCollisionData is NULL"); // ·¹ÆÛ·±½º·Î ±³Ã¼ÇÏ½Ã¿À
+		assert(!"CActorInstance::CreateCollisionInstancePiece - c_pAttachingData->pCollisionData is NULL"); // ë ˆí¼ëŸ°ìŠ¤ë¡œ êµì²´í•˜ì‹œì˜¤
 		return false;
 	}
 
 	if (!pPointInstance)
 	{
-		assert(!"CActorInstance::CreateCollisionInstancePiece - pPointInstance is NULL"); // ·¹ÆÛ·±½º·Î ±³Ã¼ÇÏ½Ã¿À
+		assert(!"CActorInstance::CreateCollisionInstancePiece - pPointInstance is NULL"); // ë ˆí¼ëŸ°ìŠ¤ë¡œ êµì²´í•˜ì‹œì˜¤
 		return false;
 	}
 
@@ -279,18 +279,18 @@ BOOL CActorInstance::__SplashAttackProcess(CActorInstance & rVictim)
 	const NRaceData::TAttackData & c_rAttackData = c_pAttackingEvent->AttackData;
 	THittedInstanceMap & rHittedInstanceMap = m_kSplashArea.HittedInstanceMap;
 
-	// NOTE : ÀÌ¹Ì ¶§·È´Ù¸é ¶§¸± ¼ö ¾øÀ½
+	// NOTE : ì´ë¯¸ ë•Œë ¸ë‹¤ë©´ ë•Œë¦´ ìˆ˜ ì—†ìŒ
 	if (rHittedInstanceMap.end() != rHittedInstanceMap.find(&rVictim))
 	{
 		return FALSE;
 	}
 
-	// NOTE : Snipe ¸ğµåÀÌ°í..
+	// NOTE : Snipe ëª¨ë“œì´ê³ ..
 	if (NRaceData::ATTACK_TYPE_SNIPE == c_rAttackData.iAttackType)
 	{
-		// Target ÀÌ PC ¶ó¸é..
+		// Target ì´ PC ë¼ë©´..
 		if (__IsFlyTargetPC())
-			// ´Ù¸¥ °´Ã¼´Â ¶§¸± ¼ö ¾ø´Ù
+			// ë‹¤ë¥¸ ê°ì²´ëŠ” ë•Œë¦´ ìˆ˜ ì—†ë‹¤
 			if (!__IsSameFlyTarget(&rVictim))
 				return FALSE;
 
@@ -299,7 +299,7 @@ BOOL CActorInstance::__SplashAttackProcess(CActorInstance & rVictim)
 		{
 			CActorInstance * pActorInstance = (CActorInstance *)m_kFlyTarget.GetFlyTarget();
 
-			// NOTE : Target ÀÌ PC ÀÏ¶§´Â ÇÑ¸í¸¸ ¶§¸± ¼ö ÀÖ´Ù.
+			// NOTE : Target ì´ PC ì¼ë•ŒëŠ” í•œëª…ë§Œ ë•Œë¦´ ìˆ˜ ìˆë‹¤.
 			if (pActorInstance->IsPC())
 				if (&rVictim != pActorInstance)
 					return FALSE;
@@ -333,7 +333,7 @@ BOOL CActorInstance::__SplashAttackProcess(CActorInstance & rVictim)
 BOOL CActorInstance::__NormalAttackProcess(CActorInstance & rVictim)
 {
 	// Check Distance
-	// NOTE - ÀÏ´Ü ±ÙÁ¢ Ã¼Å©¸¸ ÇÏ°í ÀÖÀ½
+	// NOTE - ì¼ë‹¨ ê·¼ì ‘ ì²´í¬ë§Œ í•˜ê³  ìˆìŒ
 	D3DXVECTOR3 v3Distance(rVictim.m_x - m_x, rVictim.m_z - m_z, rVictim.m_z - m_z);
 	float fDistance = D3DXVec3LengthSq(&v3Distance);
 
@@ -362,7 +362,7 @@ BOOL CActorInstance::__NormalAttackProcess(CActorInstance & rVictim)
 	{
 		const NRaceData::THitData & c_rHitData = *itorHitData;
 
-		// NOTE : ÀÌ¹Ì ¸Â¾Ò´ÂÁö Ã¼Å©
+		// NOTE : ì´ë¯¸ ë§ì•˜ëŠ”ì§€ ì²´í¬
 		THitDataMap::iterator itHitData = m_HitDataMap.find(&c_rHitData);
 		if (itHitData != m_HitDataMap.end())
 		{
@@ -437,7 +437,7 @@ BOOL CActorInstance::__NormalAttackProcess(CActorInstance & rVictim)
 							//Tracef(" ----------- Next Hit : %d\n", itHitData->second.size());
 
 							int iCurrentHitCount = itHitData->second.size();
-							// NOTE : º¸Åë °ø°İÀº 16¸íÀÌ ÇÑ°è
+							// NOTE : ë³´í†µ ê³µê²©ì€ 16ëª…ì´ í•œê³„
 							if (NRaceData::MOTION_TYPE_COMBO == pad->iMotionType || NRaceData::MOTION_TYPE_NORMAL == pad->iMotionType)
 							{
 								if (iCurrentHitCount > 16)
@@ -458,7 +458,7 @@ BOOL CActorInstance::__NormalAttackProcess(CActorInstance & rVictim)
 
 						D3DXVECTOR3 v3HitPosition = (GetPosition() + rVictim.GetPosition()) *0.5f;
 
-						// #0000780: [M2KR] ¼ö·æ Å¸°İ±¸ ¹®Á¦
+						// #0000780: [M2KR] ìˆ˜ë£¡ íƒ€ê²©êµ¬ ë¬¸ì œ
 						extern bool IS_HUGE_RACE(unsigned int vnum);
 						if (IS_HUGE_RACE(rVictim.GetRace()))
 						{
@@ -503,8 +503,8 @@ BOOL CActorInstance::TestPhysicsBlendingCollision(CActorInstance & rVictim)
 	if (fDistance > 800.0f*800.0f)
 		return FALSE;
 	
-	// NOTE : °ø°İ ÁßÀÏ¶§´Â Defending Sphere·Î Collision Check¸¦ ÇÕ´Ï´Ù.
-	// NOTE : Wait·Î ºí·»µù µÇ´Â µµÁß¿¡ ¶Õ°í µé¾î°¡´Â ¹®Á¦°¡ ÀÖ¾î¼­.. - [levites]
+	// NOTE : ê³µê²© ì¤‘ì¼ë•ŒëŠ” Defending Sphereë¡œ Collision Checkë¥¼ í•©ë‹ˆë‹¤.
+	// NOTE : Waitë¡œ ë¸”ë Œë”© ë˜ëŠ” ë„ì¤‘ì— ëš«ê³  ë“¤ì–´ê°€ëŠ” ë¬¸ì œê°€ ìˆì–´ì„œ.. - [levites]
 	TCollisionPointInstanceList * pMainList;
 	TCollisionPointInstanceList * pVictimList;
 	if (isAttacking() || IsWaiting())
@@ -589,17 +589,17 @@ BOOL CActorInstance::TestActorCollision(CActorInstance & rVictim)
 		return FALSE;
 
 	// Check Distance
-	// NOTE : Àû´çÈ÷ ¸Ö¸é Ã¼Å© ¾ÈÇÔ
-	//        ÇÁ·¹ÀÓ ½ºÅµ½Ã³ª ´ë»ó ¿ÀºêÁ§Æ®ÀÇ Å©±â°¡ Å¬°æ¿ì ¹®Á¦°¡ »ı±æ ¿©Áö°¡ ÀÖÀ½
-	//        Ä³¸¯ÅÍ°¡ ÀÚ½ÅÀÇ Body Sphere Radius º¸´Ù ´õ Å©°Ô ÀÌµ¿Çß´ÂÁö¸¦ Ã¼Å©ÇÏ°í,
-	//        ¸¸¾à ±×·¸Áö ¾Ê´Ù¸é °Å¸®·Î Ã¼Å©ÇØ¼­ °É·¯ÁØ´Ù.
+	// NOTE : ì ë‹¹íˆ ë©€ë©´ ì²´í¬ ì•ˆí•¨
+	//        í”„ë ˆì„ ìŠ¤í‚µì‹œë‚˜ ëŒ€ìƒ ì˜¤ë¸Œì íŠ¸ì˜ í¬ê¸°ê°€ í´ê²½ìš° ë¬¸ì œê°€ ìƒê¸¸ ì—¬ì§€ê°€ ìˆìŒ
+	//        ìºë¦­í„°ê°€ ìì‹ ì˜ Body Sphere Radius ë³´ë‹¤ ë” í¬ê²Œ ì´ë™í–ˆëŠ”ì§€ë¥¼ ì²´í¬í•˜ê³ ,
+	//        ë§Œì•½ ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ê±°ë¦¬ë¡œ ì²´í¬í•´ì„œ ê±¸ëŸ¬ì¤€ë‹¤.
 	D3DXVECTOR3 v3Distance = D3DXVECTOR3(rVictim.m_x - m_x, rVictim.m_y - m_y, rVictim.m_z - m_z);
 	float fDistance = D3DXVec3LengthSq(&v3Distance);
 	if (fDistance > 800.0f*800.0f)
 		return FALSE;
 	
-	// NOTE : °ø°İ ÁßÀÏ¶§´Â Defending Sphere·Î Collision Check¸¦ ÇÕ´Ï´Ù.
-	// NOTE : Wait·Î ºí·»µù µÇ´Â µµÁß¿¡ ¶Õ°í µé¾î°¡´Â ¹®Á¦°¡ ÀÖ¾î¼­.. - [levites]
+	// NOTE : ê³µê²© ì¤‘ì¼ë•ŒëŠ” Defending Sphereë¡œ Collision Checkë¥¼ í•©ë‹ˆë‹¤.
+	// NOTE : Waitë¡œ ë¸”ë Œë”© ë˜ëŠ” ë„ì¤‘ì— ëš«ê³  ë“¤ì–´ê°€ëŠ” ë¬¸ì œê°€ ìˆì–´ì„œ.. - [levites]
 	TCollisionPointInstanceList * pMainList;
 	TCollisionPointInstanceList * pVictimList;
 	if (isAttacking() || IsWaiting())

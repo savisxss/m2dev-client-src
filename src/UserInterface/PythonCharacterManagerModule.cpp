@@ -5,7 +5,7 @@
 #include "../gamelib/RaceManager.h"
 
 //////////////////////////////////////////////////////////////////////////
-// RaceData ∞¸∑√ Ω√¿€
+// RaceData Í¥ÄÎ†® ÏãúÏûë
 //////////////////////////////////////////////////////////////////////////
 
 PyObject * chrmgrSetEmpireNameMode(PyObject* poSelf, PyObject* poArgs)
@@ -230,7 +230,7 @@ PyObject * chrmgrRegisterNormalAttack(PyObject* poSelf, PyObject* poArgs)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// æ¯æÓ¡˙ «‘ºˆµÈ
+// ÏóÜÏñ¥Ïßà Ìï®ÏàòÎì§
 PyObject * chrmgrReserveComboAttack(PyObject* poSelf, PyObject* poArgs)
 {
 	int iMode;
@@ -270,7 +270,7 @@ PyObject * chrmgrRegisterComboAttack(PyObject* poSelf, PyObject* poArgs)
 	pRaceData->RegisterComboAttack(iMode, 0, iComboIndex, iMotionIndex);
 	return Py_BuildNone();
 }
-// æ¯æÓ¡˙ «‘ºˆµÈ
+// ÏóÜÏñ¥Ïßà Ìï®ÏàòÎì§
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 PyObject * chrmgrReserveComboAttackNew(PyObject* poSelf, PyObject* poArgs)
@@ -520,7 +520,7 @@ PyObject * chrmgrAppendShapeSkin(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildNone();
 }
 //////////////////////////////////////////////////////////////////////////
-// RaceData ∞¸∑√ ≥°
+// RaceData Í¥ÄÎ†® ÎÅù
 //////////////////////////////////////////////////////////////////////////
 
 PyObject * chrmgrSetMovingSpeed(PyObject* poSelf, PyObject* poArgs)
@@ -717,7 +717,7 @@ void initchrmgr()
 {
 	static PyMethodDef s_methods[] =
 	{
-		// RaceData ∞¸∑√		
+		// RaceData Í¥ÄÎ†®		
 		{ "SetEmpireNameMode",			chrmgrSetEmpireNameMode,				METH_VARARGS },
 		{ "GetVIDInfo",					chrmgrGetVIDInfo,						METH_VARARGS },
 		{ "GetPickedVID",				chrmgrGetPickedVID,						METH_VARARGS },
@@ -826,13 +826,13 @@ void initchrmgr()
 	PyModule_AddIntConstant(poModule, "EFFECT_SUCCESS",				CInstanceBase::EFFECT_SUCCESS) ;
 	PyModule_AddIntConstant(poModule, "EFFECT_FAIL",				CInstanceBase::EFFECT_FAIL) ;
 	PyModule_AddIntConstant(poModule, "EFFECT_FR_SUCCESS",				CInstanceBase::EFFECT_FR_SUCCESS) ;	
-	PyModule_AddIntConstant(poModule, "EFFECT_LEVELUP_ON_14_FOR_GERMANY", CInstanceBase::EFFECT_LEVELUP_ON_14_FOR_GERMANY );	//∑π∫ßæ˜ 14¿œ∂ß ( µ∂¿œ¿¸øÎ )
-	PyModule_AddIntConstant(poModule, "EFFECT_LEVELUP_UNDER_15_FOR_GERMANY", CInstanceBase::EFFECT_LEVELUP_UNDER_15_FOR_GERMANY );//∑π∫ßæ˜ 15¿œ∂ß ( µ∂¿œ¿¸øÎ )
+	PyModule_AddIntConstant(poModule, "EFFECT_LEVELUP_ON_14_FOR_GERMANY", CInstanceBase::EFFECT_LEVELUP_ON_14_FOR_GERMANY );	//Î†àÎ≤®ÏóÖ 14ÏùºÎïå ( ÎèÖÏùºÏ†ÑÏö© )
+	PyModule_AddIntConstant(poModule, "EFFECT_LEVELUP_UNDER_15_FOR_GERMANY", CInstanceBase::EFFECT_LEVELUP_UNDER_15_FOR_GERMANY );//Î†àÎ≤®ÏóÖ 15ÏùºÎïå ( ÎèÖÏùºÏ†ÑÏö© )
 	PyModule_AddIntConstant(poModule, "EFFECT_PERCENT_DAMAGE1",				CInstanceBase::EFFECT_PERCENT_DAMAGE1);	
 	PyModule_AddIntConstant(poModule, "EFFECT_PERCENT_DAMAGE2",				CInstanceBase::EFFECT_PERCENT_DAMAGE2);	
 	PyModule_AddIntConstant(poModule, "EFFECT_PERCENT_DAMAGE3",				CInstanceBase::EFFECT_PERCENT_DAMAGE3);
 
-	// ¿⁄µøπ∞æ‡ HP, SP
+	// ÏûêÎèôÎ¨ºÏïΩ HP, SP
 	PyModule_AddIntConstant(poModule, "EFFECT_AUTO_HPUP",					CInstanceBase::EFFECT_AUTO_HPUP);
 	PyModule_AddIntConstant(poModule, "EFFECT_AUTO_SPUP",					CInstanceBase::EFFECT_AUTO_SPUP);
 

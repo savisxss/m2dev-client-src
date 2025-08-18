@@ -474,7 +474,7 @@ void CPythonChat::AppendChat(int iType, const char * c_szChat)
 		TChatSet * pChatSet = &(itor->second);
 		//pChatLine->SetColor(itor->first, GetChatColor(iType));
 
-		// Edit Mode ¸¦ ¾ïÁö·Î ³¢¿ö ¸ÂÃß±â À§ÇØ Ãß°¡
+		// Edit Mode ë¥¼ ì–µì§€ë¡œ ë¼ì›Œ ë§ì¶”ê¸° ìœ„í•´ ì¶”ê°€
 		if (BOARD_STATE_EDIT == pChatSet->m_iBoardState)
 		{
 			ArrangeShowingChat(itor->first);
@@ -512,12 +512,12 @@ DWORD CPythonChat::GetChatColor(int iType)
 void CPythonChat::IgnoreCharacter(const char * c_szName)
 {
 	TIgnoreCharacterSet::iterator itor = m_IgnoreCharacterSet.find(c_szName);
-	// NOTE : ÀÌ¹Ì Â÷´Ü ÁßÀÌ¶ó¸é..
+	// NOTE : ì´ë¯¸ ì°¨ë‹¨ ì¤‘ì´ë¼ë©´..
 	if (m_IgnoreCharacterSet.end() != itor)
 	{
 		m_IgnoreCharacterSet.erase(itor);
 	}
-	// NOTE : Â÷´ÜÀÌ µÇÁö ¾ÊÀº Ä³¸¯ÅÍ¶ó¸é..
+	// NOTE : ì°¨ë‹¨ì´ ë˜ì§€ ì•Šì€ ìºë¦­í„°ë¼ë©´..
 	else
 	{
 		m_IgnoreCharacterSet.insert(c_szName);

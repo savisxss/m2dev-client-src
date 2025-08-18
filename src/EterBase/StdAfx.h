@@ -6,7 +6,7 @@
 #endif
 
 #pragma warning(disable:4710)	// not inlined
-#pragma warning(disable:4786)	// character 255 ³Ñ¾î°¡´Â°Å ²ô±â
+#pragma warning(disable:4786)	// character 255 ë„˜ì–´ê°€ëŠ”ê±° ë„ê¸°
 #pragma warning(disable:4244)	// type conversion possible lose of data
 
 #include <windows.h>

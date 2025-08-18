@@ -328,7 +328,7 @@ void CPythonApplication::UpdateGame()
 
 	DWORD t2=ELTimer_GetMSec();
 
-	//!@# Alt+Tab Áß SetTransfor ¿¡¼­ Æ¨±è Çö»ó ÇØ°áÀ» À§ÇØ - [levites]
+	//!@# Alt+Tab ÃÃŸ SetTransfor Â¿Â¡Â¼Â­ Ã†Â¨Â±Ã¨ Ã‡Ã¶Â»Ã³ Ã‡Ã˜Â°Ã¡Ã€Â» Ã€Â§Ã‡Ã˜ - [levites]
 	//if (m_isActivateWnd)
 	{
 		CScreen s;
@@ -362,8 +362,8 @@ void CPythonApplication::UpdateGame()
 	m_pyPlayer.Update();
 	DWORD t11=ELTimer_GetMSec();
 
-	// NOTE : Update µ¿¾È À§Ä¡ °ªÀÌ ¹Ù²î¹Ç·Î ´Ù½Ã ¾ò¾î ¿É´Ï´Ù - [levites]
-	//        ÀÌ ºÎºĞ ¶§¹®¿¡ ¸ŞÀÎ ÄÉ¸¯ÅÍÀÇ Sound°¡ ÀÌÀü À§Ä¡¿¡¼­ ÇÃ·¹ÀÌ µÇ´Â Çö»óÀÌ ÀÖ¾úÀ½.
+	// NOTE : Update ÂµÂ¿Â¾Ãˆ Ã€Â§Ã„Â¡ Â°ÂªÃ€ÃŒ Â¹Ã™Â²Ã®Â¹Ã‡Â·Ã Â´Ã™Â½Ãƒ Â¾Ã²Â¾Ã® Â¿Ã‰Â´ÃÂ´Ã™ - [levites]
+	//        Ã€ÃŒ ÂºÃÂºÃ Â¶Â§Â¹Â®Â¿Â¡ Â¸ÃÃ€Ã Ã„Ã‰Â¸Â¯Ã…ÃÃ€Ã‡ SoundÂ°Â¡ Ã€ÃŒÃ€Ã¼ Ã€Â§Ã„Â¡Â¿Â¡Â¼Â­ Ã‡ÃƒÂ·Â¹Ã€ÃŒ ÂµÃ‡Â´Ã‚ Ã‡Ã¶Â»Ã³Ã€ÃŒ Ã€Ã–Â¾ÃºÃ€Â½.
 	m_pyPlayer.NEW_GetMainActorPosition(&kPPosMainActor);
 	SetCenterPosition(kPPosMainActor.x, kPPosMainActor.y, kPPosMainActor.z);
 	DWORD t12=ELTimer_GetMSec();
@@ -448,7 +448,7 @@ bool CPythonApplication::Process()
 	m_fGlobalElapsedTime = rkTimer.GetElapsedSecond();
 
 	UINT uiFrameTime = rkTimer.GetElapsedMilliecond();
-	s_uiNextFrameTime += uiFrameTime;	//17 - 1ÃÊ´ç 60fps±âÁØ.
+	s_uiNextFrameTime += uiFrameTime;	//17 - 1ÃƒÃŠÂ´Ã§ 60fpsÂ±Ã¢ÃÃ˜.
 
 	DWORD updatestart = ELTimer_GetMSec();
 #ifdef __PERFORMANCE_CHECK__
@@ -489,7 +489,7 @@ bool CPythonApplication::Process()
 #ifdef __PERFORMANCE_CHECK__
 	DWORD dwUpdateTime5=ELTimer_GetMSec();
 #endif
-	//!@# Alt+Tab Áß SetTransfor ¿¡¼­ Æ¨±è Çö»ó ÇØ°áÀ» À§ÇØ - [levites]
+	//!@# Alt+Tab ÃÃŸ SetTransfor Â¿Â¡Â¼Â­ Ã†Â¨Â±Ã¨ Ã‡Ã¶Â»Ã³ Ã‡Ã˜Â°Ã¡Ã€Â» Ã€Â§Ã‡Ã˜ - [levites]
 	//if (m_isActivateWnd)
 	__UpdateCamera();
 #ifdef __PERFORMANCE_CHECK__
@@ -532,7 +532,7 @@ bool CPythonApplication::Process()
 	}		
 #endif
 
-	//UpdateÇÏ´Âµ¥ °É¸°½Ã°£.delta°ª
+	//UpdateÃ‡ÃÂ´Ã‚ÂµÂ¥ Â°Ã‰Â¸Â°Â½ÃƒÂ°Â£.deltaÂ°Âª
 	m_dwCurUpdateTime = ELTimer_GetMSec() - updatestart;
 
 	DWORD dwCurrentTime = ELTimer_GetMSec();
@@ -548,7 +548,7 @@ bool CPythonApplication::Process()
 		if ( dt >= 500 )
 		{
 			s_uiNextFrameTime += nAdjustTime; 
-			printf("FrameSkip º¸Á¤ %d\n",nAdjustTime);
+			printf("FrameSkip ÂºÂ¸ÃÂ¤ %d\n",nAdjustTime);
 			CTimer::Instance().Adjust(nAdjustTime);
 		}
 
@@ -562,15 +562,15 @@ bool CPythonApplication::Process()
 	//{
 	//	int dt = dwCurrentTime - s_uiNextFrameTime;
 
-	//	//³Ê¹« ´Ê¾úÀ» °æ¿ì µû¶óÀâ´Â´Ù.
-	//	//±×¸®°í m_dwCurUpdateTime´Â deltaÀÎµ¥ delta¶û absolute timeÀÌ¶û ºñ±³ÇÏ¸é ¾îÂ¼ÀÚ´Â°Ü?
+	//	//Â³ÃŠÂ¹Â« Â´ÃŠÂ¾ÃºÃ€Â» Â°Ã¦Â¿Ã¬ ÂµÃ»Â¶Ã³Ã€Ã¢Â´Ã‚Â´Ã™.
+	//	//Â±Ã—Â¸Â®Â°Ã­ m_dwCurUpdateTimeÂ´Ã‚ deltaÃ€ÃÂµÂ¥ deltaÂ¶Ã» absolute timeÃ€ÃŒÂ¶Ã» ÂºÃ±Â±Â³Ã‡ÃÂ¸Ã© Â¾Ã®Ã‚Â¼Ã€ÃšÂ´Ã‚Â°Ãœ?
 	//	//if (dt >= 500 || m_dwCurUpdateTime > s_uiNextFrameTime)
 
-	//	//±âÁ¸ÄÚµå´ë·Î ÇÏ¸é 0.5ÃÊ ÀÌÇÏ Â÷ÀÌ³­ »óÅÂ·Î update°¡ Áö¼ÓµÇ¸é °è¼Ó rendering frame skip¹ß»ı
+	//	//Â±Ã¢ÃÂ¸Ã„ÃšÂµÃ¥Â´Ã«Â·Ã Ã‡ÃÂ¸Ã© 0.5ÃƒÃŠ Ã€ÃŒÃ‡Ã Ã‚Ã·Ã€ÃŒÂ³Â­ Â»Ã³Ã…Ã‚Â·Ã updateÂ°Â¡ ÃÃ¶Â¼Ã“ÂµÃ‡Â¸Ã© Â°Ã¨Â¼Ã“ rendering frame skipÂ¹ÃŸÂ»Ã½
 	//	if (dt >= 500 || m_dwCurUpdateTime > s_uiNextFrameTime)
 	//	{
 	//		s_uiNextFrameTime += dt / uiFrameTime * uiFrameTime; 
-	//		printf("FrameSkip º¸Á¤ %d\n", dt / uiFrameTime * uiFrameTime);
+	//		printf("FrameSkip ÂºÂ¸ÃÂ¤ %d\n", dt / uiFrameTime * uiFrameTime);
 	//		CTimer::Instance().Adjust((dt / uiFrameTime) * uiFrameTime);
 	//		s_bFrameSkip = true;
 	//	}
@@ -598,13 +598,13 @@ bool CPythonApplication::Process()
 
 	if (s_bFrameSkip)
 	{
-	// ÀÌÀü ÇÁ·¹ÀÓµµ ½ºÅµÀÌ¶ó¸é..
+	// Ã€ÃŒÃ€Ã¼ Ã‡ÃÂ·Â¹Ã€Ã“ÂµÂµ Â½ÂºÃ…ÂµÃ€ÃŒÂ¶Ã³Â¸Ã©..
 	if (s_isPrevFrameSkip)
 	{
 	if (s_dwFrameSkipEndTime==0)
 	{
-	s_dwFrameSkipCount=0; // ÇÁ·¹ÀÓ Ã¼Å©´Â ·Îµù ´ëºñ
-	s_dwFrameSkipEndTime=dwFrameSkipCurTime+ERROR_FRAME_SKIP_TIME; // ½Ã°£ Ã¼Å©´Â ·ÎµùÈÄ ÇÁ·¹ÀÓ ½ºÅµ Ã¼Å©
+	s_dwFrameSkipCount=0; // Ã‡ÃÂ·Â¹Ã€Ã“ ÃƒÂ¼Ã…Â©Â´Ã‚ Â·ÃÂµÃ¹ Â´Ã«ÂºÃ±
+	s_dwFrameSkipEndTime=dwFrameSkipCurTime+ERROR_FRAME_SKIP_TIME; // Â½ÃƒÂ°Â£ ÃƒÂ¼Ã…Â©Â´Ã‚ Â·ÃÂµÃ¹ÃˆÃ„ Ã‡ÃÂ·Â¹Ã€Ã“ Â½ÂºÃ…Âµ ÃƒÂ¼Ã…Â©
 
 	//printf("FrameSkipCheck Start\n");
 	}
@@ -620,7 +620,7 @@ bool CPythonApplication::Process()
 	//	s_dwFrameSkipEndTime);
 
 	//#ifndef _DEBUG
-	// ÀÏÁ¤ ½Ã°£µ¿¾È °è¼Ó ÇÁ·¹ÀÓ ½ºÅµ¸¸ ÇÑ´Ù¸é...
+	// Ã€ÃÃÂ¤ Â½ÃƒÂ°Â£ÂµÂ¿Â¾Ãˆ Â°Ã¨Â¼Ã“ Ã‡ÃÂ·Â¹Ã€Ã“ Â½ÂºÃ…ÂµÂ¸Â¸ Ã‡Ã‘Â´Ã™Â¸Ã©...
 	if (s_dwFrameSkipCount>ERROR_FRAME_SKIP_COUNT && s_dwFrameSkipEndTime<dwFrameSkipCurTime)
 	{
 	s_isPrevFrameSkip=false;
@@ -630,7 +630,7 @@ bool CPythonApplication::Process()
 	//m_pyNetworkStream.AbsoluteExitGame();
 
 	/*
-	TraceError("¹«ÇÑ ÇÁ·¹ÀÓ ½ºÅµÀ¸·Î Á¢¼ÓÀ» Á¾·áÇÕ´Ï´Ù");
+	TraceError("Â¹Â«Ã‡Ã‘ Ã‡ÃÂ·Â¹Ã€Ã“ Â½ÂºÃ…ÂµÃ€Â¸Â·Ã ÃÂ¢Â¼Ã“Ã€Â» ÃÂ¾Â·Ã¡Ã‡Ã•Â´ÃÂ´Ã™");
 
 	{
 	FILE* fp=fopen("errorlog.txt", "w");
@@ -705,7 +705,7 @@ bool CPythonApplication::Process()
 			SkipRenderBuffering(3000);
 		}
 
-		// ¸®½ºÅä¾î Ã³¸®¶§¸¦ °í·ÁÇØ ÀÏÁ¤ ½Ã°£µ¿¾ÈÀº ¹öÆÛ¸µÀ» ÇÏÁö ¾Ê´Â´Ù
+		// Â¸Â®Â½ÂºÃ…Ã¤Â¾Ã® ÃƒÂ³Â¸Â®Â¶Â§Â¸Â¦ Â°Ã­Â·ÃÃ‡Ã˜ Ã€ÃÃÂ¤ Â½ÃƒÂ°Â£ÂµÂ¿Â¾ÃˆÃ€Âº Â¹Ã¶Ã†Ã›Â¸ÂµÃ€Â» Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™
 		if (!canRender)
 		{
 			SkipRenderBuffering(3000);
@@ -763,7 +763,7 @@ bool CPythonApplication::Process()
 
 				if (dwCurFaceCount > 5000)
 				{
-					// ÇÁ·¹ÀÓ ¿ÏÃæ Ã³¸®
+					// Ã‡ÃÂ·Â¹Ã€Ã“ Â¿ÃÃƒÃ¦ ÃƒÂ³Â¸Â®
 					if (dwRenderEndTime > m_dwBufSleepSkipTime)
 					{	
 						static float s_fBufRenderTime = 0.0f;
@@ -781,7 +781,7 @@ bool CPythonApplication::Process()
 							s_fBufRenderTime = (s_fBufRenderTime * (100.0f - fRatio) + fCurRenderTime * fRatio) / 100.0f;
 						}
 
-						// ÇÑ°èÄ¡¸¦ Á¤ÇÑ´Ù
+						// Ã‡Ã‘Â°Ã¨Ã„Â¡Â¸Â¦ ÃÂ¤Ã‡Ã‘Â´Ã™
 						if (s_fBufRenderTime > 100.0f)
 							s_fBufRenderTime = 100.0f;
 
@@ -801,8 +801,8 @@ bool CPythonApplication::Process()
 								dwBufRenderTime=8;
 						}
 
-						// ÀÏÁ¤ ÇÁ·¹ÀÓ ¼Óµµ¿¡ ¸ÂÃß¾îÁÖ´ÂÂÊ¿¡ ´«¿¡ ÆíÇÏ´Ù
-						// ¾Æ·¡¿¡¼­ ÇÑ¹ø ÇÏ¸é ‰ç´?
+						// Ã€ÃÃÂ¤ Ã‡ÃÂ·Â¹Ã€Ã“ Â¼Ã“ÂµÂµÂ¿Â¡ Â¸Ã‚ÃƒÃŸÂ¾Ã®ÃÃ–Â´Ã‚Ã‚ÃŠÂ¿Â¡ Â´Â«Â¿Â¡ Ã†Ã­Ã‡ÃÂ´Ã™
+						// Â¾Ã†Â·Â¡Â¿Â¡Â¼Â­ Ã‡Ã‘Â¹Ã¸ Ã‡ÃÂ¸Ã© Â‰Ã§Â´?
 						//if (m_dwCurRenderTime<dwBufRenderTime)
 						//	Sleep(dwBufRenderTime-m_dwCurRenderTime);			
 
@@ -814,7 +814,7 @@ bool CPythonApplication::Process()
 
 					m_fFaceSpd=(m_dwFaceAccCount/m_dwFaceAccTime);
 
-					// °Å¸® ÀÚµ¿ Á¶Àı
+					// Â°Ã…Â¸Â® Ã€ÃšÂµÂ¿ ÃÂ¶Ã€Ã½
 					if (-1 == m_iForceSightRange)
 					{
 						static float s_fAveRenderTime = 16.0f;
@@ -829,7 +829,7 @@ bool CPythonApplication::Process()
 						float fDistance=std::max((float)(fNear+(fFar-fNear)*(dbAvePow)/dbMaxPow), fNear);
 						m_pyBackground.SetViewDistanceSet(0, fDistance);
 					}
-					// °Å¸® °­Á¦ ¼³Á¤½Ã
+					// Â°Ã…Â¸Â® Â°Â­ÃÂ¦ Â¼Â³ÃÂ¤Â½Ãƒ
 					else
 					{
 						m_pyBackground.SetViewDistanceSet(0, float(m_iForceSightRange));
@@ -837,7 +837,7 @@ bool CPythonApplication::Process()
 				}
 				else
 				{
-					// 10000 Æú¸®°ï º¸´Ù ÀûÀ»¶§´Â °¡Àå ¸Ö¸® º¸ÀÌ°Ô ÇÑ´Ù
+					// 10000 Ã†ÃºÂ¸Â®Â°Ã¯ ÂºÂ¸Â´Ã™ Ã€Ã»Ã€Â»Â¶Â§Â´Ã‚ Â°Â¡Ã€Ã¥ Â¸Ã–Â¸Â® ÂºÂ¸Ã€ÃŒÂ°Ã” Ã‡Ã‘Â´Ã™
 					m_pyBackground.SetViewDistanceSet(0, 25600.0f);
 				}
 
@@ -850,7 +850,7 @@ bool CPythonApplication::Process()
 
 	if (rest > 0 && !bCurrentLateUpdate )
 	{
-		s_uiLoad -= rest;	// ½® ½Ã°£Àº ·Îµå¿¡¼­ »«´Ù..
+		s_uiLoad -= rest;	// Â½Â® Â½ÃƒÂ°Â£Ã€Âº Â·ÃÂµÃ¥Â¿Â¡Â¼Â­ Â»Â«Â´Ã™..
 		Sleep(rest);
 	}	
 
@@ -879,12 +879,12 @@ int CPythonApplication::CheckDeviceState()
 
 	switch (e_deviceState)
 	{
-		// µğ¹ÙÀÌ½º°¡ ¾øÀ¸¸é ÇÁ·Î±×·¥ÀÌ Á¾·á µÇ¾î¾ß ÇÑ´Ù.
+		// ÂµÃ°Â¹Ã™Ã€ÃŒÂ½ÂºÂ°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© Ã‡ÃÂ·ÃÂ±Ã—Â·Â¥Ã€ÃŒ ÃÂ¾Â·Ã¡ ÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 	case CGraphicDevice::DEVICESTATE_NULL:
 		return DEVICE_STATE_FALSE;
 
-		// DEVICESTATE_BROKENÀÏ ¶§´Â ´ÙÀ½ ·çÇÁ¿¡¼­ º¹±¸ µÉ ¼ö ÀÖµµ·Ï ¸®ÅÏ ÇÑ´Ù.
-		// ±×³É ÁøÇàÇÒ °æ¿ì DrawPrimitive °°Àº °ÍÀ» ÇÏ¸é ÇÁ·Î±×·¥ÀÌ ÅÍÁø´Ù.
+		// DEVICESTATE_BROKENÃ€Ã Â¶Â§Â´Ã‚ Â´Ã™Ã€Â½ Â·Ã§Ã‡ÃÂ¿Â¡Â¼Â­ ÂºÂ¹Â±Â¸ ÂµÃ‰ Â¼Ã¶ Ã€Ã–ÂµÂµÂ·Ã Â¸Â®Ã…Ã Ã‡Ã‘Â´Ã™.
+		// Â±Ã—Â³Ã‰ ÃÃ¸Ã‡Ã Ã‡Ã’ Â°Ã¦Â¿Ã¬ DrawPrimitive Â°Â°Ã€Âº Â°ÃÃ€Â» Ã‡ÃÂ¸Ã© Ã‡ÃÂ·ÃÂ±Ã—Â·Â¥Ã€ÃŒ Ã…ÃÃÃ¸Â´Ã™.
 	case CGraphicDevice::DEVICESTATE_BROKEN:
 		return DEVICE_STATE_SKIP;
 
@@ -1131,9 +1131,9 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 	m_pyNetworkStream.Discord_Start();
 #endif
 
-	// Ç®½ºÅ©¸° ¸ğµåÀÌ°í
-	// µğÆúÆ® IME ¸¦ »ç¿ëÇÏ°Å³ª À¯·´ ¹öÀüÀÌ¸é
-	// À©µµ¿ì Ç®½ºÅ©¸° ¸ğµå¸¦ »ç¿ëÇÑ´Ù
+	// Ã‡Â®Â½ÂºÃ…Â©Â¸Â° Â¸Ã°ÂµÃ¥Ã€ÃŒÂ°Ã­
+	// ÂµÃ°Ã†ÃºÃ†Â® IME Â¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã…Â³Âª Ã€Â¯Â·Â´ Â¹Ã¶Ã€Ã¼Ã€ÃŒÂ¸Ã©
+	// Ã€Â©ÂµÂµÂ¿Ã¬ Ã‡Â®Â½ÂºÃ…Â©Â¸Â° Â¸Ã°ÂµÃ¥Â¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™
 	if (!m_pySystem.IsWindowed() && (m_pySystem.IsUseDefaultIME() || LocaleService_IsEUROPE()))
 	{
 		m_isWindowed = false;
@@ -1188,7 +1188,7 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 			// Sound
 			if (!m_SoundManager.Create())
 			{
-				// NOTE : Áß±¹ÃøÀÇ ¿äÃ»À¸·Î »ı·«
+				// NOTE : ÃÃŸÂ±Â¹ÃƒÃ¸Ã€Ã‡ Â¿Ã¤ÃƒÂ»Ã€Â¸Â·Ã Â»Ã½Â·Â«
 				//		LogBox(ApplicationStringTable_GetStringz(IDS_WARN_NO_SOUND_DEVICE));
 			}
 		}
@@ -1264,14 +1264,14 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 
 		CGraphicImageInstance::CreateSystem(32);
 
-		// ¹é¾÷
+		// Â¹Ã©Â¾Ã·
 		STICKYKEYS sStickKeys;
 		memset(&sStickKeys, 0, sizeof(sStickKeys));
 		sStickKeys.cbSize = sizeof(sStickKeys);
 		SystemParametersInfo( SPI_GETSTICKYKEYS, sizeof(sStickKeys), &sStickKeys, 0 );
 		m_dwStickyKeysFlag = sStickKeys.dwFlags;
 
-		// ¼³Á¤
+		// Â¼Â³ÃÂ¤
 		sStickKeys.dwFlags &= ~(SKF_AVAILABLE|SKF_HOTKEYACTIVE);
 		SystemParametersInfo( SPI_SETSTICKYKEYS, sizeof(sStickKeys), &sStickKeys, 0 );
 
@@ -1318,8 +1318,8 @@ time_t CPythonApplication::GetServerTime()
 	return (ELTimer_GetMSec() - m_dwStartLocalTime) + m_tServerTime;
 }
 
-// 2005.03.28 - MALL ¾ÆÀÌÅÛ¿¡ µé¾îÀÖ´Â ½Ã°£ÀÇ ´ÜÀ§°¡ ¼­¹ö¿¡¼­ time(0) À¸·Î ¸¸µé¾îÁö´Â
-//              °ªÀÌ±â ¶§¹®¿¡ ´ÜÀ§¸¦ ¸ÂÃß±â À§ÇØ ½Ã°£ °ü·Ã Ã³¸®¸¦ º°µµ·Î Ãß°¡
+// 2005.03.28 - MALL Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ Â½ÃƒÂ°Â£Ã€Ã‡ Â´ÃœÃ€Â§Â°Â¡ Â¼Â­Â¹Ã¶Â¿Â¡Â¼Â­ time(0) Ã€Â¸Â·Ã Â¸Â¸ÂµÃ©Â¾Ã®ÃÃ¶Â´Ã‚
+//              Â°ÂªÃ€ÃŒÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ Â´ÃœÃ€Â§Â¸Â¦ Â¸Ã‚ÃƒÃŸÂ±Ã¢ Ã€Â§Ã‡Ã˜ Â½ÃƒÂ°Â£ Â°Ã¼Â·Ãƒ ÃƒÂ³Â¸Â®Â¸Â¦ ÂºÂ°ÂµÂµÂ·Ã ÃƒÃŸÂ°Â¡
 time_t CPythonApplication::GetServerTimeStamp()
 {
 	return (time(0) - m_tLocalStartTime) + m_tServerTime;
@@ -1440,7 +1440,7 @@ void CPythonApplication::Destroy()
 
 	m_grpDevice.Destroy();
 
-	// FIXME : ¸¸µé¾îÁ® ÀÖÁö ¾ÊÀ½ - [levites]
+	// FIXME : Â¸Â¸ÂµÃ©Â¾Ã®ÃÂ® Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Â½ - [levites]
 	//CSpeedTreeForestDirectX8::Instance().Clear();
 
 	CAttributeInstance::DestroySystem();

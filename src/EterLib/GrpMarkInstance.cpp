@@ -241,7 +241,7 @@ void CGraphicMarkInstance::Initialize()
 
 void CGraphicMarkInstance::Destroy()
 {
-	m_roImage.SetPointer(NULL); // CRef ¿¡¼­ ·¹ÆÛ·±½º Ä«¿îÆ®°¡ ¶³¾îÁ®¾ß ÇÔ.
+	m_roImage.SetPointer(NULL); // CRef ì—ì„œ ë ˆí¼ëŸ°ìŠ¤ ì¹´ìš´íŠ¸ê°€ ë–¨ì–´ì ¸ì•¼ í•¨.
 	Initialize();
 }
 

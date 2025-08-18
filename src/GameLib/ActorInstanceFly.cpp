@@ -107,7 +107,7 @@ void CActorInstance::SetFlyEventHandler(IFlyEventHandler * pHandler)
 	m_pFlyEventHandler = pHandler;
 }
 
-// 2004. 07. 07. [levites] - ½ºÅ³ »ç¿ëÁß Å¸°ÙÀÌ ¹Ù²î´Â ¹®Á¦ ÇØ°áÀ» À§ÇÑ ÄÚµå
+// 2004. 07. 07. [levites] - ìŠ¤í‚¬ ì‚¬ìš©ì¤‘ íƒ€ê²Ÿì´ ë°”ë€ŒëŠ” ë¬¸ì œ í•´ê²°ì„ ìœ„í•œ ì½”ë“œ
 bool CActorInstance::CanChangeTarget()
 {
 	if (__IsNeedFlyTargetMotion())

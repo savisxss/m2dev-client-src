@@ -1,11 +1,11 @@
 #pragma once
 
-// ÆäÀÌµå¾Æ¿ô ±æÀÌ(ÃÊ)
+// í˜ì´ë“œì•„ì›ƒ ê¸¸ì´(ì´ˆ)
 #define		MOVIEMAN_FADE_DURATION		1300
 #define		MOVIEMAN_SKIPPABLE_YES		true
 #define		MOVIEMAN_POSTEFFECT_FADEOUT	1
 
-// µ¿¿µ»ó Àç»ı¿¡ DX 7.0 »ç¿ë
+// ë™ì˜ìƒ ì¬ìƒì— DX 7.0 ì‚¬ìš©
 struct IDirectDraw;
 struct IDirectDrawSurface;
 struct IDirectDrawMediaStream;

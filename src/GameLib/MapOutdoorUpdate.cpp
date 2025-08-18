@@ -8,7 +8,7 @@
 #include "TerrainQuadtree.h"
 #include "ActorInstance.h"
 
-// 2004.08.17.myevan.std::vector ¸¦ »ç¿ëÇÒ °æ¿ì ¸Ş¸ğ¸® Á¢±Ù¿¡ ¿À·¡°É·Á ½ºÅÃÂÊÀ¸·Î °è»êÇÏµµ·Ï ¼öÁ¤
+// 2004.08.17.myevan.std::vector ë¥¼ ì‚¬ìš©í•  ê²½ìš° ë©”ëª¨ë¦¬ ì ‘ê·¼ì— ì˜¤ë˜ê±¸ë ¤ ìŠ¤íƒìª½ìœ¼ë¡œ ê³„ì‚°í•˜ë„ë¡ ìˆ˜ì •
 class PCBlocker_CDynamicSphereInstanceVector
 {
 	public:
@@ -241,7 +241,7 @@ void CMapOutdoor::__Game_UpdateArea(D3DXVECTOR3& v3Player)
 	D3DXVECTOR3 v3Target = pCamera->GetTarget();
 	D3DXVECTOR3 v3Eye= pCamera->GetEye();
 
-	D3DXVECTOR3 v3Light = D3DXVECTOR3(1.732f, 1.0f, -3.464f); // ºûÀÇ ¹æÇâ
+	D3DXVECTOR3 v3Light = D3DXVECTOR3(1.732f, 1.0f, -3.464f); // ë¹›ì˜ ë°©í–¥
 	v3Light *= 50.0f / D3DXVec3Length(&v3Light);
 
 	/*
@@ -744,7 +744,7 @@ void CMapOutdoor::UpdateTerrain(float fX, float fY)
 		
 		ConvertTerrainToTnL(lRealCenterX, lRealCenterY);
 		UpdateAreaList(lRealCenterX, lRealCenterY);
-		//Tracef("»ç¿ëÇÏ´Â Area, Terrain : (%d, %d), Áö¿ï Area, Terrain : (%d, %d)\n",
+		//Tracef("ì‚¬ìš©í•˜ëŠ” Area, Terrain : (%d, %d), ì§€ìš¸ Area, Terrain : (%d, %d)\n",
 		//	m_AreaVector.size(), m_TerrainVector.size(), m_AreaDeleteVector.size(), m_TerrainDeleteVector.size());		
 	}
 }

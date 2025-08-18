@@ -230,7 +230,7 @@ bool CSphereCollisionInstance::OnMovementCollisionDynamicSphere(const CDynamicSp
 {
 	if (square_distance_between_linesegment_and_point(s.v3LastPosition,s.v3Position,m_attribute.v3Position) < (m_attribute.fRadius+s.fRadius)*(m_attribute.fRadius+s.fRadius))
 	{
-		// NOTE : °Å¸®°¡ °¡±î¿ö Á³À»¶§¸¸.. - [levites]
+		// NOTE : ê±°ë¦¬ê°€ ê°€ê¹Œì›Œ ì¡Œì„ë•Œë§Œ.. - [levites]
 		if (GetVector3Distance(s.v3Position, m_attribute.v3Position) <
 			GetVector3Distance(s.v3LastPosition, m_attribute.v3Position))
 			return true;
@@ -324,7 +324,7 @@ bool CPlaneCollisionInstance::OnMovementCollisionDynamicSphere(const CDynamicSph
 				if (D3DXVec3Dot(&v3QuadPosition2, &m_attribute.v3InsideVector[2]) > - s.fRadius/*0.0f*/)
 					if (D3DXVec3Dot(&v3QuadPosition2, &m_attribute.v3InsideVector[3]) > - s.fRadius/*0.0f*/)
 					{
-						// NOTE : °Å¸®°¡ °¡±î¿ö Á³À»¶§¸¸.. - [levites]
+						// NOTE : ê±°ë¦¬ê°€ ê°€ê¹Œì›Œ ì¡Œì„ë•Œë§Œ.. - [levites]
 						const auto _vv__3 = (s.v3Position - m_attribute.v3Position);
 						const auto _vv__4 = (s.v3LastPosition - m_attribute.v3Position);
 						if (fabs(D3DXVec3Dot(&_vv__3, &m_attribute.v3Normal)) <
@@ -478,14 +478,14 @@ bool CCylinderCollisionInstance::OnMovementCollisionDynamicSphere(const CDynamic
 {
 	if (CollideCylinderVSDynamicSphere(m_attribute, s))
 	{
-		// NOTE : °Å¸®°¡ °¡±î¿ö Á³À»¶§¸¸.. - [levites]
+		// NOTE : ê±°ë¦¬ê°€ ê°€ê¹Œì›Œ ì¡Œì„ë•Œë§Œ.. - [levites]
 		if (GetVector3Distance(s.v3Position, m_attribute.v3Position) <
 			GetVector3Distance(s.v3LastPosition, m_attribute.v3Position))
 			return true;
 	}
 
 	
-	// NOTE : ÀÌµ¿ °Å¸®°¡ Å¬ °æ¿ì ºóÆ´¾øÀÌ (¿ø Å©±â ´ÜÀ§·Î) ÀÌµ¿ÇÏ¸é¼­ ÀüºÎ Ã¼Å© ÇØ º»´Ù - [levites]
+	// NOTE : ì´ë™ ê±°ë¦¬ê°€ í´ ê²½ìš° ë¹ˆí‹ˆì—†ì´ (ì› í¬ê¸° ë‹¨ìœ„ë¡œ) ì´ë™í•˜ë©´ì„œ ì „ë¶€ ì²´í¬ í•´ ë³¸ë‹¤ - [levites]
 	D3DXVECTOR3 v3Distance = s.v3Position - s.v3LastPosition;
 	float fDistance = D3DXVec3Length(&v3Distance);
 	if (s.fRadius<=0.0001f)

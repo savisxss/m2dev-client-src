@@ -13,7 +13,7 @@ struct SGuildMark
 	};
 
 	///////////////////////////////////////////////////////////////////////////////
-	Pixel m_apxBuf[SIZE];	// ½ÇÁ¦ ÀÌ¹ÌÁö
+	Pixel m_apxBuf[SIZE];	// ì‹¤ì œ ì´ë¯¸ì§€
 
 	///////////////////////////////////////////////////////////////////////////////
 	void Clear();
@@ -35,11 +35,11 @@ struct SGuildMarkBlock
 	};
 
 	///////////////////////////////////////////////////////////////////////////////
-	Pixel	m_apxBuf[SIZE];	// ½ÇÁ¦ ÀÌ¹ÌÁö
+	Pixel	m_apxBuf[SIZE];	// ì‹¤ì œ ì´ë¯¸ì§€
 
-	uint8_t m_abCompBuf[MAX_COMP_SIZE];	// ¾ĞÃàµÈ µ¥ÀÌÅÍ
-	size_t	m_sizeCompBuf;	// ¾ĞÃàµÈ Å©±â
-	DWORD	m_crc;			// ¾ĞÃàµÈ µ¥ÀÌÅÍÀÇ CRC
+	uint8_t m_abCompBuf[MAX_COMP_SIZE];	// ì••ì¶•ëœ ë°ì´í„°
+	size_t	m_sizeCompBuf;	// ì••ì¶•ëœ í¬ê¸°
+	DWORD	m_crc;			// ì••ì¶•ëœ ë°ì´í„°ì˜ CRC
 
 	///////////////////////////////////////////////////////////////////////////////
 	DWORD	GetCRC() const;
@@ -84,9 +84,9 @@ class CGuildMarkImage
 
 		bool SaveMark(DWORD posMark, uint8_t* pbMarkImage);
 		bool DeleteMark(DWORD posMark);
-		bool SaveBlockFromCompressedData(DWORD posBlock, const uint8_t * pbComp, DWORD dwCompSize); // ¼­¹ö -> Å¬¶óÀÌ¾ğÆ®
+		bool SaveBlockFromCompressedData(DWORD posBlock, const uint8_t * pbComp, DWORD dwCompSize); // ì„œë²„ -> í´ë¼ì´ì–¸íŠ¸
 
-		DWORD GetEmptyPosition(); // ºó ¸¶Å© À§Ä¡¸¦ ¾ò´Â´Ù.
+		DWORD GetEmptyPosition(); // ë¹ˆ ë§ˆí¬ ìœ„ì¹˜ë¥¼ ì–»ëŠ”ë‹¤.
 
 		void GetBlockCRCList(DWORD * crcList);
 		void GetDiffBlocks(const DWORD * crcList, std::map<uint8_t, const SGuildMarkBlock *> & mapDiffBlocks);

@@ -436,7 +436,7 @@ PyObject * chatGetLinkFromHyperlink(PyObject * poSelf, PyObject * poArgs)
 			}
 
 			if (isAttr)
-				//"item:¹øÈ£:ÇÃ·¡±×:¼ÒÄÏ0:¼ÒÄÏ1:¼ÒÄÏ2"
+				//"item:ë²ˆí˜¸:í”Œëž˜ê·¸:ì†Œì¼“0:ì†Œì¼“1:ì†Œì¼“2"
 				snprintf(buf, sizeof(buf), "|cffffc700|H%s|h[%s]|h|r", itemlink, pItemData->GetName());
 			else
 				snprintf(buf, sizeof(buf), "|cfff1e6c0|H%s|h[%s]|h|r", itemlink, pItemData->GetName());

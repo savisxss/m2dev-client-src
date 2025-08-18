@@ -219,7 +219,7 @@ PyObject * chrSelect(PyObject* poSelf, PyObject* poArgs)
 			break;
 
 		default:
-			// NOTE: »¡°£»öÀ¸·Î ³ª¿À°Ô ÇÏ¸é ½º¼¦ ÂïÀ» ¶§ º¸±â°¡ ¾ÈÁÁ¾Æ¼­ ÄÚ¸àÆ® ÇÏ¿´½À´Ï´Ù [cronan 040226]
+			// NOTE: ë¹¨ê°„ìƒ‰ìœ¼ë¡œ ë‚˜ì˜¤ê²Œ í•˜ë©´ ìŠ¤ìƒ· ì°ì„ ë•Œ ë³´ê¸°ê°€ ì•ˆì¢‹ì•„ì„œ ì½”ë©˜íŠ¸ í•˜ì˜€ìŠµë‹ˆë‹¤ [cronan 040226]
 			//pkInst->SetAddColor(D3DXCOLOR(0.3f, 0.0f, 0.0f, 1.0f));
 			break;
 	}
@@ -528,7 +528,7 @@ PyObject * chrRefresh(PyObject* poSelf, PyObject* poArgs)
 	if (!pkInst)
 		return Py_BuildNone();
 
-	// Select È­¸é¿¡¼­´Â WAIT ¸ð¼ÇÀÌ ÁØºñ µÇÁö ¾ÊÀº »óÅÂÀÌ±â ¶§¹®¿¡ ¹®Á¦°¡ »ý±ä´Ù.
+	// Select í™”ë©´ì—ì„œëŠ” WAIT ëª¨ì…˜ì´ ì¤€ë¹„ ë˜ì§€ ì•Šì€ ìƒíƒœì´ê¸° ë•Œë¬¸ì— ë¬¸ì œê°€ ìƒê¸´ë‹¤.
 	//pkInst->Refresh(CRaceMotionData::NAME_WAIT, true);
 	return Py_BuildNone();
 }

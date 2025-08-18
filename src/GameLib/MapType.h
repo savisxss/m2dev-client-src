@@ -182,7 +182,7 @@ typedef struct SEnvironmentData
 	std::string strMainFlareTextureFileName; 
 	float fMainFlareSize;
 	
-	BOOL bReserve; // ¿ÜºÎ¿¡¼­ ¼³Á¤À» °íÄ¡Áö ¾ÊÀ½
+	BOOL bReserve; // ì™¸ë¶€ì—ì„œ ì„¤ì •ì„ ê³ ì¹˜ì§€ ì•ŠìŒ
 } TEnvironmentData;
 
 typedef std::map<DWORD, TEnvironmentData*> TEnvironmentDataMap;

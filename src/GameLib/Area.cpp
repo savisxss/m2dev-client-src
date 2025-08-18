@@ -483,7 +483,7 @@ void CArea::__Load_BuildObjectInstances()
 
 		__SetObjectInstance(*it, c_pObjectData);
 
-		// ÃÖÀûÈ­¿ë
+		// ìµœì í™”ìš©
 		if ((*it)->dwType == prt::PROPERTY_TYPE_BUILDING)
 			m_GraphicThingInstanceCRCMap.insert(TGraphicThingInstanceCRCMap::value_type( (*it)->pThingInstance, c_pObjectData->dwCRC ) );
 	}
@@ -718,7 +718,7 @@ void CArea::__SetObjectInstance_SetDungeonBlock(TObjectInstance * pObjectInstanc
 
 void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_szAttributeFileName)
 {
-	// OBB¸¦ »ç¿ëÇÑ Ãæµ¹ Á¤º¸ ÀÚµ¿ »ı¼º.
+	// OBBë¥¼ ì‚¬ìš©í•œ ì¶©ëŒ ì •ë³´ ìë™ ìƒì„±.
 	const bool bFileExist = CResourceManager::Instance().IsFileExist(c_szAttributeFileName);
 	
 	CAttributeData * pAttributeData = (CAttributeData *) CResourceManager::Instance().GetResourcePointer(c_szAttributeFileName);
@@ -733,7 +733,7 @@ void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_sz
 		std::transform(attrFileName.begin(), attrFileName.end(), attrFileName.begin(), [](unsigned char c) { return std::tolower(c); });
 		const bool bIsDungeonObject = (std::string::npos != attrFileName.find("/dungeon/")) || (std::string::npos != attrFileName.find("\\dungeon\\"));
 
-		// NOTE: dungeon ¿ÀºêÁ§Æ®´Â Dummy CollisionÀ» ÀÚµ¿À¸·Î »ı¼ºÇÏÁö ¾Êµµ·Ï ÇÔ (´øÀüÀÇ °æ¿ì ´õ¹Ì ÄÃ¸®Àü¶§¹®¿¡ ¹®Á¦°¡ µÈ °æ¿ì°¡ ¼öÂ÷·Ê ÀÖ¾úÀ½. ÀÌ·¸°Ô ÇÏ±â·Î ±×·¡ÇÈ ÆÀ°ú ÇùÀÇ ¿Ï·á)
+		// NOTE: dungeon ì˜¤ë¸Œì íŠ¸ëŠ” Dummy Collisionì„ ìë™ìœ¼ë¡œ ìƒì„±í•˜ì§€ ì•Šë„ë¡ í•¨ (ë˜ì „ì˜ ê²½ìš° ë”ë¯¸ ì»¬ë¦¬ì „ë•Œë¬¸ì— ë¬¸ì œê°€ ëœ ê²½ìš°ê°€ ìˆ˜ì°¨ë¡€ ìˆì—ˆìŒ. ì´ë ‡ê²Œ í•˜ê¸°ë¡œ ê·¸ë˜í”½ íŒ€ê³¼ í˜‘ì˜ ì™„ë£Œ)
 		if (pAttributeData->IsEmpty() && false == bIsDungeonObject)
 		{
 			if (NULL != pObjectInstance && NULL != pObjectInstance->pThingInstance)
@@ -775,7 +775,7 @@ void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_sz
 /*
 void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_szAttributeFileName)
 {
-	// AABB¸¦ »ç¿ëÇÑ Ãæµ¹ Á¤º¸ ÀÚµ¿ »ı¼º.
+	// AABBë¥¼ ì‚¬ìš©í•œ ì¶©ëŒ ì •ë³´ ìë™ ìƒì„±.
 	const bool bFileExist = CResourceManager::Instance().IsFileExist(c_szAttributeFileName);
 	
 	CAttributeData * pAttributeData = (CAttributeData *) CResourceManager::Instance().GetResourcePointer(c_szAttributeFileName);
@@ -803,7 +803,7 @@ void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_sz
 				collision.v3Position = (v3Min + v3Max) * 0.5f;
 
 				D3DXVECTOR3 vDelta = (v3Max - v3Min);
-				collision.fDimensions[0] = vDelta.x * 0.5f; // v3Min, v3Max¸¦ ±¸ÇÏ±â À§ÇÑ °¡·Î, ¼¼·Î, ³ôÀÌÀÇ Àı¹İ°ª ÀúÀå
+				collision.fDimensions[0] = vDelta.x * 0.5f; // v3Min, v3Maxë¥¼ êµ¬í•˜ê¸° ìœ„í•œ ê°€ë¡œ, ì„¸ë¡œ, ë†’ì´ì˜ ì ˆë°˜ê°’ ì €ì¥
 				collision.fDimensions[1] = vDelta.y * 0.5f;
 				collision.fDimensions[2] = vDelta.z * 0.5f;
 				
@@ -827,7 +827,7 @@ void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_sz
 /*
 void CArea::__LoadAttribute(TObjectInstance * pObjectInstance, const char * c_szAttributeFileName)
 {
-	// Sphere¸¦ »ç¿ëÇÑ Ãæµ¹ Á¤º¸ ÀÚµ¿ »ı¼º.
+	// Sphereë¥¼ ì‚¬ìš©í•œ ì¶©ëŒ ì •ë³´ ìë™ ìƒì„±.
 	const bool bFileExist = CResourceManager::Instance().IsFileExist(c_szAttributeFileName);
 	
 	CAttributeData * pAttributeData = (CAttributeData *) CResourceManager::Instance().GetResourcePointer(c_szAttributeFileName);
@@ -937,7 +937,7 @@ bool CArea::__Load_LoadObject(const char * c_szFileName)
 		ObjectData.Position.z = atof(c_rstrzPosition.c_str());
 		ObjectData.dwCRC = atoi	(c_rstrCRC.c_str());
 
-		// 20041217.myevan.·ÎÅ×ÀÌ¼Ç °ø½Ä º¯°æ
+		// 20041217.myevan.ë¡œí…Œì´ì…˜ ê³µì‹ ë³€ê²½
 		ObjectData.InitializeRotation(); //ObjectData.m_fYaw = ObjectData.m_fPitch = ObjectData.m_fRoll = 0;
 		if (rVector.size() > 4)
 		{
@@ -1037,7 +1037,7 @@ bool CArea::__Load_LoadAmbience(const char * c_szFileName)
 		ObjectData.dwCRC = atoi	(c_rstrCRC.c_str());
 		ObjectData.dwRange = atoi(c_rstrRange.c_str());
 
-		// 20041217.myevan.·ÎÅ×ÀÌ¼Ç ÃÊ±âÈ­
+		// 20041217.myevan.ë¡œí…Œì´ì…˜ ì´ˆê¸°í™”
 		ObjectData.InitializeRotation();
 		ObjectData.m_fHeightBias = 0.0f;
 		ObjectData.fMaxVolumeAreaPercentage = 0.0f;
@@ -1271,7 +1271,7 @@ void CArea::__Clear_DestroyObjectInstance(TObjectInstance * pObjectInstance)
 
 
 //////////////////////////////////////////////////////////////////////////
-// Coordination °ü·Ã
+// Coordination ê´€ë ¨
 void CArea::GetCoordinate(unsigned short * usCoordX, unsigned short * usCoordY)
 {
 	*usCoordX = m_wX;

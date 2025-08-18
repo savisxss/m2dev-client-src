@@ -19,7 +19,7 @@ void CTextureSet::Create()
 {
 	CResource * pResource = CResourceManager::Instance().GetResourcePointer("d:/ymir work/special/error.tga");
 	m_ErrorTexture.ImageInstance.SetImagePointer(static_cast<CGraphicImage *> (pResource));
-	AddEmptyTexture();	// Áö¿ì°³ ÅØ½ºÃç¸¦ Ã³À½¿¡ Ãß°¡ ÇØ¾ß ÇÔ
+	AddEmptyTexture();	// ì§€ìš°ê°œ í…ìŠ¤ì¶°ë¥¼ ì²˜ìŒì— ì¶”ê°€ í•´ì•¼ í•¨
 }
 
 bool CTextureSet::Load(const char * c_szTextureSetFileName, float fTerrainTexCoordBase)
@@ -194,7 +194,7 @@ bool CTextureSet::AddTexture(const char * c_szFileName,
 {
 	if (GetTextureCount() >= 256)
 	{
-		LogBox("ÅØ½ºÃ³¸¦ ´õ ÀÌ»ó Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.", "ÃÖ´ë ÅØ½ºÃ³ °³¼ö 255°³");
+		LogBox("í…ìŠ¤ì²˜ë¥¼ ë” ì´ìƒ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ìµœëŒ€ í…ìŠ¤ì²˜ ê°œìˆ˜ 255ê°œ");
 		return false;
 	}
 
@@ -202,7 +202,7 @@ bool CTextureSet::AddTexture(const char * c_szFileName,
 	{
 		if (0 == m_Textures[i].stFilename.compare(c_szFileName))
 		{
-			LogBox("µ¿ÀÏÇÑ ÀÌ¸§ÀÇ ÅØ½ºÃ³°¡ ÀÌ¹Ì ÀÖ½À´Ï´Ù.", "Áßº¹");
+			LogBox("ë™ì¼í•œ ì´ë¦„ì˜ í…ìŠ¤ì²˜ê°€ ì´ë¯¸ ìˆìŠµë‹ˆë‹¤.", "ì¤‘ë³µ");
 			return false;
 		}
 	}
@@ -211,7 +211,7 @@ bool CTextureSet::AddTexture(const char * c_szFileName,
 
 	if (!pResource->IsType(CGraphicImage::Type()))
 	{
-		LogBox("CTerrainImpl::GenerateTexture : ÀÌ¹ÌÁö ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù. %s", pResource->GetFileName());
+		LogBox("CTerrainImpl::GenerateTexture : ì´ë¯¸ì§€ íŒŒì¼ì´ ì•„ë‹™ë‹ˆë‹¤. %s", pResource->GetFileName());
 		return false;
 	}
 	
@@ -251,7 +251,7 @@ bool CTextureSet::Save(const char * c_pszFileName)
 	fprintf(pFile, "TextureSet\n");
 	fprintf(pFile, "\n");
 	
-	fprintf(pFile, "TextureCount %ld\n", GetTextureCount() - 1);	// -1 À» ÇÏ´Â ÀÌÀ¯´Â Áö¿ì°³ ¶§¹®ÀÓ
+	fprintf(pFile, "TextureCount %ld\n", GetTextureCount() - 1);	// -1 ì„ í•˜ëŠ” ì´ìœ ëŠ” ì§€ìš°ê°œ ë•Œë¬¸ì„
 	fprintf(pFile, "\n");
 
 	for (DWORD i = 1; i < GetTextureCount(); ++i)

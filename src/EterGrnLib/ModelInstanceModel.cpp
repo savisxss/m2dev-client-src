@@ -161,7 +161,7 @@ void CGrannyModelInstance::__CreateMeshMatrices()
 {
 	assert(m_pModel != NULL);
 	
-	if (m_pModel->GetMeshCount() <= 0) // ¸Þ½¬°¡ ¾ø´Â (Ä«¸Þ¶ó °°Àº) ¸ðµ¨µµ °£È¤ ÀÖ´Ù..
+	if (m_pModel->GetMeshCount() <= 0) // ë©”ì‰¬ê°€ ì—†ëŠ” (ì¹´ë©”ë¼ ê°™ì€) ëª¨ë¸ë„ ê°„í˜¹ ìžˆë‹¤..
 		return;
 	
 	int meshCount = m_pModel->GetMeshCount();	
@@ -274,14 +274,14 @@ const float * CGrannyModelInstance::GetBoneMatrixPointer(int iBone) const
 
 const float * CGrannyModelInstance::GetCompositeBoneMatrixPointer(int iBone) const
 {
-	// NOTE : GrannyGetWorldPose4x4´Â ½ºÄÉÀÏ °ªµîÀÌ Àß¸ø³ª¿Ã ¼ö ÀÖÀ½.. ±×·¡´Ï°¡ ¼Óµµ¸¦ À§ÇØ
-	//        GrannyGetWorldPose4x4¿¡ ¸ðµç matrix ¿ø¼Ò¸¦ Á¦ °ªÀ¸·Î ³ÖÁö ¾ÊÀ½
+	// NOTE : GrannyGetWorldPose4x4ëŠ” ìŠ¤ì¼€ì¼ ê°’ë“±ì´ ìž˜ëª»ë‚˜ì˜¬ ìˆ˜ ìžˆìŒ.. ê·¸ëž˜ë‹ˆê°€ ì†ë„ë¥¼ ìœ„í•´
+	//        GrannyGetWorldPose4x4ì— ëª¨ë“  matrix ì›ì†Œë¥¼ ì œ ê°’ìœ¼ë¡œ ë„£ì§€ ì•ŠìŒ
 	return GrannyGetWorldPoseComposite4x4(__GetWorldPosePtr(), iBone);
 }
 
 void CGrannyModelInstance::ReloadTexture()
 {
-	assert("ÇöÀç »ç¿ëÇÏÁö ¾ÊÀ½ - CGrannyModelInstance::ReloadTexture()");
+	assert("í˜„ìž¬ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ - CGrannyModelInstance::ReloadTexture()");
 /*
 	assert(m_pModel != NULL);
 	const CGrannyMaterialPalette & c_rGrannyMaterialPalette = m_pModel->GetMaterialPalette();

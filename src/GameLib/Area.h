@@ -157,7 +157,7 @@ class CArea
 		typedef std::vector<CDungeonBlock *>				TDungeonBlockInstanceVector;
 		typedef std::vector<TObjectInstance *>				TObjectInstanceVector;
 		typedef std::vector<TAmbienceInstance *>			TAmbienceInstanceVector;
-		typedef std::map<CGraphicThingInstance *, DWORD>	TGraphicThingInstanceCRCMap;	// ÃÖÀûÈ­¿ë by µ¿Çö
+		typedef std::map<CGraphicThingInstance *, DWORD>	TGraphicThingInstanceCRCMap;	// ìµœì í™”ìš© by ë™í˜„
 		typedef std::set<int>								TShowingPortalIDSet;
 
 		typedef struct SCRCWithNumber
@@ -264,7 +264,7 @@ class CArea
 
 	protected:
 		// Static Data
-		TObjectDataVector				m_ObjectDataVector;		// Area »ó¿¡ ÀÖ´Â ¿ÀºêÁ§Æ®µé
+		TObjectDataVector				m_ObjectDataVector;		// Area ìƒì— ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë“¤
 
 		// Rendering Instances
 		TObjectInstanceVector			m_ObjectInstanceVector;
@@ -280,7 +280,7 @@ class CArea
 		TCRCWithNumberVector			m_kRenderedThingInstanceCRCWithNumberVector;
 		TThingInstanceVector			m_kRenderedGrapphicThingInstanceVector;
 
-		// ÁÂÇ¥ : ½É¸®½º ¸Ê ÀüÃ¼ Áß¿¡¼­ÀÇ ÁÂÇ¥... µÑ´Ù 0~999
+		// ì¢Œí‘œ : ì‹¬ë¦¬ìŠ¤ ë§µ ì „ì²´ ì¤‘ì—ì„œì˜ ì¢Œí‘œ... ë‘˜ë‹¤ 0~999
 		WORD							m_wX;
 		WORD							m_wY;
 

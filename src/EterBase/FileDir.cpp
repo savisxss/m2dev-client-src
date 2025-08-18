@@ -60,9 +60,9 @@ bool CDir::Create(const char * c_szFilter, const char* c_szPath, BOOL bCheckedEx
 			if (!c_szExtension)
 				continue;
 
-			// NOTE : ÀÓ½Ã º¯¼ö - [levites]
-			//        ÃÖÁ¾ÀûÀ¸·Î´Â ¹«Á¶°Ç TRUE ÇüÅÂ·Î ¸¸µç´Ù.
-			//        ±×Àü¿¡ Àü ÇÁ·ÎÁ§Æ®ÀÇ CDirÀ» »ç¿ëÇÏ´Â °÷¿¡¼­ ExtensionÀ» "wav", "gr2" ÀÌ·±½ÄÀ¸·Î ³Ö°Ô²û ÇÑ´Ù. - [levites]
+			// NOTE : ì„ì‹œ ë³€ìˆ˜ - [levites]
+			//        ìµœì¢…ì ìœ¼ë¡œëŠ” ë¬´ì¡°ê±´ TRUE í˜•íƒœë¡œ ë§Œë“ ë‹¤.
+			//        ê·¸ì „ì— ì „ í”„ë¡œì íŠ¸ì˜ CDirì„ ì‚¬ìš©í•˜ëŠ” ê³³ì—ì„œ Extensionì„ "wav", "gr2" ì´ëŸ°ì‹ìœ¼ë¡œ ë„£ê²Œë” í•œë‹¤. - [levites]
 			if (bCheckedExtension)
 			{
 				std::string strFilter = c_szFilter;

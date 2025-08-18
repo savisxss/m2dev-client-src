@@ -81,7 +81,7 @@ void CPythonApplication::OnMouseMove(int x, int y)
 			y = Point.y;
 			ClientToScreen(m_hWnd, &Point);
 
-			// 2004.07.26.myevan.¾ÈÃ¶¼öHackShield¿Í Ãæµ¹
+			// 2004.07.26.myevan.ì•ˆì² ìˆ˜HackShieldì™€ ì¶©ëŒ
 			SetCursorPos(Point.x, Point.y);
 
 		}

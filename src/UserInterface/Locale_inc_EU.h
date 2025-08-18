@@ -1,4 +1,4 @@
-#define LOCALE_SERVICE_EUROPE				// À¯·´
+#define LOCALE_SERVICE_EUROPE				// ìœ ëŸ½
 
 #define LSS_SECURITY_KEY		"1234abcd5678efgh"
 

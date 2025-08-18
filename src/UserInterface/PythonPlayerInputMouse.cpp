@@ -100,7 +100,7 @@ void CPythonPlayer::NEW_SetMouseSmartState(int eMBS, bool isAuto)
 	// PrivateShop
 	if (IsOpenPrivateShop())
 	{
-		// ShopPacket ÀÌ ¿À±âÀü Àá±ñ µ¿¾È  
+		// ShopPacket ì´ ì˜¤ê¸°ì „ ìž ê¹ ë™ì•ˆ  
 		m_isSmtMov=false;
 		return;
 	}
@@ -111,7 +111,7 @@ void CPythonPlayer::NEW_SetMouseSmartState(int eMBS, bool isAuto)
 		return;
 	}
 
-	// AFFECT_STUN Ã³¸®
+	// AFFECT_STUN ì²˜ë¦¬
 	if (pkInstMain->IsSleep())
 	{
 		return;
@@ -346,16 +346,16 @@ void CPythonPlayer::NEW_RefreshMouseWalkingDirection()
 			{
 				float fDistance=pkInstMain->GetDistance(pkInstReserved);
 
-				// #0000806: [M2EU] ¼ö·æ¿¡°Ô ¹«»ç(³ªÇÑ±º) ÅºÈ¯°Ý ½ºÅ³ »ç¿ë ¾ÈµÊ
+				// #0000806: [M2EU] ìˆ˜ë£¡ì—ê²Œ ë¬´ì‚¬(ë‚˜í•œêµ°) íƒ„í™˜ê²© ìŠ¤í‚¬ ì‚¬ìš© ì•ˆë¨
 				extern bool IS_HUGE_RACE(unsigned int vnum);
-				if (IS_HUGE_RACE(pkInstReserved->GetRace())) // °Å´ë Á¾Á·Àº ±ÙÁ¢À» ¸øÇÔ
+				if (IS_HUGE_RACE(pkInstReserved->GetRace())) // ê±°ëŒ€ ì¢…ì¡±ì€ ê·¼ì ‘ì„ ëª»í•¨
 				{
-					fDistance -= 200.0f; // TEMP: ÀÏ´Ü ÇÏµå ÄÚµù Ã³¸®. Á¤¼®ÀûÀ¸·Î´Â ¹Ù¿îµå ½ºÇÇ¾î¸¦ °í·ÁÇØ¾ßÇÔ
+					fDistance -= 200.0f; // TEMP: ì¼ë‹¨ í•˜ë“œ ì½”ë”© ì²˜ë¦¬. ì •ì„ì ìœ¼ë¡œëŠ” ë°”ìš´ë“œ ìŠ¤í”¼ì–´ë¥¼ ê³ ë ¤í•´ì•¼í•¨
 				}
 
 				if (fDistance < float(m_dwSkillRangeReserved))
 				{
-					// Á¢±Ù µµÁß Target ÀÌ ¹Ù²î¾î ÀÖÀ» ¼öµµ ÀÖ´Ù - [levites]
+					// ì ‘ê·¼ ë„ì¤‘ Target ì´ ë°”ë€Œì–´ ìžˆì„ ìˆ˜ë„ ìžˆë‹¤ - [levites]
 					SetTarget(m_dwVIDReserved);
 					if (__UseSkill(m_dwSkillSlotIndexReserved))
 						__ClearReservedAction();

@@ -32,11 +32,11 @@ class CGuildMarkManager : public singleton<CGuildMarkManager>
 		//
 		void SetMarkPathPrefix(const char * prefix);
 
-		bool LoadMarkIndex(); // ¸¶Å© ÀÎµ¦½º ºÒ·¯¿À±â (¼­¹ö¿¡¼­¸¸ »ç¿ë)
-		bool SaveMarkIndex(); // ¸¶Å© ÀÎµ¦½º ÀúÀåÇÏ±â
+		bool LoadMarkIndex(); // ë§ˆí¬ ì¸ë±ìŠ¤ ë¶ˆëŸ¬ì˜¤ê¸° (ì„œë²„ì—ì„œë§Œ ì‚¬ìš©)
+		bool SaveMarkIndex(); // ë§ˆí¬ ì¸ë±ìŠ¤ ì €ì¥í•˜ê¸°
 
-		void LoadMarkImages(); // ¸ğµç ¸¶Å© ÀÌ¹ÌÁö¸¦ ºÒ·¯¿À±â
-		void SaveMarkImage(DWORD imgIdx); // ¸¶Å© ÀÌ¹ÌÁö ÀúÀå
+		void LoadMarkImages(); // ëª¨ë“  ë§ˆí¬ ì´ë¯¸ì§€ë¥¼ ë¶ˆëŸ¬ì˜¤ê¸°
+		void SaveMarkImage(DWORD imgIdx); // ë§ˆí¬ ì´ë¯¸ì§€ ì €ì¥
 
 		bool GetMarkImageFilename(DWORD imgIdx, std::string & path) const;
 		bool AddMarkIDByGuildID(DWORD guildID, DWORD markID);

@@ -18,8 +18,8 @@ class CGraphicCollisionObject : public CGraphicBase
 		bool IntersectSphere(const D3DXVECTOR3 & c_rv3Position, float fRadius, const D3DXVECTOR3 & c_rv3RayOriginal, const D3DXVECTOR3 & c_rv3RayDirection);
 		bool IntersectCylinder(const D3DXVECTOR3 & c_rv3Position, float fRadius, float fHeight, const D3DXVECTOR3 & c_rv3RayOriginal, const D3DXVECTOR3 & c_rv3RayDirection);
 
-		// NOTE : ms_vtPickRayOrig¿Í ms_vtPickRayDir¸¦ CGraphicBGase°¡ °¡Áö°í ÀÖ´Âµ¥
-		//        ±»ÀÌ ÀÎÀÚ·Î ³Ö¾îÁà¾ß ÇÏ´Â ÀÌÀ¯°¡ ÀÖ´Â°¡? Customize¸¦ À§ÇØ¼­? - [levites]
+		// NOTE : ms_vtPickRayOrigì™€ ms_vtPickRayDirë¥¼ CGraphicBGaseê°€ ê°€ì§€ê³  ìˆëŠ”ë°
+		//        êµ³ì´ ì¸ìë¡œ ë„£ì–´ì¤˜ì•¼ í•˜ëŠ” ì´ìœ ê°€ ìˆëŠ”ê°€? Customizeë¥¼ ìœ„í•´ì„œ? - [levites]
 		bool IntersectSphere(const D3DXVECTOR3 & c_rv3Position, float fRadius);
 		bool IntersectCylinder(const D3DXVECTOR3 & c_rv3Position, float fRadius, float fHeight);
 };

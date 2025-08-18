@@ -75,13 +75,13 @@ int						CGraphicBase::ms_iWavingPower;
 DWORD					CGraphicBase::ms_dwFlashingEndTime;
 D3DXCOLOR				CGraphicBase::ms_FlashingColor;
 
-// Terrain picking¿ë Ray... CCamera ÀÌ¿ëÇÏ´Â ¹öÀü.. ±âÁ¸ÀÇ Ray¿Í ÅëÇÕ ÇÊ¿ä...
+// Terrain pickingìš© Ray... CCamera ì´ìš©í•˜ëŠ” ë²„ì „.. ê¸°ì¡´ì˜ Rayì™€ í†µí•© í•„ìš”...
 CRay					CGraphicBase::ms_Ray;
 bool					CGraphicBase::ms_bSupportDXT = true;
 bool					CGraphicBase::ms_isLowTextureMemory = false;
 bool					CGraphicBase::ms_isHighTextureMemory = false;
 
-// 2004.11.18.myevan.DynamicVertexBuffer·Î ±³Ã¼
+// 2004.11.18.myevan.DynamicVertexBufferë¡œ êµì²´
 /*
 std::vector<TIndex>		CGraphicBase::ms_lineIdxVector;
 std::vector<TIndex>		CGraphicBase::ms_lineTriIdxVector;

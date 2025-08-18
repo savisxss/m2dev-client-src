@@ -38,7 +38,7 @@ void CPythonPlayer::SetAffect(UINT uAffect)
 
 void CPythonPlayer::ResetAffect(UINT uAffect)
 {
-	// 2004.07.17.myevan.½ºÅ³ ¾Æ´Ñ ÀÌÆåÆ®°¡ ¾È »ç¶óÁö´Â ¹®Á¦ 
+	// 2004.07.17.myevan.ìŠ¤í‚¬ ì•„ë‹Œ ì´í™íŠ¸ê°€ ì•ˆ ì‚¬ë¼ì§€ëŠ” ë¬¸ì œ 
 	PyCallClassMemberFunc(m_ppyGameWindow, "ResetAffect", Py_BuildValue("(i)", uAffect));
 
 	DWORD dwSkillIndex;
@@ -196,8 +196,8 @@ bool CPythonPlayer::__CheckSkillUsable(DWORD dwSlotIndex)
 		}
 	}
 
-	// 2004.07.26.levites - ¾ÈÀüÁö´ë¿¡¼­ °ø°İ ¸øÇÏµµ·Ï ¼öÁ¤
-	// NOTE : °ø°İ ½ºÅ³Àº ¾ÈÀüÁö´ë¿¡¼­ »ç¿ëÇÏÁö ¸øÇÕ´Ï´Ù - [levites]
+	// 2004.07.26.levites - ì•ˆì „ì§€ëŒ€ì—ì„œ ê³µê²© ëª»í•˜ë„ë¡ ìˆ˜ì •
+	// NOTE : ê³µê²© ìŠ¤í‚¬ì€ ì•ˆì „ì§€ëŒ€ì—ì„œ ì‚¬ìš©í•˜ì§€ ëª»í•©ë‹ˆë‹¤ - [levites]
 	if (pSkillData->IsAttackSkill())
 	{
 		if (pkInstMain->IsInSafe())
@@ -208,13 +208,13 @@ bool CPythonPlayer::__CheckSkillUsable(DWORD dwSlotIndex)
 		}
 	}	
 
-	// NOTE : ÆĞ½Ãºê ½ºÅ³Àº »ç¿ëÇÏÁö ¸øÇÕ´Ï´Ù - [levites]
+	// NOTE : íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ì€ ì‚¬ìš©í•˜ì§€ ëª»í•©ë‹ˆë‹¤ - [levites]
 	if (!pSkillData->IsCanUseSkill())
 		return false;
 //	if (CPythonSkill::SKILL_TYPE_PASSIVE == pSkillData->byType)
 //		return false;
 
-	// NOTE : [Only Assassin] ºóº´ÀÌ ÀÖ´ÂÁö Ã¼Å© ÇÕ´Ï´Ù.
+	// NOTE : [Only Assassin] ë¹ˆë³‘ì´ ìˆëŠ”ì§€ ì²´í¬ í•©ë‹ˆë‹¤.
 	if (pSkillData->IsNeedEmptyBottle())
 	{
 		if (!__HasItem(27995))
@@ -224,7 +224,7 @@ bool CPythonPlayer::__CheckSkillUsable(DWORD dwSlotIndex)
 		}
 	}
 
-	// NOTE : [Only Assassin] µ¶º´ÀÌ ÀÖ´ÂÁö Ã¼Å© ÇÕ´Ï´Ù.
+	// NOTE : [Only Assassin] ë…ë³‘ì´ ìˆëŠ”ì§€ ì²´í¬ í•©ë‹ˆë‹¤.
 	if (pSkillData->IsNeedPoisonBottle())
 	{
 		if (!__HasItem(27996))
@@ -234,14 +234,14 @@ bool CPythonPlayer::__CheckSkillUsable(DWORD dwSlotIndex)
 		}
 	}
 
-	// NOTE : ³¬½Ã ÁßÀÏ¶§´Â ½ºÅ³À» »ç¿ëÇÏÁö ¸øÇÕ´Ï´Ù.
+	// NOTE : ë‚šì‹œ ì¤‘ì¼ë•ŒëŠ” ìŠ¤í‚¬ì„ ì‚¬ìš©í•˜ì§€ ëª»í•©ë‹ˆë‹¤.
 	if (pkInstMain->IsFishingMode())
 	{
 		PyCallClassMemberFunc(m_ppyGameWindow, "OnCannotUseSkill", Py_BuildValue("(is)", GetMainCharacterIndex(), "REMOVE_FISHING_ROD"));
 		return false;
 	}
 
-	// NOTE : ·¹º§ Ã¼Å©
+	// NOTE : ë ˆë²¨ ì²´í¬
 	if (m_sysIsLevelLimit)
 	{
 		if (rkSkillInst.iLevel <= 0)
@@ -251,19 +251,19 @@ bool CPythonPlayer::__CheckSkillUsable(DWORD dwSlotIndex)
 		}
 	}
 
-	// NOTE : µé°í ÀÖ´Â ¹«±â Ã¼Å©
+	// NOTE : ë“¤ê³  ìˆëŠ” ë¬´ê¸° ì²´í¬
 	if (!pSkillData->CanUseWeaponType(pkInstMain->GetWeaponType()))
 	{
 		PyCallClassMemberFunc(m_ppyGameWindow, "OnCannotUseSkill", Py_BuildValue("(is)", GetMainCharacterIndex(), "NOT_MATCHABLE_WEAPON"));
 		return false;
 	}
 
-	if (!pSkillData->IsHorseSkill()) // HORSE ½ºÅ³ Áß¿¡ È­»ìÀ» ¾²Áö ¾Ê´Â ½ºÅ³ÀÌ ÀÖ±â ¶§¹®¿¡
+	if (!pSkillData->IsHorseSkill()) // HORSE ìŠ¤í‚¬ ì¤‘ì— í™”ì‚´ì„ ì“°ì§€ ì•ŠëŠ” ìŠ¤í‚¬ì´ ìˆê¸° ë•Œë¬¸ì—
 	{
 		if (__CheckShortArrow(rkSkillInst, *pSkillData))
 			return false;
 
-		// NOTE : È°ÀÌ ÇÊ¿äÇÒ °æ¿ì È­»ì °³¼ö Ã¼Å©
+		// NOTE : í™œì´ í•„ìš”í•  ê²½ìš° í™”ì‚´ ê°œìˆ˜ ì²´í¬
 		if (pSkillData->IsNeedBow())
 		{
 			if (!__HasEnoughArrow())
@@ -326,7 +326,7 @@ bool CPythonPlayer::__CheckShortMana(TSkillInstance& rkSkillInst, CPythonSkill::
 	int iNeedSP = rkSkillData.GetNeedSP(rkSkillInst.fcurEfficientPercentage);
 	int icurSP = GetStatus(POINT_SP);
 
-	// NOTE : ToggleSkill ÀÌ ¾Æ´Ñµ¥ ¼Ò¸ğ SP °¡ 0 ÀÌ´Ù.
+	// NOTE : ToggleSkill ì´ ì•„ë‹Œë° ì†Œëª¨ SP ê°€ 0 ì´ë‹¤.
 	if (!rkSkillData.IsToggleSkill())
 	{
 		if (iNeedSP == 0)
@@ -400,13 +400,13 @@ bool CPythonPlayer::__ProcessEnemySkillTargetRange(CInstanceBase& rkInstMain, CI
 	if (fSkillTargetRange <= 0.0f)
 		return true;
 
-	// #0000806: [M2EU] ¼ö·æ¿¡°Ô ¹«»ç(³ªÇÑ±º) ÅºÈ¯°İ ½ºÅ³ »ç¿ë ¾ÈµÊ	
+	// #0000806: [M2EU] ìˆ˜ë£¡ì—ê²Œ ë¬´ì‚¬(ë‚˜í•œêµ°) íƒ„í™˜ê²© ìŠ¤í‚¬ ì‚¬ìš© ì•ˆë¨	
 	float fTargetDistance = rkInstMain.GetDistance(&rkInstTarget);
 
 	extern bool IS_HUGE_RACE(unsigned int vnum);
 	if (IS_HUGE_RACE(rkInstTarget.GetRace()))
 	{
-		fTargetDistance -= 200.0f; // TEMP: ÀÏ´Ü ÇÏµå ÄÚµù Ã³¸®. Á¤¼®ÀûÀ¸·Î´Â ¹Ù¿îµå ½ºÇÇ¾î¸¦ °í·ÁÇØ¾ßÇÔ
+		fTargetDistance -= 200.0f; // TEMP: ì¼ë‹¨ í•˜ë“œ ì½”ë”© ì²˜ë¦¬. ì •ì„ì ìœ¼ë¡œëŠ” ë°”ìš´ë“œ ìŠ¤í”¼ì–´ë¥¼ ê³ ë ¤í•´ì•¼í•¨
 	}
 
 	if (fTargetDistance >= fSkillTargetRange)
@@ -422,7 +422,7 @@ bool CPythonPlayer::__ProcessEnemySkillTargetRange(CInstanceBase& rkInstMain, CI
 		return false;
 	}
 
-	// 2004.07.05.myevan. ±Ã½ÅÅº¿µ »ç¿ë½Ã ¸Ê¿¡ ³¢ÀÓ. »ç¿ëÇÏ±âÀü °¥¼ö ÀÖ´Â°÷ Ã¼Å©
+	// 2004.07.05.myevan. ê¶ì‹ íƒ„ì˜ ì‚¬ìš©ì‹œ ë§µì— ë¼ì„. ì‚¬ìš©í•˜ê¸°ì „ ê°ˆìˆ˜ ìˆëŠ”ê³³ ì²´í¬
 	TPixelPosition kPPosTarget;
 	rkInstTarget.NEW_GetPixelPosition(&kPPosTarget);
 
@@ -446,8 +446,8 @@ bool CPythonPlayer::__CanUseSkill()
 		return false;
 
 	// Fix me
-	// ´º¸¶¿îÆ®. ½Â¸¶½ºÅ³·¹º§ 20 ¹Ì¸¸ÀÎ °æ¿ì, °í±Ş ¸¶¿îÆ®¸¦ Å¸°í ½Â¸¶ °ü·Ã ½ºÅ³ ¸ø ¾²µµ·Ï ¸øÇÏµµ·Ï ÇÏµå ÄÚµù... 
-	// ³ªÁß¿¡ ½Ã°£ ³ª¸é can use skill Ã¼Å©¸¦ ¼­¹ö¿¡¼­ ÇØÁÖÀÚ...
+	// ë‰´ë§ˆìš´íŠ¸. ìŠ¹ë§ˆìŠ¤í‚¬ë ˆë²¨ 20 ë¯¸ë§Œì¸ ê²½ìš°, ê³ ê¸‰ ë§ˆìš´íŠ¸ë¥¼ íƒ€ê³  ìŠ¹ë§ˆ ê´€ë ¨ ìŠ¤í‚¬ ëª» ì“°ë„ë¡ ëª»í•˜ë„ë¡ í•˜ë“œ ì½”ë”©... 
+	// ë‚˜ì¤‘ì— ì‹œê°„ ë‚˜ë©´ can use skill ì²´í¬ë¥¼ ì„œë²„ì—ì„œ í•´ì£¼ì...
 	if (pkInstMain->IsMountingHorse() && (GetSkillGrade(109) < 1 && GetSkillLevel(109) < 20))
 	{
 		return false;
@@ -518,7 +518,7 @@ bool CPythonPlayer::__UseSkill(DWORD dwSlotIndex)
 
 	CInstanceBase * pkInstTarget = NULL;
 
-	// NOTE : Å¸°ÙÀÌ ÇÊ¿äÇÑ °æ¿ì
+	// NOTE : íƒ€ê²Ÿì´ í•„ìš”í•œ ê²½ìš°
 	if (pSkillData->IsNeedTarget() ||
 		pSkillData->CanChangeDirection() ||
 		pSkillData->IsAutoSearchTarget())
@@ -528,13 +528,13 @@ bool CPythonPlayer::__UseSkill(DWORD dwSlotIndex)
 		else
 			pkInstTarget=__GetAliveTargetInstancePtr();
 
-		// ÇöÀç Å¸°ÙÀÌ ¾øÀ¸¸é..
+		// í˜„ì¬ íƒ€ê²Ÿì´ ì—†ìœ¼ë©´..
 		if (!pkInstTarget)
 		{
-			// ¾÷µ¥ÀÌÆ®ÇÏ°í..
+			// ì—…ë°ì´íŠ¸í•˜ê³ ..
 			__ChangeTargetToPickedInstance();
 
-			// ´Ù½Ã ¾ò¾î³½´Ù.
+			// ë‹¤ì‹œ ì–»ì–´ë‚¸ë‹¤.
 			if (pSkillData->IsNeedCorpse())
 				pkInstTarget=__GetDeadTargetInstancePtr();
 			else
@@ -572,7 +572,7 @@ bool CPythonPlayer::__UseSkill(DWORD dwSlotIndex)
 					if (pSkillData->CanUseForMe())
 					{
 						pkInstTarget = pkInstMain;
-						Tracef(" [ALERT] µ¿·á¿¡°Ô »ç¿ëÇÏ´Â ±â¼úÀÓ¿¡µµ Àû¿¡°Ô Å¸°ÙÆÃ µÇ¾îÀÖ¾î¼­ ÀÚ½Å¿¡°Ô·Î Àç¼³Á¤\n");
+						Tracef(" [ALERT] ë™ë£Œì—ê²Œ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ ì„ì—ë„ ì ì—ê²Œ íƒ€ê²ŸíŒ… ë˜ì–´ìˆì–´ì„œ ìì‹ ì—ê²Œë¡œ ì¬ì„¤ì •\n");
 					}
 					else
 					{
@@ -636,7 +636,7 @@ bool CPythonPlayer::__UseSkill(DWORD dwSlotIndex)
 			{
 				pkInstTarget = pkInstMain;
 				pkInstMain->SetFlyTargetInstance(*pkInstMain);
-				Tracef(" [ALERT] Å¸°ÙÀÌ ¾ø¾î¼­ ÇÃ·¹ÀÌ¾î¿¡°Ô »ç¿ëÇÕ´Ï´Ù\n");
+				Tracef(" [ALERT] íƒ€ê²Ÿì´ ì—†ì–´ì„œ í”Œë ˆì´ì–´ì—ê²Œ ì‚¬ìš©í•©ë‹ˆë‹¤\n");
 			}
 			else if (pSkillData->IsNeedCorpse())
 			{
@@ -672,11 +672,11 @@ bool CPythonPlayer::__UseSkill(DWORD dwSlotIndex)
 		}
 		else
 		{
-			Tracenf("CPythonPlayer::__UseSkill(%d) - È­¸é ±âÁØ ¹æÇâ ¼³Á¤À» ÇØ¾ßÇÔ", dwSlotIndex);
+			Tracenf("CPythonPlayer::__UseSkill(%d) - í™”ë©´ ê¸°ì¤€ ë°©í–¥ ì„¤ì •ì„ í•´ì•¼í•¨", dwSlotIndex);
 		}
 	}
 
-	// °ü°İ¼ú Ã³¸®
+	// ê´€ê²©ìˆ  ì²˜ë¦¬
 	DWORD dwTargetMaxCount = pSkillData->GetTargetCount(rkSkillInst.fcurEfficientPercentage);
 	DWORD dwRange = __GetSkillTargetRange(*pSkillData);
 	if (dwTargetMaxCount>0 && pkInstTarget)
@@ -748,7 +748,7 @@ bool CPythonPlayer::__UseSkill(DWORD dwSlotIndex)
 	}
 
 	/////
-	// NOTE : ¸Ö¸®¼­ ÀûÀ» Å¬¸¯ÇØ³õ°í ½ºÅ³À» ¾²¸é ½ºÅ³À» ¾´µÚ ¹Ù·Î ÀûÀ» °ø°İÇÏ´Â ¹®Á¦¸¦ ¼öÁ¤ÇÏ±â À§ÇÑ ÄÚµå - [levites]
+	// NOTE : ë©€ë¦¬ì„œ ì ì„ í´ë¦­í•´ë†“ê³  ìŠ¤í‚¬ì„ ì“°ë©´ ìŠ¤í‚¬ì„ ì“´ë’¤ ë°”ë¡œ ì ì„ ê³µê²©í•˜ëŠ” ë¬¸ì œë¥¼ ìˆ˜ì •í•˜ê¸° ìœ„í•œ ì½”ë“œ - [levites]
 	__ClearReservedAction();
 	/////
 

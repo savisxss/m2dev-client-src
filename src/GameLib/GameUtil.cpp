@@ -99,7 +99,7 @@ bool DetectCollisionDynamicSphereVSDynamicSphere(const CDynamicSphereInstance & 
 	float ta = D3DXVec3Dot(&p,&da)/la/la;
 	float tb = D3DXVec3Dot(&p,&db)/lb/lb;
 
-	// FIXME ±¸ Ã¼Å©°¡ ¾Æ´Ï´Ù
+	// FIXME êµ¬ ì²´í¬ê°€ ì•„ë‹ˆë‹¤
 
 	if (ta<0)
 		return false;
@@ -148,7 +148,7 @@ bool DetectCollisionDynamicSphereVSDynamicSphere(const CDynamicSphereInstance & 
 	//*/
 
 	/*
-	// NOTE : AABB Ã¼Å© ÇÒ °Í
+	// NOTE : AABB ì²´í¬ í•  ê²ƒ
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	D3DXVECTOR3 v3Distance = c_rSphere1.v3Position - c_rSphere2.v3Position;
 	float fDistance = D3DXVec3Length(&v3Distance);
@@ -275,15 +275,15 @@ bool DetectCollisionStaticSphereVSStaticCylinder(const TSphereData & c_rSphere, 
 
 bool IsCWAcuteAngle(float begin, float end)
 {
-	// 360 - src + dest		// ½Ã°è ¹İ´ë ¹æÇâ
-	// src - dest			// ½Ã°è ¹æÇâ
+	// 360 - src + dest		// ì‹œê³„ ë°˜ëŒ€ ë°©í–¥
+	// src - dest			// ì‹œê³„ ë°©í–¥
 	return ((360.0f - begin + end) > (begin - end));
 }
 
 bool IsCCWAcuteAngle(float begin, float end)
 {
-	// abs(360 - dest + src) 	// ½Ã°è ¹æÇâ
-	// dest - src				// ½Ã°è ¹İ´ë ¹æÇâ
+	// abs(360 - dest + src) 	// ì‹œê³„ ë°©í–¥
+	// dest - src				// ì‹œê³„ ë°˜ëŒ€ ë°©í–¥
 	int fValue = abs((int) (360.0f - end + begin));
 	return fValue >= (end - begin) ? true : false;
 }
@@ -299,7 +299,7 @@ bool IsCCWRotation(float begin, float end)
 	// 270      90
 	//      0
 	//
-	// ½Ã°è ¹İ´ë
+	// ì‹œê³„ ë°˜ëŒ€
 	return (begin - end < 0);
 }
 
