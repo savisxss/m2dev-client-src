@@ -387,7 +387,7 @@ bool CPythonSystem::LoadConfig()
 {
 	FILE * fp = NULL;
 
-	if (NULL == (fp = fopen("metin2.cfg", "rt")))
+	if (NULL == (fp = fopen("config/metin2.cfg", "rt")))
 		return false;
 
 	char buf[256];
@@ -496,7 +496,7 @@ bool CPythonSystem::SaveConfig()
 {
 	FILE *fp;
 
-	if (NULL == (fp = fopen("metin2.cfg", "wt")))
+	if (NULL == (fp = fopen("config/metin2.cfg", "wt")))
 		return false;
 
 	fprintf(fp, "WIDTH						%d\n"
@@ -551,7 +551,7 @@ bool CPythonSystem::SaveConfig()
 bool CPythonSystem::LoadInterfaceStatus()
 {
 	FILE * File;
-	File = fopen("interface.cfg", "rb");
+	File = fopen("config/interface.cfg", "rb");
 
 	if (!File)
 		return false;
@@ -570,7 +570,7 @@ void CPythonSystem::SaveInterfaceStatus()
 
 	FILE * File;
 
-	File = fopen("interface.cfg", "wb");
+	File = fopen("config/interface.cfg", "wb");
 
 	if (!File)
 	{

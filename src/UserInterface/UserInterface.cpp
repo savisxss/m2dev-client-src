@@ -501,7 +501,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	ApplicationStringTable_Initialize(hInstance);
 
-	LocaleService_LoadConfig("locale.cfg");
+	LocaleService_LoadConfig("config/locale.cfg");
 	SetDefaultCodePage(LocaleService_GetCodePage());	
 
 #ifdef XTRAP_CLIENT_ENABLE
