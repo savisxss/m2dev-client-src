@@ -41,6 +41,7 @@ target_link_libraries(UserInterface
 	dmoguids
 	ddraw
 	version
+	Dbghelp
 )
 
 GroupSourcesByFolder(UserInterface)
