@@ -248,17 +248,14 @@ const char * GetDefaultFontFace()
 
 const char*	GetFontFaceFromCodePage(WORD codePage)
 {
-	LOGFONT logFont;
-
-	memset(&logFont, 0, sizeof(logFont));
-
+	LOGFONTA logFont = {};
 	logFont.lfCharSet = GetCharsetFromCodePage(codePage);
 
 	const char* fontFace = GetFontFaceFromCodePage9x(codePage);
 
-	HDC hDC=GetDC(NULL);
+	HDC hDC = GetDC(NULL);
 
-	if(EnumFontFamiliesEx(hDC, &logFont, (FONTENUMPROC)EnumFontFamExProc, (LONG)fontFace, 0) == 0)
+	if(EnumFontFamiliesEx(hDC, &logFont, EnumFontFamExProc, (LPARAM)fontFace, 0) == 0)
 	{
 		ReleaseDC(NULL, hDC);
 		return fontFace;
@@ -266,7 +263,7 @@ const char*	GetFontFaceFromCodePage(WORD codePage)
 
 	fontFace = GetFontFaceFromCodePageNT(codePage);
 
-	if(EnumFontFamiliesEx(hDC, &logFont, (FONTENUMPROC)EnumFontFamExProc, (LONG)fontFace, 0) == 0)
+	if(EnumFontFamiliesEx(hDC, &logFont, EnumFontFamExProc, (LPARAM)fontFace, 0) == 0)
 	{
 		ReleaseDC(NULL, hDC);
 		return fontFace;

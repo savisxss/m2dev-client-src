@@ -259,48 +259,54 @@ private:
 
 bool CLZObject::Decompress(DWORD * pdwKey)
 {
-    UINT uiSize;
-    int r;
-	
-    if (m_pHeader->dwEncryptSize)
-    {
-		DecryptBuffer buf(m_pHeader->dwEncryptSize);
+	int r;
+	lzo_uint out_len = static_cast<lzo_uint>(m_dwBufferSize); // capacity of m_pbBuffer
 
-		BYTE* pbDecryptedBuffer = (BYTE*)buf.GetBufferPtr();
-			
+	if (m_pHeader->dwEncryptSize)
+	{
+		DecryptBuffer buf(m_pHeader->dwEncryptSize);
+		BYTE* pbDecryptedBuffer = static_cast<BYTE*>(buf.GetBufferPtr());
+
 		__Decrypt(pdwKey, pbDecryptedBuffer);
-		
-		if (*(DWORD *) pbDecryptedBuffer != ms_dwFourCC)
+
+		if (*reinterpret_cast<DWORD*>(pbDecryptedBuffer) != ms_dwFourCC)
 		{
 			TraceError("LZObject: key incorrect");
 			return false;
 		}
-		
-		if (LZO_E_OK != (r = lzo1x_decompress(pbDecryptedBuffer + sizeof(DWORD), m_pHeader->dwCompressedSize, m_pbBuffer, (lzo_uint*) &uiSize, NULL)))
-		{
-			TraceError("LZObject: Decompress failed(decrypt) ret %d\n", r);
-			return false;
-		}
-    }
-    else
-    {
-		uiSize = m_pHeader->dwRealSize;
-		
-		//if (LZO_E_OK != (r = lzo1x_decompress_safe(m_pbIn, m_pHeader->dwCompressedSize, m_pbBuffer, (lzo_uint*) &uiSize, NULL)))
-		if (LZO_E_OK != (r = lzo1x_decompress(m_pbIn, m_pHeader->dwCompressedSize, m_pbBuffer, (lzo_uint*) &uiSize, NULL)))
-		{
-			TraceError("LZObject: Decompress failed : ret %d, CompressedSize %d\n", r, m_pHeader->dwCompressedSize);
-			return false;
-		}
-    }
-	
-    if (uiSize != m_pHeader->dwRealSize)
-    {
+
+		r = lzo1x_decompress_safe(
+			pbDecryptedBuffer + sizeof(DWORD),
+			static_cast<lzo_uint>(m_pHeader->dwCompressedSize),
+			m_pbBuffer,
+			&out_len,
+			nullptr);
+	}
+	else
+	{
+		out_len = static_cast<lzo_uint>(m_dwBufferSize); // reset capacity
+		r = lzo1x_decompress_safe(
+			m_pbIn,
+			static_cast<lzo_uint>(m_pHeader->dwCompressedSize),
+			m_pbBuffer,
+			&out_len,
+			nullptr);
+	}
+
+	if (r != LZO_E_OK)
+	{
+		TraceError("LZObject: Decompress failed: ret %d, CompressedSize %u",
+			r, m_pHeader->dwCompressedSize);
+		return false;
+	}
+
+	if (out_len != static_cast<lzo_uint>(m_pHeader->dwRealSize))
+	{
 		TraceError("LZObject: Size differs");
 		return false;
-    }
-	
-    return true;
+	}
+
+	return true;
 }
 
 bool CLZObject::Encrypt(DWORD * pdwKey)

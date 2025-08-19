@@ -1,6 +1,9 @@
 #include "StdAfx.h"
 #include "PythonUtils.h"
 
+#define PyLong_AsLong PyLong_AsLongLong
+#define PyLong_AsUnsignedLong PyLong_AsUnsignedLongLong
+
 IPythonExceptionSender * g_pkExceptionSender = NULL;
 
 bool __PyCallClassMemberFunc_ByCString(PyObject* poClass, const char* c_szFunc, PyObject* poArgs, PyObject** poRet);
@@ -68,6 +71,20 @@ bool PyTuple_GetLong(PyObject* poArgs, int pos, long* ret)
 		return false;
 
 	*ret = PyLong_AsLong(poItem);
+	return true;
+}
+
+bool PyTuple_GetLongLong(PyObject* poArgs, int pos, long long* ret)
+{
+	if (pos >= PyTuple_Size(poArgs))
+		return false;
+
+	PyObject* poItem = PyTuple_GetItem(poArgs, pos);
+
+	if (!poItem)
+		return false;
+
+	*ret = PyLong_AsLongLong(poItem);
 	return true;
 }
 
@@ -148,6 +165,20 @@ bool PyTuple_GetUnsignedLong(PyObject* poArgs, int pos, unsigned long* ret)
 		return false;
 	
 	*ret = PyLong_AsUnsignedLong(poItem);
+	return true;
+}
+
+bool PyTuple_GetUnsignedLongLong(PyObject* poArgs, int pos, unsigned long long* ret)
+{
+	if (pos >= PyTuple_Size(poArgs))
+		return false;
+
+	PyObject* poItem = PyTuple_GetItem(poArgs, pos);
+
+	if (!poItem)
+		return false;
+
+	*ret = PyLong_AsUnsignedLongLong(poItem);
 	return true;
 }
 

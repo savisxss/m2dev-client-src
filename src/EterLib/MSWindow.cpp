@@ -79,7 +79,7 @@ bool CMSWindow::Create(const char* c_szName, int brush, DWORD cs, DWORD ws, HICO
 	if (!m_hWnd)
 		return false;
 
-	SetWindowLongPtr(m_hWnd, GWLP_USERDATA, (DWORD) this);
+	SetWindowLongPtr(m_hWnd, GWLP_USERDATA, (LONG_PTR)this);
 	//DestroyWindow(ImmGetDefaultIMEWnd(m_hWnd));
 
 	return true;
