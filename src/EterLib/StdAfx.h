@@ -20,8 +20,8 @@
 #pragma warning(disable:4201 4512 4238 4239)
 #endif
 
-#include <d3d8.h>
-#include <d3dx8.h>
+#include <d3d9.h>
+#include <d3dx9.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 
@@ -37,13 +37,9 @@
 #include <direct.h>
 #include <malloc.h>
 
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "d3d8.lib")
-#pragma comment(lib, "d3dx8.lib")
-
-#include "../eterBase/StdAfx.h"
-#include "../eterBase/Debug.h"
-#include "../eterLocale/CodePageId.h"
+#include "EterBase/StdAfx.h"
+#include "EterBase/Debug.h"
+#include "EterLocale/CodePageId.h"
 
 #ifndef VC_EXTRALEAN
 #include <winsock.h>

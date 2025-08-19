@@ -37,6 +37,7 @@ add_definitions(-DUSE_LOD)
 add_definitions(-DDUNGEON_WORK)
 add_definitions(-DBUILDING_GRANNY_STATIC)
 add_definitions(-DGRANNY_THREADED)
+add_definitions(-DPy_NO_ENABLE_SHARED)
 
 add_compile_definitions("$<$<CONFIG:Debug>:DEBUG>")
 add_compile_definitions("$<$<CONFIG:RelWithDebInfo>:_DISTRIBUTE>")

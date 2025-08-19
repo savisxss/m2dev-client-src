@@ -23,7 +23,6 @@
 #endif
 
 #include <dshow.h>
-#include <qedit.h>
 
 #include "Locale.h"
 

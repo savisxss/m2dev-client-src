@@ -56,7 +56,7 @@ virtual	float							Height(float fX, float fY, float* pNormal) const;
 
 		CMapOutdoor *					m_pMapOutdoor;
 
-		LPDIRECT3DTEXTURE8				m_lpD3DTexure8;
+		LPDIRECT3DTEXTURE9				m_lpD3DTexure8;
 
 		CGraphicImageInstance			m_GrassImageInstance;
 };

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "GrpBase.h"
-#include "GrpDetector.h"
 #include "StateManager.h"
+
+#include <map>
 
 class CGraphicDevice : public CGraphicBase
 {
@@ -50,7 +51,6 @@ public:
 
 protected:
 	void __Initialize();
-	bool __IsInDriverBlackList(D3D_CAdapterInfo& rkD3DAdapterInfo);
 	void __WarningMessage(HWND hWnd, UINT uiMsg);
 
 	void __InitializeDefaultIndexBufferList();
@@ -62,10 +62,10 @@ protected:
 	void __DestroyPDTVertexBufferList();
 	bool __CreatePDTVertexBufferList();
 
-	DWORD CreatePTStreamVertexShader();
-	DWORD CreatePNTStreamVertexShader();
-	DWORD CreatePNT2StreamVertexShader();
-	DWORD CreateDoublePNTStreamVertexShader();
+	LPDIRECT3DVERTEXDECLARATION9 CreatePTStreamVertexShader();
+	LPDIRECT3DVERTEXDECLARATION9 CreatePNTStreamVertexShader();
+	LPDIRECT3DVERTEXDECLARATION9 CreatePNT2StreamVertexShader();
+	LPDIRECT3DVERTEXDECLARATION9 CreateDoublePNTStreamVertexShader();
 
 protected:
 	DWORD						m_uBackBufferCount;

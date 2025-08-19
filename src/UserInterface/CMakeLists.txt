@@ -26,7 +26,6 @@ target_link_libraries(UserInterface
 	SpeedTreeLib
 	SphereLib
 	
-	ws2_32 
 	cryptopp-static
 	lzo2
 	
@@ -34,6 +33,14 @@ target_link_libraries(UserInterface
 	Granny
 	SpeedTree
 	MilesSoundSystem
+	Python
+	
+	ws2_32 
+	strmiids
+	amstrmid
+	dmoguids
+	ddraw
+	version
 )
 
 GroupSourcesByFolder(UserInterface)

@@ -30,9 +30,9 @@
 #include "StdAfx.h"
 
 #include <stdio.h>
-#include <d3d8.h>
-#include <d3d8types.h>
-#include <d3dx8.h>
+#include <d3d9.h>
+#include <d3d9types.h>
+#include <d3dx9.h>
 
 #include "../eterBase/Timer.h"
 #include "../eterlib/StateManager.h"
@@ -62,7 +62,6 @@ CSpeedTreeForestDirectX8::~CSpeedTreeForestDirectX8()
 //	CSpeedTreeForestDirectX8::InitVertexShaders
 bool CSpeedTreeForestDirectX8::InitVertexShaders(void)
 {
-	NANOBEGIN
 	// load the vertex shaders
 	if (!m_dwBranchVertexShader)
 		m_dwBranchVertexShader = LoadBranchShader(m_pDx);
@@ -76,11 +75,10 @@ bool CSpeedTreeForestDirectX8::InitVertexShaders(void)
 		return true;
 	}
 
-	NANOEND
 	return false;
 }
 
-bool CSpeedTreeForestDirectX8::SetRenderingDevice(LPDIRECT3DDEVICE8 lpDevice)
+bool CSpeedTreeForestDirectX8::SetRenderingDevice(LPDIRECT3DDEVICE9 lpDevice)
 {
 	m_pDx = lpDevice;
 
@@ -117,7 +115,7 @@ void CSpeedTreeForestDirectX8::UploadWindMatrix(UINT uiLocation, const float* pM
 	STATEMANAGER.SetVertexShaderConstant(uiLocation, pMatrix, 4);
 }
 
-void CSpeedTreeForestDirectX8::UpdateCompundMatrix(const D3DXVECTOR3 & c_rEyeVec, const D3DXMATRIX & c_rmatView, const D3DXMATRIX & c_rmatProj)
+void CSpeedTreeForestDirectX8::UpdateCompundMatrix(const D3DXVECTOR3& c_rEyeVec, const D3DXMATRIX& c_rmatView, const D3DXMATRIX& c_rmatProj)
 {
     // setup composite matrix for shader
 	D3DXMATRIX matBlend;
@@ -194,16 +192,16 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 		STATEMANAGER.SetTextureStageState(0, D3DTSS_ALPHAARG1,	D3DTA_TEXTURE);
 		STATEMANAGER.SetTextureStageState(0, D3DTSS_ALPHAARG2,	D3DTA_DIFFUSE);
 		STATEMANAGER.SetTextureStageState(0, D3DTSS_ALPHAOP,	D3DTOP_MODULATE);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MINFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MAGFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MIPFILTER,	D3DTEXF_LINEAR);
+		STATEMANAGER.SetSamplerState(0, D3DSAMP_MINFILTER,	D3DTEXF_LINEAR);
+		STATEMANAGER.SetSamplerState(0, D3DSAMP_MAGFILTER,	D3DTEXF_LINEAR);
+		STATEMANAGER.SetSamplerState(0, D3DSAMP_MIPFILTER,	D3DTEXF_LINEAR);
 
 		STATEMANAGER.SetTextureStageState(1, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 		STATEMANAGER.SetTextureStageState(1, D3DTSS_COLORARG2, D3DTA_CURRENT);
 		STATEMANAGER.SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_MODULATE);
 		STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
+		STATEMANAGER.SetSamplerState(1, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+		STATEMANAGER.SetSamplerState(1, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 	}
 
 	STATEMANAGER.SaveRenderState(D3DRS_ALPHATESTENABLE, TRUE);
@@ -219,7 +217,7 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 	}
 
 	// choose fixed function pipeline or custom shader for fronds and branches
-	STATEMANAGER.SetVertexShader(m_dwBranchVertexShader);
+	STATEMANAGER.SetVertexDeclaration(m_dwBranchVertexShader);
 
 	// render branches
 	if (ulRenderBitVector & Forest_RenderBranches)
@@ -263,7 +261,7 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 	// render leaves
 	if (ulRenderBitVector & Forest_RenderLeaves)
 	{
-		STATEMANAGER.SetVertexShader(m_dwLeafVertexShader);
+		STATEMANAGER.SetVertexDeclaration(m_dwLeafVertexShader);
 
 		if (STATEMANAGER.GetRenderState(D3DRS_FOGENABLE))
 		{
@@ -329,8 +327,8 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 	STATEMANAGER.SetRenderState(D3DRS_COLORVERTEX, dwColorVertexState);
 	STATEMANAGER.SetRenderState(D3DRS_FOGVERTEXMODE, dwFogVertexMode);
 
-	// ÏÖÄÌîÑÏÑÄÎèÑÏö∞Î°ú Ïì∞Îäî TextureStage 1Ïùò COLOROPÏôÄ ALPHAOPÎ•º Í∫ºÏ§òÏïº Îã§Ïùå Î†åÎçîÎßÅ Ìï† ÎÜàÎì§Ïù¥
-	// Ï†úÎåÄÎ°ú ÎÇòÏò®Îã§. (ÏïàÍ∑∏Îü¨Î©¥ Í≤ÄÍ≤å ÎÇòÏò¨ Í∞ÄÎä•ÏÑ±Ïù¥..)
+	// ºø«¡º®µµøÏ∑Œ æ≤¥¬ TextureStage 1¿« COLOROPøÕ ALPHAOP∏¶ ≤®¡‡æﬂ ¥Ÿ¿Ω ∑ª¥ı∏µ «“ ≥µÈ¿Ã
+	// ¡¶¥Î∑Œ ≥™ø¬¥Ÿ. (æ»±◊∑Ø∏È ∞À∞‘ ≥™ø√ ∞°¥…º∫¿Ã..)
 	if (!(ulRenderBitVector & Forest_RenderToShadow))
 	{
 		STATEMANAGER.SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);

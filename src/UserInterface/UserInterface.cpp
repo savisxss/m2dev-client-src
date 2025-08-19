@@ -27,23 +27,6 @@ volatile int _AVOID_FLOATING_POINT_LIBRARY_BUG = _fltused;
 extern "C" { FILE __iob_func[3] = { *stdin,*stdout,*stderr }; }
 #pragma comment(linker, "/NODEFAULTLIB:libci.lib")
 
-#pragma comment( lib, "version.lib" )
-#pragma comment( lib, "python27.lib" )
-#pragma comment( lib, "imagehlp.lib" )
-#pragma comment( lib, "devil.lib" )
-#pragma comment( lib, "granny2.lib" )
-#pragma comment( lib, "mss32.lib" )
-#pragma comment( lib, "winmm.lib" )
-#pragma comment( lib, "imm32.lib" )
-#pragma comment( lib, "oldnames.lib" )
-#pragma comment( lib, "SpeedTreeRT.lib" )
-#pragma comment( lib, "dinput8.lib" )
-#pragma comment( lib, "dxguid.lib" )
-#pragma comment( lib, "ws2_32.lib" )
-#pragma comment( lib, "strmiids.lib" )
-#pragma comment( lib, "ddraw.lib" )
-#pragma comment( lib, "dmoguids.lib" )
-//#pragma comment( lib, "wsock32.lib" )
 #include <stdlib.h>
 bool __IS_TEST_SERVER_MODE__=false;
 

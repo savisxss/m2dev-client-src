@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../eterLib/MSApplication.h"
-#include "../eterLib/Input.h"
-#include "../eterLib/Profiler.h"
-#include "../eterLib/GrpDevice.h"
-#include "../eterLib/NetDevice.h"
-#include "../eterLib/GrpLightManager.h"
-#include "../EffectLib/EffectManager.h"
-#include "../gamelib/RaceManager.h"
-#include "../gamelib/ItemManager.h"
-#include "../gamelib/FlyingObjectManager.h"
-#include "../gamelib/GameEventManager.h"
-#include "../milesLib/SoundManager.h"
+#include "eterLib/MSApplication.h"
+#include "eterLib/Input.h"
+#include "eterLib/Profiler.h"
+#include "eterLib/GrpDevice.h"
+#include "eterLib/NetDevice.h"
+#include "eterLib/GrpLightManager.h"
+#include "EffectLib/EffectManager.h"
+#include "gamelib/RaceManager.h"
+#include "gamelib/ItemManager.h"
+#include "gamelib/FlyingObjectManager.h"
+#include "gamelib/GameEventManager.h"
+#include "milesLib/SoundManager.h"
 
 #include "PythonEventManager.h"
 #include "PythonPlayer.h"
@@ -41,6 +41,8 @@
 #include "ServerStateChecker.h"
 #include "AbstractApplication.h"
 #include "MovieMan.h"
+
+#include <qedit.h>
 
 class CPythonApplication : public CMSApplication, public CInputKeyboard, public IAbstractApplication
 {

@@ -2,15 +2,15 @@
 //
 //  Copyright (C) Microsoft Corporation.  All Rights Reserved.
 //
-//  File:       d3dx8shapes.h
+//  File:       d3dx9shapes.h
 //  Content:    D3DX simple shapes
 //
 ///////////////////////////////////////////////////////////////////////////
 
-#include "d3dx8.h"
+#include "d3dx9.h"
 
-#ifndef __D3DX8SHAPES_H__
-#define __D3DX8SHAPES_H__
+#ifndef __D3DX9SHAPES_H__
+#define __D3DX9SHAPES_H__
 
 ///////////////////////////////////////////////////////////////////////////
 // Functions:
@@ -37,7 +37,7 @@ extern "C" {
 //-------------------------------------------------------------------------
 HRESULT WINAPI 
     D3DXCreatePolygon(
-        LPDIRECT3DDEVICE8   pDevice,
+        LPDIRECT3DDEVICE9   pDevice,
         FLOAT               Length, 
         UINT                Sides, 
         LPD3DXMESH*         ppMesh,
@@ -61,7 +61,7 @@ HRESULT WINAPI
 //-------------------------------------------------------------------------
 HRESULT WINAPI 
     D3DXCreateBox(
-        LPDIRECT3DDEVICE8   pDevice, 
+        LPDIRECT3DDEVICE9   pDevice, 
         FLOAT               Width,
         FLOAT               Height,
         FLOAT               Depth,
@@ -88,7 +88,7 @@ HRESULT WINAPI
 //-------------------------------------------------------------------------
 HRESULT WINAPI 
     D3DXCreateCylinder(
-        LPDIRECT3DDEVICE8   pDevice,
+        LPDIRECT3DDEVICE9   pDevice,
         FLOAT               Radius1, 
         FLOAT               Radius2, 
         FLOAT               Length, 
@@ -115,7 +115,7 @@ HRESULT WINAPI
 //-------------------------------------------------------------------------
 HRESULT WINAPI
     D3DXCreateSphere(
-        LPDIRECT3DDEVICE8  pDevice, 
+        LPDIRECT3DDEVICE9  pDevice, 
         FLOAT              Radius, 
         UINT               Slices, 
         UINT               Stacks,
@@ -141,7 +141,7 @@ HRESULT WINAPI
 //-------------------------------------------------------------------------
 HRESULT WINAPI
     D3DXCreateTorus(
-        LPDIRECT3DDEVICE8   pDevice,
+        LPDIRECT3DDEVICE9   pDevice,
         FLOAT               InnerRadius,
         FLOAT               OuterRadius, 
         UINT                Sides,
@@ -163,7 +163,7 @@ HRESULT WINAPI
 //-------------------------------------------------------------------------
 HRESULT WINAPI
     D3DXCreateTeapot(
-        LPDIRECT3DDEVICE8   pDevice,
+        LPDIRECT3DDEVICE9   pDevice,
         LPD3DXMESH*         ppMesh,
         LPD3DXBUFFER*       ppAdjacency);
 
@@ -186,7 +186,7 @@ HRESULT WINAPI
 //-------------------------------------------------------------------------
 HRESULT WINAPI
     D3DXCreateTextA(
-        LPDIRECT3DDEVICE8   pDevice,
+        LPDIRECT3DDEVICE9   pDevice,
         HDC                 hDC,
         LPCSTR              pText,
         FLOAT               Deviation,
@@ -197,7 +197,7 @@ HRESULT WINAPI
 
 HRESULT WINAPI
     D3DXCreateTextW(
-        LPDIRECT3DDEVICE8   pDevice,
+        LPDIRECT3DDEVICE9   pDevice,
         HDC                 hDC,
         LPCWSTR             pText,
         FLOAT               Deviation,
@@ -217,4 +217,5 @@ HRESULT WINAPI
 }
 #endif //__cplusplus    
 
-#endif //__D3DX8SHAPES_H__
+#endif //__D3DX9SHAPES_H__
+

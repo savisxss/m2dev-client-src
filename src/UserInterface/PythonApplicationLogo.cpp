@@ -113,7 +113,7 @@ int CPythonApplication::OnLogoUpdate()
 	{
 		m_bLogoError = true;
 
-		LPDIRECT3DTEXTURE8 tex = m_pLogoTex->GetD3DTexture();
+		LPDIRECT3DTEXTURE9 tex = m_pLogoTex->GetD3DTexture();
 		D3DLOCKED_RECT rt;
 		ZeroMemory(&rt, sizeof(rt));
 
@@ -158,7 +158,7 @@ int CPythonApplication::OnLogoUpdate()
 	}
 
 	// ÁØºñçÀ¸¸?¹öÆÛ¿¡¼­ ÅØ½ºÃÄ·Î º¹»çÇØ¿Â´Ù.
-	LPDIRECT3DTEXTURE8 tex = m_pLogoTex->GetD3DTexture();
+	LPDIRECT3DTEXTURE9 tex = m_pLogoTex->GetD3DTexture();
 	D3DLOCKED_RECT rt;
 	ZeroMemory(&rt, sizeof(rt));
 
@@ -198,8 +198,8 @@ void CPythonApplication::OnLogoRender()
 {
 	if(!m_pLogoTex->IsEmpty() && !m_bLogoError && true == bInitializedLogo)
 	{
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MINFILTER, D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MAGFILTER, D3DTEXF_LINEAR);
+		STATEMANAGER.SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+		STATEMANAGER.SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 		m_pLogoTex->SetTextureStage(0);
 		CPythonGraphic::instance().RenderTextureBox(m_nLeft, m_nTop, m_nRight, m_nBottom, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
 	}
@@ -236,8 +236,8 @@ void CPythonApplication::OnLogoClose()
 	if(m_pFilterSG != NULL) m_pFilterSG->Release(); m_pFilterSG = NULL;
 	if(m_pGraphBuilder != NULL) m_pGraphBuilder->Release(); m_pGraphBuilder = NULL;
 
-	STATEMANAGER.SetTextureStageState(0, D3DTSS_MINFILTER, D3DTEXF_POINT);
-	STATEMANAGER.SetTextureStageState(0, D3DTSS_MAGFILTER, D3DTEXF_POINT);
+	STATEMANAGER.SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+	STATEMANAGER.SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
 
 	
 }

@@ -7,8 +7,9 @@
 
 #include <vector>
 #include "../eterBase/Filename.h"
-#include "../eterBase/MappedFile.h"
-#include "../eterPack/EterPackManager.h"
+
+#include "EterBase/MappedFile.h"
+#include "EterPack/EterPackManager.h"
 
 #include "SpeedTreeForest.h"
 #include "SpeedTreeConfig.h"
@@ -78,20 +79,18 @@ BOOL CSpeedTreeForest::GetMainTree(DWORD dwCRC, CSpeedTreeWrapper ** ppMainTree,
 		CMappedFile file;
 		LPCVOID c_pvData;
 
-		// NOTE : íŒŒì¼ì´ ì—†ì„ë•ŒëŠ” return FALSE ì•„ë‹Œê°€ìš”? - [levites]
 		if (!CEterPackManager::Instance().Get(file, c_pszFileName, &c_pvData))
 			return FALSE;
 
 		pTree = new CSpeedTreeWrapper;
 
-		if (!pTree->LoadTree(c_pszFileName, (const BYTE *) c_pvData, file.Size()))
+		if (!pTree->LoadTree(c_pszFileName, (const BYTE*)c_pvData, file.Size()))
 		{
 			delete pTree;
 			return FALSE;
 		}
 
-		m_pMainTreeMap.insert(std::map<DWORD, CSpeedTreeWrapper *>::value_type(dwCRC, pTree));
-
+		m_pMainTreeMap.insert(std::map<DWORD, CSpeedTreeWrapper*>::value_type(dwCRC, pTree));
 		file.Destroy();
 	}
 
@@ -126,7 +125,7 @@ void CSpeedTreeForest::DeleteInstance(CSpeedTreeWrapper * pInstance)
 
 void CSpeedTreeForest::UpdateSystem(float fCurrentTime)
 {
-	// ì—…ë°ì´íŠ¸ í•  ë•Œ í•œë²ˆ
+	// ¾÷µ¥ÀÌÆ® ÇÒ ¶§ ÇÑ¹ø
 	static float fLastTime = fCurrentTime;
 	float fElapsedTime = fCurrentTime - fLastTime;
 	CSpeedTreeRT::SetTime(fElapsedTime);

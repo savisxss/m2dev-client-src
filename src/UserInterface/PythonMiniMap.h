@@ -181,7 +181,7 @@ class CPythonMiniMap : public CScreen, public CSingleton<CPythonMiniMap>
 		float							m_fMiniMapRadius;
 
 		// 맵 그림...
-		LPDIRECT3DTEXTURE8				m_lpMiniMapTexture[AROUND_AREA_NUM];
+		LPDIRECT3DTEXTURE9				m_lpMiniMapTexture[AROUND_AREA_NUM];
 
 		// 미니맵 커버
 		CGraphicImageInstance			m_MiniMapFilterGraphicImageInstance;

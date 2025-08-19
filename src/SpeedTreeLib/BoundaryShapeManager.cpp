@@ -52,7 +52,7 @@ bool CBoundaryShapeManager::LoadBsfFile(const char* pszFilename)
 	bool bSuccess = true;
 	try
 	{
-		FILE* pFile = fopen(pszFilename, "rb");
+		FILE* pFile=fopen(pszFilename, "rb");
 		if (pFile)
 		{
 			// number of boundary shapes
