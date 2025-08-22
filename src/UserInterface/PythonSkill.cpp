@@ -2016,9 +2016,9 @@ PyObject * skillGetIconImage(PyObject * poSelf, PyObject * poArgs)
 
 	CPythonSkill::SSkillData * c_pSkillData;
 	if (!CPythonSkill::Instance().GetSkillData(iSkillIndex, &c_pSkillData))
-		return Py_BuildValue("i", 0);	// 익셉션을 내는 대신 0을 리턴한다.
+		return Py_BuildValue("K", 0);	// 익셉션을 내는 대신 0을 리턴한다.
 
-	return Py_BuildValue("i", c_pSkillData->pImage);
+	return Py_BuildValue("K", c_pSkillData->pImage);
 }
 
 
@@ -2036,7 +2036,7 @@ PyObject * skillGetIconInstance(PyObject * poSelf, PyObject * poArgs)
 	CGraphicImageInstance * pImageInstance = CGraphicImageInstance::New();
 	pImageInstance->SetImagePointer(c_pSkillData->pImage);
 
-	return Py_BuildValue("i", pImageInstance);
+	return Py_BuildValue("K", pImageInstance);
 }
 
 PyObject * skillGetIconImageNew(PyObject * poSelf, PyObject * poArgs)
@@ -2059,7 +2059,7 @@ PyObject * skillGetIconImageNew(PyObject * poSelf, PyObject * poArgs)
 	if (iGradeIndex >= CPythonSkill::SKILL_GRADE_COUNT)		
 		iGradeIndex = CPythonSkill::SKILL_GRADE_COUNT-1;
 
-	return Py_BuildValue("i", c_pSkillData->GradeData[iGradeIndex].pImage);
+	return Py_BuildValue("K", c_pSkillData->GradeData[iGradeIndex].pImage);
 }
 
 PyObject * skillGetIconInstanceNew(PyObject * poSelf, PyObject * poArgs)
@@ -2087,7 +2087,7 @@ PyObject * skillGetIconInstanceNew(PyObject * poSelf, PyObject * poArgs)
 	CGraphicImageInstance * pImageInstance = CGraphicImageInstance::New();
 	pImageInstance->SetImagePointer(c_pSkillData->GradeData[iGradeIndex].pImage);
 
-	return Py_BuildValue("i", pImageInstance);
+	return Py_BuildValue("K", pImageInstance);
 }
 
 PyObject * skillDeleteIconInstance(PyObject * poSelf, PyObject * poArgs)

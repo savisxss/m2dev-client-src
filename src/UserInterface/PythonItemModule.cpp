@@ -92,7 +92,7 @@ PyObject * itemGetIconImage(PyObject * poSelf, PyObject * poArgs)
 //		CGraphicImage * pImage = (CGraphicImage *)CResourceManager::Instance().GetResourcePointer(szItemName);
 //	}
 
-	return Py_BuildValue("i", pItemData->GetIconImage());
+	return Py_BuildValue("K", pItemData->GetIconImage());
 }
 
 PyObject * itemGetIconImageFileName(PyObject * poSelf, PyObject * poArgs)

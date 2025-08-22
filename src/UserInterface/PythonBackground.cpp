@@ -702,16 +702,28 @@ void CPythonBackground::SetBackgroundDirLight()
 	STATEMANAGER.SetLight(0, &mc_pcurEnvironmentData->DirLights[ENV_DIRLIGHT_BACKGROUND]);
 }
 
-void CPythonBackground::GlobalPositionToLocalPosition(LONG& rGlobalX, LONG& rGlobalY)
+void CPythonBackground::GlobalPositionToLocalPosition(int32_t& rGlobalX, int32_t& rGlobalY)
 {
 	rGlobalX-=m_dwBaseX;
 	rGlobalY-=m_dwBaseY;
 }
 
-void CPythonBackground::LocalPositionToGlobalPosition(LONG& rLocalX, LONG& rLocalY)
+void CPythonBackground::LocalPositionToGlobalPosition(int32_t& rLocalX, int32_t& rLocalY)
 {
 	rLocalX+=m_dwBaseX;
 	rLocalY+=m_dwBaseY;
+}
+
+void CPythonBackground::GlobalPositionToLocalPosition(uint32_t& rGlobalX, uint32_t& rGlobalY)
+{
+	rGlobalX -= m_dwBaseX;
+	rGlobalY -= m_dwBaseY;
+}
+
+void CPythonBackground::LocalPositionToGlobalPosition(uint32_t& rLocalX, uint32_t& rLocalY)
+{
+	rLocalX += m_dwBaseX;
+	rLocalY += m_dwBaseY;
 }
 
 void CPythonBackground::RegisterDungeonMapName(const char * c_szMapName)

@@ -583,8 +583,11 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		
 		void __InitializeGamePhase();
 		void __InitializeMarkAuth();
-		void __GlobalPositionToLocalPosition(LONG& rGlobalX, LONG& rGlobalY);
-		void __LocalPositionToGlobalPosition(LONG& rLocalX, LONG& rLocalY);
+		void __GlobalPositionToLocalPosition(int32_t& rGlobalX, int32_t& rGlobalY);
+		void __LocalPositionToGlobalPosition(int32_t& rLocalX, int32_t& rLocalY);
+
+		void __GlobalPositionToLocalPosition(uint32_t& rGlobalX, uint32_t& rGlobalY);
+		void __LocalPositionToGlobalPosition(uint32_t& rLocalX, uint32_t& rLocalY);
 
 		bool __IsPlayerAttacking();
 		bool __IsEquipItemInSlot(TItemPos Cell);

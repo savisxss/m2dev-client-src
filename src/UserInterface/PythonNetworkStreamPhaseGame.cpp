@@ -823,8 +823,8 @@ void CPythonNetworkStream::Warp(LONG lGlobalX, LONG lGlobalY)
 	// NOTE : Warp 했을때 CenterPosition의 Height가 0이기 때문에 카메라가 땅바닥에 박혀있게 됨
 	//        움직일때마다 Height가 갱신 되기 때문이므로 맵을 이동하면 Position을 강제로 한번
 	//        셋팅해준다 - [levites]
-	LONG lLocalX = lGlobalX;
-	LONG lLocalY = lGlobalY;
+	int32_t lLocalX = lGlobalX;
+	int32_t lLocalY = lGlobalY;
 	__GlobalPositionToLocalPosition(lLocalX, lLocalY);
 	float fHeight = CPythonBackground::Instance().GetHeight(float(lLocalX), float(lLocalY));
 

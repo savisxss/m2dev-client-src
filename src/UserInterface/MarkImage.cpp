@@ -221,7 +221,7 @@ void CGuildMarkImage::GetDiffBlocks(const DWORD * crcList, std::map<uint8_t, con
 		}
 }
 
-void CGuildMarkImage::GetBlockCRCList(DWORD * crcList)
+void CGuildMarkImage::GetBlockCRCList(uint32_t* crcList)
 {
 	for (DWORD row = 0; row < BLOCK_ROW_COUNT; ++row)
 		for (DWORD col = 0; col < BLOCK_COL_COUNT; ++col)

@@ -61,8 +61,11 @@ public:
 	void Destroy();
 	void Create();
 
-	void GlobalPositionToLocalPosition(LONG& rGlobalX, LONG& rGlobalY);
-	void LocalPositionToGlobalPosition(LONG& rLocalX, LONG& rLocalY);
+	void GlobalPositionToLocalPosition(int32_t& rGlobalX, int32_t& rGlobalY);
+	void LocalPositionToGlobalPosition(int32_t& rLocalX, int32_t& rLocalY);
+
+	void GlobalPositionToLocalPosition(uint32_t& rGlobalX, uint32_t& rGlobalY);
+	void LocalPositionToGlobalPosition(uint32_t& rLocalX, uint32_t& rLocalY);
 
 	void EnableTerrainOnlyForHeight();
 	bool SetSplatLimit(int iSplatNum);

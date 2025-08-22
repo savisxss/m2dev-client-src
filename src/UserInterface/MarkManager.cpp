@@ -296,7 +296,7 @@ bool CGuildMarkManager::SaveBlockFromCompressedData(DWORD imgIdx, DWORD posBlock
 }
 
 // CLIENT
-bool CGuildMarkManager::GetBlockCRCList(DWORD imgIdx, DWORD * crcList)
+bool CGuildMarkManager::GetBlockCRCList(DWORD imgIdx, uint32_t* crcList)
 {
 	// 클라이언트에서 서버에 없는 이미지를 요청할 수는 없다.
 	if (m_mapIdx_Image.end() == m_mapIdx_Image.find(imgIdx))
