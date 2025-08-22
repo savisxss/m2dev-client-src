@@ -753,7 +753,6 @@ void CPythonItem::Create()
 
 CPythonItem::CPythonItem()
 {
-	m_GroundItemInstancePool.SetName("CDynamicPool<TGroundItemInstance>");	
 	m_dwPickedItemID = INVALID_ID;
 }
 

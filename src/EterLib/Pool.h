@@ -10,23 +10,11 @@ class CDynamicPool
 	public:
 		CDynamicPool()
 		{
-			//Tracen(typeid(T).name());
-			m_uInitCapacity=0;
-			m_uUsedCapacity=0;
-		}
-		virtual ~CDynamicPool()
-		{
-			assert(m_kVct_pkData.empty());
-//#ifdef _DEBUG
-//			char szText[256];
-//			sprintf(szText, "--------------------------------------------------------------------- %s Pool Capacity %d\n", typeid(T).name(), m_uUsedCapacity);
-//			OutputDebugString(szText);
-//			printf(szText);			
-//#endif
 		}
 
-		void SetName(const char* c_szName)
-		{			
+		virtual ~CDynamicPool()
+		{
+			Destroy();
 		}
 
 		void Clear()
@@ -36,87 +24,71 @@ class CDynamicPool
 
 		void Destroy()
 		{
-/*
-#ifdef _DEBUG
-			if (!m_kVct_pkData.empty())
-			{
-				char szText[256];
-				sprintf(szText, "--------------------------------------------------------------------- %s Pool Destroy\n", typeid(T).name());
-				OutputDebugString(szText);
-				printf(szText);
-			}
-#endif			
-*/
-			for (auto v : m_kVct_pkData)
-				Delete(v);
-			m_kVct_pkData.clear();
-			m_kVct_pkFree.clear();
+			for (T* p : m_Chunks)
+				delete p;
+
+			m_Free.clear();
+			m_Data.clear();
+			m_Chunks.clear();
 		}
 
-		void Create(UINT uCapacity)
+		void Create(size_t chunkSize)
 		{
-			m_uInitCapacity=uCapacity;
-			m_kVct_pkData.reserve(uCapacity);
-			m_kVct_pkFree.reserve(uCapacity);
+			m_uChunkSize = chunkSize;
 		}
-		T* Alloc()
-		{
-			if (m_kVct_pkFree.empty())
-			{
-				T* pkNewData=new T;
-				m_kVct_pkData.push_back(pkNewData);
-				++m_uUsedCapacity;
-				return pkNewData;
-			}
 
-			T* pkFreeData=m_kVct_pkFree.back();
-			m_kVct_pkFree.pop_back();
-			return pkFreeData;
-		}
-		void Free(T* pkData)
+		template<class... _Types>
+		T* Alloc(_Types&&... _Args)
 		{
-#ifdef DYNAMIC_POOL_STRICT
-			assert(__IsValidData(pkData));
-			assert(!__IsFreeData(pkData));
-#endif
-			m_kVct_pkFree.push_back(pkData);
+			if (m_Free.empty())
+				Grow();
+
+			T* p = m_Free.back();
+			m_Free.pop_back();
+			return new(p) T(std::forward<_Types>(_Args)...);
 		}
+
+		void Free(T* p)
+		{
+			p->~T();
+			m_Free.push_back(p);
+		}
+
 		void FreeAll()
 		{
-			m_kVct_pkFree=m_kVct_pkData;
+			m_Free = m_Data;
 		}
 		
 		DWORD GetCapacity()
 		{
-			return m_kVct_pkData.size();
+			return m_Data.size();
 		}
 
 	protected:
-		bool __IsValidData(T* pkData)
+		void Grow() noexcept
 		{
-			if (m_kVct_pkData.end()==std::find(m_kVct_pkData.begin(), m_kVct_pkData.end(), pkData))
-				return false;
-			return true;
-		}
-		bool __IsFreeData(T* pkData)
-		{
-			if (m_kVct_pkFree.end()==std::find(m_kVct_pkFree.begin(), m_kVct_pkFree.end(), pkData))
-				return false;
+			size_t uChunkSize = m_uChunkSize + m_uChunkSize * m_Chunks.size();
 
-			return true;
-		}
+			T* pStart = (T*) ::malloc(uChunkSize * sizeof(T));
+			m_Chunks.push_back(pStart);
 
-		static void Delete(T* pkData)
-		{
-			delete pkData;
+			m_Data.reserve(m_Data.size() + uChunkSize);
+			m_Free.reserve(m_Free.size() + uChunkSize);
+
+			for (size_t i = 0; i < uChunkSize; ++i)
+			{
+				m_Data.push_back(pStart + i);
+				m_Free.push_back(pStart + i);
+			}
 		}
 
 	protected:
-		std::vector<T*> m_kVct_pkData;
-		std::vector<T*> m_kVct_pkFree;
+		size_t m_uChunkSize = 64;
 
-		UINT m_uInitCapacity;
-		UINT m_uUsedCapacity;
+		std::vector<T*> m_Data;
+		std::vector<T*> m_Free;
+
+		std::vector<T*> m_Chunks;
 };
 
 
