@@ -3,9 +3,11 @@
 #include "StateManager.h"
 #include "IME.h"
 #include "TextTag.h"
-#include "../EterLocale/StringCodec.h"
-#include "../EterBase/Utils.h"
-#include "../EterLocale/Arabic.h"
+#include "EterLocale/StringCodec.h"
+#include "EterBase/Utils.h"
+#include "EterLocale/Arabic.h"
+
+#include <unordered_map>
 
 extern DWORD GetDefaultCodePage();
 
@@ -530,7 +532,10 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 			break;
 	}
 
-	//WORD FillRectIndices[6] = { 0, 2, 1, 2, 3, 1 };
+	static std::unordered_map<LPDIRECT3DTEXTURE9, std::vector<SVertex>> s_vtxBatches;
+	for (auto& [pTexture, vtxBatch] : s_vtxBatches) {
+		vtxBatch.clear();
+	}
 
 	STATEMANAGER.SaveRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	STATEMANAGER.SaveRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -615,7 +620,7 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 				fFontEy = fFontSy + fFontHeight;
 
 				pFontTexture->SelectTexture(pCurCharInfo->index);
-				STATEMANAGER.SetTexture(0, pFontTexture->GetD3DTexture());
+				std::vector<SVertex>& vtxBatch = s_vtxBatches[pFontTexture->GetD3DTexture()];
 
 				akVertex[0].u=pCurCharInfo->left;
 				akVertex[0].v=pCurCharInfo->top;
@@ -641,9 +646,8 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 				akVertex[1].x=fFontSx-fFontHalfWeight-feather;
 				akVertex[2].x=fFontEx-fFontHalfWeight+feather;
 				akVertex[3].x=fFontEx-fFontHalfWeight+feather;
-				
-				if (CGraphicBase::SetPDTStream((SPDTVertex*)akVertex, 4))
-					STATEMANAGER.DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+
+				vtxBatch.insert(vtxBatch.end(), std::begin(akVertex), std::end(akVertex));
 				
 
 				// 오른
@@ -652,8 +656,7 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 				akVertex[2].x=fFontEx+fFontHalfWeight+feather;
 				akVertex[3].x=fFontEx+fFontHalfWeight+feather;
 
-				if (CGraphicBase::SetPDTStream((SPDTVertex*)akVertex, 4))
-					STATEMANAGER.DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+				vtxBatch.insert(vtxBatch.end(), std::begin(akVertex), std::end(akVertex));
 				
 				akVertex[0].x=fFontSx-feather;
 				akVertex[1].x=fFontSx-feather;
@@ -666,9 +669,7 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 				akVertex[2].y=fFontSy-fFontHalfWeight-feather;
 				akVertex[3].y=fFontEy-fFontHalfWeight+feather;
 
-				// 20041216.myevan.DrawPrimitiveUP
-				if (CGraphicBase::SetPDTStream((SPDTVertex*)akVertex, 4))
-					STATEMANAGER.DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+				vtxBatch.insert(vtxBatch.end(), std::begin(akVertex), std::end(akVertex));
 				
 				// 아래
 				akVertex[0].y=fFontSy+fFontHalfWeight-feather;
@@ -676,9 +677,7 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 				akVertex[2].y=fFontSy+fFontHalfWeight-feather;
 				akVertex[3].y=fFontEy+fFontHalfWeight+feather;
 
-				// 20041216.myevan.DrawPrimitiveUP
-				if (CGraphicBase::SetPDTStream((SPDTVertex*)akVertex, 4))
-					STATEMANAGER.DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+				vtxBatch.insert(vtxBatch.end(), std::begin(akVertex), std::end(akVertex));
 				
 				fCurX += fFontAdvance;
 			}
@@ -727,7 +726,7 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 			fFontEy = fFontSy + fFontHeight;
 
 			pFontTexture->SelectTexture(pCurCharInfo->index);
-			STATEMANAGER.SetTexture(0, pFontTexture->GetD3DTexture());
+			std::vector<SVertex>& vtxBatch = s_vtxBatches[pFontTexture->GetD3DTexture()];
 
 			akVertex[0].x=fFontSx;
 			akVertex[0].y=fFontSy;
@@ -749,17 +748,20 @@ void CGraphicTextInstance::Render(RECT * pClipRect)
 			akVertex[3].u=pCurCharInfo->right;
 			akVertex[3].v=pCurCharInfo->bottom;
 
-			//m_dwColorInfoVector[i];
-			//m_dwTextColor;
 			akVertex[0].color = akVertex[1].color = akVertex[2].color = akVertex[3].color = m_dwColorInfoVector[i];
 
-			// 20041216.myevan.DrawPrimitiveUP
-			if (CGraphicBase::SetPDTStream((SPDTVertex*)akVertex, 4))
-				STATEMANAGER.DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-			//STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, akVertex, sizeof(SVertex));
+			vtxBatch.insert(vtxBatch.end(), std::begin(akVertex), std::end(akVertex));
 
 			fCurX += fFontAdvance;
 		}
+	}
+
+	for (const auto& [pTexture, vtxBatch] : s_vtxBatches) {
+		if (vtxBatch.empty())
+			continue;
+
+		STATEMANAGER.SetTexture(0, pTexture);
+		STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, vtxBatch.size() - 2, vtxBatch.data(), sizeof(SVertex));
 	}
 
 	if (m_isCursor)
