@@ -151,7 +151,7 @@ void CEffectMeshInstance::OnRender()
 
 		float fAlpha = 1.0f;
 		if (m_pMeshScript->GetTimeTableAlphaPointer(i, &TableAlpha) && !TableAlpha->empty())
-			GetTimeEventBlendValue(m_fLocalTime,*TableAlpha, &fAlpha);
+			fAlpha = GetTimeEventBlendValue(m_fLocalTime, *TableAlpha);
 
 		// Render //
 		CEffectMesh::TEffectMeshData * pMeshData = pEffectMesh->GetMeshDataPointer(i);

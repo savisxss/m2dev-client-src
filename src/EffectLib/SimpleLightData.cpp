@@ -55,7 +55,7 @@ void CLightData::GetRange(float fTime, float& rRange)
 		return;
 	}
 	
-	GetTimeEventBlendValue(fTime, m_TimeEventTableRange, &rRange);
+	rRange = GetTimeEventBlendValue(fTime, m_TimeEventTableRange);
 	rRange *= m_fMaxRange;
 	if (rRange<0.0f)
 		rRange = 0.0f;

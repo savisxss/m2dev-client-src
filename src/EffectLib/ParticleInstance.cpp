@@ -2,13 +2,11 @@
 #include "ParticleInstance.h"
 #include "ParticleProperty.h"
 
-#include "../eterBase/Random.h"
-#include "../eterLib/Camera.h"
-#include "../eterLib/StateManager.h"
+#include "EterBase/Random.h"
+#include "EterLib/Camera.h"
+#include "EterLib/StateManager.h"
 
 CDynamicPool<CParticleInstance> CParticleInstance::ms_kPool;
-
-using namespace NEffectUpdateDecorator;
 
 void CParticleInstance::DestroySystem()
 {
@@ -27,45 +25,12 @@ void CParticleInstance::DeleteThis()
 	ms_kPool.Free(this);	
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//CDynamicPool<CRayParticleInstance> CRayParticleInstance::ms_kPool;
-
-/*void CRayParticleInstance::DestroySystem()
-{
-	ms_kPool.Destroy();
-}
-
-CRayParticleInstance* CRayParticleInstance::New()
-{
-	return ms_kPool.Alloc();
-}
-
-void CRayParticleInstance::DeleteThis()
-{
-#ifdef RAY_TO_AFTERIMAGE
-	m_PositionList.clear();
-#else
-	m_bStart = false;
-#endif
-	ms_kPool.Free(this);
-}
-*/
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 float CParticleInstance::GetRadiusApproximation()
 {
 	return m_v2HalfSize.y*m_v2Scale.y + m_v2HalfSize.x*m_v2Scale.x;
 }
-/*
-D3DXVECTOR3 CBaseParticleInstance::GetCenterApproximation()
-{
-	return D3DXVECTOR3(
-		m_v3Position.x + mc_pmatLocal._41,
-		m_v3Position.y + mc_pmatLocal._42,
-		m_v3Position.z + mc_pmatLocal._43
-		);
-}*/
 
 
 BOOL CParticleInstance::Update(float fElapsedTime, float fAngle)
@@ -76,7 +41,12 @@ BOOL CParticleInstance::Update(float fElapsedTime, float fAngle)
 
 	float fLifePercentage = (m_fLifeTime - m_fLastLifeTime) / m_fLifeTime;
 
-	m_pDecorator->Excute(CDecoratorData(fLifePercentage,fElapsedTime,this));
+	UpdateRotation(fLifePercentage, fElapsedTime);
+	UpdateTextureAnimation(fLifePercentage, fElapsedTime);
+	UpdateScale(fLifePercentage, fElapsedTime);
+	UpdateColor(fLifePercentage, fElapsedTime);
+	UpdateGravity(fLifePercentage, fElapsedTime);
+	UpdateAirResistance(fLifePercentage, fElapsedTime);
 
 	m_v3LastPosition = m_v3Position;
 	m_v3Position += m_v3Velocity * fElapsedTime;
@@ -119,6 +89,92 @@ BOOL CParticleInstance::Update(float fElapsedTime, float fAngle)
 	}
 
 	return TRUE;
+}
+
+void CParticleInstance::UpdateRotation(float time, float elapsedTime)
+{
+	if (m_rotationType == CParticleProperty::ROTATION_TYPE_NONE)
+		return;
+
+	if (m_rotationType == CParticleProperty::ROTATION_TYPE_TIME_EVENT)
+		m_fRotationSpeed = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventRotation);
+
+	m_fRotation += m_fRotationSpeed * elapsedTime;
+}
+
+void CParticleInstance::UpdateTextureAnimation(float time, float elapsedTime)
+{
+	if (m_byTextureAnimationType == CParticleProperty::TEXTURE_ANIMATION_TYPE_NONE)
+		return;
+
+	const float frameDelay = m_pParticleProperty->GetTextureAnimationFrameDelay();
+	const DWORD frameCount = m_pParticleProperty->GetTextureAnimationFrameCount();
+
+	m_fFrameTime += elapsedTime;
+
+	const uint64_t elapsedFrames = static_cast<uint64_t>(m_fFrameTime / frameDelay);
+
+	if (0 == elapsedFrames)
+		return;
+
+	m_fFrameTime -= elapsedFrames * frameDelay;
+
+	switch (m_byTextureAnimationType)
+	{
+	case CParticleProperty::TEXTURE_ANIMATION_TYPE_CW:
+		m_byFrameIndex += elapsedFrames;
+		if (m_byFrameIndex >= frameCount)
+			m_byFrameIndex = 0;
+		break;
+
+	case CParticleProperty::TEXTURE_ANIMATION_TYPE_CCW:
+		m_byFrameIndex = std::min<uint8_t>(m_byFrameIndex - elapsedFrames, frameCount - 1);
+		break;
+
+	case CParticleProperty::TEXTURE_ANIMATION_TYPE_RANDOM_FRAME:
+		if (frameCount != 0)
+			m_byFrameIndex = random_range(0, frameCount - 1);
+		break;
+
+	default:
+		break;
+	}
+}
+
+void CParticleInstance::UpdateScale(float time, float elapsedTime)
+{
+	if (!m_pParticleProperty->m_TimeEventScaleX.empty())
+		m_v2Scale.x = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventScaleX);
+
+	if (!m_pParticleProperty->m_TimeEventScaleY.empty())
+		m_v2Scale.y = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventScaleY);
+}
+
+void CParticleInstance::UpdateColor(float time, float elapsedTime)
+{
+	if (m_pParticleProperty->m_TimeEventColor.empty())
+		return;
+
+	m_dcColor = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventColor);
+}
+
+void CParticleInstance::UpdateGravity(float time, float elapsedTime)
+{
+	if (m_pParticleProperty->m_TimeEventGravity.empty())
+		return;
+
+	float fGravity;
+	fGravity = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventGravity);
+
+	m_v3Velocity.z -= fGravity * elapsedTime;
+}
+
+void CParticleInstance::UpdateAirResistance(float time, float elapsedTime)
+{
+	if (m_pParticleProperty->m_TimeEventAirResistance.empty())
+		return;
+
+	m_v3Velocity *= 1.0f - GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventAirResistance);
 }
 
 void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
@@ -434,18 +490,11 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_f
 
 void CParticleInstance::Destroy()
 {
-	if (m_pDecorator)
-		m_pDecorator->DeleteThis();
-
 	__Initialize();
-
 }
 
 void CParticleInstance::__Initialize()
 {
-	//*
-	m_pDecorator=NULL;
-
 	m_v3Position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_v3LastPosition = m_v3Position;
 	m_v3Velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -458,6 +507,9 @@ void CParticleInstance::__Initialize()
 #endif
 
 	m_byFrameIndex = 0;
+	m_rotationType = CParticleProperty::ROTATION_TYPE_NONE;
+	m_fFrameTime = 0;
+
 	m_ParticleMesh[0].texCoord = D3DXVECTOR2(0.0f, 1.0f);
 	m_ParticleMesh[1].texCoord = D3DXVECTOR2(0.0f, 0.0f);
 	m_ParticleMesh[2].texCoord = D3DXVECTOR2(1.0f, 1.0f);
@@ -474,43 +526,7 @@ CParticleInstance::~CParticleInstance()
 	Destroy();
 }
 
-/*CRayParticleInstance::CRayParticleInstance()
-{
-#ifdef RAY_TO_AFTERIMAGE
-	int i;
-	for(i=0;i<RAY_VERTEX_COUNT*2;i+=2)
-	{
-		m_ParticleMesh[i].texCoord = D3DXVECTOR2(i+0.0f, 1.0f);
-		m_ParticleMesh[i+1].texCoord = D3DXVECTOR2(i+1.0f, 0.0f);
-	}
-#else
-	m_ParticleMesh[0].texCoord = D3DXVECTOR2(0.0f, 1.0f);
-	m_ParticleMesh[1].texCoord = D3DXVECTOR2(0.0f, 0.0f);
-	m_ParticleMesh[2].texCoord = D3DXVECTOR2(0.5f, 1.0f);
-	m_ParticleMesh[3].texCoord = D3DXVECTOR2(0.5f, 0.0f);
-	m_ParticleMesh[4].texCoord = D3DXVECTOR2(1.0f, 1.0f);
-	m_ParticleMesh[5].texCoord = D3DXVECTOR2(1.0f, 0.0f);
-
-	m_bStart = false;
-#endif
-}
-
-CRayParticleInstance::~CRayParticleInstance()
-{
-}*/
-
-
 TPTVertex * CParticleInstance::GetParticleMeshPointer()
 {
 	return m_ParticleMesh;
 }
-
-/*TPTVertex * CRayParticleInstance::GetParticleMeshPointer()
-{
-	return m_ParticleMesh;
-}
-
-void CRayParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_fZRotation)
-{
-	assert(false && "NOT_REACHED");
-}*/

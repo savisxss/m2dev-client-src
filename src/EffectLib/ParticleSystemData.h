@@ -20,7 +20,6 @@ class CParticleSystemData : public CEffectElementBase
 
 		void ChangeTexture(const char * c_szFileName);
 
-		void BuildDecorator(CParticleInstance * pInstance);
 	protected:		
 		BOOL OnLoadScript(CTextFileLoader & rTextFileLoader);
 

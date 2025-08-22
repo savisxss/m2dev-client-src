@@ -1,8 +1,8 @@
 #pragma once
+#include "Type.h"
+#include "Eterlib/GrpBase.h"
+#include "EterLib/Pool.h"
 
-#include "../eterlib/GrpBase.h"
-#include "../eterLib/Pool.h"
-#include "EffectUpdateDecorator.h"
 class CParticleProperty;
 class CEmitterProperty;
 
@@ -11,11 +11,6 @@ class CParticleInstance
 	friend class CParticleSystemData;
 	friend class CParticleSystemInstance;
 
-	friend class NEffectUpdateDecorator::CBaseDecorator;
-	friend class NEffectUpdateDecorator::CAirResistanceDecorator;
-	friend class NEffectUpdateDecorator::CGravityDecorator;
-	friend class NEffectUpdateDecorator::CRotationDecorator;
-
 	public:
 		CParticleInstance();
 		~CParticleInstance();
@@ -23,21 +18,16 @@ class CParticleInstance
 		float GetRadiusApproximation();
 		
 		BOOL Update(float fElapsedTime, float fAngle);
-		//virtual void Transform(const D3DXMATRIX * c_matLocal, const float c_fZRotation)=0;
-		//virtual void Transform(const D3DXMATRIX * c_matLocal = NULL)=0;
 
-		//virtual TPTVertex * GetParticleMeshPointer() = 0;
-
-		//__forceinline float GetLifePercentage()
-		//{
-		//	return m_fLifePercentage;
-			//return (m_fLifeTime - m_fLastLifeTime) / m_fLifeTime;
-		//}
-
-		//virtual void DeleteThis() = 0;
+	private:
+		void UpdateRotation(float time, float elapsedTime);
+		void UpdateTextureAnimation(float time, float elapsedTime);
+		void UpdateScale(float time, float elapsedTime);
+		void UpdateColor(float time, float elapsedTime);
+		void UpdateGravity(float time, float elapsedTime);
+		void UpdateAirResistance(float time, float elapsedTime);
 
 	protected:
-		//float				m_fLifePercentage;
 		D3DXVECTOR3			m_v3StartPosition;
 
 		D3DXVECTOR3			m_v3Position;
@@ -57,6 +47,7 @@ class CParticleInstance
 		BYTE				m_byTextureAnimationType;
 		float				m_fLastFrameTime;
 		BYTE				m_byFrameIndex;
+		float				m_fFrameTime;
 
 		float				m_fLifeTime;
 		float				m_fLastLifeTime;
@@ -64,11 +55,12 @@ class CParticleInstance
 		CParticleProperty *	m_pParticleProperty;
 		CEmitterProperty *	m_pEmitterProperty;
 
-		float m_fAirResistance;
-		float m_fRotationSpeed;
-		float m_fGravity;
+		BYTE				m_rotationType;
 
-		NEffectUpdateDecorator::CBaseDecorator * m_pDecorator;	
+		float				m_fAirResistance;
+		float				m_fRotationSpeed;
+		float				m_fGravity;
+
 	public:
 		static CParticleInstance* New();
 		static void DestroySystem();

@@ -4,58 +4,7 @@
 
 void CEffectElementBase::GetPosition(float fTime, D3DXVECTOR3 & rPosition)
 {
-	if (m_TimeEventTablePosition.empty())
-	{
-		rPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		return;
-	}
-	if (m_TimeEventTablePosition.size()==1)
-	{
-		rPosition = m_TimeEventTablePosition[0].m_vecPosition;
-		return;
-	}
-	if (m_TimeEventTablePosition.front().m_fTime > fTime)
-	{
-		rPosition = m_TimeEventTablePosition.front().m_vecPosition;
-		return;
-	}
-	if (m_TimeEventTablePosition.back().m_fTime < fTime)
-	{
-		rPosition = m_TimeEventTablePosition.back().m_vecPosition;
-		return;
-	}
-
-	typedef TTimeEventTablePosition::iterator iterator;
-	iterator result = std::lower_bound( m_TimeEventTablePosition.begin(), m_TimeEventTablePosition.end(), fTime );
-
-	TEffectPosition & rEffectPosition = *result;
-	iterator rPrev = result;
-	if (m_TimeEventTablePosition.begin() != result)
-	{
-		rPrev = result-1;
-	}
-	else
-	{
-		rPosition = result->m_vecPosition;
-		return;
-	}
-	TEffectPosition & rPrevEffectPosition = *rPrev;
-	int iMovingType = rPrevEffectPosition.m_iMovingType;
-
-	if (MOVING_TYPE_DIRECT == iMovingType)
-	{
-		float Head = fabs(rEffectPosition.m_fTime - fTime) / fabs(rEffectPosition.m_fTime - rPrevEffectPosition.m_fTime);
-		float Tail = 1.0f - fabs(rEffectPosition.m_fTime - fTime) / fabs(rEffectPosition.m_fTime - rPrevEffectPosition.m_fTime);
-		rPosition = (rPrevEffectPosition.m_vecPosition*Head) + (rEffectPosition.m_vecPosition*Tail);
-	}
-	else if (MOVING_TYPE_BEZIER_CURVE == iMovingType)
-	{
-		float ft = (fTime - rPrevEffectPosition.m_fTime) / (rEffectPosition.m_fTime - rPrevEffectPosition.m_fTime);
-
-		rPosition = rPrevEffectPosition.m_vecPosition * (1.0f - ft) * (1.0f - ft) +
-					(rPrevEffectPosition.m_vecPosition + rPrevEffectPosition.m_vecControlPoint) * (1.0f - ft) * ft * 2 +
-					rEffectPosition.m_vecPosition * ft * ft;
-	}
+	rPosition = GetTimeEventBlendValue(fTime, m_TimeEventTablePosition);
 }
 
 /*
@@ -122,9 +71,9 @@ BOOL CEffectElementBase::LoadScript(CTextFileLoader & rTextFileLoader)
 
 				EffectPosition.m_iMovingType = MOVING_TYPE_BEZIER_CURVE;
 
-				EffectPosition.m_vecPosition.x = atof(pTokenVector->at(i++).c_str());
-				EffectPosition.m_vecPosition.y = atof(pTokenVector->at(i++).c_str());
-				EffectPosition.m_vecPosition.z = atof(pTokenVector->at(i++).c_str());
+				EffectPosition.m_Value.x = atof(pTokenVector->at(i++).c_str());
+				EffectPosition.m_Value.y = atof(pTokenVector->at(i++).c_str());
+				EffectPosition.m_Value.z = atof(pTokenVector->at(i++).c_str());
 
 				EffectPosition.m_vecControlPoint.x = atof(pTokenVector->at(i++).c_str());
 				EffectPosition.m_vecControlPoint.y = atof(pTokenVector->at(i++).c_str());
@@ -136,9 +85,9 @@ BOOL CEffectElementBase::LoadScript(CTextFileLoader & rTextFileLoader)
 
 				EffectPosition.m_iMovingType = MOVING_TYPE_DIRECT;
 
-				EffectPosition.m_vecPosition.x = atof(pTokenVector->at(i++).c_str());
-				EffectPosition.m_vecPosition.y = atof(pTokenVector->at(i++).c_str());
-				EffectPosition.m_vecPosition.z = atof(pTokenVector->at(i++).c_str());
+				EffectPosition.m_Value.x = atof(pTokenVector->at(i++).c_str());
+				EffectPosition.m_Value.y = atof(pTokenVector->at(i++).c_str());
+				EffectPosition.m_Value.z = atof(pTokenVector->at(i++).c_str());
 
 				EffectPosition.m_vecControlPoint = D3DXVECTOR3(0.0f,0.0f,0.0f);
 			}

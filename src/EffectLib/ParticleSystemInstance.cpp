@@ -7,8 +7,6 @@
 
 CDynamicPool<CParticleSystemInstance>	CParticleSystemInstance::ms_kPool;
 
-using namespace NEffectUpdateDecorator;
-
 void CParticleSystemInstance::DestroySystem()
 {
 	ms_kPool.Destroy();
@@ -87,8 +85,6 @@ void CParticleSystemInstance::CreateParticles(float fElapsedTime)
 		}
 
 	}
-
-	CParticleInstance * pFirstInstance = 0;
 
 	for (int i = 0; i < iCreatingCount; ++i)
 	{
@@ -260,16 +256,6 @@ void CParticleSystemInstance::CreateParticles(float fElapsedTime)
 #else
 			pInstance->m_dcColor = m_pParticleProperty->m_TimeEventColor.front().m_Value;
 #endif
-		}
-
-		if (!pFirstInstance)
-		{
-			m_pData->BuildDecorator(pInstance);
-			pFirstInstance = pInstance;
-		}
-		else
-		{
-			pInstance->m_pDecorator = pFirstInstance->m_pDecorator->Clone(pFirstInstance,pInstance);
 		}
 
 		m_ParticleInstanceListVector[pInstance->m_byFrameIndex].push_back(pInstance);

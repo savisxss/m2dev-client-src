@@ -1,4 +1,5 @@
 #pragma once
+#include <d3dx9math.h>
 
 #define Clamp(x, min, max)  x = (x<min  ? min : x<max ? x : max);
 #define GRAVITY			D3DXVECTOR3(0.0f, 0.0f, -9.8f)
@@ -88,41 +89,40 @@ enum EMovingType
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct SEffectPosition
+template <typename T>
+struct CTimeEvent
 {
-	float m_fTime;
-
-	D3DXVECTOR3 m_vecPosition;
-
-	// For Bezier Curve
-	int m_iMovingType;
-	D3DXVECTOR3 m_vecControlPoint;
-
-} TEffectPosition;
-
-inline bool operator < (const SEffectPosition & lhs, const SEffectPosition & rhs)
-{
-	return lhs.m_fTime < rhs.m_fTime;
-}
-inline bool operator < (const float & lhs, const SEffectPosition & rhs)
-{
-	return lhs < rhs.m_fTime;
-}
-inline bool operator < (const SEffectPosition & lhs, const float & rhs)
-{
-	return lhs.m_fTime < rhs;
-}
-
-template<typename T>
-class CTimeEvent
-{
-public:
-	CTimeEvent(){}
-	~CTimeEvent(){}
+	typedef T value_type;
 
 	float m_fTime;
 	T m_Value;
 };
+
+template <typename T>
+bool operator<(const CTimeEvent<T>& lhs, const CTimeEvent<T>& rhs)
+{
+	return lhs.m_fTime < rhs.m_fTime;
+}
+
+template <typename T>
+bool operator<(const CTimeEvent<T>& lhs, const float& rhs)
+{
+	return lhs.m_fTime < rhs;
+}
+
+template <typename T>
+bool operator<(const float& lhs, const CTimeEvent<T>& rhs)
+{
+	return lhs < rhs.m_fTime;
+}
+
+typedef struct SEffectPosition : public CTimeEvent<D3DXVECTOR3>
+{
+	// For Bezier Curve
+	int m_iMovingType;
+	D3DXVECTOR3 m_vecControlPoint;
+} TEffectPosition;
+
 #define AG_MASK 0xff00ff00
 #define RB_MASK 0x00ff00ff
 
@@ -135,7 +135,12 @@ struct DWORDCOLOR
 	}
 	DWORDCOLOR(const DWORDCOLOR& r)
 		: m_dwColor(r.m_dwColor)
-	{}
+	{
+	}
+	DWORDCOLOR(DWORD dwColor)
+		: m_dwColor(dwColor)
+	{
+	}
 
 	DWORDCOLOR& operator = (const DWORDCOLOR& r)
 	{
@@ -146,12 +151,9 @@ struct DWORDCOLOR
 	DWORDCOLOR& operator *= (float f)
 	{
 		DWORD idx = DWORD(f * 256);
-		m_dwColor = 
-			(((DWORD)(((m_dwColor & AG_MASK)>>8) * idx)) & AG_MASK)
-			+((DWORD)(((m_dwColor & RB_MASK) * idx)>>8) & RB_MASK);
-		//m_dwColor = 
-		//	((DWORD)((m_dwColor & AG_MASK) * f) & AG_MASK)
-		//	+((DWORD)((m_dwColor & RB_MASK) * f) & RB_MASK);
+		m_dwColor =
+			(((DWORD)(((m_dwColor & AG_MASK) >> 8) * idx)) & AG_MASK)
+			+ ((DWORD)(((m_dwColor & RB_MASK) * idx) >> 8) & RB_MASK);
 		return *this;
 	}
 	DWORDCOLOR& operator += (const DWORDCOLOR& r)
@@ -159,11 +161,13 @@ struct DWORDCOLOR
 		m_dwColor += r.m_dwColor;
 		return *this;
 	}
+
 	operator DWORD()
 	{
 		return m_dwColor;
 	}
 };
+
 #undef AG_MASK
 #undef RB_MASK
 
@@ -179,24 +183,6 @@ inline DWORDCOLOR operator * (float f, DWORDCOLOR dc)
 	DWORDCOLOR tmp(dc);
 	tmp *= f;
 	return tmp;
-}
-
-template <typename T>
-__forceinline bool operator < (const CTimeEvent<T> & lhs, const CTimeEvent<T> & rhs)
-{
-	return lhs.m_fTime < rhs.m_fTime;
-}
-
-template <typename T>
-__forceinline bool operator < (const CTimeEvent<T> & lhs, const float & rhs)
-{
-	return lhs.m_fTime < rhs;
-}
-
-template <typename T>
-__forceinline bool operator < (const float & lhs, const CTimeEvent<T> & rhs)
-{
-	return lhs < rhs.m_fTime;
 }
 
 typedef CTimeEvent<char>						TTimeEventTypeCharacter;
@@ -219,57 +205,87 @@ typedef std::vector<TTimeEventTypeColor>		TTimeEventTableColor;
 typedef std::vector<TTimeEventTypeVector2>		TTimeEventTableVector2;
 typedef std::vector<TTimeEventTypeVector3>		TTimeEventTableVector3;
 
+template <typename T>
+T BlendSingleValue(float time,
+	const CTimeEvent<T>& low,
+	const CTimeEvent<T>& high)
+{
+	const float timeDiff = high.m_fTime - low.m_fTime;
+	const float perc = (time - low.m_fTime) / timeDiff;
 
-// NOTE : TimeEventValue 함수들은 값을 넘겨 받지 말아야 하는 때도 있으므로
-//        값의 직접 리턴이 아닌 포인터 리턴으로 작성 했습니다. - [levites]
+	const T valueDiff = high.m_Value - low.m_Value;
+	return static_cast<T>(low.m_Value + perc * valueDiff);
+}
+
+inline D3DXVECTOR3 BlendSingleValue(float time, const TEffectPosition& low, const TEffectPosition& high)
+{
+	const float timeDiff = high.m_fTime - low.m_fTime;
+	const float perc = (time - low.m_fTime) / timeDiff;
+
+	if (low.m_iMovingType == MOVING_TYPE_DIRECT)
+		return low.m_Value + ((high.m_Value - low.m_Value) * perc);
+
+	if (low.m_iMovingType == MOVING_TYPE_BEZIER_CURVE)
+	{
+		const float invPerc = 1.0f - perc;
+
+		return low.m_Value * invPerc * invPerc +
+			(low.m_Value + low.m_vecControlPoint) * invPerc * perc * 2.0f +
+			high.m_Value * perc * perc;
+	}
+
+	// Unknown moving type - impossible(?)
+	return D3DXVECTOR3();
+}
+
+inline DWORDCOLOR BlendSingleValue(float time, const TTimeEventTypeColor& low, const TTimeEventTypeColor& high)
+{
+	const float timeDiff = high.m_fTime - low.m_fTime;
+	const float perc = (time - low.m_fTime) / timeDiff;
+
+	return low.m_Value * (1.0f - perc) + high.m_Value * perc;
+}
 
 template <typename T>
-__forceinline void GetTimeEventBlendValue(float fElapsedTime, std::vector<CTimeEvent<T> >& rVector, T * pReturnValue)
+auto GetTimeEventBlendValue(float time,
+	const std::vector<T>& vec) -> typename T::value_type
 {
-	if (rVector.empty())
-	{
-		*pReturnValue = T();
-		return;
-	}
+	if (vec.empty())
+		return typename T::value_type();
 
-	if(rVector.begin()+1==rVector.end())
-	{
-		*pReturnValue = rVector.front().m_Value;
-		return;
-	}
-	
-	if (fElapsedTime < rVector.front().m_fTime)
-	{
-		*pReturnValue = rVector.front().m_Value;
-		return;
-	}
+	// Single element is easy...
+	if (vec.begin() + 1 == vec.end())
+		return vec.front().m_Value;
 
-	if (fElapsedTime > rVector.back().m_fTime)
-	{
-		*pReturnValue = rVector.back().m_Value;
-		return;
-	}
+	// All elements are greater than |time| - pick the smallest
+	if (time < vec.front().m_fTime)
+		return vec.front().m_Value;
 
-	typedef typename std::vector<CTimeEvent<T> >::iterator iterator;
+	// All elements are smaller than |time| - pick the greatest
+	if (time > vec.back().m_fTime)
+		return vec.back().m_Value;
 
-	std::pair<iterator, iterator> result = std::equal_range(rVector.begin(), rVector.end(), fElapsedTime);
+	// The two checks above make sure that result doesn't contain vec.end()
+	// (We could simply check for vec.end() ourself, but above code lets us
+	// skip std::equal_range() altogether, making it faster.)
+	auto result = std::equal_range(vec.begin(), vec.end(), time);
 
+	// We have one or more equal elements - pick the first
 	if (result.first != result.second)
-		*pReturnValue = result.first->m_Value;
-	else
-	{
-		--result.first;
-		float Head = (result.second->m_fTime - fElapsedTime) / (result.second->m_fTime - result.first->m_fTime);
-		*pReturnValue = T((result.first->m_Value-result.second->m_Value)*Head+(result.second->m_Value));
-	}
+		return result.first->m_Value;
 
+	// We need first to point to an element smaller than |time|
+	// (Note that decrementing first is safe here, we already accounted for
+	// vec.begin() being greater-or-equal to |time|.)
+	--result.first;
+	return BlendSingleValue(time, *result.first, *result.second);
 }
 
 extern BOOL GetTokenTimeEventFloat(CTextFileLoader & rTextFileLoader, const char * c_szKey, TTimeEventTableFloat * pTimeEventTableFloat);
 //extern void InsertItemTimeEventFloat(TTimeEventTableFloat * pTable, float fTime, float fValue);
 
 template <typename T>
-void InsertItemTimeEvent(std::vector<CTimeEvent<T> > * pTable, float fTime, T fValue)
+void InsertItemTimeEvent(std::vector<CTimeEvent<T> >* pTable, float fTime, T fValue)
 {
 	typedef std::vector<CTimeEvent<T> >::iterator iterator;
 
