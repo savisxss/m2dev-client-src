@@ -56,7 +56,7 @@ void CGrannyMesh::DeformPNTVertices(void * dstBaseVertices, D3DXMATRIX * boneMat
 	int vtxCount = GrannyGetMeshVertexCount(pgrnMesh);
 
 	// WORK
-	int * boneIndices = (int*)GrannyGetMeshBindingToBoneIndices(pgrnMeshBinding);
+	granny_int32x * boneIndices = (granny_int32x*)GrannyGetMeshBindingToBoneIndices(pgrnMeshBinding);
 	// END_OF_WORK
 
 	GrannyDeformVertices(

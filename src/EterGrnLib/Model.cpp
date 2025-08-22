@@ -196,15 +196,8 @@ bool CGrannyModel::LoadMeshs()
 		}
 		m_bHaveBlendThing |= rMesh.HaveBlendThing();
 
-		granny_int32x grni32xTypeCount = GrannyGetTotalTypeSize(pgrnMesh->PrimaryVertexData->VertexType) / sizeof(granny_vertex_data);
-		int i = 0;
-		while (i < grni32xTypeCount)
+		for (int i = 0; pgrnMesh->PrimaryVertexData->VertexType[i].Name != nullptr; ++i)
 		{
-			if (NULL == pgrnMesh->PrimaryVertexData->VertexType[i].Name || 0 == strlen(pgrnMesh->PrimaryVertexData->VertexType[i].Name))
-			{
-				++i;
-				continue;
-			}
 			if ( 0 == strcmp(pgrnMesh->PrimaryVertexData->VertexType[i].Name, GrannyVertexPositionName) )
 				m_dwFvF |= D3DFVF_XYZ;
 			else if ( 0 == strcmp(pgrnMesh->PrimaryVertexData->VertexType[i].Name, GrannyVertexNormalName) )
@@ -213,7 +206,6 @@ bool CGrannyModel::LoadMeshs()
 				m_dwFvF |= D3DFVF_TEX1;
 			else if ( 0 == strcmp(pgrnMesh->PrimaryVertexData->VertexType[i].Name, GrannyVertexTextureCoordinatesName"1") )
 				m_dwFvF |= D3DFVF_TEX2;
-			++i;
 		}
 
 		vtxPos += GrannyGetMeshVertexCount(pgrnMesh);

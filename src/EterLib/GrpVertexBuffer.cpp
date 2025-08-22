@@ -61,10 +61,7 @@ bool CGraphicVertexBuffer::Unlock() const
 
 bool CGraphicVertexBuffer::IsEmpty() const
 {
-	if (m_lpd3dVB)
-		return true;
-	else
-		return false;
+	return m_lpd3dVB == nullptr;
 }
 
 bool CGraphicVertexBuffer::LockDynamic(void** pretVertices)
