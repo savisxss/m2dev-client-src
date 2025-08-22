@@ -147,7 +147,7 @@ LPDIRECT3DVERTEXDECLARATION9 CGraphicDevice::CreatePNTStreamVertexShader()
 	if (ms_lpd3dDevice->CreateVertexDeclaration(pShaderDecl, &dwShader) != D3D_OK)
 	{
 		char szError[1024];
-		sprintf(szError, "Failed to create CreatePNTBTStreamVertexShader");
+		sprintf(szError, "Failed to create CreatePNTStreamVertexShader");
 		MessageBox(NULL, szError, "Vertex Shader Error", MB_ICONSTOP);
 	}
 
@@ -171,7 +171,7 @@ LPDIRECT3DVERTEXDECLARATION9 CGraphicDevice::CreatePNT2StreamVertexShader()
 	if (ms_lpd3dDevice->CreateVertexDeclaration(pShaderDecl, &dwShader) != D3D_OK)
 	{
 		char szError[1024];
-		sprintf(szError, "Failed to create CreatePNTBT2StreamVertexShader");
+		sprintf(szError, "Failed to create CreatePNT2StreamVertexShader");
 		MessageBox(NULL, szError, "Vertex Shader Error", MB_ICONSTOP);
 	}
 
@@ -220,7 +220,7 @@ LPDIRECT3DVERTEXDECLARATION9 CGraphicDevice::CreateDoublePNTStreamVertexShader()
 	if (ms_lpd3dDevice->CreateVertexDeclaration(pShaderDecl, &dwShader) != D3D_OK)
 	{
 		char szError[1024];
-		sprintf(szError, "Failed to create CreateDoublePNTBTStreamVertexShader");
+		sprintf(szError, "Failed to create CreateDoublePNTStreamVertexShader");
 		MessageBox(NULL, szError, "Vertex Shader Error", MB_ICONSTOP);
 	}
 
