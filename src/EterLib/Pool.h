@@ -25,7 +25,7 @@ class CDynamicPool
 		void Destroy()
 		{
 			for (T* p : m_Chunks)
-				delete p;
+				::free(p);
 
 			m_Free.clear();
 			m_Data.clear();
