@@ -32,6 +32,7 @@ void CPythonGraphic::SetInterfaceRenderState()
 	STATEMANAGER.SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	STATEMANAGER.SetRenderState(D3DRS_SRCBLEND,	D3DBLEND_SRCALPHA);
 	STATEMANAGER.SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	STATEMANAGER.SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, FALSE);
 
 	CPythonGraphic::Instance().SetBlendOperation();
 	CPythonGraphic::Instance().SetOrtho2D(ms_iWidth, ms_iHeight, GetOrthoDepth());
@@ -47,6 +48,7 @@ void CPythonGraphic::SetGameRenderState()
 
 	STATEMANAGER.SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	STATEMANAGER.SetRenderState(D3DRS_LIGHTING, TRUE);
+	STATEMANAGER.SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
 }
 
 void CPythonGraphic::SetCursorPosition(int x, int y)
