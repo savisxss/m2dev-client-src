@@ -1,5 +1,3 @@
-# Add subdirectories for each library and executable
-add_subdirectory(CWebBrowser)
 add_subdirectory(Discord)
 add_subdirectory(EffectLib)
 add_subdirectory(EterBase)
