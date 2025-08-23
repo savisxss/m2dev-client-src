@@ -1187,7 +1187,7 @@ typedef struct SSimplePlayerInformation
 	uint16_t				wHairPart;
     uint8_t                bDummy[4];
 	int32_t				x, y;
-	int32_t				lAddr;
+	uint32_t				lAddr;
 	uint16_t				wPort;
 	uint8_t				bySkillGroup;
 } TSimplePlayerInformation;

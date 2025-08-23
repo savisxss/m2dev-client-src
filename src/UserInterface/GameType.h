@@ -180,13 +180,13 @@ enum EDSInventoryMaxNum
 typedef struct SItemPos
 {
 	uint8_t window_type;
-	WORD cell;
+	uint16_t cell;
     SItemPos ()
     {
 		window_type =     INVENTORY;
 		cell = WORD_MAX;
     }
-	SItemPos (uint8_t _window_type, WORD _cell)
+	SItemPos (uint8_t _window_type, uint16_t _cell)
     {
         window_type = _window_type;
         cell = _cell;
@@ -305,33 +305,33 @@ enum
 
 typedef struct SQuickSlot
 {
-	BYTE Type;
-	BYTE Position;
+	uint8_t Type;
+	uint8_t Position;
 } TQuickSlot;
 
 typedef struct TPlayerItemAttribute
 {
-    BYTE        bType;
-    short       sValue;
+	uint8_t        bType;
+    int16_t       sValue;
 } TPlayerItemAttribute;
 
 typedef struct packet_item
 {
-    DWORD       vnum;
-    BYTE        count;
-	DWORD		flags;
-	DWORD		anti_flags;
-	long		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
+    uint32_t       vnum;
+	uint8_t        count;
+	uint32_t		flags;
+	uint32_t		anti_flags;
+	int32_t		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
     TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
 } TItemData;
 
 typedef struct packet_shop_item
 {
-    DWORD       vnum;
-    DWORD       price;
-    BYTE        count;
-	BYTE		display_pos;
-	long		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
+    uint32_t       vnum;
+    uint32_t       price;
+	uint8_t        count;
+	uint8_t		display_pos;
+	int32_t		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
     TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
 } TShopItemData;
 
