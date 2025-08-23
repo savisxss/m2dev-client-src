@@ -27,9 +27,6 @@ void CPythonApplication::ShowWebPage(const char* c_szURL, const RECT& c_rcWebPag
 {
 	SetCursorMode(CURSOR_MODE_HARDWARE);
 
-	PWSTR path_tmp;
-	SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, nullptr, &path_tmp);
-
 	std::filesystem::path tempPath = std::filesystem::temp_directory_path();
 	tempPath /= "Metin2";
 	tempPath /= "WebCache";
