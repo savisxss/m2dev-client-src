@@ -22,6 +22,8 @@ class CDynamicPool
 
 		void Destroy()
 		{
+			FreeAll();
+
 			for (T* p : m_Chunks)
 				::free(p);
 
@@ -54,6 +56,11 @@ class CDynamicPool
 
 		void FreeAll()
 		{
+			for (T* p : m_Data) {
+				if (std::find(m_Free.begin(), m_Free.end(), p) == m_Free.end()) {
+					p->~T();
+				}
+			}
 			m_Free = m_Data;
 		}
 		
