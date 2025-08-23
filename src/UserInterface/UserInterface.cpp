@@ -9,10 +9,9 @@
 #include <crtdbg.h>
 #endif
 
-#include "../eterPack/EterPackManager.h"
-#include "../eterLib/Util.h"
-#include "../CWebBrowser/CWebBrowser.h"
-#include "../eterBase/CPostIt.h"
+#include "eterPack/EterPackManager.h"
+#include "eterLib/Util.h"
+#include "eterBase/CPostIt.h"
 
 #include "CheckLatestFiles.h"
 
@@ -637,8 +636,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	}
 #endif
 
-	WebBrowser_Startup(hInstance);
-
 	if (!CheckPythonLibraryFilenames())
 	{
 		__ErrorPythonLibraryIsNotExist();
@@ -650,8 +647,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 #ifdef USE_NPROTECT_GAMEGUARD
 	GameGuard_NoticeMessage();
 #endif
-
-	WebBrowser_Cleanup();
 
 	::CoUninitialize();
 

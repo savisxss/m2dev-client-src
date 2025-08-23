@@ -1,10 +1,9 @@
 #include "StdAfx.h"
-#include "../eterBase/Error.h"
-#include "../eterlib/Camera.h"
-#include "../eterlib/AttributeInstance.h"
-#include "../gamelib/AreaTerrain.h"
-#include "../EterGrnLib/Material.h"
-#include "../CWebBrowser/CWebBrowser.h"
+#include "eterBase/Error.h"
+#include "eterlib/Camera.h"
+#include "eterlib/AttributeInstance.h"
+#include "gamelib/AreaTerrain.h"
+#include "EterGrnLib/Material.h"
 
 #include "resource.h"
 #include "PythonApplication.h"
@@ -1386,8 +1385,6 @@ void CPythonApplication::Clear()
 
 void CPythonApplication::Destroy()
 {
-	WebBrowser_Destroy();
-
 	// SphereMap
 	CGrannyMaterial::DestroySphereMap();
 

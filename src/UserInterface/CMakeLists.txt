@@ -9,7 +9,6 @@ set_target_properties(UserInterface PROPERTIES LINK_FLAGS "/level='requireAdmini
 )
 
 target_link_libraries(UserInterface 
-	CWebBrowser
 	Discord
 	EffectLib 
 	EterBase 
@@ -34,6 +33,7 @@ target_link_libraries(UserInterface
 	SpeedTree
 	MilesSoundSystem
 	Python
+	WebView
 	
 	ws2_32 
 	strmiids
