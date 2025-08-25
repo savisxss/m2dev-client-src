@@ -5,7 +5,6 @@
 
 #include <stb_image.h>
 
-extern bool PERF_CHECKER_RENDER_GAME;
 extern D3DXCOLOR g_fSpecularColor;
 extern BOOL bVisibleNotice = true;
 extern BOOL bTestServerFlag = FALSE;
@@ -76,10 +75,7 @@ PyObject* appEnablePerformanceTime(PyObject* poSelf, PyObject* poArgs)
 	if (!PyTuple_GetInteger(poArgs, 1, &nEnable))
 		return Py_BuildException();
 
-	bool isEnable=nEnable ? true : false;
-
-	if (strcmp(szMode, "RENDER_GAME")==0)
-		PERF_CHECKER_RENDER_GAME = isEnable;
+	// TODO: remove this function
 	
 	return Py_BuildNone();
 }
