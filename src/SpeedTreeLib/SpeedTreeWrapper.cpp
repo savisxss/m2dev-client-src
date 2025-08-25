@@ -50,8 +50,9 @@
 
 using namespace std;
 
-LPDIRECT3DVERTEXDECLARATION9 CSpeedTreeWrapper::ms_dwBranchVertexShader = 0;
-LPDIRECT3DVERTEXDECLARATION9 CSpeedTreeWrapper::ms_dwLeafVertexShader = 0;
+LPDIRECT3DVERTEXDECLARATION9 CSpeedTreeWrapper::ms_dwBranchVertexShader = nullptr;
+LPDIRECT3DVERTEXDECLARATION9 CSpeedTreeWrapper::ms_pLeafVertexShaderDecl = nullptr;
+LPDIRECT3DVERTEXSHADER9 CSpeedTreeWrapper::ms_pLeafVertexShader = nullptr;
 bool CSpeedTreeWrapper::ms_bSelfShadowOn = true;
 
 ///////////////////////////////////////////////////////////////////////  
@@ -81,10 +82,11 @@ m_pTextureInfo(NULL)
 	m_pSpeedTree->SetLocalMatrices(0, 4);
 }
 
-void CSpeedTreeWrapper::SetVertexShaders(LPDIRECT3DVERTEXDECLARATION9 dwBranchVertexShader, LPDIRECT3DVERTEXDECLARATION9 dwLeafVertexShader)
+void CSpeedTreeWrapper::SetVertexShaders(LPDIRECT3DVERTEXDECLARATION9 pBranchVertexShader, LPDIRECT3DVERTEXDECLARATION9 pLeafVertexShader, LPDIRECT3DVERTEXSHADER9 pVertexShader)
 {
-	ms_dwBranchVertexShader = dwBranchVertexShader;
-	ms_dwLeafVertexShader = dwLeafVertexShader;
+	ms_dwBranchVertexShader = pBranchVertexShader;
+	ms_pLeafVertexShaderDecl = pLeafVertexShader;
+	ms_pLeafVertexShader = pVertexShader;
 }
 
 void CSpeedTreeWrapper::OnRenderPCBlocker()
@@ -92,12 +94,6 @@ void CSpeedTreeWrapper::OnRenderPCBlocker()
 	if (ms_dwBranchVertexShader == 0)
 	{
 		ms_dwBranchVertexShader = LoadBranchShader(ms_lpd3dDevice);
-		//LogBox("Vertex Shader not assigned. You must call CSpeedTreeWrapper::SetVertexShader for this");
-	}
-	
-	if (ms_dwLeafVertexShader == 0)
-	{
-		ms_dwLeafVertexShader = LoadLeafShader(ms_lpd3dDevice);
 		//LogBox("Vertex Shader not assigned. You must call CSpeedTreeWrapper::SetVertexShader for this");
 	}
 	
@@ -204,7 +200,8 @@ void CSpeedTreeWrapper::OnRenderPCBlocker()
 	}
 	RenderFronds();
 	
-	STATEMANAGER.SetVertexDeclaration(ms_dwLeafVertexShader);
+	STATEMANAGER.SetVertexDeclaration(ms_pLeafVertexShaderDecl);
+	STATEMANAGER.SaveVertexShader(ms_pLeafVertexShader);
 	
 // 	SetupLeafForTreeType();
 	{
@@ -218,6 +215,7 @@ void CSpeedTreeWrapper::OnRenderPCBlocker()
 	}
 	RenderLeaves();
 	EndLeafForTreeType();
+	STATEMANAGER.RestoreVertexShader();
 	
 	STATEMANAGER.SetRenderState(D3DRS_LIGHTING, FALSE);
 	STATEMANAGER.SetRenderState(D3DRS_COLORVERTEX, FALSE);
@@ -239,12 +237,6 @@ void CSpeedTreeWrapper::OnRender()
 	if (ms_dwBranchVertexShader == 0)
 	{
 		ms_dwBranchVertexShader = LoadBranchShader(ms_lpd3dDevice);
-		//LogBox("Vertex Shader not assigned. You must call CSpeedTreeWrapper::SetVertexShader for this");
-	}
-	
-	if (ms_dwLeafVertexShader == 0)
-	{
-		ms_dwLeafVertexShader = LoadLeafShader(ms_lpd3dDevice);
 		//LogBox("Vertex Shader not assigned. You must call CSpeedTreeWrapper::SetVertexShader for this");
 	}
 	
@@ -288,11 +280,13 @@ void CSpeedTreeWrapper::OnRender()
 	SetupFrondForTreeType();
 	RenderFronds();
 	
-	STATEMANAGER.SetVertexDeclaration(ms_dwLeafVertexShader);
+	STATEMANAGER.SetVertexDeclaration(ms_pLeafVertexShaderDecl);
+	STATEMANAGER.SaveVertexShader(ms_pLeafVertexShader);
 	
 	SetupLeafForTreeType();
 	RenderLeaves();
 	EndLeafForTreeType();
+	STATEMANAGER.RestoreVertexShader();
 	
 	STATEMANAGER.SetRenderState(D3DRS_LIGHTING, FALSE);
 	STATEMANAGER.SetRenderState(D3DRS_COLORVERTEX, FALSE);
@@ -683,9 +677,9 @@ void CSpeedTreeWrapper::SetupLeafBuffers(void)
 		SFVFLeafVertex* pVertexBuffer = NULL;
 		// create the vertex buffer for storing leaf vertices
 #ifndef WRAPPER_USE_CPU_LEAF_PLACEMENT
-		ms_lpd3dDevice->CreateVertexBuffer(usLeafCount * 6 * sizeof(SFVFLeafVertex), D3DUSAGE_WRITEONLY, D3DFVF_SPEEDTREE_LEAF_VERTEX, D3DPOOL_MANAGED, &m_pLeafVertexBuffer[unLod]);
+		ms_lpd3dDevice->CreateVertexBuffer(usLeafCount * 6 * sizeof(SFVFLeafVertex), D3DUSAGE_WRITEONLY, D3DFVF_SPEEDTREE_LEAF_VERTEX, D3DPOOL_MANAGED, &m_pLeafVertexBuffer[unLod], nullptr);
 		// fill the vertex buffer by interleaving SpeedTree data
-		m_pLeafVertexBuffer[unLod]->Lock(0, 0, reinterpret_cast<BYTE**>(&pVertexBuffer), 0);
+		m_pLeafVertexBuffer[unLod]->Lock(0, 0, reinterpret_cast<void**>(&pVertexBuffer), 0);
 #else
 		ms_lpd3dDevice->CreateVertexBuffer(usLeafCount * 6 * sizeof(SFVFLeafVertex), D3DUSAGE_DYNAMIC, D3DFVF_SPEEDTREE_LEAF_VERTEX, D3DPOOL_SYSTEMMEM, &m_pLeafVertexBuffer[unLod], NULL);
 		// fill the vertex buffer by interleaving SpeedTree data

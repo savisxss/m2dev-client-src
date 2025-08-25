@@ -45,7 +45,7 @@
 ///////////////////////////////////////////////////////////////////////  
 //	CSpeedTreeForestDirectX8::CSpeedTreeForestDirectX8
 
-CSpeedTreeForestDirectX8::CSpeedTreeForestDirectX8()  : m_dwBranchVertexShader(0), m_dwLeafVertexShader(0)
+CSpeedTreeForestDirectX8::CSpeedTreeForestDirectX8()  : m_dwBranchVertexShader(nullptr), m_pLeafVertexShaderDecl(nullptr), m_pLeafVertexShader(nullptr)
 {
 }
 
@@ -66,12 +66,12 @@ bool CSpeedTreeForestDirectX8::InitVertexShaders(void)
 	if (!m_dwBranchVertexShader)
 		m_dwBranchVertexShader = LoadBranchShader(m_pDx);
 
-	if (!m_dwLeafVertexShader)
-		m_dwLeafVertexShader = LoadLeafShader(m_pDx);
+	if (!m_pLeafVertexShaderDecl || !m_pLeafVertexShader)
+		LoadLeafShader(m_pDx, m_pLeafVertexShaderDecl, m_pLeafVertexShader);
 
-	if (m_dwBranchVertexShader && m_dwLeafVertexShader)
+	if (m_dwBranchVertexShader && m_pLeafVertexShaderDecl && m_pLeafVertexShader)
 	{
-		CSpeedTreeWrapper::SetVertexShaders(m_dwBranchVertexShader, m_dwLeafVertexShader);
+		CSpeedTreeWrapper::SetVertexShaders(m_dwBranchVertexShader, m_pLeafVertexShaderDecl, m_pLeafVertexShader);
 		return true;
 	}
 
@@ -261,7 +261,8 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 	// render leaves
 	if (ulRenderBitVector & Forest_RenderLeaves)
 	{
-		STATEMANAGER.SetVertexDeclaration(m_dwLeafVertexShader);
+		STATEMANAGER.SetVertexDeclaration(m_pLeafVertexShaderDecl);
+		STATEMANAGER.SaveVertexShader(m_pLeafVertexShader);
 
 		if (STATEMANAGER.GetRenderState(D3DRS_FOGENABLE))
 		{
@@ -298,6 +299,7 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 			STATEMANAGER.SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 			STATEMANAGER.RestoreRenderState(D3DRS_ALPHAREF);
 		}
+		STATEMANAGER.RestoreVertexShader();
 	}
 
 	// render billboards
