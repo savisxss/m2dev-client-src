@@ -45,6 +45,7 @@
 #include <d3dx9.h>
 
 #include <vector>
+#include <stack>
 
 #include "../eterBase/Singleton.h"
 
@@ -189,12 +190,6 @@ public:
 		for (i = 0; i < STATEMANAGER_MAX_TRANSFORMSTATES; i++)
 			D3DXMatrixIdentity(&m_Matrices[i]);
 
-		for (i = 0; i < STATEMANAGER_MAX_VCONSTANTS; i++)
-			m_VertexShaderConstants[i] = D3DXVECTOR4(0, 0, 0, 0);
-
-		for (i = 0; i < STATEMANAGER_MAX_PCONSTANTS; i++)
-			m_PixelShaderConstants[i] = D3DXVECTOR4(0, 0, 0, 0);
-
 		m_dwPixelShader = 0;
 		m_dwVertexShader = 0;
 		m_dwVertexDeclaration = 0;
@@ -208,12 +203,6 @@ public:
 	// Texture stage states
 	DWORD					m_TextureStates[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];
 	DWORD					m_SamplerStates[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];
-
-	// Vertex shader constants
-	D3DXVECTOR4				m_VertexShaderConstants[STATEMANAGER_MAX_VCONSTANTS];
-
-	// Pixel shader constants
-	D3DXVECTOR4				m_PixelShaderConstants[STATEMANAGER_MAX_PCONSTANTS];
 
 	// Textures
 	LPDIRECT3DBASETEXTURE9	m_Textures[STATEMANAGER_MAX_STAGES];
@@ -319,13 +308,9 @@ public:
 	void GetTransform(D3DTRANSFORMSTATETYPE Type, D3DXMATRIX* pMatrix);
 
 	// SetVertexShaderConstant
-	void SaveVertexShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount);
-	void RestoreVertexShaderConstant(DWORD dwRegister, DWORD dwConstantCount);
 	void SetVertexShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount);
 
 	// SetPixelShaderConstant
-	void SavePixelShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount);
-	void RestorePixelShaderConstant(DWORD dwRegister, DWORD dwConstantCount);
 	void SetPixelShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount);
 
 	void SaveStreamSource(UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT Stride);
@@ -359,10 +344,9 @@ private:
 	void SetDevice(LPDIRECT3DDEVICE9 lpDevice);
 
 private:
-	CStateManagerState	m_ChipState;
+
 	CStateManagerState	m_CurrentState;
-	CStateManagerState	m_CopyState;
-	TStateID			m_DirtyStates;
+	CStateManagerState	m_CurrentState_Copy;
 
 	bool				m_bForce;
 	bool				m_bScene;
@@ -370,18 +354,22 @@ private:
 	DWORD				m_dwBestMagFilter;
 	LPDIRECT3DDEVICE9	m_lpD3DDev;
 
-	CStateManagerState	m_ChipState_Copy;
-	CStateManagerState	m_CurrentState_Copy;
-	CStateManagerState	m_CopyState_Copy;
-	TStateID			m_DirtyStates_Copy;
+	std::vector<DWORD>						m_RenderStateStack[STATEMANAGER_MAX_RENDERSTATES];
+	std::vector<DWORD>						m_SamplerStateStack[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];
+	std::vector<DWORD>						m_TextureStageStateStack[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];
+	std::vector<D3DXMATRIX>					m_TransformStack[STATEMANAGER_MAX_TRANSFORMSTATES];
+	std::vector<LPDIRECT3DBASETEXTURE9>		m_TextureStack[STATEMANAGER_MAX_STAGES];
+	std::vector<D3DMATERIAL9>				m_MaterialStack;
+	std::vector<DWORD>						m_FVFStack;
+	std::vector<LPDIRECT3DPIXELSHADER9>		m_PixelShaderStack;
+	std::vector<LPDIRECT3DVERTEXSHADER9>	m_VertexShaderStack;
+	std::vector<LPDIRECT3DVERTEXDECLARATION9> m_VertexDeclarationStack;
+	std::vector<BOOL>						m_VertexProcessingStack;
+	std::vector<CStreamData>				m_StreamStack[STATEMANAGER_MAX_STREAMS];
+	std::vector<CIndexData>					m_IndexStack;
 
 #ifdef _DEBUG
 	// Saving Flag
-	BOOL				m_bRenderStateSavingFlag[STATEMANAGER_MAX_RENDERSTATES];
-	BOOL				m_bTextureStageStateSavingFlag[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];
-	BOOL				m_bSamplerStateSavingFlag[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];
-	BOOL				m_bTransformSavingFlag[STATEMANAGER_MAX_TRANSFORMSTATES];
-
 	int					m_iDrawCallCount;
 	int					m_iLastDrawCallCount;
 #endif _DEBUG

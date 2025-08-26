@@ -122,7 +122,6 @@ void CMapOutdoor::RenderWater()
 
 	//////////////////////////////////////////////////////////////////////////
 	// RenderState
-	STATEMANAGER.RestoreVertexShader();
 	STATEMANAGER.RestoreTransform(D3DTS_TEXTURE0);
 	STATEMANAGER.RestoreSamplerState(0, D3DSAMP_MINFILTER);
 	STATEMANAGER.RestoreSamplerState(0, D3DSAMP_MAGFILTER);

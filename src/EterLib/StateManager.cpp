@@ -131,15 +131,38 @@ void CStateManager::Restore()
 void CStateManager::SetDefaultState()
 {
 	m_CurrentState.ResetState();
-	m_CopyState.ResetState();
-	m_ChipState.ResetState();
+	m_CurrentState_Copy.ResetState();
+
+	for (auto& stack : m_RenderStateStack)
+		stack.clear();
+
+	for (auto& stageStacks : m_SamplerStateStack)
+		for (auto& stack : stageStacks)
+			stack.clear();
+
+	for (auto& stageStacks : m_TextureStageStateStack)
+		for (auto& stack : stageStacks)
+			stack.clear();
+
+	for (auto& stack : m_TransformStack)
+		stack.clear();
+
+	for (auto& stack : m_TextureStack)
+		stack.clear();
+
+	for (auto& stack : m_StreamStack)
+		stack.clear();
+
+	m_MaterialStack.clear();
+	m_FVFStack.clear();
+	m_PixelShaderStack.clear();
+	m_VertexShaderStack.clear();
+	m_VertexDeclarationStack.clear();
+	m_VertexProcessingStack.clear();
+	m_IndexStack.clear();
 
 	m_bScene = false;
 	m_bForce = true;
-
-	m_CurrentState_Copy = m_CurrentState;
-	m_CopyState_Copy = m_CopyState;
-	m_ChipState_Copy = m_ChipState;
 
 	D3DXMATRIX matIdentity;
 	D3DXMatrixIdentity(&matIdentity);
@@ -370,52 +393,30 @@ void CStateManager::SetDefaultState()
 	SetPixelShaderConstant(0, av4Null, STATEMANAGER_MAX_PCONSTANTS);
 
 	m_bForce = false;
-
-#ifdef _DEBUG
-	int i, j;
-	for (i = 0; i < STATEMANAGER_MAX_RENDERSTATES; i++)
-	{
-		m_bRenderStateSavingFlag[i] = FALSE;
-	}
-
-	for (j = 0; j < STATEMANAGER_MAX_TRANSFORMSTATES; j++)
-	{
-		m_bTransformSavingFlag[j] = FALSE;
-	}
-
-	for (j = 0; j < STATEMANAGER_MAX_STAGES; ++j)
-	{
-		for (i = 0; i < STATEMANAGER_MAX_TEXTURESTATES; ++i)
-		{
-			m_bTextureStageStateSavingFlag[j][i] = FALSE;
-			m_bSamplerStateSavingFlag[j][i] = FALSE;
-		}
-	}
-#endif _DEBUG
 }
 
 // Material
 void CStateManager::SaveMaterial()
 {
-	m_CopyState.m_D3DMaterial = m_CurrentState.m_D3DMaterial;
+	m_MaterialStack.push_back(m_CurrentState.m_D3DMaterial);
 }
 
 void CStateManager::SaveMaterial(const D3DMATERIAL9* pMaterial)
 {
-	// Check that we have set this up before, if not, the default is this.
-	m_CopyState.m_D3DMaterial = m_CurrentState.m_D3DMaterial;
+	m_MaterialStack.push_back(m_CurrentState.m_D3DMaterial);
 	SetMaterial(pMaterial);
 }
 
 void CStateManager::RestoreMaterial()
 {
-	SetMaterial(&m_CopyState.m_D3DMaterial);
+	SetMaterial(&m_MaterialStack.back());
+	m_MaterialStack.pop_back();
 }
 
 void CStateManager::SetMaterial(const D3DMATERIAL9* pMaterial)
 {
-	m_lpD3DDev->SetMaterial(pMaterial);
 	m_CurrentState.m_D3DMaterial = *pMaterial;
+	m_lpD3DDev->SetMaterial(&m_CurrentState.m_D3DMaterial);
 }
 
 void CStateManager::GetMaterial(D3DMATERIAL9* pMaterial)
@@ -433,17 +434,11 @@ DWORD CStateManager::GetRenderState(D3DRENDERSTATETYPE Type)
 void CStateManager::StateManager_Capture()
 {
 	m_CurrentState_Copy = m_CurrentState;
-	m_CopyState_Copy = m_CopyState;
-	m_ChipState_Copy = m_ChipState;
-	m_DirtyStates_Copy = m_DirtyStates;
 }
 
 void CStateManager::StateManager_Apply()
 {
 	m_CurrentState = m_CurrentState_Copy;
-	m_CopyState = m_CopyState_Copy;
-	m_ChipState = m_ChipState_Copy;
-	m_DirtyStates = m_DirtyStates_Copy;
 }
 
 LPDIRECT3DDEVICE9 CStateManager::GetDevice()
@@ -453,32 +448,22 @@ LPDIRECT3DDEVICE9 CStateManager::GetDevice()
 
 void CStateManager::SaveRenderState(D3DRENDERSTATETYPE Type, DWORD dwValue)
 {
-#ifdef _DEBUG
-	if (m_bRenderStateSavingFlag[Type])
-	{
-		Tracef(" CStateManager::SaveRenderState - This render state is already saved [%d, %d]\n", Type, dwValue);
-		StateManager_Assert(!" This render state is already saved!");
-	}
-	m_bRenderStateSavingFlag[Type] = TRUE;
-#endif _DEBUG
-
-	// Check that we have set this up before, if not, the default is this.
-	m_CopyState.m_RenderStates[Type] = m_CurrentState.m_RenderStates[Type];
+	m_RenderStateStack[Type].push_back(m_CurrentState.m_RenderStates[Type]);
 	SetRenderState(Type, dwValue);
 }
 
 void CStateManager::RestoreRenderState(D3DRENDERSTATETYPE Type)
 {
 #ifdef _DEBUG
-	if (!m_bRenderStateSavingFlag[Type])
+	if (m_RenderStateStack[Type].empty())
 	{
 		Tracef(" CStateManager::SaveRenderState - This render state was not saved [%d, %d]\n", Type);
 		StateManager_Assert(!" This render state was not saved!");
 	}
-	m_bRenderStateSavingFlag[Type] = FALSE;
 #endif _DEBUG
 
-	SetRenderState(Type, m_CopyState.m_RenderStates[Type]);
+	SetRenderState(Type, m_RenderStateStack[Type].back());
+	m_RenderStateStack[Type].pop_back();
 }
 
 void CStateManager::SetRenderState(D3DRENDERSTATETYPE Type, DWORD Value)
@@ -498,14 +483,14 @@ void CStateManager::GetRenderState(D3DRENDERSTATETYPE Type, DWORD* pdwValue)
 // Textures
 void CStateManager::SaveTexture(DWORD dwStage, LPDIRECT3DBASETEXTURE9 pTexture)
 {
-	// Check that we have set this up before, if not, the default is this.
-	m_CopyState.m_Textures[dwStage] = m_CurrentState.m_Textures[dwStage];
+	m_TextureStack[dwStage].push_back(m_CurrentState.m_Textures[dwStage]);
 	SetTexture(dwStage, pTexture);
 }
 
 void CStateManager::RestoreTexture(DWORD dwStage)
 {
-	SetTexture(dwStage, m_CopyState.m_Textures[dwStage]);
+	SetTexture(dwStage, m_TextureStack[dwStage].back());
+	m_TextureStack[dwStage].pop_back();
 }
 
 void CStateManager::SetTexture(DWORD dwStage, LPDIRECT3DBASETEXTURE9 pTexture)
@@ -525,30 +510,21 @@ void CStateManager::GetTexture(DWORD dwStage, LPDIRECT3DBASETEXTURE9* ppTexture)
 // Texture stage states
 void CStateManager::SaveTextureStageState(DWORD dwStage, D3DTEXTURESTAGESTATETYPE Type, DWORD dwValue)
 {
-	// Check that we have set this up before, if not, the default is this.
-#ifdef _DEBUG
-	if (m_bTextureStageStateSavingFlag[dwStage][Type])
-	{
-		Tracef(" CStateManager::SaveTextureStageState - This texture stage state is already saved [%d, %d]\n", dwStage, Type);
-		StateManager_Assert(!" This texture stage state is already saved!");
-	}
-	m_bTextureStageStateSavingFlag[dwStage][Type] = TRUE;
-#endif _DEBUG
-	m_CopyState.m_TextureStates[dwStage][Type] = m_CurrentState.m_TextureStates[dwStage][Type];
+	m_TextureStageStateStack[dwStage][Type].push_back(m_CurrentState.m_TextureStates[dwStage][Type]);
 	SetTextureStageState(dwStage, Type, dwValue);
 }
 
 void CStateManager::RestoreTextureStageState(DWORD dwStage, D3DTEXTURESTAGESTATETYPE Type)
 {
 #ifdef _DEBUG
-	if (!m_bTextureStageStateSavingFlag[dwStage][Type])
+	if (m_TextureStageStateStack[dwStage][Type].empty())
 	{
 		Tracef(" CStateManager::RestoreTextureStageState - This texture stage state was not saved [%d, %d]\n", dwStage, Type);
 		StateManager_Assert(!" This texture stage state was not saved!");
 	}
-	m_bTextureStageStateSavingFlag[dwStage][Type] = FALSE;
 #endif _DEBUG
-	SetTextureStageState(dwStage, Type, m_CopyState.m_TextureStates[dwStage][Type]);
+	SetTextureStageState(dwStage, Type, m_TextureStageStateStack[dwStage][Type].back());
+	m_TextureStageStateStack[dwStage][Type].pop_back();
 }
 
 void CStateManager::SetTextureStageState(DWORD dwStage, D3DTEXTURESTAGESTATETYPE Type, DWORD dwValue)
@@ -568,28 +544,20 @@ void CStateManager::GetTextureStageState(DWORD dwStage, D3DTEXTURESTAGESTATETYPE
 // Sampler states
 void CStateManager::SaveSamplerState(DWORD dwStage, D3DSAMPLERSTATETYPE Type, DWORD dwValue)
 {
-#ifdef _DEBUG
-	if (m_bSamplerStateSavingFlag[dwStage][Type])
-	{
-		Tracenf(" CStateManager::SaveTextureStageState - This texture stage state is already saved [%d, %d]\n", dwStage, Type);
-		StateManager_Assert(!" This texture stage state is already saved!");
-	}
-	m_bSamplerStateSavingFlag[dwStage][Type] = TRUE;
-#endif _DEBUG
-	m_CopyState.m_SamplerStates[dwStage][Type] = m_CurrentState.m_SamplerStates[dwStage][Type];
+	m_SamplerStateStack[dwStage][Type].push_back(m_CurrentState.m_SamplerStates[dwStage][Type]);
 	SetSamplerState(dwStage, Type, dwValue);
 }
 void CStateManager::RestoreSamplerState(DWORD dwStage, D3DSAMPLERSTATETYPE Type)
 {
 #ifdef _DEBUG
-	if (!m_bSamplerStateSavingFlag[dwStage][Type])
+	if (m_SamplerStateStack[dwStage][Type].empty())
 	{
 		Tracenf(" CStateManager::RestoreTextureStageState - This texture stage state was not saved [%d, %d]\n", dwStage, Type);
 		StateManager_Assert(!" This texture stage state was not saved!");
 	}
-	m_bSamplerStateSavingFlag[dwStage][Type] = FALSE;
 #endif _DEBUG
-	SetSamplerState(dwStage, Type, m_CopyState.m_SamplerStates[dwStage][Type]);
+	SetSamplerState(dwStage, Type, m_SamplerStateStack[dwStage][Type].back());
+	m_SamplerStateStack[dwStage][Type].pop_back();
 }
 void CStateManager::SetSamplerState(DWORD dwStage, D3DSAMPLERSTATETYPE Type, DWORD dwValue)
 {
@@ -606,13 +574,14 @@ void CStateManager::GetSamplerState(DWORD dwStage, D3DSAMPLERSTATETYPE Type, DWO
 // Vertex Shader
 void CStateManager::SaveVertexShader(LPDIRECT3DVERTEXSHADER9 dwShader)
 {
-	m_CopyState.m_dwVertexShader = m_CurrentState.m_dwVertexShader;
+	m_VertexShaderStack.push_back(m_CurrentState.m_dwVertexShader);
 	SetVertexShader(dwShader);
 }
 
 void CStateManager::RestoreVertexShader()
 {
-	SetVertexShader(m_CopyState.m_dwVertexShader);
+	SetVertexShader(m_VertexShaderStack.back());
+	m_VertexShaderStack.pop_back();
 }
 
 void CStateManager::SetVertexShader(LPDIRECT3DVERTEXSHADER9 dwShader)
@@ -632,32 +601,28 @@ void CStateManager::GetVertexShader(LPDIRECT3DVERTEXSHADER9* pdwShader)
 // Vertex Processing
 void CStateManager::SaveVertexProcessing(BOOL IsON)
 {
-	if (m_CurrentState.m_bVertexProcessing = IsON)
-		return;
-	m_CopyState.m_bVertexProcessing = m_CurrentState.m_bVertexProcessing;
+	m_VertexProcessingStack.push_back(m_CurrentState.m_bVertexProcessing);
 	m_lpD3DDev->SetSoftwareVertexProcessing(IsON);
 	m_CurrentState.m_bVertexProcessing = IsON;
 }
 void CStateManager::RestoreVertexProcessing()
 {
-	if (m_CopyState.m_bVertexProcessing = m_CurrentState.m_bVertexProcessing)
-		return;
-	m_lpD3DDev->SetSoftwareVertexProcessing(m_CopyState.m_bVertexProcessing);
+	m_lpD3DDev->SetSoftwareVertexProcessing(m_VertexProcessingStack.back());
+	m_VertexProcessingStack.pop_back();
 }
 // Vertex Declaration
 void CStateManager::SaveVertexDeclaration(LPDIRECT3DVERTEXDECLARATION9 dwShader)
 {
-	m_CopyState.m_dwVertexDeclaration = m_CurrentState.m_dwVertexDeclaration;
+	m_VertexDeclarationStack.push_back(m_CurrentState.m_dwVertexDeclaration);
 	SetVertexDeclaration(dwShader);
 }
 void CStateManager::RestoreVertexDeclaration()
 {
-	SetVertexDeclaration(m_CopyState.m_dwVertexDeclaration);
+	SetVertexDeclaration(m_VertexDeclarationStack.back());
+	m_VertexDeclarationStack.pop_back();
 }
 void CStateManager::SetVertexDeclaration(LPDIRECT3DVERTEXDECLARATION9 dwShader)
 {
-	//if (m_CurrentState.m_dwVertexDeclaration == dwShader)
-	//	return;
 	m_lpD3DDev->SetVertexDeclaration(dwShader);
 	m_CurrentState.m_dwVertexDeclaration = dwShader;
 }
@@ -668,12 +633,13 @@ void CStateManager::GetVertexDeclaration(LPDIRECT3DVERTEXDECLARATION9* pdwShader
 // FVF
 void CStateManager::SaveFVF(DWORD dwShader)
 {
-	m_CopyState.m_dwFVF = m_CurrentState.m_dwFVF;
+	m_FVFStack.push_back(m_CurrentState.m_dwFVF);
 	SetFVF(dwShader);
 }
 void CStateManager::RestoreFVF()
 {
-	SetFVF(m_CopyState.m_dwFVF);
+	SetFVF(m_FVFStack.back());
+	m_FVFStack.pop_back();
 }
 void CStateManager::SetFVF(DWORD dwShader)
 {
@@ -690,13 +656,14 @@ void CStateManager::GetFVF(DWORD* pdwShader)
 // Pixel Shader
 void CStateManager::SavePixelShader(LPDIRECT3DPIXELSHADER9 dwShader)
 {
-	m_CopyState.m_dwPixelShader = m_CurrentState.m_dwPixelShader;
+	m_PixelShaderStack.push_back(m_CurrentState.m_dwPixelShader);
 	SetPixelShader(dwShader);
 }
 
 void CStateManager::RestorePixelShader()
 {
-	SetPixelShader(m_CopyState.m_dwPixelShader);
+	SetPixelShader(m_PixelShaderStack.back());
+	m_PixelShaderStack.pop_back();
 }
 
 void CStateManager::SetPixelShader(LPDIRECT3DPIXELSHADER9 dwShader)
@@ -717,46 +684,33 @@ void CStateManager::GetPixelShader(LPDIRECT3DPIXELSHADER9* pdwShader)
 // Transform
 void CStateManager::SaveTransform(D3DTRANSFORMSTATETYPE Type, const D3DXMATRIX* pMatrix)
 {
-#ifdef _DEBUG
-	if (m_bTransformSavingFlag[Type])
-	{
-		Tracef(" CStateManager::SaveTransform - This transform is already saved [%d]\n", Type);
-		StateManager_Assert(!" This trasform is already saved!");
-	}
-	m_bTransformSavingFlag[Type] = TRUE;
-#endif _DEBUG
-
-	m_CopyState.m_Matrices[Type] = m_CurrentState.m_Matrices[Type];
+	m_TransformStack[Type].push_back(m_CurrentState.m_Matrices[Type]);
 	SetTransform(Type, pMatrix);
 }
 
 void CStateManager::RestoreTransform(D3DTRANSFORMSTATETYPE Type)
 {
 #ifdef _DEBUG
-	if (!m_bTransformSavingFlag[Type])
+	if (m_TransformStack[Type].empty())
 	{
 		Tracef(" CStateManager::RestoreTransform - This transform was not saved [%d]\n", Type);
 		StateManager_Assert(!" This render state was not saved!");
 	}
-	m_bTransformSavingFlag[Type] = FALSE;
 #endif _DEBUG
 
-	SetTransform(Type, &m_CopyState.m_Matrices[Type]);
+	SetTransform(Type, &m_TransformStack[Type].back());
+	m_TransformStack[Type].pop_back();
 }
 
 // Don't cache-check the transform.  To much to do
 void CStateManager::SetTransform(D3DTRANSFORMSTATETYPE Type, const D3DXMATRIX* pMatrix)
 {
-	if (m_bScene)
-	{
-		m_lpD3DDev->SetTransform(Type, pMatrix);
-	}
-	else
-	{
-		assert(D3DTS_VIEW == Type || D3DTS_PROJECTION == Type || D3DTS_WORLD == Type);
-	}
-
 	m_CurrentState.m_Matrices[Type] = *pMatrix;
+
+	if (m_bScene)
+		m_lpD3DDev->SetTransform(Type, &m_CurrentState.m_Matrices[Type]);
+	else
+		assert(D3DTS_VIEW == Type || D3DTS_PROJECTION == Type || D3DTS_WORLD == Type);
 }
 
 void CStateManager::GetTransform(D3DTRANSFORMSTATETYPE Type, D3DXMATRIX* pMatrix)
@@ -764,80 +718,29 @@ void CStateManager::GetTransform(D3DTRANSFORMSTATETYPE Type, D3DXMATRIX* pMatrix
 	*pMatrix = m_CurrentState.m_Matrices[Type];
 }
 
-// SetVertexShaderConstant
-void CStateManager::SaveVertexShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount)
-{
-	DWORD i;
-
-	for (i = 0; i < dwConstantCount; i++)
-	{
-		StateManager_Assert((dwRegister + i) < STATEMANAGER_MAX_VCONSTANTS);
-		m_CopyState.m_VertexShaderConstants[dwRegister + i] = m_CurrentState.m_VertexShaderConstants[dwRegister + i];
-	}
-
-	SetVertexShaderConstant(dwRegister, pConstantData, dwConstantCount);
-}
-
-void CStateManager::RestoreVertexShaderConstant(DWORD dwRegister, DWORD dwConstantCount)
-{
-	SetVertexShaderConstant(dwRegister, &m_CopyState.m_VertexShaderConstants[dwRegister], dwConstantCount);
-}
-
 void CStateManager::SetVertexShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount)
 {
 	m_lpD3DDev->SetVertexShaderConstantF(dwRegister, (const float*)pConstantData, dwConstantCount);
-
-	// Set the renderstate and remember it.
-	for (DWORD i = 0; i < dwConstantCount; i++)
-	{
-		StateManager_Assert((dwRegister + i) < STATEMANAGER_MAX_VCONSTANTS);
-		m_CurrentState.m_VertexShaderConstants[dwRegister + i] = *(((D3DXVECTOR4*)pConstantData) + i);
-	}
-}
-
-// SetPixelShaderConstant
-void CStateManager::SavePixelShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount)
-{
-	DWORD i;
-
-	for (i = 0; i < dwConstantCount; i++)
-	{
-		StateManager_Assert((dwRegister + i) < STATEMANAGER_MAX_VCONSTANTS);
-		m_CopyState.m_PixelShaderConstants[dwRegister + i] = *(((D3DXVECTOR4*)pConstantData) + i);
-	}
-
-	SetPixelShaderConstant(dwRegister, pConstantData, dwConstantCount);
-}
-
-void CStateManager::RestorePixelShaderConstant(DWORD dwRegister, DWORD dwConstantCount)
-{
-	SetPixelShaderConstant(dwRegister, &m_CopyState.m_PixelShaderConstants[dwRegister], dwConstantCount);
 }
 
 void CStateManager::SetPixelShaderConstant(DWORD dwRegister, CONST void* pConstantData, DWORD dwConstantCount)
 {
 	m_lpD3DDev->SetVertexShaderConstantF(dwRegister, (const float*)pConstantData, dwConstantCount);
-
-	// Set the renderstate and remember it.
-	for (DWORD i = 0; i < dwConstantCount; i++)
-	{
-		StateManager_Assert((dwRegister + i) < STATEMANAGER_MAX_VCONSTANTS);
-		m_CurrentState.m_PixelShaderConstants[dwRegister + i] = *(((D3DXVECTOR4*)pConstantData) + i);
-	}
 }
 
 void CStateManager::SaveStreamSource(UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT Stride)
 {
-	// Check that we have set this up before, if not, the default is this.
-	m_CopyState.m_StreamData[StreamNumber] = m_CurrentState.m_StreamData[StreamNumber];
+	m_StreamStack[StreamNumber].push_back(m_CurrentState.m_StreamData[StreamNumber]);
 	SetStreamSource(StreamNumber, pStreamData, Stride);
 }
 
 void CStateManager::RestoreStreamSource(UINT StreamNumber)
 {
+	const auto& topStream = m_StreamStack[StreamNumber].back();
 	SetStreamSource(StreamNumber,
-		m_CopyState.m_StreamData[StreamNumber].m_lpStreamData,
-		m_CopyState.m_StreamData[StreamNumber].m_Stride);
+		topStream.m_lpStreamData,
+		topStream.m_Stride);
+	m_StreamStack[StreamNumber].pop_back();
 }
 
 void CStateManager::SetStreamSource(UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 pStreamData, UINT Stride)
@@ -852,13 +755,15 @@ void CStateManager::SetStreamSource(UINT StreamNumber, LPDIRECT3DVERTEXBUFFER9 p
 
 void CStateManager::SaveIndices(LPDIRECT3DINDEXBUFFER9 pIndexData, UINT BaseVertexIndex)
 {
-	m_CopyState.m_IndexData = m_CurrentState.m_IndexData;
+	m_IndexStack.push_back(m_CurrentState.m_IndexData);
 	SetIndices(pIndexData, BaseVertexIndex);
 }
 
 void CStateManager::RestoreIndices()
 {
-	SetIndices(m_CopyState.m_IndexData.m_lpIndexData, m_CopyState.m_IndexData.m_BaseVertexIndex);
+	const auto& topIndex = m_IndexStack.back();
+	SetIndices(topIndex.m_lpIndexData, topIndex.m_BaseVertexIndex);
+	m_IndexStack.pop_back();
 }
 
 void CStateManager::SetIndices(LPDIRECT3DINDEXBUFFER9 pIndexData, UINT BaseVertexIndex)
