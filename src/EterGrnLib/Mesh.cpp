@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include "Material.h"
+#include "Deform.h"
 
 granny_data_type_definition GrannyPNT3322VertexType[5] =
 {
@@ -42,30 +43,45 @@ void CGrannyMesh::NEW_LoadVertices(void * dstBaseVertices)
 	GrannyCopyMeshVertices(pgrnMesh, m_pgrnMeshType, dstVertices);
 }
 
-void CGrannyMesh::DeformPNTVertices(void * dstBaseVertices, D3DXMATRIX * boneMatrices, granny_mesh_binding* pgrnMeshBinding) const
+void CGrannyMesh::DeformPNTVertices(void* dstBaseVertices, D3DXMATRIX* boneMatrices, granny_mesh_binding* pgrnMeshBinding) const
 {
 	assert(dstBaseVertices != NULL);
 	assert(boneMatrices != NULL);
 	assert(m_pgrnMeshDeformer != NULL);
 
-	const granny_mesh * pgrnMesh = GetGrannyMeshPointer();
+	const granny_mesh* pgrnMesh = GetGrannyMeshPointer();
 
-	TPNTVertex * srcVertices = (TPNTVertex *) GrannyGetMeshVertices(pgrnMesh);
-	TPNTVertex * dstVertices = ((TPNTVertex *) dstBaseVertices) + m_vtxBasePos;
-	
+	TPNTVertex* srcVertices = (TPNTVertex*)GrannyGetMeshVertices(pgrnMesh);
+	TPNTVertex* dstVertices = ((TPNTVertex*)dstBaseVertices) + m_vtxBasePos;
+
 	int vtxCount = GrannyGetMeshVertexCount(pgrnMesh);
 
 	// WORK
-	granny_int32x * boneIndices = (granny_int32x*)GrannyGetMeshBindingToBoneIndices(pgrnMeshBinding);
+	granny_int32x* boneIndices = (granny_int32x*)GrannyGetMeshBindingToBoneIndices(pgrnMeshBinding);
 	// END_OF_WORK
 
-	GrannyDeformVertices(
-		m_pgrnMeshDeformer, 
-		boneIndices, 
-		(float *)boneMatrices,
-		vtxCount,
-		srcVertices,
-		dstVertices);
+	extern bool CPU_HAS_SSE2;
+	if (CPU_HAS_SSE2) {
+		DeformPWNT3432toGrannyPNGBT33332(
+			vtxCount,
+			srcVertices,
+			dstVertices,
+			boneIndices,
+			(granny_matrix_4x4 const*)boneMatrices,
+			sizeof(granny_pwnt3432_vertex),
+			sizeof(granny_pwnt3432_vertex),
+			sizeof(granny_pnt332_vertex)
+		);
+	}
+	else {
+		GrannyDeformVertices(
+			m_pgrnMeshDeformer,
+			boneIndices,
+			(float*)boneMatrices,
+			vtxCount,
+			srcVertices,
+			dstVertices);
+	}
 }
 
 bool CGrannyMesh::CanDeformPNTVertices() const

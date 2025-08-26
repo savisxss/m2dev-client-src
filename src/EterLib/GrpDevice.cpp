@@ -3,6 +3,7 @@
 #include "../eterBase/Stl.h"
 #include "../eterBase/Debug.h"
 
+bool CPU_HAS_SSE2 = false;
 bool GRAPHICS_CAPS_CAN_NOT_DRAW_LINE = false;
 bool GRAPHICS_CAPS_CAN_NOT_DRAW_SHADOW = false;
 bool GRAPHICS_CAPS_HALF_SIZE_IMAGE = false;
@@ -560,6 +561,12 @@ RETRY:
 		GRAPHICS_CAPS_HALF_SIZE_IMAGE = true;
 		ms_isLowTextureMemory = true;
 	}
+
+	// CPU check
+	int cpuInfo[4] = { 0 };
+	__cpuid(cpuInfo, 1);
+
+	CPU_HAS_SSE2 = cpuInfo[3] & (1 << 26);
 
 	return (iRet);
 }
