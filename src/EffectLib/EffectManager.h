@@ -76,6 +76,9 @@ class CEffectManager : public CScreen, public CSingleton<CEffectManager>
 		void __DestroyEffectCacheMap();
 		void __DestroyEffectDataMap();
 
+		void __RenderParticles();
+		void __RenderMeshes();
+
 	protected:
 		bool m_isDisableSortRendering;
 		TEffectDataMap					m_kEftDataMap;

@@ -155,7 +155,13 @@ void CParticleInstance::UpdateColor(float time, float elapsedTime)
 	if (m_pParticleProperty->m_TimeEventColor.empty())
 		return;
 
-	m_dcColor = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventColor);
+	m_Color = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventColor);
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+	for (auto& vtx : m_ParticleMesh) {
+		vtx.diffuse = m_Color;
+	}
+#endif
 }
 
 void CParticleInstance::UpdateGravity(float time, float elapsedTime)
@@ -179,12 +185,9 @@ void CParticleInstance::UpdateAirResistance(float time, float elapsedTime)
 
 void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
 {
-#ifdef WORLD_EDITOR
+#ifndef ENABLE_BATCHED_PARTICLE_RENDERING
 	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, m_Color);
-#else
-	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, m_dcColor);
 #endif
-
 	/////
 
 	D3DXVECTOR3 v3Up;
@@ -319,27 +322,60 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
 	{
 		D3DXVECTOR3 v3Position;
 		D3DXVec3TransformCoord(&v3Position, &m_v3Position, c_matLocal);
-		m_ParticleMesh[0].position = v3Position - v3Up + v3Cross;
-		m_ParticleMesh[1].position = v3Position - v3Up - v3Cross;
-		m_ParticleMesh[2].position = v3Position + v3Up + v3Cross;
-		m_ParticleMesh[3].position = v3Position + v3Up - v3Cross;
+
+		D3DXVECTOR3 p0 = v3Position - v3Up + v3Cross; // bottom-left
+		D3DXVECTOR3 p1 = v3Position - v3Up - v3Cross; // bottom-right
+		D3DXVECTOR3 p2 = v3Position + v3Up + v3Cross; // top-left
+		D3DXVECTOR3 p3 = v3Position + v3Up - v3Cross; // top-right
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+		// triangle 1: p0, p1, p2
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+
+		// triangle 2: p2, p1, p3
+		m_ParticleMesh[3].position = p2;
+		m_ParticleMesh[4].position = p1;
+		m_ParticleMesh[5].position = p3;
+#else
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+		m_ParticleMesh[3].position = p3;
+#endif
 	}
 	else
 	{
-		m_ParticleMesh[0].position = m_v3Position - v3Up + v3Cross;
-		m_ParticleMesh[1].position = m_v3Position - v3Up - v3Cross;
-		m_ParticleMesh[2].position = m_v3Position + v3Up + v3Cross;
-		m_ParticleMesh[3].position = m_v3Position + v3Up - v3Cross;
+		D3DXVECTOR3 p0 = m_v3Position - v3Up + v3Cross; // bottom-left
+		D3DXVECTOR3 p1 = m_v3Position - v3Up - v3Cross; // bottom-right
+		D3DXVECTOR3 p2 = m_v3Position + v3Up + v3Cross; // top-left
+		D3DXVECTOR3 p3 = m_v3Position + v3Up - v3Cross; // top-right
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+		// triangle 1: p0, p1, p2
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+
+		// triangle 2: p2, p1, p3
+		m_ParticleMesh[3].position = p2;
+		m_ParticleMesh[4].position = p1;
+		m_ParticleMesh[5].position = p3;
+#else
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+		m_ParticleMesh[3].position = p3;
+#endif
 	}
 }
 
 
 void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_fZRotation)
 {
-#ifdef WORLD_EDITOR
+#ifndef ENABLE_BATCHED_PARTICLE_RENDERING
 	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, m_Color);
-#else
-	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, (DWORD)m_dcColor);
 #endif
 
 	/////
@@ -474,17 +510,52 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_f
 	{
 		D3DXVECTOR3 v3Position;
 		D3DXVec3TransformCoord(&v3Position, &m_v3Position, c_matLocal);
-		m_ParticleMesh[0].position = v3Position - v3Up + v3Cross;
-		m_ParticleMesh[1].position = v3Position - v3Up - v3Cross;
-		m_ParticleMesh[2].position = v3Position + v3Up + v3Cross;
-		m_ParticleMesh[3].position = v3Position + v3Up - v3Cross;
+
+		D3DXVECTOR3 p0 = v3Position - v3Up + v3Cross; // bottom-left
+		D3DXVECTOR3 p1 = v3Position - v3Up - v3Cross; // bottom-right
+		D3DXVECTOR3 p2 = v3Position + v3Up + v3Cross; // top-left
+		D3DXVECTOR3 p3 = v3Position + v3Up - v3Cross; // top-right
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+		// triangle 1: p0, p1, p2
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+
+		// triangle 2: p2, p1, p3
+		m_ParticleMesh[3].position = p2;
+		m_ParticleMesh[4].position = p1;
+		m_ParticleMesh[5].position = p3;
+#else
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+		m_ParticleMesh[3].position = p3;
+#endif
 	}
 	else
 	{
-		m_ParticleMesh[0].position = m_v3Position - v3Up + v3Cross;
-		m_ParticleMesh[1].position = m_v3Position - v3Up - v3Cross;
-		m_ParticleMesh[2].position = m_v3Position + v3Up + v3Cross;
-		m_ParticleMesh[3].position = m_v3Position + v3Up - v3Cross;
+		D3DXVECTOR3 p0 = m_v3Position - v3Up + v3Cross; // bottom-left
+		D3DXVECTOR3 p1 = m_v3Position - v3Up - v3Cross; // bottom-right
+		D3DXVECTOR3 p2 = m_v3Position + v3Up + v3Cross; // top-left
+		D3DXVECTOR3 p3 = m_v3Position + v3Up - v3Cross; // top-right
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+		// triangle 1: p0, p1, p2
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+
+		// triangle 2: p2, p1, p3
+		m_ParticleMesh[3].position = p2;
+		m_ParticleMesh[4].position = p1;
+		m_ParticleMesh[5].position = p3;
+#else
+		m_ParticleMesh[0].position = p0;
+		m_ParticleMesh[1].position = p1;
+		m_ParticleMesh[2].position = p2;
+		m_ParticleMesh[3].position = p3;
+#endif
 	}
 }
 
@@ -500,20 +571,31 @@ void CParticleInstance::__Initialize()
 	m_v3Velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	m_v2Scale = D3DXVECTOR2(1.0f, 1.0f);
-#ifdef WORLD_EDITOR
 	m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-#else
-	m_dcColor.m_dwColor = 0xffffffff;
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+	for (auto& vtx : m_ParticleMesh) {
+		vtx.diffuse = m_Color;
+	}
 #endif
 
 	m_byFrameIndex = 0;
 	m_rotationType = CParticleProperty::ROTATION_TYPE_NONE;
 	m_fFrameTime = 0;
 
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+	m_ParticleMesh[0].texCoord = D3DXVECTOR2(0.0f, 1.0f);
+	m_ParticleMesh[1].texCoord = D3DXVECTOR2(0.0f, 0.0f);
+	m_ParticleMesh[2].texCoord = D3DXVECTOR2(1.0f, 1.0f);
+	m_ParticleMesh[3].texCoord = D3DXVECTOR2(1.0f, 1.0f);
+	m_ParticleMesh[4].texCoord = D3DXVECTOR2(0.0f, 0.0f);
+	m_ParticleMesh[5].texCoord = D3DXVECTOR2(1.0f, 0.0f);
+#else
 	m_ParticleMesh[0].texCoord = D3DXVECTOR2(0.0f, 1.0f);
 	m_ParticleMesh[1].texCoord = D3DXVECTOR2(0.0f, 0.0f);
 	m_ParticleMesh[2].texCoord = D3DXVECTOR2(1.0f, 1.0f);
 	m_ParticleMesh[3].texCoord = D3DXVECTOR2(1.0f, 0.0f);
+#endif
 }
 
 CParticleInstance::CParticleInstance()
@@ -526,7 +608,11 @@ CParticleInstance::~CParticleInstance()
 	Destroy();
 }
 
-TPTVertex * CParticleInstance::GetParticleMeshPointer()
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+const std::array<TPDTVertex, 6>& CParticleInstance::GetParticleMeshPointer()
+#else
+const std::array<TPTVertex, 4>& CParticleInstance::GetParticleMeshPointer()
+#endif
 {
 	return m_ParticleMesh;
 }

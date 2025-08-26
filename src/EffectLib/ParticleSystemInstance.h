@@ -1,12 +1,12 @@
 #pragma once
-
+#include "UserInterface/Locale_inc.h"
 #include "EffectElementBaseInstance.h"
 #include "ParticleInstance.h"
 #include "ParticleProperty.h"
 
-#include "../eterlib/GrpScreen.h"
-#include "../eterlib/StateManager.h"
-#include "../eterLib/GrpImageInstance.h"
+#include "Eterlib/GrpScreen.h"
+#include "Eterlib/StateManager.h"
+#include "EterLib/GrpImageInstance.h"
 #include "EmitterProperty.h"
 
 class CParticleSystemInstance : public CEffectElementBaseInstance
@@ -26,13 +26,12 @@ class CParticleSystemInstance : public CEffectElementBaseInstance
 			DWORD dwFrameIndex;
 			for(dwFrameIndex=0; dwFrameIndex<m_kVct_pkImgInst.size(); dwFrameIndex++)
 			{
-				STATEMANAGER.SetTexture(0, m_kVct_pkImgInst[dwFrameIndex]->GetTextureReference().GetD3DTexture());
 				TParticleInstanceList::iterator itor = m_ParticleInstanceListVector[dwFrameIndex].begin();
 				for (; itor != m_ParticleInstanceListVector[dwFrameIndex].end(); ++itor)
 				{
 					if (!InFrustum(*itor))
 						return;
-					FunObj(*itor);
+					FunObj(*itor, m_kVct_pkImgInst[dwFrameIndex]->GetTextureReference().GetD3DTexture());
 				}
 			}
 		}
@@ -57,6 +56,8 @@ class CParticleSystemInstance : public CEffectElementBaseInstance
 		}
 		
 		DWORD GetEmissionCount();
+
+		void BatchParticles();
 
 	protected:
 		void OnInitialize();

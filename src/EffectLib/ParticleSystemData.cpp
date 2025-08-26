@@ -262,7 +262,7 @@ BOOL CParticleSystemData::OnLoadScript(CTextFileLoader & rTextFileLoader)
 			c.g = fG;
 			c.b = fB;
 			c.a = fA;
-			t.m_Value.m_dwColor = /*(DWORD)*/ (DWORD)c;
+			t.m_Value = c;
 			m_ParticleProperty.m_TimeEventColor.push_back(t);
 		}
 	}

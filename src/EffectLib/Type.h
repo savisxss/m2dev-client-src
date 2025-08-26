@@ -190,7 +190,7 @@ typedef CTimeEvent<short>						TTimeEventTypeShort;
 typedef CTimeEvent<float>						TTimeEventTypeFloat;
 typedef CTimeEvent<WORD>						TTimeEventTypeWord;
 typedef CTimeEvent<DWORD>						TTimeEventTypeDoubleWord;
-typedef CTimeEvent<DWORDCOLOR>					TTimeEventTypeColor;
+typedef CTimeEvent<D3DXCOLOR>					TTimeEventTypeColor;
 typedef CTimeEvent<D3DXVECTOR2>					TTimeEventTypeVector2;
 typedef CTimeEvent<D3DXVECTOR3>					TTimeEventTypeVector3;
 

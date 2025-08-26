@@ -3,7 +3,7 @@
 #include "../eterlib/StateManager.h"
 #include "EffectManager.h"
 
-
+extern std::unordered_map<LPDIRECT3DTEXTURE9, std::vector<TPDTVertex>> g_particleVertexBatch;
 
 void CEffectManager::GetInfo(std::string* pstInfo)
 {
@@ -82,50 +82,15 @@ void CEffectManager::Update()
 	}
 }
 
-
-struct CEffectManager_LessEffectInstancePtrRenderOrder
-{
-	bool operator() (CEffectInstance* pkLeft, CEffectInstance* pkRight)
-	{
-		return pkLeft->LessRenderOrder(pkRight);		
-	}
-};
-
-struct CEffectManager_FEffectInstanceRender
-{
-	inline void operator () (CEffectInstance * pkEftInst)
-	{
-		pkEftInst->Render();
-	}
-};
-
 void CEffectManager::Render()
 {
 	STATEMANAGER.SetTexture(0, NULL);
 	STATEMANAGER.SetTexture(1, NULL);
-	
-	if (m_isDisableSortRendering)
-	{	
-		for (TEffectInstanceMap::iterator itor = m_kEftInstMap.begin(); itor != m_kEftInstMap.end();)
-		{
-			CEffectInstance * pEffectInstance = itor->second;
-			pEffectInstance->Render();
-			++itor;
-		}
-	}
-	else
-	{
-		static std::vector<CEffectInstance*> s_kVct_pkEftInstSort;
-		s_kVct_pkEftInstSort.clear();
 
-		TEffectInstanceMap& rkMap_pkEftInstSrc=m_kEftInstMap;
-		TEffectInstanceMap::iterator i;
-		for (i=rkMap_pkEftInstSrc.begin(); i!=rkMap_pkEftInstSrc.end(); ++i)
-			s_kVct_pkEftInstSort.push_back(i->second);
+	g_particleVertexBatch.clear();
 
-		std::sort(s_kVct_pkEftInstSort.begin(), s_kVct_pkEftInstSort.end(), CEffectManager_LessEffectInstancePtrRenderOrder());
-		std::for_each(s_kVct_pkEftInstSort.begin(), s_kVct_pkEftInstSort.end(), CEffectManager_FEffectInstanceRender());
-	}
+	__RenderParticles();
+	__RenderMeshes();
 }
 
 BOOL CEffectManager::RegisterEffect(const char * c_szFileName,bool isExistDelete,bool isNeedCache)
@@ -437,6 +402,112 @@ void CEffectManager::__DestroyEffectDataMap()
 	}
 
 	m_kEftDataMap.clear();
+}
+
+void CEffectManager::__RenderParticles()
+{
+	STATEMANAGER.SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+
+	STATEMANAGER.SaveSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_NONE);
+	STATEMANAGER.SaveSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_NONE);
+
+	STATEMANAGER.SaveRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	STATEMANAGER.SaveRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	STATEMANAGER.SaveRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	STATEMANAGER.SaveRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	STATEMANAGER.SaveRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	STATEMANAGER.SaveRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	STATEMANAGER.SaveRenderState(D3DRS_LIGHTING, FALSE);
+
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+
+	for (auto itor = m_kEftInstMap.begin(); itor != m_kEftInstMap.end(); ++itor) {
+		itor->second->BatchParticles();
+	}
+
+	for (auto& [pTexture, vtxBatch] : g_particleVertexBatch) {
+		if (vtxBatch.empty())
+			continue;
+
+		STATEMANAGER.SetTexture(0, pTexture);
+		STATEMANAGER.DrawPrimitiveUP(
+			D3DPT_TRIANGLELIST,
+			vtxBatch.size() / 3,
+			vtxBatch.data(),
+			sizeof(TPDTVertex));
+	}
+
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG2);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLOROP);
+
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_ALPHAARG1);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_ALPHAARG2);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_ALPHAOP);
+
+	STATEMANAGER.RestoreSamplerState(0, D3DSAMP_MINFILTER);
+	STATEMANAGER.RestoreSamplerState(0, D3DSAMP_MAGFILTER);
+
+	STATEMANAGER.RestoreRenderState(D3DRS_ALPHABLENDENABLE);
+	STATEMANAGER.RestoreRenderState(D3DRS_SRCBLEND);
+	STATEMANAGER.RestoreRenderState(D3DRS_DESTBLEND);
+	STATEMANAGER.RestoreRenderState(D3DRS_ALPHATESTENABLE);
+	STATEMANAGER.RestoreRenderState(D3DRS_CULLMODE);
+	STATEMANAGER.RestoreRenderState(D3DRS_ZWRITEENABLE);
+	STATEMANAGER.RestoreRenderState(D3DRS_LIGHTING);
+}
+
+void CEffectManager::__RenderMeshes()
+{
+	STATEMANAGER.SetFVF(D3DFVF_XYZ | D3DFVF_TEX1);
+
+	STATEMANAGER.SaveSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_NONE);
+	STATEMANAGER.SaveSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_NONE);
+
+	STATEMANAGER.SaveRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	STATEMANAGER.SaveRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	STATEMANAGER.SaveRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	STATEMANAGER.SaveRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	STATEMANAGER.SaveRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	STATEMANAGER.SaveRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	STATEMANAGER.SaveRenderState(D3DRS_LIGHTING, FALSE);
+
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TEXTURE);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TFACTOR);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+	STATEMANAGER.SaveTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+
+	for (auto itor = m_kEftInstMap.begin(); itor != m_kEftInstMap.end(); ++itor) {
+		itor->second->RenderMeshes();
+	}
+
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG2);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLOROP);
+
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_ALPHAARG1);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_ALPHAARG2);
+	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_ALPHAOP);
+
+	STATEMANAGER.RestoreSamplerState(0, D3DSAMP_MINFILTER);
+	STATEMANAGER.RestoreSamplerState(0, D3DSAMP_MAGFILTER);
+
+	STATEMANAGER.RestoreRenderState(D3DRS_ALPHABLENDENABLE);
+	STATEMANAGER.RestoreRenderState(D3DRS_SRCBLEND);
+	STATEMANAGER.RestoreRenderState(D3DRS_DESTBLEND);
+	STATEMANAGER.RestoreRenderState(D3DRS_ALPHATESTENABLE);
+	STATEMANAGER.RestoreRenderState(D3DRS_CULLMODE);
+	STATEMANAGER.RestoreRenderState(D3DRS_ZWRITEENABLE);
+	STATEMANAGER.RestoreRenderState(D3DRS_LIGHTING);
 }
 
 void CEffectManager::Destroy()

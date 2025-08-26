@@ -532,7 +532,7 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 
 	if (!s_packetHeaderMap.Get(header, &PacketType))
 	{
-		TraceError("Unknown packet header: %d, last: %d %d", header, g_iLastPacket[0], g_iLastPacket[1]);
+		LogBoxf("Unknown packet header: %d, last: %d %d", header, g_iLastPacket[0], g_iLastPacket[1]);
 		ClearRecvBuffer();
 
 		PostQuitMessage(0);
@@ -559,10 +559,10 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 	{
 		if (!Peek(PacketType.iPacketSize))
 		{
-			//Tracef("Not enough packet size: header %d packet size: %d, recv buffer size: %d",
-			//	header,
-			//	PacketType.iPacketSize,
-			//	GetRecvBufferSize());
+			Tracef("Not enough packet size: header %d packet size: %d, recv buffer size: %d",
+				header,
+				PacketType.iPacketSize,
+				GetRecvBufferSize());
 			return false;
 		}
 	}

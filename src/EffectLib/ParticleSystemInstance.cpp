@@ -5,6 +5,8 @@
 #include "ParticleSystemInstance.h"
 #include "ParticleInstance.h"
 
+std::unordered_map<LPDIRECT3DTEXTURE9, std::vector<TPDTVertex>> g_particleVertexBatch;
+
 CDynamicPool<CParticleSystemInstance>	CParticleSystemInstance::ms_kPool;
 
 void CParticleSystemInstance::DestroySystem()
@@ -254,7 +256,7 @@ void CParticleSystemInstance::CreateParticles(float fElapsedTime)
 			pInstance->m_Color.b = m_pParticleProperty->m_TimeEventColorBlue.front().m_Value;
 			pInstance->m_Color.a = m_pParticleProperty->m_TimeEventAlpha.front().m_Value;
 #else
-			pInstance->m_dcColor = m_pParticleProperty->m_TimeEventColor.front().m_Value;
+			pInstance->m_Color = m_pParticleProperty->m_TimeEventColor.front().m_Value;
 #endif
 		}
 
@@ -348,13 +350,16 @@ namespace NParticleRenderer
 		{
 		}
 		
-		inline void operator () (CParticleInstance * pInstance)
+		inline void operator () (CParticleInstance * pInstance, LPDIRECT3DTEXTURE9 pTexture)
 		{
+			auto& vtxBatch = g_particleVertexBatch[pTexture];
+			const auto& particleMesh = pInstance->GetParticleMeshPointer();
+
 			pInstance->Transform(pmat,D3DXToRadian(-30.0f));
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
 
 			pInstance->Transform(pmat,D3DXToRadian(+30.0f));
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
 		}
 	};
 	
@@ -366,23 +371,31 @@ namespace NParticleRenderer
 		{
 		}
 		
-		inline void operator () (CParticleInstance * pInstance)
+		inline void operator () (CParticleInstance* pInstance, LPDIRECT3DTEXTURE9 pTexture)
 		{
+			auto& vtxBatch = g_particleVertexBatch[pTexture];
+			const auto& particleMesh = pInstance->GetParticleMeshPointer();
+
 			pInstance->Transform(pmat);
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
+
 			pInstance->Transform(pmat,D3DXToRadian(-60.0f));
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
+
 			pInstance->Transform(pmat,D3DXToRadian(+60.0f));
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
 		}
 	};
 	
 	struct NormalRenderer
 	{
-		inline void operator () (CParticleInstance * pInstance)
+		inline void operator () (CParticleInstance* pInstance, LPDIRECT3DTEXTURE9 pTexture)
 		{
+			auto& vtxBatch = g_particleVertexBatch[pTexture];
+			const auto& particleMesh = pInstance->GetParticleMeshPointer();
+
 			pInstance->Transform();
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
 		}
 	};
 	struct AttachRenderer
@@ -393,20 +406,85 @@ namespace NParticleRenderer
 		{
 		}
 		
-		inline void operator () (CParticleInstance * pInstance)
+		inline void operator () (CParticleInstance* pInstance, LPDIRECT3DTEXTURE9 pTexture)
 		{
+			auto& vtxBatch = g_particleVertexBatch[pTexture];
+			const auto& particleMesh = pInstance->GetParticleMeshPointer();
+
 			pInstance->Transform(pmat);
-			STATEMANAGER.DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pInstance->GetParticleMeshPointer(), sizeof(TPTVertex));
+			vtxBatch.insert(vtxBatch.end(), particleMesh.begin(), particleMesh.end());
 		}
 	};
 }
 
 void CParticleSystemInstance::OnRender()
 {
+	g_particleVertexBatch.clear();
+
 	CScreen::Identity();
 	STATEMANAGER.SetRenderState(D3DRS_SRCBLEND, m_pParticleProperty->m_bySrcBlendType);
 	STATEMANAGER.SetRenderState(D3DRS_DESTBLEND, m_pParticleProperty->m_byDestBlendType);
 	STATEMANAGER.SetTextureStageState(0,D3DTSS_COLOROP,m_pParticleProperty->m_byColorOperationType);
+
+	if (m_pParticleProperty->m_byBillboardType < BILLBOARD_TYPE_2FACE)
+	{
+		if (!m_pParticleProperty->m_bAttachFlag)
+		{
+			auto obj = NParticleRenderer::NormalRenderer();
+			ForEachParticleRendering(obj);
+		}
+		else
+		{
+			auto obj = NParticleRenderer::AttachRenderer(mc_pmatLocal);
+			ForEachParticleRendering(obj);
+		}
+	}
+	else if (m_pParticleProperty->m_byBillboardType == BILLBOARD_TYPE_2FACE)
+	{
+		if (!m_pParticleProperty->m_bAttachFlag)
+		{
+			auto obj = NParticleRenderer::TwoSideRenderer();
+			ForEachParticleRendering(obj);
+		}
+		else
+		{
+			auto obj = NParticleRenderer::TwoSideRenderer(mc_pmatLocal);
+			ForEachParticleRendering(obj);
+		}
+	}
+	else if (m_pParticleProperty->m_byBillboardType == BILLBOARD_TYPE_3FACE)
+	{
+		if (!m_pParticleProperty->m_bAttachFlag)
+		{
+			auto obj = NParticleRenderer::ThreeSideRenderer();
+			ForEachParticleRendering(obj);
+		}
+		else
+		{
+			auto obj = NParticleRenderer::ThreeSideRenderer(mc_pmatLocal);
+			ForEachParticleRendering(obj);
+		}
+	}
+
+	for (auto& [pTexture, vtxBatch] : g_particleVertexBatch) {
+		if (vtxBatch.empty())
+			continue;
+
+		STATEMANAGER.SetTexture(0, pTexture);
+		STATEMANAGER.DrawPrimitiveUP(
+			D3DPT_TRIANGLELIST,
+			vtxBatch.size() / 3,
+			vtxBatch.data(),
+			sizeof(TPDTVertex));
+	}
+}
+
+void CParticleSystemInstance::BatchParticles()
+{
+	CScreen::Identity();
+	STATEMANAGER.SetRenderState(D3DRS_SRCBLEND, m_pParticleProperty->m_bySrcBlendType);
+	STATEMANAGER.SetRenderState(D3DRS_DESTBLEND, m_pParticleProperty->m_byDestBlendType);
+	STATEMANAGER.SetTextureStageState(0, D3DTSS_COLOROP, m_pParticleProperty->m_byColorOperationType);
 	if (m_pParticleProperty->m_byBillboardType < BILLBOARD_TYPE_2FACE)
 	{
 		if (!m_pParticleProperty->m_bAttachFlag)

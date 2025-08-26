@@ -1,8 +1,8 @@
 #pragma once
-
-#include "../eterlib/GrpObjectInstance.h"
-#include "../eterlib/Pool.h"
-#include "../mileslib/Type.h"
+#include "UserInterface/Locale_inc.h"
+#include "Eterlib/GrpObjectInstance.h"
+#include "Eterlib/Pool.h"
+#include "Mileslib/Type.h"
 
 #include "EffectElementBaseInstance.h"
 #include "EffectData.h"
@@ -54,6 +54,9 @@ class CEffectInstance : public CGraphicObjectInstance
 		void OnRenderToShadowMap() {} // Not used
 		void OnRenderShadow() {} // Not used
 		void OnRenderPCBlocker() {} // Not used
+
+		void BatchParticles();
+		void RenderMeshes();
 
 	protected:
 		void					__Initialize();

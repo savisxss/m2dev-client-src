@@ -1,7 +1,10 @@
 #pragma once
+#include "UserInterface/Locale_inc.h"
 #include "Type.h"
 #include "Eterlib/GrpBase.h"
 #include "EterLib/Pool.h"
+
+#include <array>
 
 class CParticleProperty;
 class CEmitterProperty;
@@ -38,11 +41,8 @@ class CParticleInstance
 		D3DXVECTOR2			m_v2Scale;
 
 		float				m_fRotation;
-#ifdef WORLD_EDITOR
+
 		D3DXCOLOR			m_Color;
-#else
-		DWORDCOLOR			m_dcColor;
-#endif
 
 		BYTE				m_byTextureAnimationType;
 		float				m_fLastFrameTime;
@@ -68,7 +68,11 @@ class CParticleInstance
 		void Transform(const D3DXMATRIX * c_matLocal=NULL);
 		void Transform(const D3DXMATRIX * c_matLocal, const float c_fZRotation);
 
-		TPTVertex * GetParticleMeshPointer();
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+		const std::array<TPDTVertex, 6>& GetParticleMeshPointer();
+#else
+		const std::array<TPTVertex, 4>& GetParticleMeshPointer();
+#endif
 		
 		void DeleteThis();
 
@@ -76,7 +80,12 @@ class CParticleInstance
 
 	protected:
 		void __Initialize();
-		TPTVertex			m_ParticleMesh[4];
+
+#ifdef ENABLE_BATCHED_PARTICLE_RENDERING
+		std::array<TPDTVertex, 6>	m_ParticleMesh;
+#else
+		std::array<TPTVertex, 4>	m_ParticleMesh;
+#endif
 	public:
 		static CDynamicPool<CParticleInstance> ms_kPool;
 		
