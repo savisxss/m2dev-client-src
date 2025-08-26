@@ -346,7 +346,6 @@ void CWeaponTrace::Render()
 	STATEMANAGER.RestoreRenderState(D3DRS_DESTBLEND);
 
 	STATEMANAGER.RestoreTransform(D3DTS_WORLD);
-	STATEMANAGER.RestoreVertexShader();
 	STATEMANAGER.RestoreRenderState(D3DRS_CULLMODE);
 }
 
