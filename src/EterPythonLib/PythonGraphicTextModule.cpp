@@ -17,7 +17,7 @@ bool PyTuple_GetTextInstance(PyObject* poArgs, int pos, CGraphicTextInstance** p
 PyObject* grpTextGenerate(PyObject* poSelf, PyObject* poArgs)
 {
 	CGraphicTextInstance * pTextInstance = CGraphicTextInstance::New();
-	return Py_BuildValue("i", pTextInstance);
+	return Py_BuildValue("K", pTextInstance);
 }
 
 PyObject* grpTextDestroy(PyObject* poSelf, PyObject* poArgs)

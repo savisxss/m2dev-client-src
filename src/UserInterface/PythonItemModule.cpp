@@ -282,7 +282,7 @@ PyObject * itemGetIconInstance(PyObject * poSelf, PyObject * poArgs)
 	CGraphicImageInstance * pImageInstance = CGraphicImageInstance::New();
 	pImageInstance->SetImagePointer(pImage);
 
-	return Py_BuildValue("i", pImageInstance);
+	return Py_BuildValue("K", pImageInstance);
 }
 
 PyObject * itemDeleteIconInstance(PyObject * poSelf, PyObject * poArgs)

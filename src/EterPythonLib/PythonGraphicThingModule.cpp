@@ -20,7 +20,7 @@ PyObject* grpThingGenerate(PyObject* poSelf, PyObject* poArgs)
 		return Py_BuildException();
 
 	if (strlen(szFileName) <= 0)
-		return Py_BuildValue("i", 0);
+		return Py_BuildValue("K", 0);
 
 	CResource* pResource = CResourceManager::Instance().GetResourcePointer(szFileName);
 
@@ -32,7 +32,7 @@ PyObject* grpThingGenerate(PyObject* poSelf, PyObject* poArgs)
 	pThingInstance->ReserveModelInstance(1);
 	pThingInstance->RegisterModelThing(0, static_cast<CGraphicThing*>(pResource));
 	pThingInstance->SetModelInstance(0, 0, 0);
-	return Py_BuildValue("i", pThingInstance);
+	return Py_BuildValue("K", pThingInstance);
 }
 
 PyObject* grpThingDelete(PyObject* poSelf, PyObject* poArgs)
