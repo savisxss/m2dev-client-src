@@ -209,4 +209,18 @@ void StringExceptCharacter(std::string * pstrString, const char * c_szCharacter)
 
 extern void GetExcutedFileName(std::string & r_str);
 
+template<typename T>
+constexpr T LinearInterpolation(const T& tMin, const T& tMax, float fRatio)
+{
+    return T(tMin * (1.0f - fRatio) + tMax * fRatio);
+}
+
+template<typename T>
+constexpr T HermiteInterpolation(const T& tMin, const T& tMax, float fRatio)
+{
+    fRatio = MINMAX(0.0f, fRatio, 1.0f);
+    fRatio = fRatio * fRatio * (3.0f - 2.0f * fRatio);
+    return LinearInterpolation(tMin, tMax, fRatio);
+}
+
 #endif
