@@ -632,7 +632,7 @@ void CPythonSystem::ChangeSystem()
 	else
 		CScreen::SetShadowFlag(false);
 	*/
-	CSoundManager& rkSndMgr = CSoundManager::Instance();
+	SoundEngine& rkSndMgr = SoundEngine::Instance();
 	/*
 	float fMusicVolume;
 	if (0 == m_Config.music_volume)

@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "../EffectLib/EffectManager.h"
-#include "../milesLib/SoundManager.h"
+#include "../AudioLib/SoundEngine.h"
 
 #include "ActorInstance.h"
 #include "FlyingObjectManager.h"
@@ -29,9 +29,9 @@ void CActorInstance::SoundEventProcess(BOOL bCheckFrequency)
 	if (!m_pkCurRaceMotionData)
 		return;
 
-	const TSoundInstanceVector* c_pkVct_kSndInst = m_pkCurRaceMotionData->GetSoundInstanceVectorPointer();
-	UpdateSoundInstance(m_kCurMotNode.dwcurFrame, *c_pkVct_kSndInst,
-		m_x, m_y, m_z, bCheckFrequency);
+	const NSound::TSoundInstanceVector* c_pkVct_kSndInst = m_pkCurRaceMotionData->GetSoundInstanceVectorPointer();
+	SoundEngine::Instance().UpdateSoundInstance(m_x, m_y, m_z, m_kCurMotNode.dwcurFrame, c_pkVct_kSndInst,
+												bCheckFrequency, m_isMain);
 }
 
 void CActorInstance::MotionEventProcess(DWORD dwcurFrame, int iIndex, const CRaceMotionData::TMotionEventData * c_pData)
@@ -247,7 +247,7 @@ void CActorInstance::ProcessMotionEventSound(const CRaceMotionData::TMotionEvent
 	const CRaceMotionData::TMotionSoundEventData * c_pSoundData = (const CRaceMotionData::TMotionSoundEventData *)c_pData;
 
 	Tracenf("PLAY SOUND: %s", c_pSoundData->strSoundFileName.c_str());
-	CSoundManager::Instance().PlaySound3D(m_x, m_y, m_z, c_pSoundData->strSoundFileName.c_str());
+	SoundEngine::Instance().PlaySound3D(c_pSoundData->strSoundFileName.c_str(), m_x, m_y, m_z);
 }
 
 void CActorInstance::ProcessMotionEventFly(const CRaceMotionData::TMotionEventData * c_pData)

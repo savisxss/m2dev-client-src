@@ -11,7 +11,7 @@
 #include "gamelib/ItemManager.h"
 #include "gamelib/FlyingObjectManager.h"
 #include "gamelib/GameEventManager.h"
-#include "milesLib/SoundManager.h"
+#include "AudioLib/SoundEngine.h"
 
 #include "PythonEventManager.h"
 #include "PythonPlayer.h"
@@ -310,7 +310,7 @@ class CPythonApplication : public CMSApplication, public CInputKeyboard, public 
 		CTimer m_timer;
 
 		CLightManager				m_LightManager;
-		CSoundManager				m_SoundManager;
+		SoundEngine					m_SoundEngine;
 		CFlyingManager				m_FlyingManager;
 		CRaceManager				m_RaceManager;
 		CGameEventManager			m_GameEventManager;

@@ -1316,27 +1316,27 @@ void CArea::TAmbienceInstance::__Update(float fxCenter, float fyCenter, float fz
 void CArea::TAmbienceInstance::UpdateOnceSound(float fxCenter, float fyCenter, float fzCenter)
 {
 	float fDistance = sqrtf((fx - fxCenter)*(fx - fxCenter) + (fy - fyCenter)*(fy - fyCenter) + (fz - fzCenter)*(fz - fzCenter));
-	if (DWORD(fDistance) < dwRange)
+	if (uint32_t(fDistance) < dwRange)
 	{
-		if (!pSample)
+		if (!playSoundInstance)
 		{
 			if (AmbienceData.AmbienceSoundVector.empty())
 				return;
 
-			const char * c_szFileName = AmbienceData.AmbienceSoundVector[0].c_str();
-			pSample = CSoundManager::Instance().PlayAmbienceSound3D(fx, fy, fz, c_szFileName);
-//			Tracef(" %d : OncePlay [%f] : %s\n", iPlaySoundIndex, fDistance, c_szFileName);
+			const char* c_szFileName = AmbienceData.AmbienceSoundVector[0].c_str();
+			playSoundInstance = SoundEngine::Instance().PlayAmbienceSound3D(fx, fy, fz, c_szFileName);
 		}
 	}
-	else
+	else if (playSoundInstance)
 	{
-		pSample.reset();
+		playSoundInstance->Stop();
+		playSoundInstance = nullptr;
 	}
 }
 
 void CArea::TAmbienceInstance::UpdateStepSound(float fxCenter, float fyCenter, float fzCenter)
 {
-	float fDistance = sqrtf((fx - fxCenter)*(fx - fxCenter) + (fy - fyCenter)*(fy - fyCenter) + (fz - fzCenter)*(fz - fzCenter));
+	float fDistance = sqrtf((fx - fxCenter) * (fx - fxCenter) + (fy - fyCenter) * (fy - fyCenter) + (fz - fzCenter) * (fz - fzCenter));
 	if (DWORD(fDistance) < dwRange)
 	{
 		float fcurTime = CTimer::Instance().GetCurrentSecond();
@@ -1346,9 +1346,8 @@ void CArea::TAmbienceInstance::UpdateStepSound(float fxCenter, float fyCenter, f
 			if (AmbienceData.AmbienceSoundVector.empty())
 				return;
 
-			const char * c_szFileName = AmbienceData.AmbienceSoundVector[0].c_str();
-			pSample = CSoundManager::Instance().PlayAmbienceSound3D(fx, fy, fz, c_szFileName);
-//			Tracef(" %d : StepPlay [%f] : %s\n", iPlaySoundIndex, fDistance, c_szFileName);
+			const char* c_szFileName = AmbienceData.AmbienceSoundVector[0].c_str();
+			playSoundInstance = SoundEngine::Instance().PlayAmbienceSound3D(fx, fy, fz, c_szFileName);
 
 			fNextPlayTime = CTimer::Instance().GetCurrentSecond();
 			fNextPlayTime += AmbienceData.fPlayInterval + frandom(0.0f, AmbienceData.fPlayIntervalVariation);
@@ -1356,7 +1355,7 @@ void CArea::TAmbienceInstance::UpdateStepSound(float fxCenter, float fyCenter, f
 	}
 	else
 	{
-		pSample.reset();
+		playSoundInstance = nullptr;
 		fNextPlayTime = 0.0f;
 	}
 }
@@ -1364,20 +1363,24 @@ void CArea::TAmbienceInstance::UpdateStepSound(float fxCenter, float fyCenter, f
 void CArea::TAmbienceInstance::UpdateLoopSound(float fxCenter, float fyCenter, float fzCenter)
 {
 	float fDistance = sqrtf((fx - fxCenter) * (fx - fxCenter) + (fy - fyCenter) * (fy - fyCenter) + (fz - fzCenter) * (fz - fzCenter));
-	if (DWORD(fDistance) < dwRange)
+	if (uint32_t(fDistance) < dwRange)
 	{
-		if (!pSample)
+		if (!playSoundInstance)
 		{
-			pSample = CSoundManager::Instance().PlayAmbienceSound3D(fx, fy, fz, AmbienceData.AmbienceSoundVector[0], 0);
+			if (AmbienceData.AmbienceSoundVector.empty())
+				return;
+
+			const char* c_szFileName = AmbienceData.AmbienceSoundVector[0].c_str();
+			playSoundInstance = SoundEngine::Instance().PlayAmbienceSound3D(fx, fy, fz, c_szFileName, 0);
 		}
-		else
-		{
-			pSample->SetVolume(__GetVolumeFromDistance(fDistance));
-		}
+
+		if (playSoundInstance)
+			playSoundInstance->SetVolume(__GetVolumeFromDistance(fDistance));
 	}
-	else
+	else if (playSoundInstance)
 	{
-		pSample.reset();
+		playSoundInstance->Stop();
+		playSoundInstance = nullptr;
 	}
 }
 

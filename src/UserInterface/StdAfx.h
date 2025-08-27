@@ -13,7 +13,7 @@
 #include "eterPythonLib/StdAfx.h"
 #include "gameLib/StdAfx.h"
 #include "scriptLib/StdAfx.h"
-#include "milesLib/StdAfx.h"
+#include "AudioLib/StdAfx.h"
 #include "EffectLib/StdAfx.h"
 #include "PRTerrainLib/StdAfx.h"
 #include "SpeedTreeLib/StdAfx.h"

@@ -91,9 +91,9 @@ void CPythonApplication::__UpdateCamera()
 	// Sound Setting
 	const D3DXVECTOR3 & c_rv3CameraDirection = pMainCamera->GetView();
 	const D3DXVECTOR3 & c_rv3CameraUp = pMainCamera->GetUp();
-	m_SoundManager.SetPosition(m_v3CenterPosition.x, m_v3CenterPosition.y, m_v3CenterPosition.z);	// Listener - 캐릭터 위치
-	m_SoundManager.SetDirection(c_rv3CameraDirection.x, c_rv3CameraDirection.y, c_rv3CameraDirection.z, c_rv3CameraUp.x, c_rv3CameraUp.y, c_rv3CameraUp.z);
-	m_SoundManager.Update();
+	m_SoundEngine.SetListenerPosition(m_v3CenterPosition.x, m_v3CenterPosition.y, m_v3CenterPosition.z);	// Listener - 캐릭터 위치
+	m_SoundEngine.SetListenerOrientation(c_rv3CameraDirection.x, c_rv3CameraDirection.y, c_rv3CameraDirection.z, c_rv3CameraUp.x, c_rv3CameraUp.y, c_rv3CameraUp.z);
+	m_SoundEngine.Update();
 	//////////////////////
 }
 
