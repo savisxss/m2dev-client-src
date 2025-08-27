@@ -5,6 +5,7 @@
 #include "Debug.h"
 #include "Singleton.h"
 #include "Timer.h"
+#include <filesystem>
 
 const DWORD DEBUG_STRING_MAX_LEN = 1024;
 
@@ -28,7 +29,7 @@ class CLogFile : public CSingleton<CLogFile>
 
 		void Initialize()
 		{
-			m_fp = fopen("log.txt", "w");
+			m_fp = fopen("log/log.txt", "w");
 		}
 
 		void Write(const char * c_pszMsg)
@@ -306,8 +307,12 @@ void LogFilef(const char * c_szMessage, ...)
 
 void OpenLogFile(bool bUseLogFIle)
 {
+	if (!std::filesystem::exists("log")) {
+		std::filesystem::create_directory("log");
+	}
+
 #ifndef _DISTRIBUTE 
-	freopen("syserr.txt", "w", stderr);
+	freopen("log/syserr.txt", "w", stderr);
 
 	if (bUseLogFIle)
 	{

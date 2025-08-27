@@ -144,7 +144,7 @@ bool PackInitialize(const char * c_pszFolder)
 {
 	NANOBEGIN
 	if (_access(c_pszFolder, 0) != 0)
-		return true;
+		return false;
 
 	std::string stFolder(c_pszFolder);
 	stFolder += "/";

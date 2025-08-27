@@ -44,7 +44,7 @@ LONG __stdcall EterExceptionFilter(_EXCEPTION_POINTERS* pExceptionInfo)
 	HANDLE		hProcess = GetCurrentProcess();
 	HANDLE		hThread = GetCurrentThread();
 
-	fException = fopen("ErrorLog.txt", "wt");
+	fException = fopen("log/ErrorLog.txt", "wt");
 	if (fException)
 	{
 		char module_name[256];
