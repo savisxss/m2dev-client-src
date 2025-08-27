@@ -27,12 +27,6 @@
 
 #define AssertLog(str)	TraceError(str); assert(!str)
 
-#ifndef MAKEFOURCC
-#define MAKEFOURCC(ch0, ch1, ch2, ch3)                                      \
-				((DWORD)(BYTE) (ch0       ) | ((DWORD)(BYTE) (ch1) <<  8) | \
-				((DWORD)(BYTE) (ch2) << 16) | ((DWORD)(BYTE) (ch3) << 24))
-#endif // defined(MAKEFOURCC)
-
 #ifndef IS_SET
 #define IS_SET(flag,bit)                ((flag) & (bit))
 #endif

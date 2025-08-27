@@ -1,10 +1,5 @@
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-#ifndef _CRT_SECURE_NO_WARNINGS
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #pragma warning(disable:4710)	// not inlined
 #pragma warning(disable:4786)	// character 255 넘어가는거 끄기
 #pragma warning(disable:4244)	// type conversion possible lose of data

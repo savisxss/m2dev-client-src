@@ -10,8 +10,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
-
 // TODO: reference additional headers your program requires here
 #pragma warning(disable:4702)
 
