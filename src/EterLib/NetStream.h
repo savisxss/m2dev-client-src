@@ -6,6 +6,10 @@
 #include "../eterBase/tea.h"
 #include "NetAddress.h"
 
+#include <pcg_random.hpp>
+
+#define SEQUENCE_SEED 0
+
 class CNetworkStream
 {
 	public:
@@ -107,7 +111,6 @@ class CNetworkStream
 		CNetworkAddress m_addr;
 
 		// Sequence
-		DWORD					m_iSequence;
+		pcg32					m_SequenceGenerator;
 		bool					m_bUseSequence;
-		std::vector<BYTE>		m_kVec_bSequenceTable;
 };
