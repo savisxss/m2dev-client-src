@@ -283,7 +283,8 @@ void CGraphicObjectInstance::Initialize()
 
 	D3DXMatrixIdentity(&m_worldMatrix);
 	D3DXMatrixIdentity(&m_mRotation);
-	
+
+	ClearCollision();
 	OnInitialize();
 }
 

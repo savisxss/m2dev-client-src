@@ -4,6 +4,7 @@
 #include "../eterGrnLib/ThingInstance.h"
 #include "MapType.h"
 #include "DungeonBlock.h"
+#include "../SpeedTreeLib/SpeedTreeForest.h"
 
 class CMapOutdoor;
 class CEffectInstance;
@@ -90,7 +91,7 @@ class CArea
 			CAttributeInstance *		pAttributeInstance;
 
 			// Data For Tree
-			CSpeedTreeWrapper *			pTree;
+			CSpeedTreeForest::SpeedTreeWrapperPtr			pTree;
 
 			// Data For Normal Object or Building
 			BOOL						isShadowFlag;
@@ -152,7 +153,7 @@ class CArea
 			}
 		} TObjectInstance;
 
-		typedef std::vector<CSpeedTreeWrapper *>			TTreeInstanceVector;
+		typedef std::vector<CSpeedTreeForest::SpeedTreeWrapperPtr>			TTreeInstanceVector;
 		typedef std::vector<CGraphicThingInstance *>		TThingInstanceVector;
 		typedef std::vector<CDungeonBlock *>				TDungeonBlockInstanceVector;
 		typedef std::vector<TObjectInstance *>				TObjectInstanceVector;

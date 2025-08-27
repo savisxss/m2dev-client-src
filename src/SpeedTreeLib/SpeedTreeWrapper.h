@@ -42,6 +42,7 @@
 #include <d3d9types.h>
 #include <d3dx9.h>
 #include <vector>
+#include <memory>
 
 #include "EterLib/GrpObjectInstance.h"
 #include "EterLib/GrpImageInstance.h"
@@ -63,8 +64,10 @@
 #pragma warning(push)
 #pragma warning(disable:4100)
 
-class CSpeedTreeWrapper : public CGraphicObjectInstance
+class CSpeedTreeWrapper : public CGraphicObjectInstance, public std::enable_shared_from_this<CSpeedTreeWrapper>
 {
+	using SpeedTreeWrapperPtr = std::shared_ptr <CSpeedTreeWrapper>;
+
 	enum
 	{
 		ID = TREE_OBJECT
@@ -125,10 +128,10 @@ public:
 	void						RenderBillboards(void) const;
 	
 	// instancing
-	CSpeedTreeWrapper **		GetInstances(unsigned int& nCount);
-	CSpeedTreeWrapper *			InstanceOf(void) const							{ return m_pInstanceOf; }
-	CSpeedTreeWrapper * 		MakeInstance();								
-	void						DeleteInstance(CSpeedTreeWrapper * pInstance);
+	std::vector <SpeedTreeWrapperPtr>		GetInstances(UINT& nCount);
+	SpeedTreeWrapperPtr			InstanceOf(void) const { return m_pInstanceOf; }
+	SpeedTreeWrapperPtr 		MakeInstance();
+	void						DeleteInstance(SpeedTreeWrapperPtr pInstance);
 	CSpeedTreeRT *				GetSpeedTree(void) const						{ return m_pSpeedTree; }
 	
 	// lighting																	
@@ -154,15 +157,14 @@ private:
 	static bool					LoadTexture(const char* pFilename, CGraphicImageInstance & rImage);
 	void						SetShaderConstants(const float* pMaterial) const;
 	
-	
 private:
 	// SpeedTreeRT data
 	CSpeedTreeRT*					m_pSpeedTree;					// the SpeedTree object
 	CSpeedTreeRT::STextures*		m_pTextureInfo;					// texture info cache
 	bool							m_bIsInstance;					// is this an instance?
-	std::vector<CSpeedTreeWrapper*>	m_vInstances;					// what is an instance of us
-	CSpeedTreeWrapper*				m_pInstanceOf;					// which tree is this an instance of
-	
+	std::vector<SpeedTreeWrapperPtr>	m_vInstances;					// what is an instance of us
+	SpeedTreeWrapperPtr				m_pInstanceOf;					// which tree is this an instance of
+
 	// geometry cache
 	CSpeedTreeRT::SGeometry*		m_pGeometryCache;				// cache for pulling geometry from SpeedTree avoids lots of reallocation
 

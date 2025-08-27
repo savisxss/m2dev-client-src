@@ -20,7 +20,13 @@ using namespace std;
 ///////////////////////////////////////////////////////////////////////  
 //	CSpeedTreeForest constructor
 
-CSpeedTreeForest::CSpeedTreeForest() : m_fWindStrength(0.0f)
+CSpeedTreeForest::CSpeedTreeForest() :
+	m_fWindStrength(0.0f),
+	m_afFog{ 0.0f, 0.0f, 0.0f, 0.0f },
+	m_fAccumTime(0.0f),
+	m_afLighting{ 0.0f, 0.0f, 0.0f, 1.0f,  // direction
+					0.2f, 0.2f, 0.2f, 1.0f,  // ambient
+					0.8f, 0.8f, 0.8f, 1.0f } // diffuse
 {
 	CSpeedTreeRT::SetNumWindMatrices(c_nNumWindMatrices);
 
@@ -39,24 +45,26 @@ CSpeedTreeForest::~CSpeedTreeForest()
 
 void CSpeedTreeForest::Clear()
 {
-	TTreeMap::iterator itor = m_pMainTreeMap.begin();
-	UINT uiCount;
-
-	while (itor != m_pMainTreeMap.end())
+	for (auto tr : m_pMainTreeMap)
 	{
-		CSpeedTreeWrapper * pMainTree = (itor++)->second;
-		CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+		SpeedTreeWrapperPtr pMainTree = tr.second;
 
-		for (UINT i = 0; i < uiCount; ++i)
-			delete ppInstances[i];
+		UINT uiCount;
+		auto ppInstances = pMainTree->GetInstances(uiCount);
 
-		delete pMainTree;
+		for (auto it : ppInstances)
+			it->Clear();
+
+		pMainTree->Clear();
 	}
 
-	m_pMainTreeMap.clear();
+	if (m_pMainTreeMap.begin() != m_pMainTreeMap.end())
+	{
+		m_pMainTreeMap.clear();
+	}
 }
 
-CSpeedTreeWrapper * CSpeedTreeForest::GetMainTree(DWORD dwCRC)
+CSpeedTreeForest::SpeedTreeWrapperPtr CSpeedTreeForest::GetMainTree(DWORD dwCRC)
 {
 	TTreeMap::iterator itor = m_pMainTreeMap.find(dwCRC);
 
@@ -66,11 +74,11 @@ CSpeedTreeWrapper * CSpeedTreeForest::GetMainTree(DWORD dwCRC)
 	return itor->second;
 }
 
-BOOL CSpeedTreeForest::GetMainTree(DWORD dwCRC, CSpeedTreeWrapper ** ppMainTree, const char * c_pszFileName)
+BOOL CSpeedTreeForest::GetMainTree(DWORD dwCRC, SpeedTreeWrapperPtr &ppMainTree, const char * c_pszFileName)
 {
 	TTreeMap::iterator itor = m_pMainTreeMap.find(dwCRC);
 
-	CSpeedTreeWrapper * pTree;
+	SpeedTreeWrapperPtr pTree;
 
 	if (itor != m_pMainTreeMap.end())
 		pTree = itor->second;
@@ -82,40 +90,43 @@ BOOL CSpeedTreeForest::GetMainTree(DWORD dwCRC, CSpeedTreeWrapper ** ppMainTree,
 		if (!CEterPackManager::Instance().Get(file, c_pszFileName, &c_pvData))
 			return FALSE;
 
-		pTree = new CSpeedTreeWrapper;
+		pTree = std::make_shared<CSpeedTreeWrapper>();
 
-		if (!pTree->LoadTree(c_pszFileName, (const BYTE*)c_pvData, file.Size()))
+		if (!pTree->LoadTree(c_pszFileName, (const BYTE *) c_pvData, file.Size()))
 		{
-			delete pTree;
+			pTree.reset();
 			return FALSE;
 		}
 
-		m_pMainTreeMap.insert(std::map<DWORD, CSpeedTreeWrapper*>::value_type(dwCRC, pTree));
+		m_pMainTreeMap.insert(std::map<DWORD, SpeedTreeWrapperPtr>::value_type(dwCRC, pTree));
+
 		file.Destroy();
 	}
 
-	*ppMainTree = pTree;
+	ppMainTree = pTree;
 	return TRUE;
 }
 
-CSpeedTreeWrapper* CSpeedTreeForest::CreateInstance(float x, float y, float z, DWORD dwTreeCRC, const char * c_szTreeName)
+CSpeedTreeForest::SpeedTreeWrapperPtr CSpeedTreeForest::CreateInstance(float x, float y, float z, DWORD dwTreeCRC, const char* c_szTreeName)
 {
-	CSpeedTreeWrapper * pMainTree;
-	if (!GetMainTree(dwTreeCRC, &pMainTree, c_szTreeName))
+	SpeedTreeWrapperPtr pMainTree;
+	if (!GetMainTree(dwTreeCRC, pMainTree, c_szTreeName))
+	{
 		return NULL;
+	}
 
-	CSpeedTreeWrapper* pTreeInst = pMainTree->MakeInstance();	
+	SpeedTreeWrapperPtr pTreeInst = pMainTree->MakeInstance();
 	pTreeInst->SetPosition(x, y, z);
 	pTreeInst->RegisterBoundingSphere();
 	return pTreeInst;
 }
 
-void CSpeedTreeForest::DeleteInstance(CSpeedTreeWrapper * pInstance)
+void CSpeedTreeForest::DeleteInstance(SpeedTreeWrapperPtr pInstance)
 {
 	if (!pInstance)
 		return;
-	
-	CSpeedTreeWrapper * pParentTree = pInstance->InstanceOf();
+
+	SpeedTreeWrapperPtr pParentTree = pInstance->InstanceOf();
 
 	if (!pParentTree)
 		return;
@@ -163,11 +174,11 @@ void CSpeedTreeForest::SetWindStrength(float fStrength)
 
 	while (itor != m_pMainTreeMap.end())
 	{
-		CSpeedTreeWrapper * pMainTree = (itor++)->second;
-		CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+		auto pMainTree = (itor++)->second;
+		auto ppInstances = pMainTree->GetInstances(uiCount);
 
-		for (UINT i = 0; i < uiCount; ++i)
-			ppInstances[i]->GetSpeedTree()->SetWindStrength(m_fWindStrength);
+		for (auto it : ppInstances)
+			it->GetSpeedTree()->SetWindStrength(m_fWindStrength);
 	}
 }
 

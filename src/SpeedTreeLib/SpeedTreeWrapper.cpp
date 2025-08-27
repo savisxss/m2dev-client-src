@@ -743,80 +743,85 @@ void CSpeedTreeWrapper::Advance(void)
 
 ///////////////////////////////////////////////////////////////////////  
 //	CSpeedTreeWrapper::MakeInstance
-CSpeedTreeWrapper * CSpeedTreeWrapper::MakeInstance()
+CSpeedTreeWrapper::SpeedTreeWrapperPtr CSpeedTreeWrapper::MakeInstance()
 {
-	CSpeedTreeWrapper * pInstance = new CSpeedTreeWrapper;
+	auto spInstance = std::make_shared<CSpeedTreeWrapper>();
 	
 	// make an instance of this object's SpeedTree
-	pInstance->m_bIsInstance = true;
+	spInstance->m_bIsInstance = true;
 
-	SAFE_DELETE(pInstance->m_pSpeedTree);
-	pInstance->m_pSpeedTree = m_pSpeedTree->MakeInstance();
+	SAFE_DELETE(spInstance->m_pSpeedTree);
+	spInstance->m_pSpeedTree = m_pSpeedTree->MakeInstance();
 	
-	if (pInstance->m_pSpeedTree)
+	if (spInstance->m_pSpeedTree)
     {
 		// use the same materials
-		pInstance->m_cBranchMaterial = m_cBranchMaterial;
-		pInstance->m_cLeafMaterial = m_cLeafMaterial;
-		pInstance->m_cFrondMaterial = m_cFrondMaterial;
-		pInstance->m_CompositeImageInstance.SetImagePointer(m_CompositeImageInstance.GetGraphicImagePointer());
-		pInstance->m_BranchImageInstance.SetImagePointer(m_BranchImageInstance.GetGraphicImagePointer());
+		spInstance->m_cBranchMaterial = m_cBranchMaterial;
+		spInstance->m_cLeafMaterial = m_cLeafMaterial;
+		spInstance->m_cFrondMaterial = m_cFrondMaterial;
+		spInstance->m_CompositeImageInstance.SetImagePointer(m_CompositeImageInstance.GetGraphicImagePointer());
+		spInstance->m_BranchImageInstance.SetImagePointer(m_BranchImageInstance.GetGraphicImagePointer());
 		
 		if (!m_ShadowImageInstance.IsEmpty())
-			pInstance->m_ShadowImageInstance.SetImagePointer(m_ShadowImageInstance.GetGraphicImagePointer());
+			spInstance->m_ShadowImageInstance.SetImagePointer(m_ShadowImageInstance.GetGraphicImagePointer());
 		
-		pInstance->m_pTextureInfo = m_pTextureInfo;
+		spInstance->m_pTextureInfo = m_pTextureInfo;
 		
 		// use the same geometry cache
-		pInstance->m_pGeometryCache = m_pGeometryCache;
+		spInstance->m_pGeometryCache = m_pGeometryCache;
 		
 		// use the same buffers
-		pInstance->m_pBranchIndexBuffer = m_pBranchIndexBuffer;
-		pInstance->m_pBranchIndexCounts = m_pBranchIndexCounts;
-		pInstance->m_pBranchVertexBuffer = m_pBranchVertexBuffer;
-		pInstance->m_unBranchVertexCount = m_unBranchVertexCount;
+		spInstance->m_pBranchIndexBuffer = m_pBranchIndexBuffer;
+		spInstance->m_pBranchIndexCounts = m_pBranchIndexCounts;
+		spInstance->m_pBranchVertexBuffer = m_pBranchVertexBuffer;
+		spInstance->m_unBranchVertexCount = m_unBranchVertexCount;
 		
-		pInstance->m_pFrondIndexBuffer = m_pFrondIndexBuffer;
-		pInstance->m_pFrondIndexCounts = m_pFrondIndexCounts;
-		pInstance->m_pFrondVertexBuffer = m_pFrondVertexBuffer;
-		pInstance->m_unFrondVertexCount = m_unFrondVertexCount;
+		spInstance->m_pFrondIndexBuffer = m_pFrondIndexBuffer;
+		spInstance->m_pFrondIndexCounts = m_pFrondIndexCounts;
+		spInstance->m_pFrondVertexBuffer = m_pFrondVertexBuffer;
+		spInstance->m_unFrondVertexCount = m_unFrondVertexCount;
 		
-		pInstance->m_pLeafVertexBuffer = m_pLeafVertexBuffer;
-		pInstance->m_usNumLeafLods = m_usNumLeafLods;
-		pInstance->m_pLeavesUpdatedByCpu = m_pLeavesUpdatedByCpu;
+		spInstance->m_pLeafVertexBuffer = m_pLeafVertexBuffer;
+		spInstance->m_usNumLeafLods = m_usNumLeafLods;
+		spInstance->m_pLeavesUpdatedByCpu = m_pLeavesUpdatedByCpu;
 		
 		// new stuff
-		memcpy(pInstance->m_afPos, m_afPos, 3 * sizeof(float));
-		memcpy(pInstance->m_afBoundingBox, m_afBoundingBox, 6 * sizeof(float));
-		pInstance->m_pInstanceOf = this;
-		m_vInstances.push_back(pInstance);
+		memcpy(spInstance->m_afPos, m_afPos, 3 * sizeof(float));
+		memcpy(spInstance->m_afBoundingBox, m_afBoundingBox, 6 * sizeof(float));
+		spInstance->m_pInstanceOf = shared_from_this();
+		m_vInstances.push_back(spInstance);
     }
     else
 	{
 		fprintf(stderr, "SpeedTreeRT Error: %s\n", m_pSpeedTree->GetCurrentError());
-        delete pInstance;
-        pInstance = NULL;
+		spInstance.reset();
 	}
 	
-	return pInstance;
+	return spInstance;
 }
 
 
 ///////////////////////////////////////////////////////////////////////  
 //	CSpeedTreeWrapper::GetInstances
-
-CSpeedTreeWrapper ** CSpeedTreeWrapper::GetInstances(UINT& nCount)
+std::vector <CSpeedTreeWrapper::SpeedTreeWrapperPtr> CSpeedTreeWrapper::GetInstances(UINT& nCount)
 {
+	std::vector <SpeedTreeWrapperPtr> kResult;
+
 	nCount = m_vInstances.size();
 	if (nCount)
-		return &(m_vInstances[0]);
-	else
-		return NULL;
+	{
+		for (auto it : m_vInstances)
+		{
+			kResult.push_back(it);
+		}
+	}
+
+	return kResult;
 }
 
-void CSpeedTreeWrapper::DeleteInstance(CSpeedTreeWrapper * pInstance)
+void CSpeedTreeWrapper::DeleteInstance(SpeedTreeWrapperPtr pInstance)
 {
-	std::vector<CSpeedTreeWrapper *>::iterator itor = m_vInstances.begin();
+	auto itor = m_vInstances.begin();
 	
 	while (itor != m_vInstances.end())
 	{
@@ -827,7 +832,6 @@ void CSpeedTreeWrapper::DeleteInstance(CSpeedTreeWrapper * pInstance)
 		else
 			++itor;
 	}
-	delete pInstance;
 }
 
 ///////////////////////////////////////////////////////////////////////  
