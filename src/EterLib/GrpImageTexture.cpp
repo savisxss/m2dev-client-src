@@ -1,7 +1,10 @@
 #include "StdAfx.h"
-#include "../eterBase/MappedFile.h"
-#include "../eterPack/EterPackManager.h"
+#include "EterBase/MappedFile.h"
+#include "EterPack/EterPackManager.h"
 #include "GrpImageTexture.h"
+#include "EterImageLib/DDSTextureLoader9.h"
+
+#include <stb_image.h>
 
 bool CGraphicImageTexture::Lock(int* pRetPitch, void** ppRetPixels, int level)
 {
@@ -76,130 +79,66 @@ bool CGraphicImageTexture::Create(UINT width, UINT height, D3DFORMAT d3dFmt, DWO
 	return CreateDeviceObjects();
 }
 
-void CGraphicImageTexture::CreateFromTexturePointer(const CGraphicTexture * c_pSrcTexture)
+void CGraphicImageTexture::CreateFromTexturePointer(const CGraphicTexture* c_pSrcTexture)
 {
 	if (m_lpd3dTexture)
 		m_lpd3dTexture->Release();
-	
+
 	m_width = c_pSrcTexture->GetWidth();
 	m_height = c_pSrcTexture->GetHeight();
 	m_lpd3dTexture = c_pSrcTexture->GetD3DTexture();
-	
+
 	if (m_lpd3dTexture)
 		m_lpd3dTexture->AddRef();
 
 	m_bEmpty = false;
 }
 
-bool CGraphicImageTexture::CreateDDSTexture(CDXTCImage & image, const BYTE * /*c_pbBuf*/)
+bool CGraphicImageTexture::CreateFromDDSTexture(UINT bufSize, const void* c_pvBuf)
 {
-	int mipmapCount = image.m_dwMipMapCount == 0 ? 1 : image.m_dwMipMapCount;
-
-	D3DFORMAT format;
-	LPDIRECT3DTEXTURE9 lpd3dTexture;
-	D3DPOOL pool = ms_bSupportDXT ? D3DPOOL_MANAGED : D3DPOOL_SCRATCH;;
-
-	if(image.m_CompFormat == PF_DXT5)
-		format = D3DFMT_DXT5;	
-	else if(image.m_CompFormat == PF_DXT3)
-		format = D3DFMT_DXT3;	
-	else
-		format = D3DFMT_DXT1;	
-
-	UINT uTexBias=0;
-	if (IsLowTextureMemory())
-		uTexBias=1;
-
-	UINT uMinMipMapIndex=0;
-	if (uTexBias>0)
-	{
-		if (mipmapCount>uTexBias)
-		{
-			uMinMipMapIndex=uTexBias;
-			image.m_nWidth>>=uTexBias;
-			image.m_nHeight>>=uTexBias;
-			mipmapCount-=uTexBias;
-		}
-	}
-
-	if (FAILED(D3DXCreateTexture(	ms_lpd3dDevice, image.m_nWidth, image.m_nHeight,
-									mipmapCount, 0, format, pool, &lpd3dTexture)))
-	{
-		TraceError("CreateDDSTexture: Cannot creatre texture");
+	if (FAILED(DirectX::CreateDDSTextureFromMemoryEx(ms_lpd3dDevice, reinterpret_cast<const uint8_t*>(c_pvBuf), bufSize, 0, D3DPOOL_MANAGED, false, &m_lpd3dTexture)))
 		return false;
-	}
 
-	for (DWORD i = 0; i < mipmapCount; ++i)
-	{
-		D3DLOCKED_RECT lockedRect;
+	D3DSURFACE_DESC desc;
+	m_lpd3dTexture->GetLevelDesc(0, &desc);
+	m_width = desc.Width;
+	m_height = desc.Height;
+	m_bEmpty = false;
+	return true;
+}
 
-		if (FAILED(lpd3dTexture->LockRect(i, &lockedRect, NULL, 0)))
-		{
-			TraceError("CreateDDSTexture: Cannot lock texture");
-		}
-		else
-		{
-			image.Copy(i+uMinMipMapIndex, (BYTE*)lockedRect.pBits, lockedRect.Pitch);
-			lpd3dTexture->UnlockRect(i);
-		}
-	}
-
-	if(ms_bSupportDXT)
-	{
-		m_lpd3dTexture = lpd3dTexture;
-	}
-	else
-	{
-		if(image.m_CompFormat == PF_DXT3 || image.m_CompFormat == PF_DXT5)
-			format = D3DFMT_A4R4G4B4;
-		else
-			format = D3DFMT_A1R5G5B5;
-
-		UINT imgWidth=image.m_nWidth;
-		UINT imgHeight=image.m_nHeight;
-
-		extern bool GRAPHICS_CAPS_HALF_SIZE_IMAGE;
-
-		if (GRAPHICS_CAPS_HALF_SIZE_IMAGE && uTexBias>0 && mipmapCount==0)
-		{
-			imgWidth>>=uTexBias;
-			imgHeight>>=uTexBias;		
-		}
-
-		if (FAILED(D3DXCreateTexture(	ms_lpd3dDevice, imgWidth, imgHeight, 
-										mipmapCount, 0, format, D3DPOOL_MANAGED, &m_lpd3dTexture)))
-		{
-				TraceError("CreateDDSTexture: Cannot creatre texture");
-				return false;
-		}
-
-		IDirect3DTexture9* pkTexSrc=lpd3dTexture;
-		IDirect3DTexture9* pkTexDst=m_lpd3dTexture;
-
-		for(int i=0; i<mipmapCount; ++i) {
-
-			IDirect3DSurface9* ppsSrc = NULL;
-			IDirect3DSurface9* ppsDst = NULL;
-
-			if (SUCCEEDED(pkTexSrc->GetSurfaceLevel(i, &ppsSrc)))
-			{
-				if (SUCCEEDED(pkTexDst->GetSurfaceLevel(i, &ppsDst)))
-				{
-					D3DXLoadSurfaceFromSurface(ppsDst, NULL, NULL, ppsSrc, NULL, NULL, D3DX_FILTER_NONE, 0);
-					ppsDst->Release();
+bool CGraphicImageTexture::CreateFromSTB(UINT bufSize, const void* c_pvBuf)
+{
+	int width, height, channels;
+	unsigned char* data = stbi_load_from_memory((stbi_uc*)c_pvBuf, bufSize, &width, &height, &channels, 4); // force RGBA
+	if (data) {
+		LPDIRECT3DTEXTURE9 texture;
+		if (SUCCEEDED(ms_lpd3dDevice->CreateTexture(width, height, 1, 0, channels == 4 ? D3DFMT_A8R8G8B8 : D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &texture, nullptr))) {
+			D3DLOCKED_RECT rect;
+			if (SUCCEEDED(texture->LockRect(0, &rect, nullptr, 0))) {
+				uint8_t* dstData = (uint8_t*)rect.pBits;
+				uint8_t* srcData = (uint8_t*)data;
+				for (size_t i = 0; i < width * height; ++i, dstData += 4, srcData += 4) {
+					dstData[0] = srcData[2];
+					dstData[1] = srcData[1];
+					dstData[2] = srcData[0];
+					dstData[3] = srcData[3];
 				}
-				ppsSrc->Release();
+
+				texture->UnlockRect(0);
+				m_width = width;
+				m_height = height;
+				m_bEmpty = false;
+				m_lpd3dTexture = texture;
+			}
+			else {
+				texture->Release();
 			}
 		}
-
-		lpd3dTexture->Release();
+		stbi_image_free(data);
 	}
 
-	m_width = image.m_nWidth;
-	m_height = image.m_nHeight;
-	m_bEmpty = false;
-
-	return true;
+	return !m_bEmpty;
 }
 
 bool CGraphicImageTexture::CreateFromMemoryFile(UINT bufSize, const void * c_pvBuf, D3DFORMAT d3dFmt, DWORD dwFilter)
@@ -207,41 +146,24 @@ bool CGraphicImageTexture::CreateFromMemoryFile(UINT bufSize, const void * c_pvB
 	assert(ms_lpd3dDevice != NULL);
 	assert(m_lpd3dTexture == NULL);
 
-	static CDXTCImage image;
+	m_bEmpty = true;
 
-	if (image.LoadHeaderFromMemory((const BYTE *) c_pvBuf))	// DDS인가 확인
-	{
-		return (CreateDDSTexture(image, (const BYTE *) c_pvBuf));
-	}
-	else
-	{
-		D3DXIMAGE_INFO imageInfo;
-		if (FAILED(D3DXCreateTextureFromFileInMemoryEx(
-					ms_lpd3dDevice,
-					c_pvBuf,
-					bufSize,
-					D3DX_DEFAULT,
-					D3DX_DEFAULT,
-					D3DX_DEFAULT,
-					0,
-					d3dFmt,
-					D3DPOOL_MANAGED,
-					dwFilter,
-					dwFilter,
-					0xffff00ff,
-					&imageInfo,
-					NULL,
-					&m_lpd3dTexture)))
-		{
-			TraceError("CreateFromMemoryFile: Cannot create texture");
-			return false;
-		}
+	if (!CreateFromDDSTexture(bufSize, c_pvBuf)) {
+		if (!CreateFromSTB(bufSize, c_pvBuf)) {
 
-		m_width = imageInfo.Width;
-		m_height = imageInfo.Height;
+			D3DXIMAGE_INFO imageInfo;
+			if (FAILED(D3DXCreateTextureFromFileInMemoryEx(ms_lpd3dDevice, c_pvBuf, bufSize
+				, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, 0, d3dFmt, D3DPOOL_MANAGED
+				, dwFilter, dwFilter, 0xffff00ff, &imageInfo, NULL, &m_lpd3dTexture))) {
+				TraceError("CreateFromMemoryFile: Cannot create texture");
+				return false;
+			}
 
-		D3DFORMAT format=imageInfo.Format;
-		switch(imageInfo.Format) {
+			m_width = imageInfo.Width;
+			m_height = imageInfo.Height;
+
+			D3DFORMAT format = imageInfo.Format;
+			switch (imageInfo.Format) {
 			case D3DFMT_A8R8G8B8:
 				format = D3DFMT_A4R4G4B4;
 				break;
@@ -250,50 +172,41 @@ bool CGraphicImageTexture::CreateFromMemoryFile(UINT bufSize, const void * c_pvB
 			case D3DFMT_R8G8B8:
 				format = D3DFMT_A1R5G5B5;
 				break;
-		}
+			}
 
-		UINT uTexBias=0;
+			UINT uTexBias = 0;
 
-		extern bool GRAPHICS_CAPS_HALF_SIZE_IMAGE;
-		if (GRAPHICS_CAPS_HALF_SIZE_IMAGE)
-			uTexBias=1;
+			extern bool GRAPHICS_CAPS_HALF_SIZE_IMAGE;
+			if (GRAPHICS_CAPS_HALF_SIZE_IMAGE)
+				uTexBias = 1;
 
-		if (IsLowTextureMemory())
-		if (uTexBias || format!=imageInfo.Format)
-		{
-			IDirect3DTexture9* pkTexSrc=m_lpd3dTexture;
-			IDirect3DTexture9* pkTexDst;
-			
-			
-			if (SUCCEEDED(D3DXCreateTexture(	
-				ms_lpd3dDevice, 
-				imageInfo.Width>>uTexBias, 
-				imageInfo.Height>>uTexBias, 
-				imageInfo.MipLevels, 
-				0, 
-				format, 
-				D3DPOOL_MANAGED, 
-				&pkTexDst)))
-			{
-				m_lpd3dTexture=pkTexDst;
-				
-				for(int i=0; i<imageInfo.MipLevels; ++i) {
+			if (IsLowTextureMemory()) {
+				if (uTexBias || format != imageInfo.Format) {
+					IDirect3DTexture9* pkTexSrc = m_lpd3dTexture;
+					IDirect3DTexture9* pkTexDst;
 
-					IDirect3DSurface9* ppsSrc = NULL;
-					IDirect3DSurface9* ppsDst = NULL;
 
-					if (SUCCEEDED(pkTexSrc->GetSurfaceLevel(i, &ppsSrc)))
-					{
-						if (SUCCEEDED(pkTexDst->GetSurfaceLevel(i, &ppsDst)))
-						{
-							D3DXLoadSurfaceFromSurface(ppsDst, NULL, NULL, ppsSrc, NULL, NULL, D3DX_FILTER_LINEAR, 0);
-							ppsDst->Release();
+					if (SUCCEEDED(D3DXCreateTexture(ms_lpd3dDevice
+						, imageInfo.Width >> uTexBias, imageInfo.Height >> uTexBias
+						, imageInfo.MipLevels, 0, format, D3DPOOL_MANAGED, &pkTexDst))) {
+						m_lpd3dTexture = pkTexDst;
+						for (int i = 0; i < imageInfo.MipLevels; ++i) {
+
+							IDirect3DSurface9* ppsSrc = NULL;
+							IDirect3DSurface9* ppsDst = NULL;
+
+							if (SUCCEEDED(pkTexSrc->GetSurfaceLevel(i, &ppsSrc))) {
+								if (SUCCEEDED(pkTexDst->GetSurfaceLevel(i, &ppsDst))) {
+									D3DXLoadSurfaceFromSurface(ppsDst, NULL, NULL, ppsSrc, NULL, NULL, D3DX_FILTER_LINEAR, 0);
+									ppsDst->Release();
+								}
+								ppsSrc->Release();
+							}
 						}
-						ppsSrc->Release();
+
+						pkTexSrc->Release();
 					}
 				}
-
-				pkTexSrc->Release();
 			}
 		}
 	}

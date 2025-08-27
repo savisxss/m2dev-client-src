@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GrpTexture.h"
-#include "../eterImageLib/DXTCImage.h"
 
 class CGraphicImageTexture : public CGraphicTexture
 {
@@ -17,7 +16,8 @@ class CGraphicImageTexture : public CGraphicTexture
 		void		CreateFromTexturePointer(const CGraphicTexture* c_pSrcTexture);
 		bool		CreateFromDiskFile(const char* c_szFileName, D3DFORMAT d3dFmt, DWORD dwFilter = D3DX_FILTER_LINEAR);
 		bool		CreateFromMemoryFile(UINT bufSize, const void* c_pvBuf, D3DFORMAT d3dFmt, DWORD dwFilter = D3DX_FILTER_LINEAR);
-		bool		CreateDDSTexture(CDXTCImage & image, const BYTE * c_pbBuf);
+		bool		CreateFromDDSTexture(UINT bufSize, const void* c_pvBuf);
+		bool		CreateFromSTB(UINT bufSize, const void* c_pvBuf);
 
 		void		SetFileName(const char * c_szFileName);
 		
