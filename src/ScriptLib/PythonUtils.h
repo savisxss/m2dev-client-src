@@ -19,7 +19,7 @@ bool PyTuple_GetBoolean(PyObject* poArgs, int pos, bool* ret);
 
 template <typename T>
 bool PyTuple_GetPointer(PyObject* poArgs, int pos, T** ret) {
-	return PyTuple_GetUnsignedLongLong(poArgs, pos, (unsigned long long*)*ret);
+	return PyTuple_GetUnsignedLongLong(poArgs, pos, (unsigned long long*)ret);
 }
 
 bool PyCallClassMemberFunc(PyObject* poClass, const char* c_szFunc, PyObject* poArgs);
