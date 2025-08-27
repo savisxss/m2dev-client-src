@@ -223,7 +223,7 @@ void CGuildMarkUploader::__Inialize()
 
 	if (m_pbySymbolBuf)
 	{
-		delete m_pbySymbolBuf;
+		delete[] m_pbySymbolBuf;
 	}
 
 	m_dwSymbolBufSize = 0;
