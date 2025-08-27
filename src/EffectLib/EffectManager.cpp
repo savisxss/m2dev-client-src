@@ -3,7 +3,7 @@
 #include "../eterlib/StateManager.h"
 #include "EffectManager.h"
 
-extern std::unordered_map<LPDIRECT3DTEXTURE9, std::vector<TPDTVertex>> g_particleVertexBatch;
+extern std::unordered_map<LPDIRECT3DTEXTURE9, std::unordered_map<uint32_t, std::vector<TPDTVertex>>> g_particleVertexBatch;
 
 void CEffectManager::GetInfo(std::string* pstInfo)
 {
@@ -431,16 +431,26 @@ void CEffectManager::__RenderParticles()
 		itor->second->BatchParticles();
 	}
 
-	for (auto& [pTexture, vtxBatch] : g_particleVertexBatch) {
-		if (vtxBatch.empty())
+	for (auto& [pTexture, keyMap] : g_particleVertexBatch) {
+		if (keyMap.empty())
 			continue;
 
 		STATEMANAGER.SetTexture(0, pTexture);
-		STATEMANAGER.DrawPrimitiveUP(
-			D3DPT_TRIANGLELIST,
-			vtxBatch.size() / 3,
-			vtxBatch.data(),
-			sizeof(TPDTVertex));
+		for (auto& [opKey, vtxBatch] : keyMap) {
+			if (vtxBatch.empty())
+				continue;
+
+			uint8_t* pKeyPart = (uint8_t*)&opKey;
+			STATEMANAGER.SetRenderState(D3DRS_SRCBLEND, pKeyPart[0]);
+			STATEMANAGER.SetRenderState(D3DRS_DESTBLEND, pKeyPart[1]);
+			STATEMANAGER.SetTextureStageState(0, D3DTSS_COLOROP, pKeyPart[2]);
+
+			STATEMANAGER.DrawPrimitiveUP(
+				D3DPT_TRIANGLELIST,
+				vtxBatch.size() / 3,
+				vtxBatch.data(),
+				sizeof(TPDTVertex));
+		}
 	}
 
 	STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
