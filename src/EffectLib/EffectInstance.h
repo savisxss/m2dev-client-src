@@ -2,7 +2,7 @@
 
 #include "../eterlib/GrpObjectInstance.h"
 #include "../eterlib/Pool.h"
-#include "../mileslib/Type.h"
+#include "../AudioLib/Type.h"
 
 #include "EffectElementBaseInstance.h"
 #include "EffectData.h"
@@ -77,7 +77,7 @@ class CEffectInstance : public CGraphicObjectInstance
 		std::vector<CEffectMeshInstance*>		m_MeshInstanceVector;
 		std::vector<CLightInstance*>			m_LightInstanceVector;
 
-		TSoundInstanceVector *					m_pSoundInstanceVector;
+		NSound::TSoundInstanceVector *					m_pSoundInstanceVector;
 
 		float m_fBoundingSphereRadius;
 		D3DXVECTOR3 m_v3BoundingSpherePosition;

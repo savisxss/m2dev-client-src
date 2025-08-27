@@ -5,7 +5,7 @@
 
 #include "../eterBase/Stl.h"
 #include "../eterLib/StateManager.h"
-#include "../MilesLib/SoundManager.h"
+#include "../AudioLib/SoundEngine.h"
 
 CDynamicPool<CEffectInstance>	CEffectInstance::ms_kPool;
 int CEffectInstance::ms_iRenderingEffectCount = 0;
@@ -50,12 +50,12 @@ void CEffectInstance::UpdateSound()
 {
 	if (m_pSoundInstanceVector)
 	{
-		UpdateSoundInstance(m_dwFrame,
-			*m_pSoundInstanceVector,
-			m_matGlobal._41,
-			m_matGlobal._42,
-			m_matGlobal._43,
-			false);
+		SoundEngine::Instance().UpdateSoundInstance(m_matGlobal._41,
+													m_matGlobal._42,
+													m_matGlobal._43,
+													m_dwFrame,
+													m_pSoundInstanceVector,
+													false, false);
 		// NOTE : 매트릭스에서 위치를 직접 얻어온다 - [levites]
 	}
 	++m_dwFrame;

@@ -38,3 +38,9 @@ extern HWND g_PopupHwnd;
 	}										\
 
 #endif
+
+#if defined(_DEBUG)
+#define MD_ASSERT(expr) ((expr) ? true : (TraceError("MD_ASSERT('%s') failed at (%s:%d)", #expr, __FILE__, __LINE__), throw "ffs", false))
+#else
+#define MD_ASSERT(expr) ((expr) ? true : (TraceError("MD_ASSERT('%s') failed at (%s:%d)", #expr, __FILE__, __LINE__), false))
+#endif

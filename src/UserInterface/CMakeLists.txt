@@ -9,6 +9,7 @@ set_target_properties(UserInterface PROPERTIES LINK_FLAGS "/level='requireAdmini
 )
 
 target_link_libraries(UserInterface 
+	AudioLib
 	Discord
 	EffectLib 
 	EterBase 
@@ -19,7 +20,6 @@ target_link_libraries(UserInterface
 	EterPack
 	EterPythonLib
 	GameLib
-	MilesLib
 	PRTerrainLib
 	ScriptLib
 	SpeedTreeLib
@@ -31,7 +31,6 @@ target_link_libraries(UserInterface
 	DirectX
 	Granny
 	SpeedTree
-	MilesSoundSystem
 	Python
 	WebView
 	

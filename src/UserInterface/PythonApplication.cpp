@@ -1051,10 +1051,10 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 		if (!m_pySystem.IsNoSoundCard())
 		{
 			// Sound
-			if (!m_SoundManager.Create())
+			if (!m_SoundEngine.Initialize())
 			{
-				// NOTE : Áß±¹ÃøÀÇ ¿äÃ»À¸·Î »ý·«
-				//		LogBox(ApplicationStringTable_GetStringz(IDS_WARN_NO_SOUND_DEVICE));
+				TraceError("Failed to initialize sound manager!");
+				return false; // Is this important enough to stop the client?
 			}
 		}
 

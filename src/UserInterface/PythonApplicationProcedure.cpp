@@ -60,7 +60,7 @@ LRESULT CPythonApplication::WindowProcedure(HWND hWnd, UINT uiMsg, WPARAM wParam
 
 				if (m_isActivateWnd)
 				{
-					m_SoundManager.RestoreVolume();
+					m_SoundEngine.RestoreVolume();
 
 					//////////////////
 
@@ -71,7 +71,7 @@ LRESULT CPythonApplication::WindowProcedure(HWND hWnd, UINT uiMsg, WPARAM wParam
 				}
 				else
 				{
-					m_SoundManager.SaveVolume();
+					m_SoundEngine.SaveVolume(m_isMinimizedWnd);
 
 					//////////////////
 

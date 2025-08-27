@@ -68,7 +68,7 @@ class CArea
 			float fx, fy, fz;
 			DWORD dwRange;
 			float fMaxVolumeAreaPercentage;
-			std::unique_ptr<SoundSample> pSample;
+			MaSoundInstance* playSoundInstance;
 			float fNextPlayTime;
 			prt::TPropertyAmbience AmbienceData;
 

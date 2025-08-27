@@ -32,7 +32,7 @@ void CPythonItem::TGroundItemInstance::__PlayDropSound(DWORD eItemType, const D3
 	if (eItemType>=DROPSOUND_NUM)
 		return;
 
-	CSoundManager::Instance().PlaySound3D(c_rv3Pos.x, c_rv3Pos.y, c_rv3Pos.z, ms_astDropSoundFileName[eItemType].c_str());
+	SoundEngine::Instance().PlaySound3D(ms_astDropSoundFileName[eItemType].c_str(), c_rv3Pos.x, c_rv3Pos.y, c_rv3Pos.z);
 }
 
 bool CPythonItem::TGroundItemInstance::Update()
@@ -165,7 +165,7 @@ void	CPythonItem::PlayUseSound(DWORD dwItemID)
 	if (eItemType>=USESOUND_NUM)
 		return;
 
-	CSoundManager::Instance().PlaySound2D(m_astUseSoundFileName[eItemType].c_str());
+	SoundEngine::Instance().PlaySound2D(m_astUseSoundFileName[eItemType].c_str());
 }
 
 
@@ -181,12 +181,12 @@ void	CPythonItem::PlayDropSound(DWORD dwItemID)
 	if (eItemType>=DROPSOUND_NUM)
 		return;
 
-	CSoundManager::Instance().PlaySound2D(SGroundItemInstance::ms_astDropSoundFileName[eItemType].c_str());
+	SoundEngine::Instance().PlaySound2D(SGroundItemInstance::ms_astDropSoundFileName[eItemType].c_str());
 }
 
 void	CPythonItem::PlayUsePotionSound()
 {
-	CSoundManager::Instance().PlaySound2D(m_astUseSoundFileName[USESOUND_POTION].c_str());
+	SoundEngine::Instance().PlaySound2D(m_astUseSoundFileName[USESOUND_POTION].c_str());
 }
 
 DWORD	CPythonItem::__GetDropSoundType(const CItemData& c_rkItemData)

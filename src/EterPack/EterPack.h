@@ -1,15 +1,18 @@
 #ifndef __INC_ETERPACKLIB_ETERPACK_H__
 #define __INC_ETERPACKLIB_ETERPACK_H__
 
+#ifndef MAKEFOURCC
+#include <mmsyscom.h>
+#endif
+
 #include <list>
 #include <unordered_map>
 
 #include "EterBase/MappedFile.h"
 
-
 //#define  CHECKSUM_CHECK_MD5
-
 #include "md5.h"
+
 
 namespace eterpack
 {

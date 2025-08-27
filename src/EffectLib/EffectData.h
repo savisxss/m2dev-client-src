@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../milesLib/Type.h"
+#include "../AudioLib/Type.h"
 
 #include "ParticleSystemData.h"
 #include "EffectMesh.h"
@@ -30,7 +30,7 @@ class CEffectData
 		DWORD							GetLightCount();
 		CLightData *					GetLightPointer(DWORD dwPosition);
 
-		TSoundInstanceVector *			GetSoundInstanceVector();
+		NSound::TSoundInstanceVector *			GetSoundInstanceVector();
 
 		float							GetBoundingSphereRadius();
 		D3DXVECTOR3						GetBoundingSpherePosition();
@@ -52,7 +52,7 @@ class CEffectData
 		TParticleVector					m_ParticleVector;
 		TMeshVector						m_MeshVector;
 		TLightVector					m_LightVector;
-		TSoundInstanceVector			m_SoundInstanceVector;
+		NSound::TSoundInstanceVector			m_SoundInstanceVector;
 
 		float							m_fBoundingSphereRadius;
 		D3DXVECTOR3						m_v3BoundingSpherePosition;

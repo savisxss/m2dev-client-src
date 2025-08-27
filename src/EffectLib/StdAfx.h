@@ -12,7 +12,7 @@
 #include "../eterLib/StdAfx.h"
 #include "../eterLib/TextFileLoader.h"
 
-#include "../milesLib/StdAfx.h"
+#include "../AudioLib/StdAfx.h"
 
 /*
 #include "FrameController.h"
