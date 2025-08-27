@@ -2,8 +2,8 @@
 
 bool PyTuple_GetThingInstance(PyObject* poArgs, int pos, CGraphicThingInstance** ppRetThingInstance)
 {
-	int handle;
-	if (!PyTuple_GetInteger(poArgs, pos, &handle))
+	unsigned long long handle;
+	if (!PyTuple_GetUnsignedLongLong(poArgs, pos, &handle))
 		return false;
 
 	if (!handle)

@@ -82,8 +82,8 @@ PyObject* grpImageGenerateExpanded(PyObject* poSelf, PyObject* poArgs)
 
 PyObject* grpImageGenerateFromHandle(PyObject * poSelf, PyObject* poArgs)
 {
-	int iHandle;
-	if (!PyTuple_GetInteger(poArgs, 0, &iHandle))
+	unsigned long long iHandle;
+	if (!PyTuple_GetUnsignedLongLong(poArgs, 0, &iHandle))
 		return Py_BadArgument();
 
 	CGraphicImageInstance * pImageInstance = CGraphicImageInstance::New();
