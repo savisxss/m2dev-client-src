@@ -5,14 +5,10 @@
 
 bool PyTuple_GetWindow(PyObject* poArgs, int pos, UI::CWindow ** ppRetWindow)
 {
-	unsigned long long iHandle;
-	if (!PyTuple_GetUnsignedLongLong(poArgs, pos, &iHandle))
-		return false;
-	if (!iHandle)
+	if (!PyTuple_GetPointer(poArgs, pos, ppRetWindow))
 		return false;
 
-	*ppRetWindow = (UI::CWindow*)iHandle;
-	return true;
+	return *ppRetWindow != nullptr;
 }
 
 PyObject * wndMgrGetAspect(PyObject * poSelf, PyObject * poArgs)

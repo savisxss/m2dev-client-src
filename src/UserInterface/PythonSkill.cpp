@@ -2092,11 +2092,11 @@ PyObject * skillGetIconInstanceNew(PyObject * poSelf, PyObject * poArgs)
 
 PyObject * skillDeleteIconInstance(PyObject * poSelf, PyObject * poArgs)
 {
-	unsigned long long iHandle;
-	if (!PyTuple_GetUnsignedLongLong(poArgs, 0, &iHandle))
+	CGraphicImageInstance* pImgInstance;
+	if (!PyTuple_GetPointer(poArgs, 0, &pImgInstance))
 		return Py_BadArgument();
 
-	CGraphicImageInstance::Delete((CGraphicImageInstance *) iHandle);
+	CGraphicImageInstance::Delete(pImgInstance);
 	return Py_BuildNone();
 }
 
