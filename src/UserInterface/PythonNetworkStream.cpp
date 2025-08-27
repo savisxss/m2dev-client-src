@@ -559,10 +559,10 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 	{
 		if (!Peek(PacketType.iPacketSize))
 		{
-			//Tracef("Not enough packet size: header %d packet size: %d, recv buffer size: %d",
-			//	header,
-			//	PacketType.iPacketSize,
-			//	GetRecvBufferSize());
+			Tracef("Not enough packet size: header %d packet size: %d, recv buffer size: %d",
+				header,
+				PacketType.iPacketSize,
+				GetRecvBufferSize());
 			return false;
 		}
 	}
