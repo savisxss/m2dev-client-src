@@ -9,8 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../eterlib/GrpVertexBuffer.h"
-#include "../PRTerrainLib/Terrain.h"
+#include "EterLib/GrpVertexBuffer.h"
+#include "PRTerrainLib/Terrain.h"
 
 #pragma pack(push)
 #pragma pack(1)

@@ -22,10 +22,6 @@
 
 #pragma once
 
-//#include <vector>
-//#include "Constants.h"
-//#include "../Common Source/IdvVertexBuffer.h"
-
 #ifdef USE_SPEEDGRASS
 
 

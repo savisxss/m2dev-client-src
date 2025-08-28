@@ -25,12 +25,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
-//#include "../Common Source/extgl.h"
-//#include "SpeedGrassWrapper.h"
-//#include "Scene.h"
-//#include "../Common Source/nv_dds.h"
-//#include "../Common Source/Random.h"
-//#include "TextureLayers.h"
 
 using namespace std;
 

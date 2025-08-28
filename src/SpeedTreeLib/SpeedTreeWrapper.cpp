@@ -36,12 +36,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "../eterBase/Debug.h"
-#include "../eterBase/Timer.h"
-#include "../eterBase/Filename.h"
-#include "../eterLib/ResourceManager.h"
-#include "../eterLib/Camera.h"
-#include "../eterLib/StateManager.h"
+#include "EterBase/Debug.h"
+#include "EterBase/Timer.h"
+#include "EterBase/Filename.h"
+#include "EterLib/ResourceManager.h"
+#include "EterLib/Camera.h"
+#include "EterLib/StateManager.h"
 
 #include "SpeedTreeConfig.h"
 #include "SpeedTreeForestDirectX8.h"

@@ -2,8 +2,8 @@
 
 #include <windows.h>
 #include <unordered_map>
-#include "../eterBase/Singleton.h"
-#include "../eterBase/Stl.h"
+#include "EterBase/Singleton.h"
+#include "EterBase/Stl.h"
 
 #include "EterPack.h"
 

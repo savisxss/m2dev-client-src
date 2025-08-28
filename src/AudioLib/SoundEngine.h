@@ -1,5 +1,5 @@
 #pragma once
-#include "../eterBase/Singleton.h"
+#include "EterBase/Singleton.h"
 #include "Type.h"
 #include "MaSoundInstance.h"
 

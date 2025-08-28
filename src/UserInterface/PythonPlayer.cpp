@@ -2,7 +2,7 @@
 #include "PythonPlayerEventHandler.h"
 #include "PythonApplication.h"
 #include "PythonItem.h"
-#include "../eterbase/Timer.h"
+#include "EterBase/Timer.h"
 
 #include "AbstractPlayer.h"
 

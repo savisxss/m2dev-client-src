@@ -2,7 +2,7 @@
 
 class CMapOutdoor;
 
-#include "../PRTerrainLib/Terrain.h"
+#include "PRTerrainLib/Terrain.h"
 #include "TerrainPatch.h"
 
 class CTerrain : public CTerrainImpl, public CGraphicBase

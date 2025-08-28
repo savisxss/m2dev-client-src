@@ -4,9 +4,9 @@
 #include <windows.h>
 #include <d3d9.h>
 
-#include "../eterlib/ReferenceObject.h"
-#include "../eterlib/Ref.h"
-#include "../eterlib/GrpImageInstance.h"
+#include "Eterlib/ReferenceObject.h"
+#include "Eterlib/Ref.h"
+#include "Eterlib/GrpImageInstance.h"
 #include "Util.h"
 
 class CGrannyMaterial : public CReferenceObject

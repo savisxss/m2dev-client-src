@@ -6,7 +6,7 @@
 
 #include "AbstractPlayer.h"
 
-#include "../eterPack/EterPackManager.h"
+#include "EterPack/EterPackManager.h"
 
 void CPythonNetworkStream::EnableChatInsultFilter(bool isEnable)
 {

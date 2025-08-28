@@ -9,10 +9,10 @@
 #pragma warning(disable:4245)
 #pragma warning(disable:4995)
 
-#include "eterLib/StdAfx.h"
-#include "eterPythonLib/StdAfx.h"
-#include "gameLib/StdAfx.h"
-#include "scriptLib/StdAfx.h"
+#include "EterLib/StdAfx.h"
+#include "EterPythonLib/StdAfx.h"
+#include "GameLib/StdAfx.h"
+#include "ScriptLib/StdAfx.h"
 #include "AudioLib/StdAfx.h"
 #include "EffectLib/StdAfx.h"
 #include "PRTerrainLib/StdAfx.h"
@@ -55,7 +55,6 @@ void initItem();
 void initNonPlayer();
 void initnet();
 void initPlayer();
-void initSectionDisplayer();
 void initServerStateChecker();
 void initTrade();
 void initMiniMap();

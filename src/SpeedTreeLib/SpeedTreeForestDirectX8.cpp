@@ -34,9 +34,9 @@
 #include <d3d9types.h>
 #include <d3dx9.h>
 
-#include "../eterBase/Timer.h"
-#include "../eterlib/StateManager.h"
-#include "../eterlib/Camera.h"
+#include "EterBase/Timer.h"
+#include "EterLib/StateManager.h"
+#include "EterLib/Camera.h"
 
 #include "SpeedTreeForestDirectX8.h"
 #include "SpeedTreeConfig.h"

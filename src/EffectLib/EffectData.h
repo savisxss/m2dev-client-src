@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../AudioLib/Type.h"
+#include "AudioLib/Type.h"
 
 #include "ParticleSystemData.h"
 #include "EffectMesh.h"

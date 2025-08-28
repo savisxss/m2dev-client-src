@@ -176,7 +176,7 @@ bool CGrannyModelInstance::Intersect(const D3DXMATRIX * c_pMatrix,
 */
 }
 
-#include "../EterBase/Timer.h"
+#include "EterBase/Timer.h"
 
 void CGrannyModelInstance::GetBoundBox(D3DXVECTOR3* vtMin, D3DXVECTOR3* vtMax)
 {

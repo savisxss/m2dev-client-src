@@ -1,8 +1,8 @@
 #include "StdAfx.h"
 #include "PythonSkill.h"
 
-#include "../EterBase/Poly/Poly.h"
-#include "../EterPack/EterPackManager.h"
+#include "EterBase/Poly/Poly.h"
+#include "EterPack/EterPackManager.h"
 #include "InstanceBase.h"
 #include "PythonPlayer.h"
 

@@ -1,7 +1,7 @@
 #include "StdAfx.h"
-#include "../eterlib/StateManager.h"
-#include "../eterlib/ResourceManager.h"
-#include "../eterpack/EterPackManager.h"
+#include "Eterlib/StateManager.h"
+#include "Eterlib/ResourceManager.h"
+#include "Eterpack/EterPackManager.h"
 #include "EffectMesh.h"
 
 CDynamicPool<CEffectMesh::SEffectMeshData> CEffectMesh::SEffectMeshData::ms_kPool;

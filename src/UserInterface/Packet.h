@@ -13,7 +13,7 @@ typedef struct _AHNHS_TRANS_BUFFER
 
 #pragma pack(pop) // 기존 alignment 복구.
 
-#include "../gamelib/RaceData.h"
+#include "Gamelib/RaceData.h"
 
 typedef uint8_t TPacketHeader;
 

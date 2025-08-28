@@ -253,7 +253,7 @@ PyObject* appIsCHEONMA(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildValue("i", LocaleService_IsCHEONMA());
 }
 
-#include "../eterBase/tea.h"
+#include "EterBase/tea.h"
 
 PyObject* appLoadLocaleAddr(PyObject* poSelf, PyObject* poArgs)
 {
@@ -339,7 +339,7 @@ PyObject* appGetImageInfo(PyObject* poSelf, PyObject* poArgs)
 }
 #endif
 
-#include "../EterPack/EterPackManager.h"
+#include "EterPack/EterPackManager.h"
 
 PyObject* appIsExistFile(PyObject* poSelf, PyObject* poArgs)
 {

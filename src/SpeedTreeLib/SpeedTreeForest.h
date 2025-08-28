@@ -38,7 +38,7 @@
 #include <vector>
 #include <map>
 
-#include "../EterBase/CRC32.h"
+#include "EterBase/CRC32.h"
 
 ///////////////////////////////////////////////////////////////////////  
 //	Render bit vector

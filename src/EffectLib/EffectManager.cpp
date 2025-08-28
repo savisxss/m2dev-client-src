@@ -1,9 +1,7 @@
 #include "StdAfx.h"
-#include "../eterBase/Random.h"
-#include "../eterlib/StateManager.h"
+#include "EterBase/Random.h"
+#include "Eterlib/StateManager.h"
 #include "EffectManager.h"
-
-
 
 void CEffectManager::GetInfo(std::string* pstInfo)
 {

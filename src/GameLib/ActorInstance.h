@@ -11,8 +11,8 @@
 #include "PhysicsObject.h"
 #include "ActorInstanceInterface.h"
 #include "Interface.h"
-#include "../SpeedTreeLib/SpeedTreeForest.h"
-//#include "../eterGrnLib/ThingInstance.h"
+#include "SpeedTreeLib/SpeedTreeForest.h"
+//#include "EterGrnLib/ThingInstance.h"
 
 class CItemData;
 class CWeaponTrace;

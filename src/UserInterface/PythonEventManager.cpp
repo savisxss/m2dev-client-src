@@ -2,15 +2,13 @@
 #include "PythonEventManager.h"
 #include "PythonNetworkStream.h"
 #include "PythonNonPlayer.h"
-
+#include "EterPack/EterPackManager.h"
+#include "PythonMiniMap.h"
 #include "AbstractApplication.h"
 
-#include "../gamelib/ItemData.h"
-#include "../gamelib/ItemManager.h"
+#include "GameLib/ItemData.h"
+#include "GameLib/ItemManager.h"
 
-#include "../eterPack/EterPackManager.h"
-
-#include "PythonMiniMap.h"
 
 const long c_lNormal_Waiting_Time = 10;
 const int c_fLine_Temp = 16;

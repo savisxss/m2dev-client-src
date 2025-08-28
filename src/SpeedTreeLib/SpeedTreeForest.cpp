@@ -6,7 +6,7 @@
 #include "StdAfx.h"
 
 #include <vector>
-#include "../eterBase/Filename.h"
+#include "EterBase/Filename.h"
 
 #include "EterBase/MappedFile.h"
 #include "EterPack/EterPackManager.h"

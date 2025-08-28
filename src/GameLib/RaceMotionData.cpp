@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "../EffectLib/EffectManager.h"
+#include "EffectLib/EffectManager.h"
 #include "FlyingObjectManager.h"
 #include "RaceMotionData.h"
 

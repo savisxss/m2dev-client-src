@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GrpCollisionObject.h"
-#include "../SphereLib/frustum.h"
+#include "SphereLib/frustum.h"
 
 
 class CScreen : public CGraphicCollisionObject

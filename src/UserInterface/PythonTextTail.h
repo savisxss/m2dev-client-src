@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../eterBase/Singleton.h"
+#include "EterBase/Singleton.h"
 
 /*
  *	따라다니는 텍스트 처리

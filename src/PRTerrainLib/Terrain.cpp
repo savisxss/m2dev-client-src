@@ -1,5 +1,5 @@
 #include "Stdafx.h"
-#include "../eterPack/EterPackManager.h"
+#include "EterPack/EterPackManager.h"
 
 #include "terrain.h"
 #include <math.h>

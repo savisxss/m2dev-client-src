@@ -2,17 +2,17 @@
 
 //#include <crtdbg.h>
 
-#include "../eterBase/StdAfx.h"
+#include "EterBase/StdAfx.h"
+		  
+#include "EterBase/Utils.h"
+#include "EterBase/Timer.h"
+#include "EterBase/CRC32.h"
+#include "EterBase/Debug.h"
+		  
+#include "EterLib/StdAfx.h"
+#include "EterLib/TextFileLoader.h"
 
-#include "../eterBase/Utils.h"
-#include "../eterBase/Timer.h"
-#include "../eterBase/CRC32.h"
-#include "../eterBase/Debug.h"
-
-#include "../eterLib/StdAfx.h"
-#include "../eterLib/TextFileLoader.h"
-
-#include "../AudioLib/StdAfx.h"
+#include "AudioLib/StdAfx.h"
 
 /*
 #include "FrameController.h"

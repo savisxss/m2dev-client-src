@@ -8,8 +8,8 @@
 #include "AbstractApplication.h"
 #include "packet.h"
 
-#include "../eterlib/StateManager.h"
-#include "../gamelib/ItemManager.h"
+#include "EterLib/StateManager.h"
+#include "GameLib/ItemManager.h"
 
 BOOL HAIR_COLOR_ENABLE=FALSE;
 BOOL USE_ARMOR_SPECULAR=FALSE;

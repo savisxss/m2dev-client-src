@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../eterlib/GrpVertexBuffer.h"
-#include "../eterlib/GrpIndexBuffer.h"
+#include "Eterlib/GrpVertexBuffer.h"
+#include "Eterlib/GrpIndexBuffer.h"
 
 #include "Mesh.h"
 

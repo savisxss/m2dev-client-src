@@ -5,11 +5,7 @@
 
 #include "PythonApplication.h"
 #include "AbstractPlayer.h"
-#include "../gamelib/ActorInstance.h"
-
-
-
-
+#include "GameLib/ActorInstance.h"
 
 void CPythonNetworkStream::__GlobalPositionToLocalPosition(int32_t& rGlobalX, int32_t& rGlobalY)
 {

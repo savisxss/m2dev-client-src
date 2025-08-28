@@ -3,9 +3,9 @@
 #include "ParticleSystemInstance.h"
 #include "SimpleLightInstance.h"
 
-#include "../eterBase/Stl.h"
-#include "../eterLib/StateManager.h"
-#include "../AudioLib/SoundEngine.h"
+#include "EterBase/Stl.h"
+#include "EterLib/StateManager.h"
+#include "AudioLib/SoundEngine.h"
 
 CDynamicPool<CEffectInstance>	CEffectInstance::ms_kPool;
 int CEffectInstance::ms_iRenderingEffectCount = 0;

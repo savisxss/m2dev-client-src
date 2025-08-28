@@ -1,12 +1,11 @@
 #pragma once
-
 #include "EffectElementBaseInstance.h"
 #include "ParticleInstance.h"
 #include "ParticleProperty.h"
 
-#include "../eterlib/GrpScreen.h"
-#include "../eterlib/StateManager.h"
-#include "../eterLib/GrpImageInstance.h"
+#include "Eterlib/GrpScreen.h"
+#include "Eterlib/StateManager.h"
+#include "EterLib/GrpImageInstance.h"
 #include "EmitterProperty.h"
 
 class CParticleSystemInstance : public CEffectElementBaseInstance

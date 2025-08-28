@@ -3,8 +3,8 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "../eterLib/StateManager.h"
-#include "../PRTerrainLib/StdAfx.h"
+#include "EterLib/StateManager.h"
+#include "PRTerrainLib/StdAfx.h"
 
 #include "TerrainDecal.h"
 #include "MapOutdoor.h"

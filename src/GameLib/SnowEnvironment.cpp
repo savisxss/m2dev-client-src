@@ -1,9 +1,9 @@
 #include "StdAfx.h"
 #include "SnowEnvironment.h"
 
-#include "../EterLib/StateManager.h"
-#include "../EterLib/Camera.h"
-#include "../EterLib/ResourceManager.h"
+#include "EterLib/StateManager.h"
+#include "EterLib/Camera.h"
+#include "EterLib/ResourceManager.h"
 #include "SnowParticle.h"
 
 void CSnowEnvironment::Enable()

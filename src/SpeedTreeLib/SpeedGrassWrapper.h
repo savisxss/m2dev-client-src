@@ -24,9 +24,6 @@
 #pragma once
 //#include "SpeedGrassRT.h"
 #ifdef USE_SPEEDGRASS
-//#include "../Common Source/IdvVertexBuffer.h"
-//#include <vector>
-
 // forward reference
 //class CScene;
 class CMapOutdoor;

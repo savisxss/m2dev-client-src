@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../gamelib/RaceData.h"
-#include "../gamelib/ActorInstance.h"
+#include "GameLib/RaceData.h"
+#include "GameLib/ActorInstance.h"
 
 #include "AffectFlagContainer.h"
 

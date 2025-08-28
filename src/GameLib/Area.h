@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../SpeedTreeLib/SpeedTreeWrapper.h"
-#include "../eterGrnLib/ThingInstance.h"
+#include "SpeedTreeLib/SpeedTreeWrapper.h"
+#include "EterGrnLib/ThingInstance.h"
 #include "MapType.h"
 #include "DungeonBlock.h"
-#include "../SpeedTreeLib/SpeedTreeForest.h"
+#include "SpeedTreeLib/SpeedTreeForest.h"
 
 class CMapOutdoor;
 class CEffectInstance;
