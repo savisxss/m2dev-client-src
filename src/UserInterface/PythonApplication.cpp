@@ -10,8 +10,6 @@
 #include "PythonCharacterManager.h"
 
 #include "ProcessScanner.h"
-
-#include "NProtectGameGuard.h"
 #include "CheckLatestFiles.h"
 
 extern void GrannyCreateSharedDeformBuffer();
@@ -316,11 +314,6 @@ bool CPythonApplication::Process()
 	//m_pyNetworkDatagram.Process();
 
 	m_kGuildMarkUploader.Process();
-
-#ifdef USE_NPROTECT_GAMEGUARD
-	if (GameGuard_IsError())
-		return false;
-#endif
 
 	m_kGuildMarkDownloader.Process();
 	m_kAccountConnector.Process();
@@ -969,11 +962,6 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 		SET_EXCEPTION(CREATE_WINDOW);
 		return false;
 	}
-
-#ifdef USE_NPROTECT_GAMEGUARD
-	if (!GameGuard_Run(CMSWindow::GetWindowHandle()))
-		return false;
-#endif
 
 	if (m_pySystem.IsUseDefaultIME())
 	{

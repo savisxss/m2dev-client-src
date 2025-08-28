@@ -15,8 +15,6 @@
 
 #include "CheckLatestFiles.h"
 
-#include "NProtectGameGuard.h"
-
 extern "C" {  
 extern int _fltused;  
 volatile int _AVOID_FLOATING_POINT_LIBRARY_BUG = _fltused;  
@@ -494,11 +492,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	LocaleService_LoadConfig("config/locale.cfg");
 	SetDefaultCodePage(LocaleService_GetCodePage());	
 
-#ifdef USE_NPROTECT_GAMEGUARD
-	if (!GameGuard_Init())
-		return 0;
-#endif
-
 #if defined(CHECK_LATEST_DATA_FILES)
 	if (!CheckLatestFiles())
 		return 0;
@@ -624,10 +617,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	}
 
 	Main(hInstance, lpCmdLine);
-
-#ifdef USE_NPROTECT_GAMEGUARD
-	GameGuard_NoticeMessage();
-#endif
 
 	::CoUninitialize();
 
