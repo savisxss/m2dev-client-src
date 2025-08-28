@@ -132,10 +132,6 @@ enum
 	HEADER_CG_DRAGON_SOUL_REFINE			= 205,
 	HEADER_CG_STATE_CHECKER					= 206,
 
-#ifdef __AUCTION__
-	HEADER_CG_AUCTION_CMD							= 205,
-#endif
-
 	HEADER_CG_KEY_AGREEMENT						= 0xfb, // _IMPROVED_PACKET_ENCRYPTION_
 	HEADER_CG_TIME_SYNC							= 0xfc,
 	HEADER_CG_CLIENT_VERSION					= 0xfd,
@@ -303,10 +299,6 @@ enum
 	HEADER_GC_RUNUP_MATRIX_QUIZ                 = 201,
 	HEADER_GC_NEWCIBN_PASSPOD_REQUEST			= 202,
 	HEADER_GC_NEWCIBN_PASSPOD_FAILURE			= 203,
-
-#ifdef __AUCTION__
-	HEADER_GC_AUCTOIN_ITEM_LIST					= 206,
-#endif 
 
 	HEADER_GC_SPECIFIC_EFFECT					= 208,
 	HEADER_GC_DRAGON_SOUL_REFINE						= 209,
@@ -2607,26 +2599,6 @@ struct TPacketKeyAgreementCompleted
 	uint8_t data[3]; // dummy (not used)
 };
 #endif // _IMPROVED_PACKET_ENCRYPTION_
-
-#ifdef __AUCTION__
-// Argument의 용도는 cmd에 따라 다르다.
-typedef struct SPacketCGAuctionCmd
-{
-	uint8_t bHeader;
-	uint8_t cmd;
-	int32_t arg1;
-	int32_t arg2;
-	int32_t arg3;
-	int32_t arg4;
-} TPacketCGAuctionCmd;
-
-typedef struct SPacketGCAuctionItemListPack
-{
-	uint8_t bHeader;
-	uint8_t bNumbers;
-} TPacketGCAuctionItemListPack;
-
-#endif
 
 typedef struct SPacketGCSpecificEffect
 {
