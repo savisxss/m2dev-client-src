@@ -1492,7 +1492,4 @@ void initapp()
 #else
 	PyModule_AddIntConstant(poModule, "ENABLE_NEW_EQUIPMENT_SYSTEM",	0);
 #endif
-
-	PyModule_AddIntConstant(poModule, "USE_OPENID",	0);
-	PyModule_AddIntConstant(poModule, "OPENID_TEST",	0);
 }
