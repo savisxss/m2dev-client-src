@@ -155,9 +155,17 @@ bool CDibBar::Create(HDC hdc, DWORD dwWidth, DWORD dwHeight)
 	return true;
 }
 
-CDibBar::CDibBar()
+CDibBar::CDibBar() :
+	m_dwWidth(0),
+	m_dwHeight(0)
 {
 }
+
 CDibBar::~CDibBar()
 {
+	for (size_t i = 0; i < m_kVec_pkBlockTexture.size(); ++i)
+	{
+		CBlockTexture * pTexture = m_kVec_pkBlockTexture[i];
+		delete pTexture;
+	}
 }

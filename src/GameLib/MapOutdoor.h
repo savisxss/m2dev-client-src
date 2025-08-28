@@ -723,7 +723,7 @@ class CMapOutdoor : public CMapBase
 	private:
 		struct SXMasTree
 		{
-			CSpeedTreeWrapper* m_pkTree;
+			CSpeedTreeForest::SpeedTreeWrapperPtr m_pkTree;
 			int m_iEffectID;
 		} m_kXMas;
 

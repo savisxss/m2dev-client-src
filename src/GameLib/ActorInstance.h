@@ -11,6 +11,7 @@
 #include "PhysicsObject.h"
 #include "ActorInstanceInterface.h"
 #include "Interface.h"
+#include "../SpeedTreeLib/SpeedTreeForest.h"
 //#include "../eterGrnLib/ThingInstance.h"
 
 class CItemData;
@@ -808,7 +809,7 @@ class CActorInstance : public IActorInstance, public IFlyTargetableObject
 		THitDataMap					m_HitDataMap;
 
 		CActorInstance *			m_pkHorse;
-		CSpeedTreeWrapper *			m_pkTree;
+		CSpeedTreeForest::SpeedTreeWrapperPtr	m_pkTree;
 
 
 	protected:

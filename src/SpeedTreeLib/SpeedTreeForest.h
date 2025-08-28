@@ -57,7 +57,8 @@
 class CSpeedTreeForest
 {
 	public:
-		typedef std::map<DWORD, CSpeedTreeWrapper *> TTreeMap;
+		using SpeedTreeWrapperPtr = std::shared_ptr <CSpeedTreeWrapper>;
+		using TTreeMap = std::map <DWORD, SpeedTreeWrapperPtr>;
 
 	public:
 		CSpeedTreeForest();
@@ -65,13 +66,13 @@ class CSpeedTreeForest
 		
 		void						ClearMainTree();
 
-		
-		BOOL						GetMainTree(DWORD dwCRC, CSpeedTreeWrapper ** ppMainTree, const char * c_pszFileName);
-		CSpeedTreeWrapper *			GetMainTree(DWORD dwCRC);
+
+		BOOL						GetMainTree(DWORD dwCRC, SpeedTreeWrapperPtr& ppMainTree, const char* c_pszFileName);
+		SpeedTreeWrapperPtr			GetMainTree(DWORD dwCRC);
 		void						DeleteMainTree(DWORD dwCRC);
 
-		CSpeedTreeWrapper *			CreateInstance(float x, float y, float z, DWORD dwTreeCRC, const char * c_pszTreeName);
-		void						DeleteInstance(CSpeedTreeWrapper * pTree);
+		SpeedTreeWrapperPtr			CreateInstance(float x, float y, float z, DWORD dwTreeCRC, const char* c_pszTreeName);
+		void						DeleteInstance(SpeedTreeWrapperPtr pTree);
 
 		//void						SetLodLimits(void);
 

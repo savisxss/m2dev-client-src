@@ -165,13 +165,11 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 
 	while (itor != m_pMainTreeMap.end())
 	{
-		CSpeedTreeWrapper * pMainTree = (itor++)->second;
-		CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+		auto pMainTree = (itor++)->second;
+		auto ppInstances = pMainTree->GetInstances(uiCount);
 
-		for (UINT i = 0; i < uiCount; ++i)
-		{
-			ppInstances[i]->Advance();
-		}
+		for (auto it : ppInstances)
+			it->Advance();
 	}
 
 	STATEMANAGER.SetVertexShaderConstant(c_nVertexShader_Light,	m_afLighting, 3);
@@ -226,8 +224,8 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 
 		while (itor != m_pMainTreeMap.end())
 		{
-			CSpeedTreeWrapper * pMainTree = (itor++)->second;
-			CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+			auto pMainTree = (itor++)->second;
+			auto ppInstances = pMainTree->GetInstances(uiCount);
 			
 			pMainTree->SetupBranchForTreeType();
 
@@ -247,17 +245,19 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 
 		while (itor != m_pMainTreeMap.end())
 		{
-			CSpeedTreeWrapper * pMainTree = (itor++)->second;
-			CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+			auto pMainTree = (itor++)->second;
+			auto ppInstances = pMainTree->GetInstances(uiCount);
 
 			pMainTree->SetupFrondForTreeType();
 
-			for (UINT i = 0; i < uiCount; ++i)
-				if (ppInstances[i]->isShow())
-					ppInstances[i]->RenderFronds();
+			for (auto it : ppInstances)
+			{
+				if (it->isShow())
+					it->RenderFronds();
+			}
 		}
 	}
-	
+
 	// render leaves
 	if (ulRenderBitVector & Forest_RenderLeaves)
 	{
@@ -281,14 +281,16 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 
 		while (itor != m_pMainTreeMap.end())
 		{
-			CSpeedTreeWrapper * pMainTree = (itor++)->second;
-			CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+			auto pMainTree = (itor++)->second;
+			auto ppInstances = pMainTree->GetInstances(uiCount);
 
 			pMainTree->SetupLeafForTreeType();
 
-			for (UINT i = 0; i < uiCount; ++i)
-				if (ppInstances[i]->isShow())
-					ppInstances[i]->RenderLeaves();
+			for (auto it : ppInstances)
+			{
+				if (it->isShow())
+					it->RenderLeaves();
+			}
 		}
 
 		while (itor != m_pMainTreeMap.end())
@@ -313,14 +315,16 @@ void CSpeedTreeForestDirectX8::Render(unsigned long ulRenderBitVector)
 
 			while (itor != m_pMainTreeMap.end())
 			{
-				CSpeedTreeWrapper * pMainTree = (itor++)->second;
-				CSpeedTreeWrapper ** ppInstances = pMainTree->GetInstances(uiCount);
+				auto pMainTree = (itor++)->second;
+				auto ppInstances = pMainTree->GetInstances(uiCount);
 
-				pMainTree->SetupBranchForTreeType();
+				pMainTree->SetupLeafForTreeType();
 
-				for (UINT i = 0; i < uiCount; ++i)
-					if (ppInstances[i]->isShow())
-						ppInstances[i]->RenderBillboards();
+				for (auto it : ppInstances)
+				{
+					if (it->isShow())
+						it->RenderBillboards();
+				}
 			}
 		}
 	#endif
