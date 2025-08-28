@@ -248,14 +248,7 @@ void CParticleSystemInstance::CreateParticles(float fElapsedTime)
 			pInstance->m_v2Scale.x = m_pParticleProperty->m_TimeEventScaleX.front().m_Value;
 			pInstance->m_v2Scale.y= m_pParticleProperty->m_TimeEventScaleY.front().m_Value;
 			//pInstance->m_v2Scale = m_pParticleProperty->m_TimeEventScaleXY.front().m_Value;
-#ifdef WORLD_EDITOR
-			pInstance->m_Color.r = m_pParticleProperty->m_TimeEventColorRed.front().m_Value;
-			pInstance->m_Color.g = m_pParticleProperty->m_TimeEventColorGreen.front().m_Value;
-			pInstance->m_Color.b = m_pParticleProperty->m_TimeEventColorBlue.front().m_Value;
-			pInstance->m_Color.a = m_pParticleProperty->m_TimeEventAlpha.front().m_Value;
-#else
-			pInstance->m_dcColor = m_pParticleProperty->m_TimeEventColor.front().m_Value;
-#endif
+			pInstance->m_Color = m_pParticleProperty->m_TimeEventColor.front().m_Value;
 		}
 
 		m_ParticleInstanceListVector[pInstance->m_byFrameIndex].push_back(pInstance);

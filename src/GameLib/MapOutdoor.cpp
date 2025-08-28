@@ -116,13 +116,9 @@ bool CMapOutdoor::Initialize()
 	m_lCenterX = m_lCenterY = 0;
 	m_lOldReadX = m_lOldReadY = -1;
 
-#ifdef WORLD_EDITOR
-	m_pwIndices = NULL;
-#else
 	memset(m_pwaIndices, 0, sizeof(m_pwaIndices));
 	for (i = 0; i < TERRAINPATCH_LODMAX; ++i)
 		m_IndexBuffer[i].Destroy();
-#endif
 
 	m_bSettingTerrainVisible = false;
 	m_bDrawWireFrame	= false;
@@ -374,12 +370,8 @@ void CMapOutdoor::DestroyTerrainPatchProxyList()
 		m_pTerrainPatchProxyList = NULL;
 	}
 
-#ifdef WORLD_EDITOR	
-	m_IndexBuffer.Destroy();
-#else
 	for (int i = 0; i < TERRAINPATCH_LODMAX; ++i)
 		m_IndexBuffer[i].Destroy();
-#endif
 }
 
 //////////////////////////////////////////////////////////////////////////

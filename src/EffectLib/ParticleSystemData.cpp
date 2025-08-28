@@ -210,17 +210,6 @@ BOOL CParticleSystemData::OnLoadScript(CTextFileLoader & rTextFileLoader)
 	if (!GetTokenTimeEventFloat(rTextFileLoader, "timeeventscaley", &m_ParticleProperty.m_TimeEventScaleY))
 		return FALSE;
 
-#ifdef WORLD_EDITOR
-	if (!GetTokenTimeEventFloat(rTextFileLoader, "timeeventcolorred", &m_ParticleProperty.m_TimeEventColorRed))
-		return FALSE;
-	if (!GetTokenTimeEventFloat(rTextFileLoader, "timeeventcolorgreen", &m_ParticleProperty.m_TimeEventColorGreen))
-		return FALSE;
-	if (!GetTokenTimeEventFloat(rTextFileLoader, "timeeventcolorblue", &m_ParticleProperty.m_TimeEventColorBlue))
-		return FALSE;
-
-	if (!GetTokenTimeEventFloat(rTextFileLoader, "timeeventalpha", &m_ParticleProperty.m_TimeEventAlpha))
-		return FALSE;
-#else
 	TTimeEventTableFloat TimeEventR;
 	TTimeEventTableFloat TimeEventB;
 	TTimeEventTableFloat TimeEventG;
@@ -257,16 +246,13 @@ BOOL CParticleSystemData::OnLoadScript(CTextFileLoader & rTextFileLoader)
 			fA = GetTimeEventBlendValue(fTime, TimeEventA);
 			TTimeEventTypeColor t;
 			t.m_fTime = fTime;
-			D3DXCOLOR c;
-			c.r = fR;
-			c.g = fG;
-			c.b = fB;
-			c.a = fA;
-			t.m_Value.m_dwColor = /*(DWORD)*/ (DWORD)c;
+			t.m_Value.r = fR;
+			t.m_Value.g = fG;
+			t.m_Value.b = fB;
+			t.m_Value.a = fA;
 			m_ParticleProperty.m_TimeEventColor.push_back(t);
 		}
 	}
-#endif
 
 	if (!GetTokenTimeEventFloat(rTextFileLoader, "timeeventrotation", &m_ParticleProperty.m_TimeEventRotation))
 		return FALSE;

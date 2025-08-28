@@ -51,32 +51,9 @@ void CMapOutdoor::__RenderTerrain_RenderHardwareTransformPatch()
 	STATEMANAGER.SetSamplerState(1, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 	STATEMANAGER.SetSamplerState(1, D3DSAMP_ADDRESSV, D3DTADDRESS_CLAMP);
 
-#ifdef WORLD_EDITOR
-	if (GetAsyncKeyState(VK_CAPITAL))
-	{
-		CSpeedTreeWrapper::ms_bSelfShadowOn = false;
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MINFILTER,	D3DTEXF_GAUSSIANCUBIC);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MAGFILTER,	D3DTEXF_GAUSSIANCUBIC);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MIPFILTER,	D3DTEXF_GAUSSIANCUBIC);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_MINFILTER,	D3DTEXF_GAUSSIANCUBIC);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_MAGFILTER,	D3DTEXF_GAUSSIANCUBIC);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_MIPFILTER,	D3DTEXF_GAUSSIANCUBIC);
-	}
-	else
-	{
-		CSpeedTreeWrapper::ms_bSelfShadowOn = true;
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MINFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MAGFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_MIPFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_MINFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_MAGFILTER,	D3DTEXF_LINEAR);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_MIPFILTER,	D3DTEXF_LINEAR);
-	}
-#else
 	CSpeedTreeWrapper::ms_bSelfShadowOn = true;
 	STATEMANAGER.SetBestFiltering(0);
 	STATEMANAGER.SetBestFiltering(1);
-#endif
 
 	m_matWorldForCommonUse._41 = 0.0f;
 	m_matWorldForCommonUse._42 = 0.0f;
@@ -102,11 +79,6 @@ void CMapOutdoor::__RenderTerrain_RenderHardwareTransformPatch()
 	std::vector<std::pair<float ,long> >::iterator near_it = std::upper_bound(m_PatchVector.begin(),m_PatchVector.end(),fog_near);
 
 	// NOTE: Word Editor 툴에서는 fog far보다 멀리있는 물체를 텍스쳐 없이 그리는 작업을 하지 않음
-#ifdef WORLD_EDITOR
-	near_it = m_PatchVector.begin();
-	far_it = m_PatchVector.end();
-#endif
-
 	WORD wPrimitiveCount;
 	D3DPRIMITIVETYPE ePrimitiveType;
 
@@ -121,7 +93,6 @@ void CMapOutdoor::__RenderTerrain_RenderHardwareTransformPatch()
 	std::vector<std::pair<float, long> >::iterator it = m_PatchVector.begin();
 
 	// NOTE: 맵툴에서는 view ~ fog near 사이의 지형을 fog disabled 상태로 그리는 작업을 하지 않음.
-#ifndef WORLD_EDITOR
 	STATEMANAGER.SetRenderState(D3DRS_FOGENABLE, FALSE);
 
 	for( ; it != near_it; ++it)
@@ -144,7 +115,6 @@ void CMapOutdoor::__RenderTerrain_RenderHardwareTransformPatch()
  		if (m_bDrawWireFrame)
 			DrawWireFrame(it->second, wPrimitiveCount, ePrimitiveType);
 	}
-#endif
 
 	STATEMANAGER.SetRenderState(D3DRS_FOGENABLE, dwFogEnable);
 
@@ -307,242 +277,6 @@ void CMapOutdoor::__HardwareTransformPatch_RenderPatchSplat(long patchnum, WORD 
 	STATEMANAGER.SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	int iPrevRenderedSplatNum=m_iRenderedSplatNum;
-
-#ifdef WORLD_EDITOR
-
-	int nRenderTextureCount = 0;
-
-//	if (!m_bShowEntirePatchTextureCount && !(GetAsyncKeyState(VK_LCONTROL) & 0x8000) )
-	if (1)
-	{
-		for (DWORD j = 1; j < pTerrain->GetNumTextures(); ++j)
-		{
-			TTerainSplat & rSplat = rTerrainSplatPatch.Splats[j];
-			
-			if (!rSplat.Active)
-				continue;
-			
-			if (rTerrainSplatPatch.PatchTileCount[sPatchNum][j] == 0)
-				continue;
-
-			++nRenderTextureCount;
-		}
-		
-		DWORD dwTextureFactor = STATEMANAGER.GetRenderState(D3DRS_TEXTUREFACTOR);
-		
-		int TextureCountThreshold = 8;
-		DWORD dwTFactor = 0xFFFFFFFF;
-		
-		if (GetAsyncKeyState(VK_LSHIFT) & 0x8000)
-		{
-			if (GetAsyncKeyState(VK_1) & 0x8000)
-			{
-				TextureCountThreshold = 2;
-				dwTFactor = 0xFF0000FF;
-			}
-			else if (GetAsyncKeyState(VK_2) & 0x8000)
-			{
-				TextureCountThreshold = 3;
-				dwTFactor = 0xFF00FF00;
-			}
-			else if (GetAsyncKeyState(VK_3) & 0x8000)
-			{
-				TextureCountThreshold = 4;
-				dwTFactor = 0xFF00FFFF;
-			}
-			else if (GetAsyncKeyState(VK_4) & 0x8000)
-			{
-				TextureCountThreshold = 5;
-				dwTFactor = 0xFFFF0000;
-			}
-			else if (GetAsyncKeyState(VK_5) & 0x8000)
-			{
-				TextureCountThreshold = 6;
-				dwTFactor = 0xFFFFFF00;
-			}
-			else if (GetAsyncKeyState(VK_6) & 0x8000)
-			{
-				TextureCountThreshold = 7;
-				dwTFactor = 0xFFFF00ff;
-			}
-			
-		}
-
-		if (nRenderTextureCount>=TextureCountThreshold)
-		{
-			STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, dwTFactor);
-			STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
-			STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-			STATEMANAGER.DrawIndexedPrimitive(ePrimitiveType, 0, m_iPatchTerrainVertexCount, 0, wPrimitiveCount);
-			STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, dwTextureFactor);
-			STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
-			STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLOROP);
-		}
-		else
-		{
-			// 0번 텍스처
-			if ( 0 < rTerrainSplatPatch.PatchTileCount[sPatchNum][0] )
-			{
-				DWORD dwTextureFactorFor0Texture = STATEMANAGER.GetRenderState(D3DRS_TEXTUREFACTOR);
-				STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, 0xFF88FF88);
-				STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
-				STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-				STATEMANAGER.DrawIndexedPrimitive(ePrimitiveType, 0, m_iPatchTerrainVertexCount, 0, wPrimitiveCount);
-				STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, dwTextureFactorFor0Texture);
-				STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
-				STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLOROP);
-			}
-
-			for (DWORD j = 1; j < pTerrain->GetNumTextures(); ++j)
-			{
-				TTerainSplat & rSplat = rTerrainSplatPatch.Splats[j];
-				
-				if (!rSplat.Active)
-					continue;
-				
-				DWORD dwTextureCount = rTerrainSplatPatch.PatchTileCount[sPatchNum][j];
-				if (dwTextureCount == 0)
-					continue;
-				
-				DWORD dwTextureFactorForTextureBalance = 0xFFFFFFFF;
-
-				if (!(GetAsyncKeyState(VK_LSHIFT) & 0x8000))
-				{
-					const TTerrainTexture & rTexture = m_TextureSet.GetTexture(j);
-					
-					D3DXMatrixMultiply(&matSplatColorTexTransform, &m_matViewInverse, &rTexture.m_matTransform);
-					STATEMANAGER.SetTransform(D3DTS_TEXTURE0, &matSplatColorTexTransform);
-					
-					STATEMANAGER.SetTexture(0, rTexture.pd3dTexture);
-					STATEMANAGER.SetTexture(1, rSplat.pd3dTexture);
-					STATEMANAGER.DrawIndexedPrimitive(ePrimitiveType, 0, m_iPatchTerrainVertexCount, 0, wPrimitiveCount);
-				}
-				else
-				{
-					if (dwTextureCount < 71)
-					{
-						dwTextureFactorForTextureBalance = STATEMANAGER.GetRenderState(D3DRS_TEXTUREFACTOR);
-						if (dwTextureCount < 51)
-							STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, 0xFFFF0000);
-						else
-							STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, 0xFF0000FF);
-						STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
-						STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-						STATEMANAGER.SetTexture(0, NULL);
-					}
-					else
-					{
-						const TTerrainTexture & rTexture = m_TextureSet.GetTexture(j);
-						
-						D3DXMatrixMultiply(&matSplatColorTexTransform, &m_matViewInverse, &rTexture.m_matTransform);
-						STATEMANAGER.SetTransform(D3DTS_TEXTURE0, &matSplatColorTexTransform);
-						
-						STATEMANAGER.SetTexture(0, rTexture.pd3dTexture);
-					}
-					STATEMANAGER.SetTexture(1, rSplat.pd3dTexture);
-					STATEMANAGER.DrawIndexedPrimitive(ePrimitiveType, 0, m_iPatchTerrainVertexCount, 0, wPrimitiveCount);
-					if (dwTextureCount < 71)
-					{
-						STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, dwTextureFactorForTextureBalance);
-						STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
-						STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLOROP);
-					}
-				}
-				
-				std::vector<int>::iterator aIterator = std::find(m_RenderedTextureNumVector.begin(), m_RenderedTextureNumVector.end(), (int)j);
-				if (aIterator == m_RenderedTextureNumVector.end())
-					m_RenderedTextureNumVector.push_back(j);
-				++m_iRenderedSplatNum;
-				if (m_iRenderedSplatNum >= m_iSplatLimit)
-					break;
-			}	
-		}
-	}
-	else
-	{
-		int TextureCountThreshold = 6;
-		DWORD dwTFactor = 0xFFFF00FF;
-		
-		if (GetAsyncKeyState(VK_LSHIFT) & 0x8000)
-		{
-			if (GetAsyncKeyState(VK_1) & 0x8000)
-			{
-				TextureCountThreshold = 1;
-				dwTFactor = 0xFF0000FF;
-			}
-			else if (GetAsyncKeyState(VK_2) & 0x8000)
-			{
-				TextureCountThreshold = 2;
-				dwTFactor = 0xFF00FF00;
-			}
-			else if (GetAsyncKeyState(VK_3) & 0x8000)
-			{
-				TextureCountThreshold = 3;
-				dwTFactor = 0xFF00FFFF;
-			}
-			else if (GetAsyncKeyState(VK_4) & 0x8000)
-			{
-				TextureCountThreshold = 4;
-				dwTFactor = 0xFFFF0000;
-			}
-			else if (GetAsyncKeyState(VK_5) & 0x8000)
-			{
-				TextureCountThreshold = 5;
-				dwTFactor = 0xFFFFFF00;
-			}
-		}
-		
-		for (DWORD j = 1; j < pTerrain->GetNumTextures(); ++j)
-		{
-			TTerainSplat & rSplat = rTerrainSplatPatch.Splats[j];
-			
-			if (!rSplat.Active)
-				continue;
-			
-			if (rTerrainSplatPatch.PatchTileCount[sPatchNum][j] == 0)
-				continue;
-			
-			DWORD dwTextureFactor;
-			
-			if (nRenderTextureCount>=TextureCountThreshold)
-			{
-				dwTextureFactor = STATEMANAGER.GetRenderState(D3DRS_TEXTUREFACTOR);
-				STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, dwTFactor);
-				STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TFACTOR);
-				STATEMANAGER.SaveTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-				STATEMANAGER.SetTexture(0, NULL);
-			}
-			else
-			{
-				const TTerrainTexture & rTexture = m_TextureSet.GetTexture(j);
-				
-				D3DXMatrixMultiply(&matSplatColorTexTransform, &m_matViewInverse, &rTexture.m_matTransform);
-				STATEMANAGER.SetTransform(D3DTS_TEXTURE0, &matSplatColorTexTransform);
-				
-				STATEMANAGER.SetTexture(0, rTexture.pd3dTexture);
-			}
-			STATEMANAGER.SetTexture(1, rSplat.pd3dTexture);
-			STATEMANAGER.DrawIndexedPrimitive(ePrimitiveType, 0, m_iPatchTerrainVertexCount, 0, wPrimitiveCount);
-			if (nRenderTextureCount>=TextureCountThreshold)
-			{
-				STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, dwTextureFactor);
-				STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLORARG1);
-				STATEMANAGER.RestoreTextureStageState(0, D3DTSS_COLOROP);
-			}
-			
-			++nRenderTextureCount;
-			
-			std::vector<int>::iterator aIterator = std::find(m_RenderedTextureNumVector.begin(), m_RenderedTextureNumVector.end(), (int)j);
-			if (aIterator == m_RenderedTextureNumVector.end())
-				m_RenderedTextureNumVector.push_back(j);
-			++m_iRenderedSplatNum;
-			if (m_iRenderedSplatNum >= m_iSplatLimit)
-				break;
-			
-		}	
-	}
-
-#else
 	bool isFirst=true;
 	for (DWORD j = 1; j < pTerrain->GetNumTextures(); ++j)
 	{
@@ -601,7 +335,6 @@ void CMapOutdoor::__HardwareTransformPatch_RenderPatchSplat(long patchnum, WORD 
 		}
 	}
 */
-#endif
 
 	// 그림자
 	if (m_bDrawShadow)

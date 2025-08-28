@@ -213,11 +213,7 @@ void CMapOutdoor::UpdateAroundAmbience(float fX, float fY, float fZ)
 
 void CMapOutdoor::__UpdateArea(D3DXVECTOR3& v3Player)
 {
-#ifdef WORLD_EDITOR
-	__NEW_WorldEditor_UpdateArea();	
-#else
 	__Game_UpdateArea(v3Player);
-#endif
 }
 
 void CMapOutdoor::__Game_UpdateArea(D3DXVECTOR3& v3Player)
@@ -290,15 +286,7 @@ void CMapOutdoor::__Game_UpdateArea(D3DXVECTOR3& v3Player)
 	}
 #endif
 }
-#ifdef WORLD_EDITOR
-void CMapOutdoor::__NEW_WorldEditor_UpdateArea()
-{
-	m_PCBlockerVector.clear();
-	m_ShadowReceiverVector.clear();
-	__UpdateAroundAreaList();
-		
-}
-#endif
+
 void CMapOutdoor::__UpdateAroundAreaList()
 {
 #ifdef __PERFORMANCE_CHECKER__

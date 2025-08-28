@@ -201,17 +201,11 @@ class CMapOutdoor : public CMapBase
 
 		//////////////////////////////////////////////////////////////////////////
 		// Index Buffer
-#ifdef	WORLD_EDITOR
-		WORD *						m_pwIndices;		/* temp Index buffer */
-
-		CGraphicIndexBuffer			m_IndexBuffer;
-		WORD						m_wNumIndices;
-#else
 		WORD *						m_pwaIndices[TERRAINPATCH_LODMAX];
 
 		CGraphicIndexBuffer			m_IndexBuffer[TERRAINPATCH_LODMAX];
 		WORD						m_wNumIndices[TERRAINPATCH_LODMAX];
-#endif
+		
 		virtual void	DestroyTerrain();
 
 		void			CreateTerrainPatchProxyList();
@@ -269,9 +263,6 @@ class CMapOutdoor : public CMapBase
 		virtual void	DestroyArea();
 
 		void			__UpdateArea(D3DXVECTOR3& v3Player);
-#ifdef WORLD_EDITOR
-		void			__NEW_WorldEditor_UpdateArea();
-#endif
 		void			__Game_UpdateArea(D3DXVECTOR3& v3Player);
 
 		void			__BuildDynamicSphereInstanceVector();

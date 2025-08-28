@@ -74,9 +74,7 @@ void CActorInstance::MotionEventProcess(DWORD dwcurFrame, int iIndex, const CRac
 			break;
 
 		case CRaceMotionData::MOTION_EVENT_TYPE_WARP:
-#ifndef WORLD_EDITOR
 			ProcessMotionEventWarp(c_pData);
-#endif
 			break;
 	}
 }

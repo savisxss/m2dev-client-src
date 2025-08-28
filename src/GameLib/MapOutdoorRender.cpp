@@ -401,7 +401,6 @@ void CMapOutdoor::RenderArea(bool bRenderAmbience)
 		}
 	}
 
-#ifndef WORLD_EDITOR
 	// PCBlocker
 	std::for_each(m_PCBlockerVector.begin(), m_PCBlockerVector.end(), FPCBlockerHide());
 
@@ -443,7 +442,6 @@ void CMapOutdoor::RenderArea(bool bRenderAmbience)
 		if (mc_pEnvironmentData != NULL)
 			STATEMANAGER.SetRenderState(D3DRS_FOGCOLOR, mc_pEnvironmentData->FogColor);
 	}
-#endif
 
 	STATEMANAGER.SaveRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
@@ -484,10 +482,6 @@ void CMapOutdoor::RenderArea(bool bRenderAmbience)
 						rCRCWithNumber.dwNumber += 1;
 					}
 				}
-	#ifdef WORLD_EDITOR
-				if (bRenderAmbience)
-					pArea->RenderAmbience();
-	#endif
 			}
 		}
 	
@@ -504,10 +498,6 @@ void CMapOutdoor::RenderArea(bool bRenderAmbience)
 			if (GetAreaPointer(i, &pArea))
 			{
 				pArea->CollectRenderingObject(s_kVct_pkOpaqueThingInstSort);
-#ifdef WORLD_EDITOR				
-				if (bRenderAmbience)
-					pArea->RenderAmbience();
-#endif
 			}
 
 		}
@@ -518,13 +508,11 @@ void CMapOutdoor::RenderArea(bool bRenderAmbience)
 
 	STATEMANAGER.RestoreRenderState(D3DRS_ZWRITEENABLE);
 
-#ifndef WORLD_EDITOR
 	// Shadow Receiver
 	if (m_bDrawShadow && m_bDrawChrShadow)
 	{
 		std::for_each(m_ShadowReceiverVector.begin(), m_ShadowReceiverVector.end(), std::mem_fn(&CGraphicObjectInstance::Show));
 	}
-#endif
 }
 
 void CMapOutdoor::RenderBlendArea()
@@ -614,7 +602,6 @@ void CMapOutdoor::RenderDungeon()
 
 void CMapOutdoor::RenderPCBlocker()
 {
-#ifndef WORLD_EDITOR
 	// PCBlocker
 	if (m_PCBlockerVector.size() != 0)
 	{
@@ -655,16 +642,10 @@ void CMapOutdoor::RenderPCBlocker()
 		STATEMANAGER.RestoreSamplerState(1, D3DSAMP_ADDRESSV);
 		STATEMANAGER.RestoreRenderState(D3DRS_ALPHABLENDENABLE);
 	}
-#endif
 }
 
 void CMapOutdoor::SelectIndexBuffer(BYTE byLODLevel, WORD * pwPrimitiveCount, D3DPRIMITIVETYPE * pePrimitiveType)
 {
-#ifdef WORLD_EDITOR
-	*pwPrimitiveCount = m_wNumIndices - 2;
-	*pePrimitiveType = D3DPT_TRIANGLESTRIP;
-	STATEMANAGER.SetIndices(m_IndexBuffer.GetD3DIndexBuffer(), 0);
-#else
 	if (0 == byLODLevel)
 	{
 		*pwPrimitiveCount = m_wNumIndices[byLODLevel] - 2;
@@ -676,7 +657,6 @@ void CMapOutdoor::SelectIndexBuffer(BYTE byLODLevel, WORD * pwPrimitiveCount, D3
 		*pePrimitiveType = D3DPT_TRIANGLELIST;
 	}
 	STATEMANAGER.SetIndices(m_IndexBuffer[byLODLevel].GetD3DIndexBuffer(), 0);
-#endif
 }
 
 void CMapOutdoor::SetPatchDrawVector()
@@ -956,9 +936,5 @@ void CMapOutdoor::DrawPatchAttr(long patchnum)
 	STATEMANAGER.SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
 	STATEMANAGER.SetStreamSource(0, pTerrainPatchProxy->HardwareTransformPatch_GetVertexBufferPtr()->GetD3DVertexBuffer(), m_iPatchTerrainVertexSize);
 
-#ifdef WORLD_EDITOR
-	STATEMANAGER.DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, m_iPatchTerrainVertexCount, 0, m_wNumIndices - 2);
-#else
 	STATEMANAGER.DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, m_iPatchTerrainVertexCount, 0, m_wNumIndices[0] - 2);
-#endif
 }

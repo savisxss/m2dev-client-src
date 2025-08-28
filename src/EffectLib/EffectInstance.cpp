@@ -80,11 +80,7 @@ void CEffectInstance::OnUpdate()
 {
 	Transform();
 
-#ifdef WORLD_EDITOR
-	FEffectUpdator f(CTimer::Instance().GetElapsedSecond());
-#else
 	FEffectUpdator f(CTimer::Instance().GetCurrentSecond()-m_fLastTime);
-#endif
 	f = std::for_each(m_ParticleInstanceVector.begin(), m_ParticleInstanceVector.end(),f);
 	f = std::for_each(m_MeshInstanceVector.begin(), m_MeshInstanceVector.end(),f);
 	f = std::for_each(m_LightInstanceVector.begin(), m_LightInstanceVector.end(),f);

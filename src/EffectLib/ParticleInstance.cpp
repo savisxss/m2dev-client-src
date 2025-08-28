@@ -155,7 +155,7 @@ void CParticleInstance::UpdateColor(float time, float elapsedTime)
 	if (m_pParticleProperty->m_TimeEventColor.empty())
 		return;
 
-	m_dcColor = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventColor);
+	m_Color = GetTimeEventBlendValue(time, m_pParticleProperty->m_TimeEventColor);
 }
 
 void CParticleInstance::UpdateGravity(float time, float elapsedTime)
@@ -179,13 +179,7 @@ void CParticleInstance::UpdateAirResistance(float time, float elapsedTime)
 
 void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
 {
-#ifdef WORLD_EDITOR
 	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, m_Color);
-#else
-	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, m_dcColor);
-#endif
-
-	/////
 
 	D3DXVECTOR3 v3Up;
 	D3DXVECTOR3 v3Cross;
@@ -336,13 +330,7 @@ void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal)
 
 void CParticleInstance::Transform(const D3DXMATRIX * c_matLocal, const float c_fZRotation)
 {
-#ifdef WORLD_EDITOR
 	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, m_Color);
-#else
-	STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, (DWORD)m_dcColor);
-#endif
-
-	/////
 
 	D3DXVECTOR3 v3Up;
 	D3DXVECTOR3 v3Cross;
@@ -500,11 +488,7 @@ void CParticleInstance::__Initialize()
 	m_v3Velocity = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 
 	m_v2Scale = D3DXVECTOR2(1.0f, 1.0f);
-#ifdef WORLD_EDITOR
 	m_Color = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-#else
-	m_dcColor.m_dwColor = 0xffffffff;
-#endif
 
 	m_byFrameIndex = 0;
 	m_rotationType = CParticleProperty::ROTATION_TYPE_NONE;

@@ -26,11 +26,6 @@ bool CMapOutdoor::Load(float x, float y, float z)
 	if (!LoadSetting(strFileName.c_str()))
 		TraceError("CMapOutdoor::Load : LoadSetting(%s) Failed", strFileName.c_str());
 
-#ifdef WORLD_EDITOR
-	if (!LoadMonsterAreaInfo())
-		TraceError("CMapOutdoor::Load - LoadMonsterAreaInfo ERROR");
-#endif
-
 	CreateTerrainPatchProxyList();
 	BuildQuadTree();
 	LoadWaterTexture();
@@ -367,10 +362,6 @@ bool CMapOutdoor::LoadSetting(const char * c_szFileName)
 
 	m_lViewRadius = atol(c_rstrViewRadius.c_str());
 
-#ifdef WORLD_EDITOR
-	m_lViewRadius <<= 1;
-#endif
-
 	if (0L >= m_lViewRadius)
 	{
 		TraceError("MapOutdoor::LoadSetting(c_szFileName=%s) - VIEWRADIUS IS NOT GREATER THAN 0", c_szFileName);
@@ -398,13 +389,8 @@ bool CMapOutdoor::LoadSetting(const char * c_szFileName)
 
  	if (!m_TextureSet.Load(stTextureSetFileName.c_str(), m_fTerrainTexCoordBase))
 	{
-#ifdef WORLD_EDITOR
-		// TextureSet 이 적용되어 있지 않아도 진행
-		LogBox("TextureSet 이 적용되어있지 않은 맵 입니다.\n지형 텍스춰 작업에 주의하시기 바랍니다.");
-#else
 		TraceError("MapOutdoor::LoadSetting(c_szFileName=%s) - LOAD TEXTURE SET(%s) ERROR", c_szFileName, stTextureSetFileName.c_str());
 		return false;
-#endif
 	}
 
 	CTerrain::SetTextureSet(&m_TextureSet);

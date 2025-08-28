@@ -123,74 +123,12 @@ typedef struct SEffectPosition : public CTimeEvent<D3DXVECTOR3>
 	D3DXVECTOR3 m_vecControlPoint;
 } TEffectPosition;
 
-#define AG_MASK 0xff00ff00
-#define RB_MASK 0x00ff00ff
-
-struct DWORDCOLOR
-{
-	DWORD m_dwColor;
-
-	DWORDCOLOR()
-	{
-	}
-	DWORDCOLOR(const DWORDCOLOR& r)
-		: m_dwColor(r.m_dwColor)
-	{
-	}
-	DWORDCOLOR(DWORD dwColor)
-		: m_dwColor(dwColor)
-	{
-	}
-
-	DWORDCOLOR& operator = (const DWORDCOLOR& r)
-	{
-		m_dwColor = r.m_dwColor;
-		return *this;
-	}
-
-	DWORDCOLOR& operator *= (float f)
-	{
-		DWORD idx = DWORD(f * 256);
-		m_dwColor =
-			(((DWORD)(((m_dwColor & AG_MASK) >> 8) * idx)) & AG_MASK)
-			+ ((DWORD)(((m_dwColor & RB_MASK) * idx) >> 8) & RB_MASK);
-		return *this;
-	}
-	DWORDCOLOR& operator += (const DWORDCOLOR& r)
-	{
-		m_dwColor += r.m_dwColor;
-		return *this;
-	}
-
-	operator DWORD()
-	{
-		return m_dwColor;
-	}
-};
-
-#undef AG_MASK
-#undef RB_MASK
-
-inline DWORDCOLOR operator * (DWORDCOLOR dc, float f)
-{
-	DWORDCOLOR tmp(dc);
-	tmp *= f;
-	return tmp;
-}
-
-inline DWORDCOLOR operator * (float f, DWORDCOLOR dc)
-{
-	DWORDCOLOR tmp(dc);
-	tmp *= f;
-	return tmp;
-}
-
 typedef CTimeEvent<char>						TTimeEventTypeCharacter;
 typedef CTimeEvent<short>						TTimeEventTypeShort;
 typedef CTimeEvent<float>						TTimeEventTypeFloat;
 typedef CTimeEvent<WORD>						TTimeEventTypeWord;
 typedef CTimeEvent<DWORD>						TTimeEventTypeDoubleWord;
-typedef CTimeEvent<DWORDCOLOR>					TTimeEventTypeColor;
+typedef CTimeEvent<D3DXCOLOR>					TTimeEventTypeColor;
 typedef CTimeEvent<D3DXVECTOR2>					TTimeEventTypeVector2;
 typedef CTimeEvent<D3DXVECTOR3>					TTimeEventTypeVector3;
 
@@ -236,14 +174,6 @@ inline D3DXVECTOR3 BlendSingleValue(float time, const TEffectPosition& low, cons
 
 	// Unknown moving type - impossible(?)
 	return D3DXVECTOR3();
-}
-
-inline DWORDCOLOR BlendSingleValue(float time, const TTimeEventTypeColor& low, const TTimeEventTypeColor& high)
-{
-	const float timeDiff = high.m_fTime - low.m_fTime;
-	const float perc = (time - low.m_fTime) / timeDiff;
-
-	return low.m_Value * (1.0f - perc) + high.m_Value * perc;
 }
 
 template <typename T>

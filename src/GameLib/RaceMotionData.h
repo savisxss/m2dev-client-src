@@ -256,9 +256,6 @@ class CRaceMotionData
 		const			NSound::TSoundInstanceVector * GetSoundInstanceVectorPointer() const;
 
 		// File
-#ifdef WORLD_EDITOR
-		bool			SaveMotionData(const char * c_szFileName);
-#endif
 		bool			LoadMotionData(const char * c_szFileName);
 		bool			LoadSoundScriptData(const char * c_szFileName);
 

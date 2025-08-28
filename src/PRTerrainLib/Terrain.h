@@ -103,10 +103,9 @@ class CTerrainImpl
 		bool					LoadHeightMap(const char *c_szFileName);
 		bool					RAW_LoadTileMap(const char * c_szFileName);
 		bool					LoadAttrMap(const char *c_pszFileName);
-#ifdef WORLD_EDITOR
-	public:
-#endif
-		__forceinline WORD		GetHeightMapValue(short sx, short sy);
+		inline WORD				GetHeightMapValue(short sx, short sy) {
+			return m_awRawHeightMap[(sy + 1) * HEIGHTMAP_RAW_XSIZE + sx + 1];
+		}
 
 	protected:
 		LPDIRECT3DTEXTURE9		m_lpAlphaTexture[MAXTERRAINTEXTURES];
@@ -146,11 +145,5 @@ class CTerrainImpl
 		long					m_lSplatTilesX;
 		long					m_lSplatTilesY;
 };
-
-
-__forceinline WORD CTerrainImpl::GetHeightMapValue(short sx, short sy)
-{
-	return m_awRawHeightMap[(sy+1) * HEIGHTMAP_RAW_XSIZE + sx+1];
-}
 
 #endif // !defined(AFX_TERRAIN_H__1C9108E1_69A7_4392_9B68_0E6CD4E1BFBA__INCLUDED_)

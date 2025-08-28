@@ -400,9 +400,6 @@ void CScreen::RenderTextureBox(float sx, float sy, float ex, float ey, float z, 
 	vertices[3].diffuse = ms_diffuseColor;
 	vertices[3].texCoord = TTextureCoordinate(eu, ev);
 
-#ifdef WORLD_EDITOR
-	STATEMANAGER.SetTransform(D3DTS_WORLD, ms_lpd3dMatStack->GetTop());
-#endif
 	STATEMANAGER.SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1);
 
 	// 2004.11.18.myevan.DrawIndexPrimitiveUP -> DynamicVertexBuffer

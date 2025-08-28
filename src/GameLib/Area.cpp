@@ -335,46 +335,11 @@ void CArea::RenderDungeon()
 	STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAARG2,	D3DTA_CURRENT);
 	STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAOP,	D3DTOP_MODULATE);
 
-#ifdef WORLD_EDITOR
-	bool bRenderTransparent = false;
-
-	DWORD oldAlphaBlendState = 0;
-	DWORD oldZWriteenableState = 0;
-
-	if (GetAsyncKeyState(VK_LSHIFT) & 0x8001)
-	{
-		bRenderTransparent = true;
-
-		oldAlphaBlendState = STATEMANAGER.GetRenderState(D3DRS_ALPHABLENDENABLE);
-		oldZWriteenableState = STATEMANAGER.GetRenderState(D3DRS_ZWRITEENABLE);
-
-		STATEMANAGER.SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-		STATEMANAGER.SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE); 
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE); 
-		STATEMANAGER.SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_MODULATE); 
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAARG1, D3DTA_TEXTURE); 
-		STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
-
-		STATEMANAGER.SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB( 128, 255, 0, 0) );		
-	}
-#endif
-
 	TDungeonBlockInstanceVector::iterator itor = m_DungeonBlockCloneInstanceVector.begin();
 	for (; itor != m_DungeonBlockCloneInstanceVector.end(); ++itor)
 	{
 		(*itor)->Render();
 	}
-
-#ifdef WORLD_EDITOR
-	if (bRenderTransparent)
-	{
-		STATEMANAGER.SetRenderState(D3DRS_ZWRITEENABLE, oldZWriteenableState);
-		STATEMANAGER.SetRenderState(D3DRS_ALPHABLENDENABLE, oldAlphaBlendState);
-	}
-#endif
 
 	STATEMANAGER.SetTextureStageState(1, D3DTSS_COLOROP,	D3DTOP_DISABLE);
 	STATEMANAGER.SetTextureStageState(1, D3DTSS_ALPHAOP,	D3DTOP_DISABLE);
