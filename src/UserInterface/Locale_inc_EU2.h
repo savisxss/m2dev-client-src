@@ -1,7 +1,5 @@
 #define LOCALE_SERVICE_EUROPE				// 유럽
 
-//#define USE_AHNLAB_HACKSHIELD
-
 //#define CHECK_LATEST_DATA_FILES
 
 #define LSS_SECURITY_KEY					"1234abcd5678efgh"

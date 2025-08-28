@@ -11,9 +11,7 @@
 
 #include "ProcessScanner.h"
 
-#include "HackShield.h"
 #include "NProtectGameGuard.h"
-#include "WiseLogicXTrap.h"
 #include "CheckLatestFiles.h"
 
 extern void GrannyCreateSharedDeformBuffer();
@@ -267,13 +265,7 @@ bool CPythonApplication::Process()
 	if (CheckLatestFiles_PollEvent())
 		return false;
 #endif
-#ifdef USE_AHNLAB_HACKSHIELD
-	if (HackShield_PollEvent())
-		return false;
-#endif
-#ifdef XTRAP_CLIENT_ENABLE
-	XTrap_PollEvent();
-#endif
+
 	ELTimer_SetFrameMSec();
 
 	// 	m_Profiler.Clear();
@@ -980,10 +972,6 @@ bool CPythonApplication::Create(PyObject * poSelf, const char * c_szName, int wi
 
 #ifdef USE_NPROTECT_GAMEGUARD
 	if (!GameGuard_Run(CMSWindow::GetWindowHandle()))
-		return false;
-#endif
-#ifdef XTRAP_CLIENT_ENABLE
-	if (!XTrap_CheckInit())
 		return false;
 #endif
 

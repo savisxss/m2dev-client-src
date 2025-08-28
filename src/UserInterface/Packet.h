@@ -1,9 +1,5 @@
 #pragma once
 
-#ifdef USE_AHNLAB_HACKSHIELD
-#include "Hackshield.h"
-#include METIN2HS_INCLUDE_ANTICPXSVR
-#else
 #pragma pack(push) //기존 alignment 저장
 #pragma pack(8)
 
@@ -16,7 +12,6 @@ typedef struct _AHNHS_TRANS_BUFFER
 } AHNHS_TRANS_BUFFER, *PAHNHS_TRANS_BUFFER;
 
 #pragma pack(pop) // 기존 alignment 복구.
-#endif /* !USE_AHNLAB_HACKSHIELD */
 
 #include "../gamelib/RaceData.h"
 
@@ -148,9 +143,6 @@ enum
 
 	HEADER_CG_RUNUP_MATRIX_ANSWER               = 201,
 	HEADER_CG_NEWCIBN_PASSPOD_ANSWER			= 202,
-
-	HEADER_CG_HS_ACK							= 203,
-	HEADER_CG_XTRAP_ACK							= 204,
 
 	HEADER_CG_DRAGON_SOUL_REFINE			= 205,
 	HEADER_CG_STATE_CHECKER					= 206,
@@ -345,10 +337,6 @@ enum
 	HEADER_GC_AUTOBAN_QUIZ						= 206,
 	// END_OF_AUTOBAN
 
-	HEADER_GC_HS_REQUEST						= 207,	// Origially it's 204 on devel branch
-#else
-	HEADER_GC_HS_REQUEST						= 204,
-	HEADER_GC_XTRAP_CS1_REQUEST					= 205,
 #endif
 
 #ifdef __AUCTION__
@@ -2695,19 +2683,6 @@ typedef struct packet_state
 	TPixelPosition	kPPos;
 } TPacketCCState;
 
-typedef struct packet_hs_check_req
-{
-	uint8_t	bHeader;
-	AHNHS_TRANS_BUFFER	Req;
-} TPacketHSCheck;
-
-//NOTE : recv/send에 공통으로 생김, bPacketData의 내용만 바뀐다.
-typedef struct packet_xtrap_verify
-{
-	uint8_t	bHeader;
-	uint8_t	bPacketData[128];
-
-} TPacketXTrapCSVerify;
 // AUTOBAN
 typedef struct packet_autoban_quiz
 {

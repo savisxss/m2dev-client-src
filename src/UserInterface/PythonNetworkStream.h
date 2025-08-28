@@ -559,10 +559,6 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		// Channel
 		bool RecvChannelPacket();
 
-		//Security
-		bool RecvHSCheckRequest();
-		bool RecvXTrapVerifyRequest();
-
 	protected:
 		// 이모티콘
 		bool ParseEmoticon(const char * pChatMsg, DWORD * pdwEmoticon);
