@@ -10,7 +10,6 @@
 #include "PythonCharacterManager.h"
 
 #include "ProcessScanner.h"
-#include "CheckLatestFiles.h"
 
 extern void GrannyCreateSharedDeformBuffer();
 extern void GrannyDestroySharedDeformBuffer();
@@ -259,11 +258,6 @@ void CPythonApplication::SkipRenderBuffering(DWORD dwSleepMSec)
 
 bool CPythonApplication::Process()
 {
-#if defined(CHECK_LATEST_DATA_FILES)
-	if (CheckLatestFiles_PollEvent())
-		return false;
-#endif
-
 	ELTimer_SetFrameMSec();
 
 	// 	m_Profiler.Clear();

@@ -13,8 +13,6 @@
 #include "eterLib/Util.h"
 #include "eterBase/CPostIt.h"
 
-#include "CheckLatestFiles.h"
-
 extern "C" {  
 extern int _fltused;  
 volatile int _AVOID_FLOATING_POINT_LIBRARY_BUG = _fltused;  
@@ -491,11 +489,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	LocaleService_LoadConfig("config/locale.cfg");
 	SetDefaultCodePage(LocaleService_GetCodePage());	
-
-#if defined(CHECK_LATEST_DATA_FILES)
-	if (!CheckLatestFiles())
-		return 0;
-#endif
 
 	bool bQuit = false;
 	bool bAuthKeyChecked = false;	//OpenID 버전에서 인증키가 들어왔는지 알기 위한 인자.

@@ -1,5 +1,2 @@
 #define LOCALE_SERVICE_EUROPE				// 유럽
-
 #define LSS_SECURITY_KEY		"1234abcd5678efgh"
-
-#define CHECK_LATEST_DATA_FILES
