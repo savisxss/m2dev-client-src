@@ -451,8 +451,8 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		bool RecvDeadPacket();
 		bool RecvCharacterMovePacket();
 
+		bool RecvItemDelPacket();					// Alarm to python
 		bool RecvItemSetPacket();					// Alarm to python
-		bool RecvItemSetPacket2();					// Alarm to python
 		bool RecvItemUsePacket();					// Alarm to python
 		bool RecvItemUpdatePacket();				// Alarm to python
 		bool RecvItemGroundAddPacket();

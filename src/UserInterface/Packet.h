@@ -1,18 +1,4 @@
 #pragma once
-
-#pragma pack(push) //기존 alignment 저장
-#pragma pack(8)
-
-#define ANTICPX_TRANS_BUFFER_MAX			400
-
-typedef struct _AHNHS_TRANS_BUFFER
-{
-	unsigned char byBuffer[ANTICPX_TRANS_BUFFER_MAX/* 송수신 패킷의 최대 크기 */];
-	uint16_t nLength;
-} AHNHS_TRANS_BUFFER, *PAHNHS_TRANS_BUFFER;
-
-#pragma pack(pop) // 기존 alignment 복구.
-
 #include "Gamelib/RaceData.h"
 
 typedef uint8_t TPacketHeader;
@@ -179,16 +165,13 @@ enum
 	HEADER_GC_PLAYER_POINT_CHANGE				= 17,
 	HEADER_GC_CHANGE_SPEED						= 18,
 	HEADER_GC_CHARACTER_UPDATE                  = 19,
-#if defined(GAIDEN)
+
 	HEADER_GC_ITEM_DEL							= 20, // 아이템 창에 추가
 	HEADER_GC_ITEM_SET							= 21, // 아이템 창에 추가
-#else
-	HEADER_GC_ITEM_SET							= 20, // 아이템 창에 추가
-	HEADER_GC_ITEM_SET2							= 21, // 아이템 창에 추가
-#endif
 	HEADER_GC_ITEM_USE							= 22, // 아이템 사용 (주위 사람들에게 보여주기 위해)
 	HEADER_GC_ITEM_DROP							= 23, // 아이템 버리기
 	HEADER_GC_ITEM_UPDATE						= 25, // 아이템 수치 업데이트
+
 	HEADER_GC_ITEM_GROUND_ADD					= 26, // 바닥에 아이템 추가
 	HEADER_GC_ITEM_GROUND_DEL					= 27, // 바닥에서 아이템 삭제
     HEADER_GC_QUICKSLOT_ADD                     = 28,
@@ -271,15 +254,9 @@ enum
 	HEADER_GC_WALK_MODE							= 111, 
 	HEADER_GC_CHANGE_SKILL_GROUP				= 112,
 
-#if defined(GAIDEN)
-	HEADER_GC_MAIN_CHARACTER					= 113,
-	HEADER_GC_MAIN_CHARACTER3_BGM				= 137,
-	HEADER_GC_MAIN_CHARACTER4_BGM_VOL			= 138,
-#else
 	// SUPPORT_BGM
 	HEADER_GC_MAIN_CHARACTER2_EMPIRE			= 113,
 	// END_OF_SUPPORT_BGM
-#endif
 
     HEADER_GC_SEPCIAL_EFFECT                    = 114,
 	HEADER_GC_NPC_POSITION						= 115,
@@ -326,15 +303,6 @@ enum
 	HEADER_GC_RUNUP_MATRIX_QUIZ                 = 201,
 	HEADER_GC_NEWCIBN_PASSPOD_REQUEST			= 202,
 	HEADER_GC_NEWCIBN_PASSPOD_FAILURE			= 203,
-#if defined(GAIDEN)
-	HEADER_GC_ONTIME							= 204,
-	HEADER_GC_RESET_ONTIME						= 205,
-
-	// AUTOBAN
-	HEADER_GC_AUTOBAN_QUIZ						= 206,
-	// END_OF_AUTOBAN
-
-#endif
 
 #ifdef __AUCTION__
 	HEADER_GC_AUCTOIN_ITEM_LIST					= 206,
@@ -1676,73 +1644,24 @@ typedef struct packet_motion
 	uint16_t		motion;
 } TPacketGCMotion;
 
-#if defined(GAIDEN)
-struct TPacketGCItemDelDeprecate
+typedef struct packet_del_item
 {
-    TPacketGCItemDelDeprecate() :
-        header(HEADER_GC_ITEM_DEL),
-        pos(0),
-        vnum(0),
-        count(0)
-    {
-        memset(&alSockets, 0, sizeof(alSockets));
-        memset(&aAttr, 0, sizeof(aAttr));
-    }
-
-    uint8_t    header;
-    uint8_t    pos;
-    uint32_t   vnum;
-    uint8_t    count;
-    int32_t    alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
-    TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
-};
+	uint8_t		header;
+	TItemPos	pos;
+} TPacketGCItemDel;
 
 typedef struct packet_set_item
 {
-	uint8_t		header;
-	uint8_t		pos;
-	uint32_t		vnum;
-	uint8_t		count;
-	uint32_t		flags;	// 플래그 추가
-	int32_t		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
-    TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
+	uint8_t					header;
+	TItemPos				pos;
+	uint32_t				vnum;
+	uint8_t					count;
+	uint32_t				flags;	// 플래그 추가
+	uint32_t				anti_flags;	// 플래그 추가
+	uint8_t					highlight;
+	int32_t					alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
+    TPlayerItemAttribute	aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
 } TPacketGCItemSet;
-
-typedef struct packet_item_del
-{
-    uint8_t        header;
-    uint8_t        pos;
-} TPacketGCItemDel;
-#else
-typedef struct packet_set_item
-{
-	uint8_t		header;
-	TItemPos	Cell;
-	uint32_t		vnum;
-	uint8_t		count;
-	int32_t		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
-    TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
-} TPacketGCItemSet;
-
-typedef struct packet_set_item2
-{
-	uint8_t		header;
-	TItemPos	Cell;
-	uint32_t		vnum;
-	uint8_t		count;
-	uint32_t		flags;	// 플래그 추가
-	uint32_t		anti_flags;	// 플래그 추가
-	bool		highlight;
-	int32_t		alSockets[ITEM_SOCKET_SLOT_MAX_NUM];
-    TPlayerItemAttribute aAttr[ITEM_ATTRIBUTE_SLOT_MAX_NUM];
-} TPacketGCItemSet2;
-#endif
-
-typedef struct packet_item_del
-{
-    uint8_t        header;
-    uint8_t        pos;
-} TPacketGCItemDel;
 
 typedef struct packet_use_item
 {
