@@ -30,8 +30,7 @@ void CActorInstance::SoundEventProcess(BOOL bCheckFrequency)
 		return;
 
 	const NSound::TSoundInstanceVector* c_pkVct_kSndInst = m_pkCurRaceMotionData->GetSoundInstanceVectorPointer();
-	SoundEngine::Instance().UpdateSoundInstance(m_x, m_y, m_z, m_kCurMotNode.dwcurFrame, c_pkVct_kSndInst,
-												bCheckFrequency, m_isMain);
+	SoundEngine::Instance().UpdateSoundInstance(m_x, m_y, m_z, m_kCurMotNode.dwcurFrame, c_pkVct_kSndInst, bCheckFrequency);
 }
 
 void CActorInstance::MotionEventProcess(DWORD dwcurFrame, int iIndex, const CRaceMotionData::TMotionEventData * c_pData)

@@ -34,7 +34,7 @@ public:
 
 	const std::string& GetIdentity() const;
 
-	void Config3D(bool toggle, float minDist = 100.0f/*1m*/, float maxDist = 4000.0f/*40m*/, float rolloff = 1.0f);
+	void Config3D(bool toggle, float minDist = 100.0f/*1m*/, float maxDist = 4000.0f/*40m*/);
 
 	void Fade(float toVolume, float secDurationFromMinMax);
 
