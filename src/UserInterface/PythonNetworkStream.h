@@ -302,7 +302,6 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		bool SendLoginPacketNew(const char * c_szName, const char * c_szPassword);
 		bool SendChinaMatrixCardPacket(const char * c_szMatrixCardString);
 		bool SendRunupMatrixAnswerPacket(const char * c_szMatrixCardString);
-		bool SendNEWCIBNPasspodAnswerPacket(const char * answer);
 		bool SendDirectEnterPacket(const char * c_szName, const char * c_szPassword, UINT uChrSlot);
 
 		bool SendEnterGame();
@@ -406,8 +405,6 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		bool __RecvEmpirePacket();
 		bool __RecvChinaMatrixCardPacket();
 		bool __RecvRunupMatrixQuizPacket();
-		bool __RecvNEWCIBNPasspodRequestPacket();
-		bool __RecvNEWCIBNPasspodFailurePacket();
 		bool __RecvLoginKeyPacket();
 
 		// Select Phase

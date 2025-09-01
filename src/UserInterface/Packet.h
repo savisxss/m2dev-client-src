@@ -127,7 +127,6 @@ enum
 	HEADER_CG_LOGIN4							= 115,
 
 	HEADER_CG_RUNUP_MATRIX_ANSWER               = 201,
-	HEADER_CG_NEWCIBN_PASSPOD_ANSWER			= 202,
 
 	HEADER_CG_DRAGON_SOUL_REFINE			= 205,
 	HEADER_CG_STATE_CHECKER					= 206,
@@ -297,8 +296,6 @@ enum
 	//HYBRID CRYPT
 
 	HEADER_GC_RUNUP_MATRIX_QUIZ                 = 201,
-	HEADER_GC_NEWCIBN_PASSPOD_REQUEST			= 202,
-	HEADER_GC_NEWCIBN_PASSPOD_FAILURE			= 203,
 
 	HEADER_GC_SPECIFIC_EFFECT					= 208,
 	HEADER_GC_DRAGON_SOUL_REFINE						= 209,
@@ -366,8 +363,6 @@ enum
 
 	RUNUP_MATRIX_QUIZ_MAX_LEN	= 8,
 	RUNUP_MATRIX_ANSWER_MAX_LEN = 4,
-	NEWCIBN_PASSPOD_ANSWER_MAX_LEN = 8,
-	NEWCIBN_PASSPOD_FAILURE_MAX_LEN = 128,
 
 	WEAR_MAX_NUM = 11,
 
@@ -1014,12 +1009,6 @@ typedef struct command_runup_matrix_answer
 	uint8_t	bHeader;
 	char	szAnswer[RUNUP_MATRIX_ANSWER_MAX_LEN + 1];
 } TPacketCGRunupMatrixAnswer;
-
-typedef struct command_newcibn_passpod_answer
-{
-	uint8_t	bHeader;
-	char	szAnswer[NEWCIBN_PASSPOD_ANSWER_MAX_LEN + 1];
-} TPacketCGNEWCIBNPasspodAnswer;
 
 enum EPartyExpDistributionType
 {
@@ -2338,17 +2327,6 @@ typedef struct packet_runup_matrixd_quiz
 	uint8_t	bHeader;
 	char	szQuiz[RUNUP_MATRIX_QUIZ_MAX_LEN + 1];	
 } TPacketGCRunupMatrixQuiz;
-
-typedef struct packet_newcibn_passpod_request
-{
-	uint8_t	bHeader;
-} TPacketGCNEWCIBNPasspodRequest;
-
-typedef struct packet_newcibn_passpod_failure
-{
-	uint8_t	bHeader;
-	char	szMessage[NEWCIBN_PASSPOD_FAILURE_MAX_LEN + 1];
-} TPacketGCNEWCIBNPasspodFailure;
 
 typedef struct packet_login_key
 {
