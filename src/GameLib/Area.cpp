@@ -1292,9 +1292,8 @@ void CArea::TAmbienceInstance::UpdateOnceSound(float fxCenter, float fyCenter, f
 			playSoundInstance = SoundEngine::Instance().PlayAmbienceSound3D(fx, fy, fz, c_szFileName);
 		}
 	}
-	else if (playSoundInstance)
+	else
 	{
-		playSoundInstance->Stop();
 		playSoundInstance = nullptr;
 	}
 }
@@ -1342,9 +1341,8 @@ void CArea::TAmbienceInstance::UpdateLoopSound(float fxCenter, float fyCenter, f
 		if (playSoundInstance)
 			playSoundInstance->SetVolume(__GetVolumeFromDistance(fDistance));
 	}
-	else if (playSoundInstance)
+	else
 	{
-		playSoundInstance->Stop();
 		playSoundInstance = nullptr;
 	}
 }
