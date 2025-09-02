@@ -1395,5 +1395,6 @@ CArea::SAmbienceInstance::SAmbienceInstance()
 	fy = 0.0f;
 	fz = 0.0f;
 	dwRange = 0;
+	playSoundInstance = nullptr;
 	fNextPlayTime = 0.0f;
 }
