@@ -55,7 +55,7 @@ void CEffectInstance::UpdateSound()
 													m_matGlobal._43,
 													m_dwFrame,
 													m_pSoundInstanceVector,
-													false, false);
+													false);
 		// NOTE : 매트릭스에서 위치를 직접 얻어온다 - [levites]
 	}
 	++m_dwFrame;

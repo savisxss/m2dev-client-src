@@ -46,7 +46,7 @@ public:
 
 	void StopAllSound3D();
 
-	void UpdateSoundInstance(float fx, float fy, float fz, uint32_t dwcurFrame, const NSound::TSoundInstanceVector* c_pSoundInstanceVector, bool checkFrequency = false, bool isMain = false);
+	void UpdateSoundInstance(float fx, float fy, float fz, uint32_t dwcurFrame, const NSound::TSoundInstanceVector* c_pSoundInstanceVector, bool checkFrequency = false);
 
 	bool FadeInMusic(const std::string& path, float targetVolume = 1.0f, float fadeInDurationSecondsFromMin = 1.5f);
 
@@ -78,6 +78,8 @@ private:
 	bool Internal_LoadSoundFromPack(const std::string& name);
 
 private:
+	struct { float x, y, z; } m_CharacterPosition{};
+
 	ma_engine m_Engine{};
 	std::unordered_map<std::string, std::vector<uint8_t>> m_Files;
 	std::unordered_map<std::string, MaSoundInstance> m_Sounds2D;

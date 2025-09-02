@@ -30,7 +30,8 @@ bool SoundEngine::Initialize()
 		return false;
 	}
 
-	SetListenerPosition(0.0f, 0.0f, 0.0f);
+	ma_engine_listener_set_position(&m_Engine, 0, 0, 0, 0); // engine
+	SetListenerPosition(0.0f, 0.0f, 0.0f); // character
 	SetListenerOrientation(0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f);
 	return true;
 }
@@ -57,10 +58,12 @@ MaSoundInstance* SoundEngine::PlaySound3D(const std::string& name, float fx, flo
 	if (auto instance = Internal_GetInstance3D(name))
 	{
 		constexpr float minDist = 100.0f; // 1m
-		constexpr float maxDist = 4000.0f; // 40m
+		constexpr float maxDist = 5000.0f; // 50m
 
-		instance->SetPosition(fx, fy, fz);
-		instance->Config3D(true, minDist, maxDist, 1.0f);
+		instance->SetPosition(fx - m_CharacterPosition.x,
+							  fy - m_CharacterPosition.y,
+							  fz - m_CharacterPosition.z);
+		instance->Config3D(true, minDist, maxDist);
 		instance->SetVolume(m_SoundVolume);
 		instance->Play();
 		return instance;
@@ -84,7 +87,7 @@ void SoundEngine::StopAllSound3D()
 		instance.Stop();
 }
 
-void SoundEngine::UpdateSoundInstance(float fx, float fy, float fz, uint32_t dwcurFrame, const NSound::TSoundInstanceVector* c_pSoundInstanceVector, bool checkFrequency, bool isMain)
+void SoundEngine::UpdateSoundInstance(float fx, float fy, float fz, uint32_t dwcurFrame, const NSound::TSoundInstanceVector* c_pSoundInstanceVector, bool checkFrequency)
 {
 	for (uint32_t i = 0; i < c_pSoundInstanceVector->size(); ++i)
 	{
@@ -102,18 +105,7 @@ void SoundEngine::UpdateSoundInstance(float fx, float fy, float fz, uint32_t dwc
 				lastPlay = CTimer::Instance().GetCurrentSecond();
 			}
 
-			if (isMain) // Sounds coming from main instance will always be played in 2d
-			{
-				//	float volume = 0.9f + frandom(-0.1f, 0.1f);
-				//	instance->SetPitch(pitch); // Should we play around with pitch a bit?
-				PlaySound2D(c_rSoundInstance.strSoundFileName);
-			}
-			else
-			{
-				//	float volume = 0.9f + frandom(-0.1f, 0.1f);
-				//	instance->SetPitch(pitch); // Should we play around with pitch a bit?
-				PlaySound3D(c_rSoundInstance.strSoundFileName, fx, fy, fz);
-			}
+			PlaySound3D(c_rSoundInstance.strSoundFileName, fx, fy, fz);
 		}
 	}
 }
@@ -173,7 +165,7 @@ void SoundEngine::SaveVolume(bool isMinimized)
 {
 	constexpr float ratePerSecond = 1.0f / CS_CLIENT_FPS;
 	// 1.0 to 0 in 1s if minimized, 3s if just out of focus
-	const float durationOnFullVolume = isMinimized ? 1.0 : 3.0f;
+	const float durationOnFullVolume = isMinimized ? 1.0f : 3.0f;
 
 	float outOfFocusVolume = 0.35f;
 	if (m_MasterVolume <= outOfFocusVolume)
@@ -199,14 +191,16 @@ void SoundEngine::SetMasterVolume(float volume)
 
 void SoundEngine::SetListenerPosition(float x, float y, float z)
 {
-	ma_engine_listener_set_position(&m_Engine, 0, x, y, z);
+	m_CharacterPosition.x = x;
+	m_CharacterPosition.y = y;
+	m_CharacterPosition.z = z;
 }
 
 void SoundEngine::SetListenerOrientation(float forwardX, float forwardY, float forwardZ,
 										 float upX, float upY, float upZ)
 {
-	ma_engine_listener_set_direction(&m_Engine, 0, forwardX, forwardY, forwardZ);
-	ma_engine_listener_set_world_up(&m_Engine, 0, upX, upY, upZ);
+	ma_engine_listener_set_direction(&m_Engine, 0, forwardX, forwardY, -forwardZ);
+	ma_engine_listener_set_world_up(&m_Engine, 0, upX, -upY, upZ);
 }
 
 void SoundEngine::SetListenerVelocity(float x, float y, float z)

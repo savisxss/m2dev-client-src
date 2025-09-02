@@ -129,7 +129,7 @@ const std::string& MaSoundInstance::GetIdentity() const
 	return m_Identity;
 }
 
-void MaSoundInstance::Config3D(bool toggle, float minDist, float maxDist, float rolloff)
+void MaSoundInstance::Config3D(bool toggle, float minDist, float maxDist)
 {
 	ma_sound_set_spatialization_enabled(&m_Sound, toggle);
 	ma_sound_set_rolloff(&m_Sound, 1.0f);
