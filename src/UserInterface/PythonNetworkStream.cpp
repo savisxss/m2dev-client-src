@@ -543,7 +543,7 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 
 		if (!Peek(DynamicSizePacketHeader.size))
 		{
-			Tracef("CPythonNetworkStream::CheckPacket - Not enough dynamic packet size: header %d packet size: %d\n", 
+			TraceError("CPythonNetworkStream::CheckPacket - Not enough dynamic packet size: header %d packet size: %d",
 				DynamicSizePacketHeader.header,
 				DynamicSizePacketHeader.size);
 			return false;
@@ -553,10 +553,11 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 	{
 		if (!Peek(PacketType.iPacketSize))
 		{
-			Tracef("Not enough packet size: header %d packet size: %d, recv buffer size: %d",
+			TraceError("Not enough packet size: header %d packet size: %d, recv buffer size: %d (last: %d %d)",
 				header,
 				PacketType.iPacketSize,
-				GetRecvBufferSize());
+				GetRecvBufferSize(),
+				g_iLastPacket[0], g_iLastPacket[1]);
 			return false;
 		}
 	}
