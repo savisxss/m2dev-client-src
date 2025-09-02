@@ -70,8 +70,8 @@ void MaSoundInstance::Destroy()
 	}
 	m_Initialized = false;
 	m_Identity = "";
-	m_FadeTargetVolume = 0;
-	m_FadeRatePerFrame = 0;
+	m_FadeTargetVolume = 0.0f;
+	m_FadeRatePerFrame = 0.0f;
 }
 
 bool MaSoundInstance::IsInitialized() const
@@ -149,21 +149,21 @@ void MaSoundInstance::Fade(float toVolume, float secDurationFromMinMax)
 
 void MaSoundInstance::StopFading()
 {
-	m_FadeRatePerFrame = 0;
+	m_FadeRatePerFrame = 0.0f;
 }
 
 bool MaSoundInstance::IsFading() const
 {
-	return m_FadeRatePerFrame != 0;
+	return m_FadeRatePerFrame != 0.0f;
 }
 
 void MaSoundInstance::Update(float volumeFactor) // volume factor is the user's volume
 {
-	if (m_FadeRatePerFrame != 0)
+	if (m_FadeRatePerFrame != 0.0f)
 	{
 		float targetVolume = std::clamp<float>(m_FadeTargetVolume * volumeFactor, 0.0f, 1.0f);
 		float volume = std::clamp<float>(GetVolume() + (m_FadeRatePerFrame * volumeFactor), 0.0f, 1.0f);
-		if ((m_FadeRatePerFrame > 0 && volume >= targetVolume) || (m_FadeRatePerFrame < 0 && volume <= targetVolume))
+		if ((m_FadeRatePerFrame > 0.0f && volume >= targetVolume) || (m_FadeRatePerFrame < 0.0f && volume <= targetVolume))
 		{
 			volume = m_FadeTargetVolume * volumeFactor;
 			m_FadeRatePerFrame = 0.0f;
