@@ -1,12 +1,15 @@
 #include "StdAfx.h"
 #include "NetStream.h"
 //#include "eterCrypt.h"
+#include <iomanip>
 
 #ifndef _IMPROVED_PACKET_ENCRYPTION_
 #include "EterBase/tea.h"
 #endif
 
-//#define _PACKETDUMP
+#ifdef _DEBUG
+#define _PACKETDUMP
+#endif
 
 #ifndef _IMPROVED_PACKET_ENCRYPTION_
 void CNetworkStream::SetSecurityMode(bool isSecurityMode, const char* c_szTeaKey)
@@ -721,25 +724,37 @@ bool CNetworkStream::Recv(int size)
 	return true;
 }
 
+static std::string dump_hex(const uint8_t* ptr, const std::size_t length)
+{
+	if (!ptr || !length)
+		return {};
+
+	std::stringstream ss;
+
+	std::vector <uint8_t> buffer(length);
+	memcpy(&buffer[0], ptr, length);
+
+	for (size_t i = 0; i < length; ++i)
+		ss << std::hex << std::setfill('0') << std::setw(2) << (int)buffer.at(i) << ", ";
+
+	const auto str = ss.str();
+	return str.substr(0, str.size() - 2);
+}
+
 bool CNetworkStream::Recv(int size, char * pDestBuf)
 {
 	if (!Peek(size, pDestBuf)) 
 		return false;
 	
 #ifdef _PACKETDUMP
-	if (*pDestBuf != 0 )
+	if (*pDestBuf != 0)
 	{
-		TraceError("RECV< %s (%d)", GetRecvHeaderName(*pDestBuf), size);
-		std::string contents;
-		char buf[10];
-		for(int i = 1; i < size; i++)
-		{
-			sprintf(buf," %02x", (unsigned char)(pDestBuf[i]));
-			contents.append(buf);
-		}
-		TraceError(contents.c_str());
+		const auto kHeader = *pDestBuf;
+		TraceError("RECV< %s %u(0x%X) (%d)", GetRecvHeaderName(kHeader), kHeader, kHeader, size);
+
+		const auto contents = dump_hex(reinterpret_cast<const uint8_t*>(pDestBuf), size);
+		TraceError("%s", contents.c_str());
 	}
-		
 #endif
 
 	m_recvBufOutputPos += size;
@@ -762,18 +777,13 @@ bool CNetworkStream::Send(int size, const char * pSrcBuf)
 	m_sendBufInputPos += size;
 
 #ifdef _PACKETDUMP
-	if (*pSrcBuf != 0 )
+	if (*pSrcBuf != 0)
 	{
-		TraceError("SEND> %s (%d)", GetSendHeaderName(*pSrcBuf), size);
-		std::string contents;
-		char buf[10];
-		for(int i = 1; i < size; i++)
-		{
-			sprintf(buf," %02x", (unsigned char)(pSrcBuf[i]));
-			contents.append(buf);
-		}
-		TraceError(contents.c_str());
+		const auto kHeader = *pSrcBuf;
+		TraceError("SEND> %s %u(0x%X) (%d)", GetRecvHeaderName(kHeader), kHeader, kHeader, size);
 
+		const auto contents = dump_hex(reinterpret_cast<const uint8_t*>(pSrcBuf), size);
+		TraceError("%s", contents.c_str());
 	}
 #endif
 
