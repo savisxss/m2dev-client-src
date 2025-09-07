@@ -254,6 +254,7 @@ bool CPythonNetworkStream::RecvKeyAgreementCompletedPacket()
 	Tracenf("KEY_AGREEMENT_COMPLETED RECV");
 
 	ActivateCipher();
+	DecryptAlreadyReceivedData();
 
 	return true;
 }
