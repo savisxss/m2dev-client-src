@@ -780,7 +780,7 @@ bool CNetworkStream::Send(int size, const char * pSrcBuf)
 	if (*pSrcBuf != 0)
 	{
 		const auto kHeader = *pSrcBuf;
-		TraceError("SEND> %s %u(0x%X) (%d)", GetRecvHeaderName(kHeader), kHeader, kHeader, size);
+		TraceError("SEND> %s %u(0x%X) (%d)", GetSendHeaderName(kHeader), kHeader, kHeader, size);
 
 		const auto contents = dump_hex(reinterpret_cast<const uint8_t*>(pSrcBuf), size);
 		TraceError("%s", contents.c_str());
@@ -955,5 +955,18 @@ bool CNetworkStream::Activate(size_t agreed_length, const void* buffer, size_t l
 void CNetworkStream::ActivateCipher()
 {
 	return m_cipher.set_activated(true);
+}
+
+// If cipher is active and there's unread data in buffer, decrypt it in-place
+void CNetworkStream::DecryptAlreadyReceivedData()
+{
+	if (!IsSecurityMode())
+		return;
+
+	const int unreadSize = m_recvBufInputPos - m_recvBufOutputPos;
+	if (unreadSize <= 0)
+		return;
+
+	m_cipher.Decrypt(m_recvBuf + m_recvBufOutputPos, unreadSize);
 }
 #endif // _IMPROVED_PACKET_ENCRYPTION_

@@ -72,6 +72,7 @@ class CNetworkStream
 		size_t Prepare(void* buffer, size_t* length);
 		bool Activate(size_t agreed_length, const void* buffer, size_t length);
 		void ActivateCipher();
+		void DecryptAlreadyReceivedData();
 #endif
 
 	private:

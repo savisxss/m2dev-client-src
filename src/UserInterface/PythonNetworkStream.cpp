@@ -587,7 +587,7 @@ bool CPythonNetworkStream::CheckPacket(TPacketHeader * pRetHeader)
 
 bool CPythonNetworkStream::RecvErrorPacket(int header)
 {
-	TraceError("Phase %s does not handle this header (header: %u(0x%X)) Last packets: ", m_strPhase.c_str(), header);
+	TraceError("Phase %s does not handle this header (header: %u(0x%X)) Last packets: ", m_strPhase.c_str(), header, header);
 	for (const auto& it : gs_vecLastHeaders)
 		TraceError("%u(0x%X)", it, it);
 
