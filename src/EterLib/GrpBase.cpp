@@ -22,8 +22,8 @@ void D3DXVECTOR3ToPixelPosition(const D3DXVECTOR3& c_rv3Src, D3DXVECTOR3* pv3Dst
 HWND CGraphicBase::ms_hWnd;
 HDC CGraphicBase::ms_hDC;
 
-LPDIRECT3D9				CGraphicBase::ms_lpd3d = NULL;
-LPDIRECT3DDEVICE9		CGraphicBase::ms_lpd3dDevice = NULL;
+LPDIRECT3D9EX			CGraphicBase::ms_lpd3d = NULL;
+LPDIRECT3DDEVICE9EX		CGraphicBase::ms_lpd3dDevice = NULL;
 ID3DXMatrixStack *		CGraphicBase::ms_lpd3dMatStack = NULL;
 D3DPRESENT_PARAMETERS	CGraphicBase::ms_d3dPresentParameter;
 D3DVIEWPORT9			CGraphicBase::ms_Viewport;

@@ -77,7 +77,7 @@ void CGraphicDevice::EnableWebBrowserMode(const RECT& c_rcWebPage)
 	rkD3DPP.BackBufferCount = 1;
 	rkD3DPP.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 	
-	IDirect3DDevice9& rkD3DDev=*ms_lpd3dDevice;
+	IDirect3DDevice9Ex& rkD3DDev=*ms_lpd3dDevice;
 	HRESULT hr=rkD3DDev.Reset(&rkD3DPP);
 	if (FAILED(hr))
 		return;
@@ -96,7 +96,7 @@ void CGraphicDevice::DisableWebBrowserMode()
 
 	rkD3DPP=g_kD3DPP;
 
-	IDirect3DDevice9& rkD3DDev=*ms_lpd3dDevice;
+	IDirect3DDevice9Ex& rkD3DDev=*ms_lpd3dDevice;
 	HRESULT hr=rkD3DDev.Reset(&rkD3DPP);
 	if (FAILED(hr))
 		return;
@@ -117,7 +117,7 @@ bool CGraphicDevice::ResizeBackBuffer(UINT uWidth, UINT uHeight)
 			rkD3DPP.BackBufferWidth=uWidth;
 			rkD3DPP.BackBufferHeight=uHeight;
 
-			IDirect3DDevice9& rkD3DDev=*ms_lpd3dDevice;
+			IDirect3DDevice9Ex& rkD3DDev=*ms_lpd3dDevice;
 
 			HRESULT hr=rkD3DDev.Reset(&rkD3DPP);
 			if (FAILED(hr))
@@ -310,7 +310,7 @@ int CGraphicDevice::Create(HWND hWnd, int iHres, int iVres, bool Windowed, int /
 
 	ms_hWnd		= hWnd;
 	ms_hDC		= GetDC(hWnd);
-	ms_lpd3d	= Direct3DCreate9(D3D_SDK_VERSION);
+	Direct3DCreate9Ex(D3D_SDK_VERSION, &ms_lpd3d);
 
 	if (!ms_lpd3d)
 		return CREATE_NO_DIRECTX;
@@ -411,12 +411,24 @@ RETRY:
 		ms_d3dPresentParameter.MultiSampleQuality = 0;
 	}
 
-	if (FAILED(ms_hLastResult = ms_lpd3d->CreateDevice(
+	D3DDISPLAYMODEEX displayModeEx;
+	ZeroMemory(&displayModeEx, sizeof(displayModeEx));
+	displayModeEx.Size = sizeof(D3DDISPLAYMODEEX);
+	displayModeEx.Width = iHres;
+	displayModeEx.Height = iVres;
+	displayModeEx.RefreshRate = iReflashRate;
+	displayModeEx.Format = d3dDisplayMode.Format;
+	displayModeEx.ScanLineOrdering = D3DSCANLINEORDERING_PROGRESSIVE;
+
+	D3DDISPLAYMODEEX* pDisplayMode = Windowed ? NULL : &displayModeEx;
+
+	if (FAILED(ms_hLastResult = ms_lpd3d->CreateDeviceEx(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
 		hWnd,
 		ms_dwD3DBehavior,
 		&ms_d3dPresentParameter,
+		pDisplayMode,
 		&ms_lpd3dDevice)))
 	{
 		switch (ms_hLastResult)
@@ -598,7 +610,7 @@ bool CGraphicDevice::__CreatePDTVertexBufferList()
 			sizeof(TPDTVertex)*PDT_VERTEX_NUM, 
 			D3DUSAGE_DYNAMIC|D3DUSAGE_WRITEONLY, 
 			D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_TEX1, 
-			D3DPOOL_SYSTEMMEM, 
+				D3DPOOL_DEFAULT,
 			&ms_alpd3dPDTVB[i], nullptr)
 		))
 		return false;
@@ -626,19 +638,20 @@ bool CGraphicDevice::__CreateDefaultIndexBuffer(UINT eDefIB, UINT uIdxCount, con
 {
 	assert(ms_alpd3dDefIB[eDefIB]==NULL);
 
-	if (FAILED(
-		ms_lpd3dDevice->CreateIndexBuffer(
-			sizeof(WORD)*uIdxCount, 
-			D3DUSAGE_WRITEONLY, 
-			D3DFMT_INDEX16,
-			D3DPOOL_MANAGED,
-			&ms_alpd3dDefIB[eDefIB], nullptr)
-	)) return false;
+	auto hr = ms_lpd3dDevice->CreateIndexBuffer(
+		sizeof(WORD)*uIdxCount,
+		D3DUSAGE_WRITEONLY,
+		D3DFMT_INDEX16,
+		D3DPOOL_DEFAULT,
+		&ms_alpd3dDefIB[eDefIB], nullptr
+	);
+	if (FAILED(hr))
+		return false;
 	
 	WORD* dstIndices;
-	if (FAILED(
-		ms_alpd3dDefIB[eDefIB]->Lock(0, 0, (void**)&dstIndices, 0)
-	)) return false;
+	hr = ms_alpd3dDefIB[eDefIB]->Lock(0, 0, (void**)&dstIndices, 0);
+	if (FAILED(hr))
+		return false;
 
 	memcpy(dstIndices, c_awIndices, sizeof(WORD)*uIdxCount);
 

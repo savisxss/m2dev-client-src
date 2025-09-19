@@ -58,10 +58,10 @@ static CGraphicVertexBuffer* __AllocDeformVertexBuffer(unsigned deformableVertex
 	CGraphicVertexBuffer* pkNewVB = new CGraphicVertexBuffer;
 
 	if (!pkNewVB->Create(
-		capacity, 
-		D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, 
-		D3DUSAGE_WRITEONLY, 
-		D3DPOOL_MANAGED))
+		capacity,
+		D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1,
+		D3DUSAGE_DYNAMIC,
+		D3DPOOL_DEFAULT))
 	{
 		TraceError("NEW_ERROR %8d: %d(%d)", time(NULL) - base, capacity, deformableVertexCount);
 	}
@@ -101,10 +101,10 @@ void __ReserveSharedVertexBuffers(unsigned index, unsigned count)
 	{
 		CGraphicVertexBuffer* pkNewVB = new CGraphicVertexBuffer;
 		pkNewVB->Create(
-			capacity, 
-			D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, 
-			D3DUSAGE_WRITEONLY, 
-			D3DPOOL_MANAGED);	
+			capacity,
+			D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1,
+			D3DUSAGE_DYNAMIC,
+			D3DPOOL_DEFAULT);	
 		gs_vbs[index].push_back(pkNewVB);
 	}
 	NANOEND

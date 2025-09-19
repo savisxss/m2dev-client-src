@@ -226,7 +226,7 @@ public:
 class CStateManager : public CSingleton<CStateManager>
 {
 public:
-	CStateManager(LPDIRECT3DDEVICE9 lpDevice);
+	CStateManager(LPDIRECT3DDEVICE9EX lpDevice);
 	virtual ~CStateManager();
 
 	void	SetDefaultState();
@@ -333,7 +333,7 @@ public:
 	void StateManager_Capture();
 	void StateManager_Apply();
 
-	LPDIRECT3DDEVICE9 GetDevice();
+	LPDIRECT3DDEVICE9EX GetDevice();
 
 #ifdef _DEBUG
 	void ResetDrawCallCounter();
@@ -341,7 +341,7 @@ public:
 #endif
 
 private:
-	void SetDevice(LPDIRECT3DDEVICE9 lpDevice);
+	void SetDevice(LPDIRECT3DDEVICE9EX lpDevice);
 
 private:
 
@@ -352,7 +352,7 @@ private:
 	bool				m_bScene;
 	DWORD				m_dwBestMinFilter;
 	DWORD				m_dwBestMagFilter;
-	LPDIRECT3DDEVICE9	m_lpD3DDev;
+	LPDIRECT3DDEVICE9EX	m_lpD3DDev;
 
 	std::vector<DWORD>						m_RenderStateStack[STATEMANAGER_MAX_RENDERSTATES];
 	std::vector<DWORD>						m_SamplerStateStack[STATEMANAGER_MAX_STAGES][STATEMANAGER_MAX_TEXTURESTATES];

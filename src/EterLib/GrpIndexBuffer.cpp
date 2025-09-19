@@ -106,7 +106,7 @@ bool CGraphicIndexBuffer::CreateDeviceObjects()
 		m_dwBufferSize,
 		D3DUSAGE_WRITEONLY,
 		m_d3dFmt,
-		D3DPOOL_MANAGED,
+		D3DPOOL_DEFAULT,
 		&m_lpd3dIdxBuf,
 		NULL)
 	))
