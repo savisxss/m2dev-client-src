@@ -630,7 +630,7 @@ BOOL CScreen::IsLostDevice()
 	if (!ms_lpd3dDevice)
 		return TRUE;
 
-	IDirect3DDevice9 & rkD3DDev = *ms_lpd3dDevice;
+	IDirect3DDevice9Ex & rkD3DDev = *ms_lpd3dDevice;
 	HRESULT hrTestCooperativeLevel = rkD3DDev.TestCooperativeLevel();
 	if (FAILED(hrTestCooperativeLevel))
 		return TRUE;		
@@ -643,8 +643,8 @@ BOOL CScreen::RestoreDevice()
 	if (!ms_lpd3dDevice)
 		return FALSE;
 
-	IDirect3D9& rkD3D = *ms_lpd3d;
-	IDirect3DDevice9& rkD3DDev = *ms_lpd3dDevice;
+	IDirect3D9Ex& rkD3D = *ms_lpd3d;
+	IDirect3DDevice9Ex& rkD3DDev = *ms_lpd3dDevice;
 	D3DPRESENT_PARAMETERS& rkD3DPP = ms_d3dPresentParameter;
 	
 	HRESULT hrTestCooperativeLevel = rkD3DDev.TestCooperativeLevel();

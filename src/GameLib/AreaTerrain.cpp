@@ -782,11 +782,11 @@ LPDIRECT3DTEXTURE9 CTerrain::AddTexture32(BYTE byImageNum, BYTE * pbyImage, long
 	UINT uiNewWidth = 256;
 	UINT uiNewHeight = 256;
 	hr = ms_lpd3dDevice->CreateTexture(
-		uiNewWidth, uiNewHeight, 5, 0, 
-		format, D3DPOOL_MANAGED, &pkTex, nullptr);
+		uiNewWidth, uiNewHeight, 5, D3DUSAGE_DYNAMIC,
+		format, D3DPOOL_DEFAULT, &pkTex, nullptr);
 	if (FAILED(hr))
 	{
-		TraceError("CTerrain::AddTexture32 - CreateTexture Error");
+		TraceError("CTerrain::AddTexture32 - CreateTexture failed with hr=%p", hr);
 		return NULL;
 	}
 	
@@ -1153,7 +1153,7 @@ void CTerrain::AllocateMarkedSplats(BYTE * pbyAlphaMap)
 
 	do
 	{
-		hr = ms_lpd3dDevice->CreateTexture(ATTRMAP_XSIZE, ATTRMAP_YSIZE, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &m_lpMarkedTexture, nullptr);
+		hr = ms_lpd3dDevice->CreateTexture(ATTRMAP_XSIZE, ATTRMAP_YSIZE, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_lpMarkedTexture, nullptr);
 	} while(FAILED(hr));
 
 	D3DLOCKED_RECT d3dlr;

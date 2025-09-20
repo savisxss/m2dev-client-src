@@ -48,7 +48,7 @@ bool CGraphicImageTexture::CreateDeviceObjects()
 	if (m_stFileName.empty())
 	{
 		// 폰트 텍스쳐
-		if (FAILED(ms_lpd3dDevice->CreateTexture(m_width, m_height, 1, 0, m_d3dFmt, D3DPOOL_MANAGED, &m_lpd3dTexture, nullptr)))
+		if (FAILED(ms_lpd3dDevice->CreateTexture(m_width, m_height, 1, D3DUSAGE_DYNAMIC, m_d3dFmt, D3DPOOL_DEFAULT, &m_lpd3dTexture, nullptr)))
 			return false;
 	}
 	else
@@ -96,7 +96,7 @@ void CGraphicImageTexture::CreateFromTexturePointer(const CGraphicTexture* c_pSr
 
 bool CGraphicImageTexture::CreateFromDDSTexture(UINT bufSize, const void* c_pvBuf)
 {
-	if (FAILED(DirectX::CreateDDSTextureFromMemoryEx(ms_lpd3dDevice, reinterpret_cast<const uint8_t*>(c_pvBuf), bufSize, 0, D3DPOOL_MANAGED, false, &m_lpd3dTexture)))
+	if (FAILED(DirectX::CreateDDSTextureFromMemoryEx(ms_lpd3dDevice, reinterpret_cast<const uint8_t*>(c_pvBuf), bufSize, 0, D3DPOOL_DEFAULT, false, &m_lpd3dTexture)))
 		return false;
 
 	D3DSURFACE_DESC desc;
@@ -113,7 +113,7 @@ bool CGraphicImageTexture::CreateFromSTB(UINT bufSize, const void* c_pvBuf)
 	unsigned char* data = stbi_load_from_memory((stbi_uc*)c_pvBuf, bufSize, &width, &height, &channels, 4); // force RGBA
 	if (data) {
 		LPDIRECT3DTEXTURE9 texture;
-		if (SUCCEEDED(ms_lpd3dDevice->CreateTexture(width, height, 1, 0, channels == 4 ? D3DFMT_A8R8G8B8 : D3DFMT_X8R8G8B8, D3DPOOL_MANAGED, &texture, nullptr))) {
+		if (SUCCEEDED(ms_lpd3dDevice->CreateTexture(width, height, 1, 0, channels == 4 ? D3DFMT_A8R8G8B8 : D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &texture, nullptr))) {
 			D3DLOCKED_RECT rect;
 			if (SUCCEEDED(texture->LockRect(0, &rect, nullptr, 0))) {
 				uint8_t* dstData = (uint8_t*)rect.pBits;
@@ -153,7 +153,7 @@ bool CGraphicImageTexture::CreateFromMemoryFile(UINT bufSize, const void * c_pvB
 
 			D3DXIMAGE_INFO imageInfo;
 			if (FAILED(D3DXCreateTextureFromFileInMemoryEx(ms_lpd3dDevice, c_pvBuf, bufSize
-				, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, 0, d3dFmt, D3DPOOL_MANAGED
+				, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT, 0, d3dFmt, D3DPOOL_DEFAULT
 				, dwFilter, dwFilter, 0xffff00ff, &imageInfo, NULL, &m_lpd3dTexture))) {
 				TraceError("CreateFromMemoryFile: Cannot create texture");
 				return false;
@@ -188,7 +188,7 @@ bool CGraphicImageTexture::CreateFromMemoryFile(UINT bufSize, const void * c_pvB
 
 					if (SUCCEEDED(D3DXCreateTexture(ms_lpd3dDevice
 						, imageInfo.Width >> uTexBias, imageInfo.Height >> uTexBias
-						, imageInfo.MipLevels, 0, format, D3DPOOL_MANAGED, &pkTexDst))) {
+						, imageInfo.MipLevels, 0, format, D3DPOOL_DEFAULT, &pkTexDst))) {
 						m_lpd3dTexture = pkTexDst;
 						for (int i = 0; i < imageInfo.MipLevels; ++i) {
 

@@ -224,10 +224,10 @@ bool CDungeonBlock::Load(const char * c_szFileName)
 		DWORD dwVertexCount = pModelInstance->GetVertexCount();
 		m_kDeformableVertexBuffer.Destroy();
 		m_kDeformableVertexBuffer.Create(
-			dwVertexCount, 
-			D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, 
-			D3DUSAGE_WRITEONLY, 
-			D3DPOOL_MANAGED);	
+			dwVertexCount,
+			D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1,
+			D3DUSAGE_DYNAMIC,
+			D3DPOOL_DEFAULT);	
 		m_ModelInstanceContainer.push_back(pModelInstance);
 	}
 

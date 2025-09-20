@@ -2,6 +2,7 @@
 #include "NetStream.h"
 //#include "eterCrypt.h"
 #include <iomanip>
+#include <sstream>
 
 #ifndef _IMPROVED_PACKET_ENCRYPTION_
 #include "EterBase/tea.h"
