@@ -11,6 +11,7 @@ if (WIN32)
 	set_target_properties(lzo2 PROPERTIES FOLDER vendor)
 	
 	## zstd stuff
+	set_target_properties(zstd PROPERTIES FOLDER vendor/zstd)
 	set_target_properties(libzstd_static PROPERTIES FOLDER vendor/zstd)
 	set_target_properties(clean-all PROPERTIES FOLDER vendor/zstd)
 	set_target_properties(uninstall PROPERTIES FOLDER vendor/zstd)
