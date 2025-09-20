@@ -27,6 +27,7 @@ target_link_libraries(UserInterface
 	
 	cryptopp-static
 	lzo2
+	libzstd_static
 	
 	DirectX
 	Granny
