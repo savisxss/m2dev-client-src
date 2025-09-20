@@ -34,6 +34,7 @@ struct TPackFileEntry
 	uint64_t	file_size;
 	uint64_t	compressed_size;
 	uint8_t		encryption;
+	uint8_t     iv[CryptoPP::Camellia::BLOCKSIZE];
 };
 #pragma pack(pop)
 
@@ -106,6 +107,9 @@ int main(int argc, char* argv[])
 	ofs.write((const char*) &header, sizeof(header));
 	ofs.seekp(header.data_begin, std::ios::beg);
 
+	CryptoPP::CTR_Mode<CryptoPP::Camellia>::Encryption encryption;
+	encryption.SetKeyWithIV(PACK_KEY.data(), PACK_KEY.size(), header.iv, CryptoPP::Camellia::BLOCKSIZE);
+
 	uint64_t offset = header.data_begin;
 	for (auto& [path, entry] : entries) {
 		std::ifstream ifs(input / path, std::ios::binary);
@@ -133,7 +137,15 @@ int main(int argc, char* argv[])
 		}
 
 		entry.offset = offset;
+
 		entry.encryption = 0;
+		if (path.has_extension() && path.extension() == ".py") {
+			entry.encryption = 1;
+
+			rnd.GenerateBlock(entry.iv, sizeof(entry.iv));
+			encryption.Resynchronize(entry.iv, sizeof(entry.iv));
+			encryption.ProcessData((uint8_t*)compressed_buffer.data(), (uint8_t*)compressed_buffer.data(), entry.compressed_size);
+		}
 
 		ofs.write(compressed_buffer.data(), entry.compressed_size);
 		offset += entry.compressed_size;
@@ -146,8 +158,7 @@ int main(int argc, char* argv[])
 		ptr += sizeof(entry);
 	}
 
-	CryptoPP::CTR_Mode<CryptoPP::Camellia>::Encryption encryption;
-	encryption.SetKeyWithIV(PACK_KEY.data(), PACK_KEY.size(), header.iv, CryptoPP::Camellia::BLOCKSIZE);
+	encryption.Resynchronize(header.iv, sizeof(header.iv));
 	encryption.ProcessData((uint8_t*)entry_buffer.data(), (uint8_t*)entry_buffer.data(), entry_buffer.size());
 
 	ofs.seekp(sizeof(TPackFileHeader), std::ios::beg);
