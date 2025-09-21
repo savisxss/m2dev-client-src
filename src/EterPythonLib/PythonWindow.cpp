@@ -1247,6 +1247,15 @@ namespace UI
 		return TRUE;
 	}
 
+	BOOL CImageBox::LoadImageFromFile(const char* c_szFileName)
+	{
+		CPackManager::instance().SetFileLoadMode();
+		BOOL r = LoadImage(c_szFileName);
+		CPackManager::instance().SetPackLoadMode();
+
+		return r;
+	}
+
 	void CImageBox::SetDiffuseColor(float fr, float fg, float fb, float fa)
 	{
 		if (!m_pImageInstance)
