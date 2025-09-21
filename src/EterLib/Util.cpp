@@ -1,7 +1,6 @@
 #include "StdAfx.h"
-#include "EterPack/EterPackManager.h"
-
 #include "TextFileLoader.h"
+#include "PackLib/PackManager.h"
 
 void PrintfTabs(FILE * File, int iTabCount, const char * c_szString, ...)
 {
@@ -20,16 +19,15 @@ void PrintfTabs(FILE * File, int iTabCount, const char * c_szString, ...)
 
 bool LoadTextData(const char * c_szFileName, CTokenMap & rstTokenMap)
 {
-	LPCVOID pMotionData;
-	CMappedFile File;
+	TPackFile File;
 
-	if (!CEterPackManager::Instance().Get(File, c_szFileName, &pMotionData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, File))
 		return false;
 
 	CMemoryTextFileLoader textFileLoader;
 	CTokenVector stTokenVector;
 
-	textFileLoader.Bind(File.Size(), pMotionData);
+	textFileLoader.Bind(File.size(), File.data());
 
 	for (DWORD i = 0; i < textFileLoader.GetLineCount(); ++i)
 	{
@@ -50,10 +48,9 @@ bool LoadTextData(const char * c_szFileName, CTokenMap & rstTokenMap)
 
 bool LoadMultipleTextData(const char * c_szFileName, CTokenVectorMap & rstTokenVectorMap)
 {
-	LPCVOID pModelData;
-	CMappedFile File;
+	TPackFile File;
 
-	if (!CEterPackManager::Instance().Get(File, c_szFileName, &pModelData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, File))
 		return false;
 
 	DWORD i;
@@ -61,7 +58,7 @@ bool LoadMultipleTextData(const char * c_szFileName, CTokenVectorMap & rstTokenV
 	CMemoryTextFileLoader textFileLoader;
 	CTokenVector stTokenVector;
 
-	textFileLoader.Bind(File.Size(), pModelData);
+	textFileLoader.Bind(File.size(), File.data());
 
 	for (i = 0; i < textFileLoader.GetLineCount(); ++i)
 	{

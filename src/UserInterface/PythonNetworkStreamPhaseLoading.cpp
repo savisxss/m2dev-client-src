@@ -3,10 +3,8 @@
 #include "Packet.h"
 #include "PythonApplication.h"
 #include "NetworkActorManager.h"
-
 #include "AbstractPlayer.h"
-
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 void CPythonNetworkStream::EnableChatInsultFilter(bool isEnable)
 {
@@ -33,13 +31,12 @@ bool CPythonNetworkStream::IsInsultIn(const char* c_szMsg)
 
 bool CPythonNetworkStream::LoadInsultList(const char* c_szInsultListFileName)
 {
-	CMappedFile file;
-	const VOID* pvData;
-	if (!CEterPackManager::Instance().Get(file, c_szInsultListFileName, &pvData))
+	TPackFile file;
+	if (!CPackManager::Instance().GetFile(c_szInsultListFileName, file))
 		return false;
 
 	CMemoryTextFileLoader kMemTextFileLoader;
-	kMemTextFileLoader.Bind(file.Size(), pvData);
+	kMemTextFileLoader.Bind(file.size(), file.data());
 
 	m_kInsultChecker.Clear();
 	for (DWORD dwLineIndex=0; dwLineIndex<kMemTextFileLoader.GetLineCount(); ++dwLineIndex)
@@ -55,9 +52,8 @@ bool CPythonNetworkStream::LoadConvertTable(DWORD dwEmpireID, const char* c_szFi
 	if (dwEmpireID<1 || dwEmpireID>=4)
 		return false;
 
-	CMappedFile file;
-	const VOID* pvData;
-	if (!CEterPackManager::Instance().Get(file, c_szFileName, &pvData))
+	TPackFile file;
+	if (!CPackManager::Instance().GetFile(c_szFileName, file))
 		return false;
 
 	DWORD dwEngCount=26;
@@ -65,10 +61,10 @@ bool CPythonNetworkStream::LoadConvertTable(DWORD dwEmpireID, const char* c_szFi
 	DWORD dwHanSize=dwHanCount*2;
 	DWORD dwFileSize=dwEngCount*2+dwHanSize;
 
-	if (file.Size()<dwFileSize)
+	if (file.size()<dwFileSize)
 		return false;
 
-	char* pcData=(char*)pvData;
+	char* pcData=(char*)file.data();
 
 	STextConvertTable& rkTextConvTable=m_aTextConvTable[dwEmpireID-1];		
 	memcpy(rkTextConvTable.acUpper, pcData, dwEngCount);pcData+=dwEngCount;

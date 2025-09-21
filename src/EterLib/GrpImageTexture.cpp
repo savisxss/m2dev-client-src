@@ -1,6 +1,5 @@
 #include "StdAfx.h"
-#include "EterBase/MappedFile.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 #include "GrpImageTexture.h"
 #include "EterImageLib/DDSTextureLoader9.h"
 
@@ -53,13 +52,11 @@ bool CGraphicImageTexture::CreateDeviceObjects()
 	}
 	else
 	{
-		CMappedFile	mappedFile;
-		LPCVOID		c_pvMap;
-
-		if (!CEterPackManager::Instance().Get(mappedFile, m_stFileName.c_str(), &c_pvMap))
+		TPackFile	mappedFile;
+		if (!CPackManager::Instance().GetFile(m_stFileName, mappedFile))
 			return false;
 
-		return CreateFromMemoryFile(mappedFile.Size(), c_pvMap, m_d3dFmt, m_dwFilter);
+		return CreateFromMemoryFile(mappedFile.size(), mappedFile.data(), m_d3dFmt, m_dwFilter);
 	}
 
 	m_bEmpty = false;

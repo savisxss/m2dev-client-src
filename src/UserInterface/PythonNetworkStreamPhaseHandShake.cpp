@@ -2,7 +2,7 @@
 #include "PythonNetworkStream.h"
 #include "PythonApplication.h"
 #include "Packet.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 // HandShake ---------------------------------------------------------------------------
 void CPythonNetworkStream::HandShakePhase()
@@ -173,7 +173,6 @@ bool CPythonNetworkStream::RecvHybridCryptKeyPacket()
 	if (!Recv(kPacket.iKeyStreamLen, kPacket.m_pStream))
 		return false;
 
-	CEterPackManager::Instance().RetrieveHybridCryptPackKeys( kPacket.m_pStream ); 
 	return true;
 }
 
@@ -193,7 +192,6 @@ bool CPythonNetworkStream::RecvHybridCryptSDBPacket()
 	if (!Recv(kPacket.iSDBStreamLen, kPacket.m_pStream))
 		return false;
 
-	CEterPackManager::Instance().RetrieveHybridCryptPackSDB( kPacket.m_pStream ); 
 	return true;
 }
 

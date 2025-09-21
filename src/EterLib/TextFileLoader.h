@@ -2,7 +2,6 @@
 #define __INC_METIN_II_TEXTFILELOADER_H__
 
 #include "EterBase/FileLoader.h"
-#include "EterBase/MappedFile.h"
 #include "EterLib/Util.h"
 #include "EterLib/Pool.h"
 

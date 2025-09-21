@@ -3,7 +3,7 @@
 
 #include "EterBase/Random.h"
 #include "EterBase/Timer.h"
-#include "Eterpack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 SoundEngine::SoundEngine()
 {
@@ -246,17 +246,16 @@ bool SoundEngine::Internal_LoadSoundFromPack(const std::string& name)
 {
 	if (m_Files.find(name) == m_Files.end())
 	{
-		LPCVOID soundData;
-		CMappedFile soundFile;
-		if (!CEterPackManager::Instance().Get(soundFile, name.c_str(), &soundData))
+		TPackFile soundFile;
+		if (!CPackManager::Instance().GetFile(name, soundFile))
 		{
 			TraceError("Internal_LoadSoundFromPack: SoundEngine: Failed to register file '%s' - not found.", name.c_str());
 			return false;
 		}
 
 		auto& buffer = m_Files[name];
-		buffer.resize(soundFile.Size());
-		memcpy(buffer.data(), soundData, soundFile.Size());
+		buffer.resize(soundFile.size());
+		memcpy(buffer.data(), soundFile.data(), soundFile.size());
 	}
 	return true;
 }

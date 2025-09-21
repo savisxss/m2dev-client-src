@@ -3,7 +3,7 @@
 #include "Packet.h"
 #include "PythonNetworkStream.h"
 #include "EterBase/tea.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 // CHINA_CRYPT_KEY
 extern DWORD g_adwEncryptKey[4];
@@ -288,7 +288,6 @@ bool CAccountConnector::__AuthState_RecvPanamaPack()
 	if (!Recv(sizeof(TPacketGCPanamaPack), &kPacket))
 		return false;
 
-	CEterPackManager::instance().RegisterPack(kPacket.szPackName, "*", kPacket.abIV);
 	return true;
 }
 
@@ -304,7 +303,6 @@ bool CAccountConnector::__AuthState_RecvHybridCryptKeys(int iTotalSize)
 	if (!Recv(kPacket.iKeyStreamLen, kPacket.m_pStream))
 		return false;
 
-	CEterPackManager::Instance().RetrieveHybridCryptPackKeys( kPacket.m_pStream ); 
 	return true;
 }
 
@@ -320,7 +318,6 @@ bool CAccountConnector::__AuthState_RecvHybridCryptSDB(int iTotalSize)
 	if (!Recv(kPacket.iSDBStreamLen, kPacket.m_pStream))
 		return false;
 
-	CEterPackManager::Instance().RetrieveHybridCryptPackSDB( kPacket.m_pStream ); 
 	return true;
 }
 
@@ -363,7 +360,6 @@ bool CAccountConnector::__AuthState_RecvAuthSuccess()
 	else
 	{
 		DWORD dwPanamaKey = kAuthSuccessPacket.dwLoginKey ^ g_adwEncryptKey[0] ^ g_adwEncryptKey[1] ^ g_adwEncryptKey[2] ^ g_adwEncryptKey[3];
-		CEterPackManager::instance().DecryptPackIV(dwPanamaKey);
 
 		CPythonNetworkStream & rkNet = CPythonNetworkStream::Instance();
 		rkNet.SetLoginKey(kAuthSuccessPacket.dwLoginKey);

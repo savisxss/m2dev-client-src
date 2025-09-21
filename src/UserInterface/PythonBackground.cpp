@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "EterLib/CullingManager.h"
 #include "EterLib/Camera.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 #include "GameLib/MapOutDoor.h"
 #include "GameLib/PropertyLoader.h"
 
@@ -241,19 +241,7 @@ void CPythonBackground::Initialize()
 
 void CPythonBackground::__CreateProperty()
 {
-	if (CEterPackManager::SEARCH_FILE_FIRST == CEterPackManager::Instance().GetSearchMode() &&
-		_access("property", 0) == 0)
-	{
-		m_PropertyManager.Initialize(NULL);
-
-		CPropertyLoader PropertyLoader;
-		PropertyLoader.SetPropertyManager(&m_PropertyManager);
-		PropertyLoader.Create("*.*", "Property");
-	}
-	else
-	{
-		m_PropertyManager.Initialize("pack/property");
-	}
+	m_PropertyManager.Initialize("pack/property.pck");
 }
 
 //////////////////////////////////////////////////////////////////////

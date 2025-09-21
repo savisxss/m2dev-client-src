@@ -3,7 +3,8 @@
 add_library(EffectLib STATIC ${FILE_SOURCES})
 
 target_link_libraries(EffectLib 
-	lzo2
+	cryptopp-static
+	mio
 )
 
 GroupSourcesByFolder(EffectLib)

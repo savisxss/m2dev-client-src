@@ -1,5 +1,6 @@
 add_subdirectory(cryptopp)
 add_subdirectory(lzo-2.10)
+add_subdirectory(mio)
 
 ## zstd is a bit tricky
 set(ZSTD_BUILD_SHARED OFF CACHE BOOL "BUILD SHARED LIBRARIES" FORCE)

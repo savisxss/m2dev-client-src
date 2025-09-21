@@ -136,54 +136,6 @@ void GetTimeString(char * str, time_t ct)
             tm.tm_sec);
 }
 
-bool CProperty::Save(const char * c_pszFileName)
-{
-	CTempFile file;
-
-	DWORD fourcc = MAKEFOURCC('Y', 'P', 'R', 'T');
-	file.Write(&fourcc, sizeof(DWORD));
-	file.Write("\r\n", 2);
-
-	if (0 == m_stCRC.length())
-	{
-		char szCRC[MAX_PATH + 16 + 1];
-
-		GetTimeString(szCRC, time(0));
-		strcpy(szCRC + strlen(szCRC), c_pszFileName);
-
-		m_dwCRC = CPropertyManager::Instance().GetUniqueCRC(szCRC);
-		_snprintf(szCRC, sizeof(szCRC), "%u", m_dwCRC);
-
-		m_stCRC.assign(szCRC);
-	}
-
-	file.Write(m_stCRC.c_str(), m_stCRC.length());
-	file.Write("\r\n", 2);
-
-	CTokenVectorMap::iterator itor = m_stTokenMap.begin();
-	char buf[4096 + 1];
-
-	while (itor != m_stTokenMap.end())
-	{
-		CTokenVector & tokenVector = itor->second;
-
-		int len = _snprintf(buf, sizeof(buf), "%s\t", itor->first.c_str());
-		file.Write(buf, len);
-
-		for (DWORD i = 0; i < tokenVector.size(); ++i)
-		{
-			len = _snprintf(buf, sizeof(buf), "\t\"%s\"", tokenVector[i].c_str());
-			file.Write(buf, len);
-		}
-
-		file.Write("\r\n", 2);
-		++itor;
-	}
-
-	file.Close();
-	return CPropertyManager::Instance().Put(c_pszFileName, file.GetFileName());
-}
-
 bool CProperty::ReadFromMemory(const void * c_pvData, int iLen, const char * c_pszFileName)
 {
 	const char * pcData = (const char *) c_pvData;

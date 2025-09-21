@@ -9,8 +9,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "EterImageLib/TGAImage.h"
-
 #include "TextureSet.h"
 #include "TerrainType.h"
 
@@ -116,8 +114,6 @@ class CTerrainImpl
 		BYTE 					m_abyWaterMap[WATERMAP_YSIZE*WATERMAP_XSIZE];
 		CHAR 					m_acNormalMap[NORMALMAP_YSIZE*NORMALMAP_XSIZE*3];
 
-		TGA_HEADER				m_HeightMapHeader;
-		
 		WORD					m_wTileMapVersion;
 		
 		long					m_lViewRadius;

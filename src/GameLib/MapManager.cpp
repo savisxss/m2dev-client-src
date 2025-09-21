@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "EterLib/StateManager.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "MapManager.h"
 #include "MapOutdoor.h"
@@ -597,14 +597,13 @@ void CMapManager::GetBaseXY(DWORD * pdwBaseX, DWORD * pdwBaseY)
 
 void CMapManager::__LoadMapInfoVector()
 {
-	CMappedFile kFile;
-	LPCVOID pData;
-	if (!CEterPackManager::Instance().Get(kFile, m_stAtlasInfoFileName.c_str(), &pData))
-		if (!CEterPackManager::Instance().Get(kFile, "AtlasInfo.txt", &pData))
+	TPackFile kFile;
+	if (!CPackManager::Instance().GetFile(m_stAtlasInfoFileName, kFile))
+		if (!CPackManager::Instance().GetFile("AtlasInfo.txt", kFile))
 			return;
 
 	CMemoryTextFileLoader textFileLoader;
-	textFileLoader.Bind(kFile.Size(), pData);
+	textFileLoader.Bind(kFile.size(), kFile.data());
 
 	char szMapName[256];
 	int x, y;

@@ -2,7 +2,7 @@
 #include "PythonSkill.h"
 
 #include "EterBase/Poly/Poly.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 #include "InstanceBase.h"
 #include "PythonPlayer.h"
 
@@ -89,13 +89,12 @@ void string_replace_word(const char* base, int base_len, const char* src, int sr
 
 bool CPythonSkill::RegisterSkillTable(const char * c_szFileName)
 {
-	const VOID* pvData;
-	CMappedFile kFile;
-	if (!CEterPackManager::Instance().Get(kFile, c_szFileName, &pvData))
+	TPackFile kFile;
+	if (!CPackManager::Instance().GetFile(c_szFileName, kFile))
 		return false;
 
 	CMemoryTextFileLoader textFileLoader;
-	textFileLoader.Bind(kFile.Size(), pvData);
+	textFileLoader.Bind(kFile.size(), kFile.data());
 
 	// OVERWRITE_SKILLPROTO_POLY
 	std::string src_poly_rand;
@@ -279,13 +278,12 @@ void CPythonSkill::__RegisterNormalIconImage(TSkillData & rData, const char * c_
 extern const DWORD c_iSkillIndex_Riding;
 bool CPythonSkill::RegisterSkillDesc(const char * c_szFileName)
 {
-	const VOID* pvData;
-	CMappedFile kFile;
-	if (!CEterPackManager::Instance().Get(kFile, c_szFileName, &pvData))
+	TPackFile kFile;
+	if (!CPackManager::Instance().GetFile(c_szFileName, kFile))
 		return false;
 
 	CMemoryTextFileLoader textFileLoader;
-	textFileLoader.Bind(kFile.Size(), pvData);
+	textFileLoader.Bind(kFile.size(), kFile.data());
 
 	CTokenVector TokenVector;
 	for (DWORD i = 0; i < textFileLoader.GetLineCount(); ++i)

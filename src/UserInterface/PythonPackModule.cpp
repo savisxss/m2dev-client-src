@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 #include "EterBase/tea.h"
 
 // CHINA_CRYPT_KEY
@@ -45,7 +45,7 @@ PyObject * packExist(PyObject * poSelf, PyObject * poArgs)
 	if (!PyTuple_GetString(poArgs, 0, &strFileName))
 		return Py_BuildException();
 
-	return Py_BuildValue("i", CEterPackManager::Instance().isExist(strFileName)?1:0);
+	return Py_BuildValue("i", CPackManager::Instance().IsExist(strFileName) ? 1 : 0);
 }
 
 PyObject * packGet(PyObject * poSelf, PyObject * poArgs)
@@ -63,11 +63,9 @@ PyObject * packGet(PyObject * poSelf, PyObject * poArgs)
 			(stricmp(pcExt, ".pyc") == 0) ||
 			(stricmp(pcExt, ".txt") == 0))
 		{
-			CMappedFile file;
-			const void * pData = NULL;
-
-			if (CEterPackManager::Instance().Get(file,strFileName,&pData))
-				return Py_BuildValue("s#",pData, file.Size());
+			TPackFile file;
+			if (CPackManager::Instance().GetFile(strFileName, file))
+				return Py_BuildValue("s#",file.data(), file.size());
 		}
 	}
 

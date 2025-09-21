@@ -3,8 +3,8 @@
 add_library(EterPythonLib STATIC ${FILE_SOURCES})
 
 target_link_libraries(EterPythonLib 
-	lzo2
 	cryptopp-static
+	mio
 )
 
 GroupSourcesByFolder(EterPythonLib)

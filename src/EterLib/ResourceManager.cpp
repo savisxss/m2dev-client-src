@@ -3,7 +3,7 @@
 #include "EterBase/CRC32.h"
 #include "EterBase/Timer.h"
 #include "EterBase/Stl.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "ResourceManager.h"
 #include "GrpImage.h"
@@ -71,7 +71,7 @@ void CResourceManager::ProcessBackgroundLoading()
 		{
 			if (pResource->IsEmpty())
 			{				
-				pResource->OnLoad(pData->dwSize, pData->pvBuf);
+				pResource->OnLoad(pData->File.size(), pData->File.data());
 				pResource->AddReferenceOnly();
 
 				// 여기서 올라간 레퍼런스 카운트를 일정 시간이 지난 뒤에 풀어주기 위하여
@@ -81,7 +81,6 @@ void CResourceManager::ProcessBackgroundLoading()
 
 		m_WaitingMap.erase(GetCRC32(pData->stFileName.c_str(), pData->stFileName.size()));
 
-		delete [] ((char *) pData->pvBuf);
 		delete pData;
 	}
 
@@ -472,7 +471,7 @@ void CResourceManager::DumpFileListToTextFile(const char* c_szFileName)
 
 bool CResourceManager::IsFileExist(const char * c_szFileName)
 {
-	return CEterPackManager::Instance().isExist(c_szFileName);
+	return CPackManager::Instance().IsExist(c_szFileName);
 }
 
 void CResourceManager::Update()

@@ -7,9 +7,7 @@
 
 #include <vector>
 #include "EterBase/Filename.h"
-
-#include "EterBase/MappedFile.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "SpeedTreeForest.h"
 #include "SpeedTreeConfig.h"
@@ -84,23 +82,20 @@ BOOL CSpeedTreeForest::GetMainTree(DWORD dwCRC, SpeedTreeWrapperPtr &ppMainTree,
 		pTree = itor->second;
 	else
 	{
-		CMappedFile file;
-		LPCVOID c_pvData;
+		TPackFile file;
 
-		if (!CEterPackManager::Instance().Get(file, c_pszFileName, &c_pvData))
+		if (!CPackManager::Instance().GetFile(c_pszFileName, file))
 			return FALSE;
 
 		pTree = std::make_shared<CSpeedTreeWrapper>();
 
-		if (!pTree->LoadTree(c_pszFileName, (const BYTE *) c_pvData, file.Size()))
+		if (!pTree->LoadTree(c_pszFileName, (const BYTE *)file.data(), file.size()))
 		{
 			pTree.reset();
 			return FALSE;
 		}
 
 		m_pMainTreeMap.insert(std::map<DWORD, SpeedTreeWrapperPtr>::value_type(dwCRC, pTree));
-
-		file.Destroy();
 	}
 
 	ppMainTree = pTree;

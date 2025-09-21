@@ -3,7 +3,8 @@
 add_library(EterImageLib STATIC ${FILE_SOURCES})
 
 target_link_libraries(EterImageLib 
-	lzo2
+	cryptopp-static
+	mio
 )
 
 GroupSourcesByFolder(EterImageLib)

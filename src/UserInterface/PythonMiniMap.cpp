@@ -2,7 +2,7 @@
 #include "EterLib/StateManager.h"
 #include "EterLib/GrpSubImage.h"
 #include "EterLib/Camera.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "PythonMiniMap.h"
 #include "PythonBackground.h"
@@ -878,7 +878,7 @@ bool CPythonMiniMap::LoadAtlas()
 
 	char atlasFileName[1024+1];
 	snprintf(atlasFileName, sizeof(atlasFileName), "%s/atlas.sub", rkMap.GetName().c_str());	
-	if (!CEterPackManager::Instance().isExist(atlasFileName))		
+	if (!CPackManager::Instance().IsExist(atlasFileName))		
 	{
 		snprintf(atlasFileName, sizeof(atlasFileName), "d:/ymir work/ui/atlas/%s/atlas.sub", rkMap.GetName().c_str());
 	}

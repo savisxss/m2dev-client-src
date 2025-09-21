@@ -4,7 +4,7 @@
 #include <deque>
 #include "Thread.h"
 #include "Mutex.h"
-#include "EterBase/MappedFile.h"
+#include "PackLib/PackManager.h"
 
 class CFileLoaderThread 
 {
@@ -12,10 +12,7 @@ class CFileLoaderThread
 		typedef struct SData
 		{
 			std::string	stFileName;
-
-			CMappedFile	File;
-			LPVOID		pvBuf;
-			DWORD		dwSize;
+			TPackFile	File;
 		} TData;
 
 	public:

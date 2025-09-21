@@ -3,8 +3,8 @@
 add_library(SpeedTreeLib STATIC ${FILE_SOURCES})
 
 target_link_libraries(SpeedTreeLib 
-	lzo2
 	cryptopp-static
+	mio
 )
 
 GroupSourcesByFolder(SpeedTreeLib)

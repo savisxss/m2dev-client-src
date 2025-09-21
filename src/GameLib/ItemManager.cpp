@@ -1,6 +1,7 @@
 #include "StdAfx.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 #include "EterLib/ResourceManager.h"
+#include "EterBase/lzo.h"
 
 #include "ItemManager.h"
 
@@ -95,14 +96,13 @@ CItemData * CItemManager::MakeItemData(DWORD dwIndex)
 
 bool CItemManager::LoadItemList(const char * c_szFileName)
 {
-	CMappedFile File;
-	LPCVOID pData;
+	TPackFile File;
 
-	if (!CEterPackManager::Instance().Get(File, c_szFileName, &pData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, File))
 		return false;
 
 	CMemoryTextFileLoader textFileLoader;
-	textFileLoader.Bind(File.Size(), pData);
+	textFileLoader.Bind(File.size(), File.data());
 
 	CTokenVector TokenVector;
     for (DWORD i = 0; i < textFileLoader.GetLineCount(); ++i)
@@ -196,16 +196,15 @@ const std::string& __SnapString(const std::string& c_rstSrc, std::string& rstTem
 
 bool CItemManager::LoadItemDesc(const char* c_szFileName)
 {
-	const VOID* pvData;
-	CMappedFile kFile;
-	if (!CEterPackManager::Instance().Get(kFile, c_szFileName, &pvData))
+	TPackFile kFile;
+	if (!CPackManager::Instance().GetFile(c_szFileName, kFile))
 	{
 		Tracenf("CItemManager::LoadItemDesc(c_szFileName=%s) - Load Error", c_szFileName);
 		return false;
 	}
 
 	CMemoryTextFileLoader kTextFileLoader;
-	kTextFileLoader.Bind(kFile.Size(), pvData);
+	kTextFileLoader.Bind(kFile.size(), kFile.data());
 
 	std::string stTemp;
 
@@ -254,22 +253,27 @@ DWORD GetHashCode( const char* pString )
 
 bool CItemManager::LoadItemTable(const char* c_szFileName)
 {	
-	CMappedFile file;
+	TPackFile file;
 	LPCVOID pvData;
 
-	if (!CEterPackManager::Instance().Get(file, c_szFileName, &pvData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, file))
 		return false;
 
 	DWORD dwFourCC, dwElements, dwDataSize;
 	DWORD dwVersion=0;
 	DWORD dwStride=0;
 
-	file.Read(&dwFourCC, sizeof(DWORD));
+	uint8_t* p = file.data();
+	memcpy(&dwFourCC, p, sizeof(DWORD));
+	p += sizeof(DWORD);
 
 	if (dwFourCC == MAKEFOURCC('M', 'I', 'P', 'X'))
 	{
-		file.Read(&dwVersion, sizeof(DWORD));
-		file.Read(&dwStride, sizeof(DWORD));
+		memcpy(&dwVersion, p, sizeof(DWORD));
+		p += sizeof(DWORD);
+
+		memcpy(&dwStride, p, sizeof(DWORD));
+		p += sizeof(DWORD);
 	
 		if (dwVersion != 1)
 		{
@@ -289,11 +293,14 @@ bool CItemManager::LoadItemTable(const char* c_szFileName)
 		return false;
 	}
 
-	file.Read(&dwElements, sizeof(DWORD));
-	file.Read(&dwDataSize, sizeof(DWORD));
+	memcpy(&dwElements, p, sizeof(DWORD));
+	p += sizeof(DWORD);
+
+	memcpy(&dwDataSize, p, sizeof(DWORD));
+	p += sizeof(DWORD);
 
 	BYTE * pbData = new BYTE[dwDataSize];
-	file.Read(pbData, dwDataSize);
+	memcpy(pbData, p, dwDataSize);
 
 	/////
 

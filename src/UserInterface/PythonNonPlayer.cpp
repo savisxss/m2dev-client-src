@@ -1,5 +1,6 @@
 #include "stdafx.h"
-#include "EterPack/EterPackManager.h"
+#include "EterBase/lzo.h"
+#include "PackLib/PackManager.h"
 #include "pythonnonplayer.h"
 #include "InstanceBase.h"
 #include "PythonCharacterManager.h"
@@ -14,17 +15,15 @@ bool CPythonNonPlayer::LoadNonPlayerData(const char * c_szFileName)
 		6822045
 	};
 
-	CMappedFile file;
-	LPCVOID pvData;
+	TPackFile file;
 
 	Tracef("CPythonNonPlayer::LoadNonPlayerData: %s, sizeof(TMobTable)=%u\n", c_szFileName, sizeof(TMobTable));
 
-	if (!CEterPackManager::Instance().Get(file, c_szFileName, &pvData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, file))
 		return false;
 
 	DWORD dwFourCC, dwElements, dwDataSize;
-
-	file.Read(&dwFourCC, sizeof(DWORD));
+	memcpy(&dwFourCC, file.data(), sizeof(DWORD));
 
 	if (dwFourCC != MAKEFOURCC('M', 'M', 'P', 'T'))
 	{
@@ -32,11 +31,11 @@ bool CPythonNonPlayer::LoadNonPlayerData(const char * c_szFileName)
 		return false;
 	}
 
-	file.Read(&dwElements, sizeof(DWORD));
-	file.Read(&dwDataSize, sizeof(DWORD));
+	memcpy(&dwElements, file.data() + sizeof(DWORD), sizeof(DWORD));
+	memcpy(&dwDataSize, file.data() + sizeof(DWORD) * 2, sizeof(DWORD));
 
 	BYTE * pbData = new BYTE[dwDataSize];
-	file.Read(pbData, dwDataSize);
+	memcpy(pbData, file.data() + sizeof(DWORD) * 3, dwDataSize);
 	/////
 
 	CLZObject zObj;

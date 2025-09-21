@@ -1,5 +1,5 @@
 #include "Stdafx.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "terrain.h"
 #include <math.h>
@@ -42,7 +42,6 @@ void CTerrainImpl::Initialize()
 	memset(m_lWaterHeight, -1, sizeof(m_lWaterHeight));
 
 	m_byNumWater = 0;
-	memset(&m_HeightMapHeader, 0, sizeof(TGA_HEADER));
 	memset(&m_awShadowMap, 0xFFFF, sizeof(m_awShadowMap));
 	memset(&m_lpAlphaTexture, NULL, sizeof(m_lpAlphaTexture));
 	
@@ -76,17 +75,16 @@ bool CTerrainImpl::LoadHeightMap(const char*c_szFileName)
 {
 	Tracef("LoadRawHeightMapFile %s ", c_szFileName);
 	
-	CMappedFile	kMappedFile;
-	LPCVOID		lpcvFileData;
+	TPackFile	kMappedFile;
 	
-	if (!CEterPackManager::Instance().Get(kMappedFile, c_szFileName, &lpcvFileData))
+	if (!CPackManager::Instance().GetFile( c_szFileName, kMappedFile))
 	{
 		Tracen("Error");
 		TraceError("CTerrainImpl::LoadHeightMap - %s OPEN ERROR", c_szFileName);
 		return false;
 	}
 	
-	memcpy(m_awRawHeightMap, lpcvFileData, sizeof(WORD)*HEIGHTMAP_RAW_XSIZE*HEIGHTMAP_RAW_YSIZE);
+	memcpy(m_awRawHeightMap, kMappedFile.data(), sizeof(WORD) * HEIGHTMAP_RAW_XSIZE * HEIGHTMAP_RAW_YSIZE);
 	
 	return true;
 }
@@ -96,17 +94,16 @@ bool CTerrainImpl::LoadAttrMap(const char *c_szFileName)
 	DWORD dwStart = ELTimer_GetMSec();
 	Tracef("LoadAttrMapFile %s ", c_szFileName);
 
-	CMappedFile	kMappedFile;
-	LPCVOID		lpcvFileData;
+	TPackFile	kMappedFile;
 
-	if (!CEterPackManager::Instance().Get(kMappedFile, c_szFileName, &lpcvFileData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, kMappedFile))
 	{
 		TraceError("CTerrainImpl::LoadAttrMap - %s OPEN ERROR", c_szFileName);
 		return false;
 	}
 
-	DWORD dwFileSize = kMappedFile.Size();
-	BYTE * abFileData = (BYTE *) lpcvFileData;
+	DWORD dwFileSize = kMappedFile.size();
+	BYTE * abFileData = kMappedFile.data();
 
 	// LoadAttrMap
 	{
@@ -168,17 +165,16 @@ bool CTerrainImpl::RAW_LoadTileMap(const char * c_szFileName)
 {
 	Tracef("LoadSplatFile %s ", c_szFileName);
 	
-	CMappedFile	kMappedFile;
-	LPCVOID		lpcvFileData;
+	TPackFile	kMappedFile;
 	
-	if (!CEterPackManager::Instance().Get(kMappedFile, c_szFileName, &lpcvFileData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, kMappedFile))
 	{
 		Tracen("Error");
 		TraceError("CTerrainImpl::RAW_LoadTileMap - %s OPEN ERROR", c_szFileName);
 		return false;
 	}
 	
-	memcpy(m_abyTileMap, lpcvFileData, sizeof(BYTE)*(TILEMAP_RAW_XSIZE)*(TILEMAP_RAW_YSIZE));
+	memcpy(m_abyTileMap, kMappedFile.data(), sizeof(BYTE) * (TILEMAP_RAW_XSIZE) * (TILEMAP_RAW_YSIZE));
 	
 	return true;
 
@@ -206,18 +202,17 @@ bool CTerrainImpl::LoadWaterMap(const char * c_szFileName)
 
 bool CTerrainImpl::LoadWaterMapFile(const char * c_szFileName)
 {	
-	CMappedFile	kMappedFile;
-	LPCVOID		lpcvFileData;
+	TPackFile	kMappedFile;
 
-	if (!CEterPackManager::Instance().Get(kMappedFile, c_szFileName, &lpcvFileData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, kMappedFile))
 	{
 		Tracen("Error");
 		TraceError("CTerrainImpl::LoadWaterMap - %s OPEN ERROR", c_szFileName);
 		return false;
 	}	
 
-	DWORD	dwFileSize = kMappedFile.Size();
-	BYTE*	abFileData = (BYTE*)lpcvFileData;	
+	DWORD	dwFileSize = kMappedFile.size();
+	BYTE*	abFileData = kMappedFile.data();
 
 	{
 #pragma pack(push)

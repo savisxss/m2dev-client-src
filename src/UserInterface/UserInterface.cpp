@@ -9,9 +9,12 @@
 #include <crtdbg.h>
 #endif
 
-#include "eterPack/EterPackManager.h"
 #include "eterLib/Util.h"
 #include "eterBase/CPostIt.h"
+#include "EterBase/lzo.h"
+
+#include "PackLib/PackManager.h"
+#include <filesystem>
 
 extern "C" {  
 extern int _fltused;  
@@ -136,73 +139,124 @@ bool PackInitialize(const char * c_pszFolder)
 	if (_access(c_pszFolder, 0) != 0)
 		return false;
 
-	std::string stFolder(c_pszFolder);
-	stFolder += "/";
+	std::vector<std::string> packFiles = {
+		"patch1",
+		"season3_eu",
+		"patch2",
+		"metin2_patch_snow",
+		"metin2_patch_snow_dungeon",
+		"metin2_patch_etc_costume1",
+		"metin2_patch_pet1",
+		"metin2_patch_pet2",
+		"metin2_patch_ramadan_costume",
+		"metin2_patch_flame",
+		"metin2_patch_flame_dungeon",
+		"metin2_patch_w21_etc",
+		"metin2_patch_w21_mobs",
+		"metin2_patch_w21_mobs_m",
+		"metin2_patch_dss_box",
+		"metin2_patch_costume_soccer",
+		"metin2_patch_easter1",
+		"metin2_patch_mineral",
+		"metin2_patch_w20_sound",
+		"metin2_patch_ds",
+		"metin2_patch_5th_armor",
+		"metin2_patch_w20_etc",
+		"metin2_patch_dragon_rock",
+		"metin2_patch_dragon_rock_mobs",
+		"metin2_patch_etc",
+		"metin2_patch_xmas",
+		"metin2_patch_eu3",
+		"metin2_patch_eu4",
+		"metin2_patch_mundi",
+		"metin2_patch_sd",
+		"metin2_patch_halloween",
+		"metin2_patch_party",
+		"metin2_patch_dance",
+		"pc",
+		"pc2",
+		"monster",
+		"monster2",
+		"effect",
+		"zone",
+		"terrain",
+		"npc",
+		"npc2",
+		"tree",
+		"guild",
+		"item",
+		"textureset",
+		"property",
+		"icon",
+		"season1",
+		"season2",
+		"outdoora1",
+		"outdoora2",
+		"outdoora3",
+		"outdoorb1",
+		"outdoorb3",
+		"outdoorc1",
+		"outdoorc3",
+		"outdoorsnow1",
+		"outdoordesert1",
+		"outdoorflame1",
+		"outdoorfielddungeon1",
+		"outdoort1",
+		"outdoort2",
+		"outdoort3",
+		"outdoort4",
+		"outdoorwedding",
+		"outdoormilgyo1",
+		"indoorspiderdungeon1",
+		"indoordeviltower1",
+		"indoormonkeydungeon1",
+		"indoormonkeydungeon2",
+		"indoormonkeydungeon3",
+		"outdoortrent",
+		"outdoortrent02",
+		"outdoorguild1",
+		"outdoorguild2",
+		"outdoorguild3",
+		"outdoorduel",
+		"outdoorgmguildbuild",
+		"sound",
+		"sound_m",
+		"sound2",
+		"bgm",
+		"locale_ca",
+		"locale_ae",
+		"locale_de",
+		"locale_es",
+		"locale_fr",
+		"locale_gr",
+		"locale_it",
+		"locale_nl",
+		"locale_pl",
+		"locale_pt",
+		"locale_tr",
+		"locale_uk",
+		"locale_bg",
+		"locale_en",
+		"locale_mx",
+		"locale_ro",
+		"locale_ru",
+		"locale_dk",
+		"locale_cz",
+		"locale_hu",
+		"locale_us",
+		"locale_pa",
+		"uiscript",
+		"ETC",
+		"uiloading",
+	};
 
-	std::string stFileName(stFolder);
-	stFileName += "Index";
+	std::filesystem::path folderPath = c_pszFolder;
 
-	CMappedFile file;
-	LPCVOID pvData;
-
-	if (!file.Create(stFileName.c_str(), &pvData, 0, 0))
-	{
-		LogBoxf("FATAL ERROR! File not exist: %s", stFileName.c_str());
-		TraceError("FATAL ERROR! File not exist: %s", stFileName.c_str());
-		return true;
+	CPackManager::instance().AddPack((folderPath / "root.pck").generic_string());
+	for (const std::string& packFileName : packFiles) {
+		CPackManager::instance().AddPack((folderPath / (packFileName + ".pck")).generic_string());
 	}
 
-	CMemoryTextFileLoader TextLoader;
-	TextLoader.Bind(file.Size(), pvData);
-
-	bool bPackFirst = TRUE;
-
-	const std::string& strPackType = TextLoader.GetLineString(0);
-
-	if (strPackType.compare("FILE") && strPackType.compare("PACK"))
-	{
-		TraceError("Pack/Index has invalid syntax. First line must be 'PACK' or 'FILE'");
-		return false;
-	}
-
-#ifdef _DISTRIBUTE
-	Tracef("알림: 팩 모드입니다.\n");
-	
-	//if (0 == strPackType.compare("FILE"))
-	//{
-	//	bPackFirst = FALSE;
-	//	Tracef("알림: 파일 모드입니다.\n");
-	//}
-	//else
-	//{
-	//	Tracef("알림: 팩 모드입니다.\n");
-	//}
-#else
-	bPackFirst = FALSE;
-	Tracef("알림: 파일 모드입니다.\n");
-#endif
-
-	CTextFileLoader::SetCacheMode();
-#if defined(USE_RELATIVE_PATH)
-	CEterPackManager::Instance().SetRelativePathMode();
-#endif
-	CEterPackManager::Instance().SetCacheMode();
-	CEterPackManager::Instance().SetSearchMode(bPackFirst);
-
-	std::string strPackName, strTexCachePackName;
-	for (DWORD i = 1; i < TextLoader.GetLineCount() - 1; i += 2)
-	{
-		const std::string & c_rstFolder = TextLoader.GetLineString(i);
-		const std::string & c_rstName = TextLoader.GetLineString(i + 1);
-
-		strPackName = stFolder + c_rstName;
-		strTexCachePackName = strPackName + "_texcache";
-
-		CEterPackManager::Instance().RegisterPack(strPackName.c_str(), c_rstFolder.c_str());
-		CEterPackManager::Instance().RegisterPack(strTexCachePackName.c_str(), c_rstFolder.c_str());
-	}
-
-	CEterPackManager::Instance().RegisterRootPack((stFolder + std::string("root")).c_str());
 	NANOEND
 	return true;
 }
@@ -362,7 +416,7 @@ bool Main(HINSTANCE hInstance, LPSTR lpCmdLine)
 #endif
 
 	static CLZO				lzo;
-	static CEterPackManager	EterPackManager;
+	CPackManager			packMgr;
 
 	if (!PackInitialize("pack"))
 	{

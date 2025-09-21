@@ -1,5 +1,6 @@
 #include "StdAfx.h"
-#include "EterPack/EterPackManager.h"
+#include "EterBase/Stl.h"
+#include "PackLib/PackManager.h"
 #include "FileLoaderThread.h"
 #include "ResourceManager.h"
 
@@ -115,8 +116,7 @@ void CFileLoaderThread::Request(std::string & c_rstFileName)	// called in main t
 {
 	TData * pData = new TData;
 
-	pData->dwSize = 0;
-	pData->pvBuf = NULL;
+	pData->File.clear();
 	pData->stFileName = c_rstFileName;
 
 	m_RequestMutex.Lock();
@@ -163,14 +163,7 @@ void CFileLoaderThread::Process()	// called in loader thread
 
 	m_RequestMutex.Unlock();
 
-	LPCVOID pvBuf;
-
-	if (CEterPackManager::Instance().Get(pData->File, pData->stFileName.c_str(), &pvBuf))
-	{
-		pData->dwSize	= pData->File.Size();
-		pData->pvBuf	= new char [pData->dwSize];
-		memcpy(pData->pvBuf, pvBuf, pData->dwSize);
-	}
+	CPackManager::instance().GetFile(pData->stFileName, pData->File);
 
 	m_CompleteMutex.Lock();
 	m_pCompleteDeque.push_back(pData);

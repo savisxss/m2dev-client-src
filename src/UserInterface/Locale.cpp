@@ -3,7 +3,6 @@
 #include "PythonApplication.h"
 #include "resource.h"
 #include "EterBase/CRC32.h"
-#include "EterPack/EterPackManager.h"
 #include "EterLocale/Japanese.h"
 #include <windowsx.h>
 

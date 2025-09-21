@@ -17,17 +17,18 @@ target_link_libraries(UserInterface
 	EterImageLib 
 	EterLib
 	EterLocale
-	EterPack
 	EterPythonLib
 	GameLib
 	PRTerrainLib
 	ScriptLib
 	SpeedTreeLib
 	SphereLib
+	PackLib
 	
 	cryptopp-static
 	lzo2
 	libzstd_static
+	mio
 	
 	DirectX
 	Granny

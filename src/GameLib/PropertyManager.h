@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EterPack/EterPack.h"
+#include "PackLib/PackManager.h"
 
 class CPropertyManager : public CSingleton<CPropertyManager>
 {
@@ -9,9 +9,6 @@ class CPropertyManager : public CSingleton<CPropertyManager>
 		virtual ~CPropertyManager();
 
 		void			Clear();
-
-		void			SetPack(CEterPack * pPack);
-		bool			BuildPack();
 
 		bool			LoadReservedCRC(const char * c_pszFileName);
 		void			ReserveCRC(DWORD dwCRC);
@@ -23,14 +20,6 @@ class CPropertyManager : public CSingleton<CPropertyManager>
 		bool			Get(DWORD dwCRC, CProperty ** ppProperty);
 		bool			Get(const char * c_pszFileName, CProperty ** ppProperty);
 
-//		bool			Add(const char * c_pszFileName);
-//		bool			Remove(DWORD dwCRC);
-
-		bool			Put(const char * c_pszFileName, const char * c_pszSourceFileName);
-
-		bool			Erase(DWORD dwCRC);
-		bool			Erase(const char * c_pszFileName);
-
 	protected:
 		typedef std::map<DWORD, CProperty *>		TPropertyCRCMap;
 		typedef std::set<DWORD>						TCRCSet;
@@ -38,6 +27,6 @@ class CPropertyManager : public CSingleton<CPropertyManager>
 		bool										m_isFileMode;
 		TPropertyCRCMap								m_PropertyByCRCMap;
 		TCRCSet										m_ReservedCRCSet;
-		CEterPack									m_pack;
-		CEterFileDict								m_fileDict;
+		std::shared_ptr<CPack>						m_pack;
+		TPackFileMap								m_fileDict;
 };

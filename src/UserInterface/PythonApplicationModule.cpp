@@ -2,6 +2,7 @@
 #include "Resource.h"
 #include "PythonApplication.h"
 #include "EterLib/Camera.h"
+#include "PackLib/PackManager.h"
 
 #include <stb_image.h>
 
@@ -339,15 +340,13 @@ PyObject* appGetImageInfo(PyObject* poSelf, PyObject* poArgs)
 }
 #endif
 
-#include "EterPack/EterPackManager.h"
-
 PyObject* appIsExistFile(PyObject* poSelf, PyObject* poArgs)
 {
 	char* szFileName;
 	if (!PyTuple_GetString(poArgs, 0, &szFileName))
 		return Py_BuildException();
 
-	bool isExist=CEterPackManager::Instance().isExist(szFileName);
+	bool isExist=CPackManager::Instance().IsExist(szFileName);
 
 	return Py_BuildValue("i", isExist);
 }
@@ -1021,12 +1020,11 @@ class CTextLineLoader
 	public:
 		CTextLineLoader(const char * c_szFileName)
 		{
-			const VOID* pvData;
-			CMappedFile kFile;
-			if (!CEterPackManager::Instance().Get(kFile, c_szFileName, &pvData))
+			TPackFile kFile;
+			if (!CPackManager::Instance().GetFile(c_szFileName, kFile))
 				return;
 
-			m_kTextFileLoader.Bind(kFile.Size(), pvData);
+			m_kTextFileLoader.Bind(kFile.size(), kFile.data());
 		}
 
 		DWORD GetLineCount()

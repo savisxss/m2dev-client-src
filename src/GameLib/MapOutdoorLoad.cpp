@@ -3,7 +3,7 @@
 #include "AreaTerrain.h"
 #include "AreaLoaderThread.h"
 #include "EterLib/ResourceManager.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 //CAreaLoaderThread CMapOutdoor::ms_AreaLoaderThread;
 
@@ -11,7 +11,6 @@ bool CMapOutdoor::Load(float x, float y, float z)
 {
 	Destroy();
 
-	CEterPackManager& rkPackMgr=CEterPackManager::Instance();
 	{
 		static std::string s_strOldPathName="";
 
@@ -42,7 +41,7 @@ bool CMapOutdoor::Load(float x, float y, float z)
 
 	// LOCAL_ENVIRONMENT_DATA
 	std::string local_envDataName = GetMapDataDirectory() + "\\" + m_settings_envDataName;
-	if (rkPackMgr.isExist(local_envDataName.c_str()))
+	if (CPackManager::instance().IsExist(local_envDataName.c_str()))
 	{
 		m_envDataName = local_envDataName;
 	}
@@ -440,10 +439,9 @@ bool CMapOutdoor::LoadMonsterAreaInfo()
 	char c_szFileName[256];
 	sprintf(c_szFileName, "%s\\regen.txt", GetMapDataDirectory().c_str());
 	
-	LPCVOID pModelData;
-	CMappedFile File;
+	TPackFile File;
 	
-	if (!CEterPackManager::Instance().Get(File, c_szFileName, &pModelData))
+	if (!CPackManager::Instance().GetFile(c_szFileName, File))
 	{
 		//TraceError(" CMapOutdoorAccessor::LoadMonsterAreaInfo Load File %s ERROR", c_szFileName);
 		return false;
@@ -452,7 +450,7 @@ bool CMapOutdoor::LoadMonsterAreaInfo()
 	CMemoryTextFileLoader textFileLoader;
 	CTokenVector stTokenVector;
 	
-	textFileLoader.Bind(File.Size(), pModelData);
+	textFileLoader.Bind(File.size(), File.data());
 	
 	for (DWORD i = 0; i < textFileLoader.GetLineCount(); ++i)
 	{

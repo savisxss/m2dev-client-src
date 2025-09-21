@@ -19,8 +19,6 @@ class CProperty
 		void			PutVector(const char * c_pszKey, const CTokenVector & c_rTokenVector);
 		void			PutString(const char * c_pszKey, const char * c_pszString);
 
-		bool			Save(const char * c_pszFileName);
-
 		DWORD			GetSize();
 		DWORD			GetCRC();
 

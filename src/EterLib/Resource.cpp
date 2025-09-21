@@ -1,5 +1,6 @@
 #include "StdAfx.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
+#include "EterBase/Stl.h"
 #include "EterBase/CRC32.h"
 #include "EterBase/Timer.h"
 
@@ -43,17 +44,16 @@ void CResource::Load()
 	const char * c_szFileName = GetFileName();
 
 	DWORD		dwStart = ELTimer_GetMSec();
-	CMappedFile	file;
-	LPCVOID		fileData;
+	TPackFile	file;
 
 	//Tracenf("Load %s", c_szFileName);
 
-	if (CEterPackManager::Instance().Get(file, c_szFileName, &fileData))
+	if (CPackManager::Instance().GetFile(c_szFileName, file))
 	{
 		m_dwLoadCostMiliiSecond = ELTimer_GetMSec() - dwStart;
 		//Tracef("CResource::Load %s (%d bytes) in %d ms\n", c_szFileName, file.Size(), m_dwLoadCostMiliiSecond);
 
-		if (OnLoad(file.Size(), fileData))
+		if (OnLoad(file.size(), file.data()))
 		{
 			me_state = STATE_EXIST;
 		}
@@ -81,12 +81,10 @@ void CResource::Reload()
 	Clear();
 	Tracef("CResource::Reload %s\n", GetFileName());
 
-	CMappedFile	file;
-	LPCVOID		fileData;
-
-	if (CEterPackManager::Instance().Get(file, GetFileName(), &fileData))
+	TPackFile	file;
+	if (CPackManager::Instance().GetFile(GetFileName(), file))
 	{
-		if (OnLoad(file.Size(), fileData))
+		if (OnLoad(file.size(), file.data()))
 		{
 			me_state = STATE_EXIST;
 		}

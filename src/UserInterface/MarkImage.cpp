@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MarkImage.h"
+#include "EterBase/lzo.h"
 
 #include <stb_image.h>
 #include <stb_image_write.h>

@@ -2,7 +2,7 @@
 #include "PythonEventManager.h"
 #include "PythonNetworkStream.h"
 #include "PythonNonPlayer.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 #include "PythonMiniMap.h"
 #include "AbstractApplication.h"
 
@@ -104,16 +104,14 @@ void CPythonEventManager::__InitEventSet(TEventSet& rEventSet)
 
 int CPythonEventManager::RegisterEventSet(const char * c_szFileName)
 {
-	CMappedFile File;
-	LPCVOID pMap;
+	TPackFile File;
 
-	if (!CEterPackManager::Instance().Get(File, c_szFileName, &pMap))
+	if (!CPackManager::Instance().GetFile(c_szFileName, File))
 		return -1;
 
 	std::string strEventString;
-	strEventString.resize(File.Size()+1);
-
-	File.Read(&strEventString[0], File.Size());
+	strEventString.resize(File.size() + 1);
+	memcpy(strEventString.data(), File.data(), File.size());
 
 	TEventSet * pEventSet = m_EventSetPool.Alloc();
 	if (!pEventSet)

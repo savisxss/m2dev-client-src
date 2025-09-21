@@ -4,7 +4,7 @@
 #undef BYTE
 #endif
 
-#include "eterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "PythonLauncher.h"
 
@@ -232,29 +232,13 @@ bool CPythonLauncher::RunMemoryTextFile(const char* c_szFileName, UINT uFileSize
 
 bool CPythonLauncher::RunFile(const char* c_szFileName)
 {
-	char* acBufData=NULL;
-	DWORD dwBufSize=0;
-	
-	{
-		CMappedFile file;
-		const VOID* pvData;
-		CEterPackManager::Instance().Get(file, c_szFileName, &pvData);
+	TPackFile file;
+	CPackManager::Instance().GetFile(c_szFileName, file);
 		
-		dwBufSize=file.Size();
-		if (dwBufSize==0)
-			return false;
+	if (file.empty())
+		return false;
 		
-		acBufData=new char[dwBufSize];
-		memcpy(acBufData, pvData, dwBufSize);	
-	}
-
-	bool ret=false;
-	
-	ret=RunMemoryTextFile(c_szFileName, dwBufSize, acBufData);
-
-	delete [] acBufData;
-	
-	return ret;
+	return RunMemoryTextFile(c_szFileName, file.size(), file.data());
 }
 
 bool CPythonLauncher::RunLine(const char* c_szSrc)

@@ -3,7 +3,7 @@
 
 #include "EterLib/ResourceManager.h"
 #include "EterLib/StateManager.h"
-#include "EterPack/EterPackManager.h"
+#include "PackLib/PackManager.h"
 
 #include "AreaTerrain.h"
 #include "MapOutdoor.h"
@@ -106,10 +106,9 @@ bool CTerrain::LoadShadowMap(const char * c_pszFileName)
 	DWORD dwStart = ELTimer_GetMSec();
 	Tracef("LoadShadowMap %s ", c_pszFileName);
 
-	CMappedFile file;
-	LPCVOID c_pvData;
+	TPackFile file;
 
-	if (!CEterPackManager::Instance().Get(file, c_pszFileName, &c_pvData))
+	if (!CPackManager::Instance().GetFile(c_pszFileName, file))
 	{
 		TraceError(" CTerrain::LoadShadowMap - %s OPEN ERROR", c_pszFileName);
 		return false;
@@ -117,13 +116,13 @@ bool CTerrain::LoadShadowMap(const char * c_pszFileName)
 
 	DWORD dwShadowMapSize = sizeof(WORD) * 256 * 256;
 
-	if (file.Size() != dwShadowMapSize)
+	if (file.size() != dwShadowMapSize)
 	{
 		TraceError(" CTerrain::LoadShadowMap - %s SIZE ERROR", c_pszFileName);
 		return false;
 	}
 
-	memcpy(m_awShadowMap, c_pvData, dwShadowMapSize);
+	memcpy(m_awShadowMap, file.data(), dwShadowMapSize);
 
 	Tracef("%d ms\n", ELTimer_GetMSec() - dwStart);
 	return true;
