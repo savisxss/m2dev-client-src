@@ -48,6 +48,8 @@
 #include "SpeedTreeWrapper.h"
 #include "VertexShaders.h"
 
+#include <filesystem>
+
 using namespace std;
 
 LPDIRECT3DVERTEXDECLARATION9 CSpeedTreeWrapper::ms_dwBranchVertexShader = nullptr;
@@ -429,15 +431,28 @@ bool CSpeedTreeWrapper::LoadTree(const char * pszSptFile, const BYTE * c_pbBlock
 		m_pTextureInfo = new CSpeedTreeRT::STextures;
 		m_pSpeedTree->GetTextures(*m_pTextureInfo);
 		
+		std::filesystem::path path = pszSptFile;
+		path = path.parent_path();
+
+		auto branchTexture = path / m_pTextureInfo->m_pBranchTextureFilename;
+		branchTexture.replace_extension(".dds");
+
 		// load branch textures
-		LoadTexture((CFileNameHelper::GetPath(string(pszSptFile)) + CFileNameHelper::NoExtension(string(m_pTextureInfo->m_pBranchTextureFilename)) + ".dds").c_str(), m_BranchImageInstance);
+		LoadTexture(branchTexture.generic_string().c_str(), m_BranchImageInstance);
 		
 #ifdef WRAPPER_RENDER_SELF_SHADOWS
+		auto selfShadowTexture = path / m_pTextureInfo->m_pSelfShadowFilename;
+		selfShadowTexture.replace_extension(".dds");
+
 		if (m_pTextureInfo->m_pSelfShadowFilename != NULL)
-			LoadTexture((CFileNameHelper::GetPath(string(pszSptFile)) + CFileNameHelper::NoExtension(string(m_pTextureInfo->m_pSelfShadowFilename)) + ".dds").c_str(), m_ShadowImageInstance);
+			LoadTexture(selfShadowTexture.generic_string().c_str(), m_ShadowImageInstance);
 #endif
+
+		auto compositeTexture = path / m_pTextureInfo->m_pCompositeFilename;
+		compositeTexture.replace_extension(".dds");
+
 		if (m_pTextureInfo->m_pCompositeFilename)
-			LoadTexture((CFileNameHelper::GetPath(string(pszSptFile)) + CFileNameHelper::NoExtension(string(m_pTextureInfo->m_pCompositeFilename)) + ".dds").c_str(), m_CompositeImageInstance);
+			LoadTexture(compositeTexture.generic_string().c_str(), m_CompositeImageInstance);
 		
 		// setup the index and vertex buffers
 		SetupBuffers();

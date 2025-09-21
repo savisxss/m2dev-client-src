@@ -15,6 +15,7 @@
 
 #include "PackLib/PackManager.h"
 #include <filesystem>
+#include <format>
 
 extern "C" {  
 extern int _fltused;  
@@ -250,11 +251,9 @@ bool PackInitialize(const char * c_pszFolder)
 		"uiloading",
 	};
 
-	std::filesystem::path folderPath = c_pszFolder;
-
-	CPackManager::instance().AddPack((folderPath / "root.pck").generic_string());
+	CPackManager::instance().AddPack(std::format("{}/root.pck", c_pszFolder));
 	for (const std::string& packFileName : packFiles) {
-		CPackManager::instance().AddPack((folderPath / (packFileName + ".pck")).generic_string());
+		CPackManager::instance().AddPack(std::format("{}/{}.pck", c_pszFolder, packFileName));
 	}
 
 	NANOEND
