@@ -25,7 +25,7 @@ HDC CGraphicBase::ms_hDC;
 LPDIRECT3D9EX			CGraphicBase::ms_lpd3d = NULL;
 LPDIRECT3DDEVICE9EX		CGraphicBase::ms_lpd3dDevice = NULL;
 ID3DXMatrixStack *		CGraphicBase::ms_lpd3dMatStack = NULL;
-D3DPRESENT_PARAMETERS	CGraphicBase::ms_d3dPresentParameter;
+D3DPRESENT_PARAMETERS	CGraphicBase::ms_d3dPresentParameter = {};
 D3DVIEWPORT9			CGraphicBase::ms_Viewport;
 
 HRESULT					CGraphicBase::ms_hLastResult = NULL;
