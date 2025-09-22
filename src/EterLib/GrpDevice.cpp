@@ -361,6 +361,7 @@ int CGraphicDevice::Create(HWND hWnd, int iHres, int iVres, bool Windowed, int /
 	}
 
 	int ErrorCorrection = 0;
+	bool disableMSAA = false;
 
 RETRY:
 	ZeroMemory(&ms_d3dPresentParameter, sizeof(ms_d3dPresentParameter));
@@ -369,7 +370,7 @@ RETRY:
 	ms_d3dPresentParameter.BackBufferWidth					= iHres;
 	ms_d3dPresentParameter.BackBufferHeight					= iVres;
 	ms_d3dPresentParameter.hDeviceWindow					= hWnd;
-	ms_d3dPresentParameter.BackBufferFormat					= d3dDisplayMode.Format;
+	ms_d3dPresentParameter.BackBufferFormat					= Windowed ? D3DFMT_UNKNOWN : d3dDisplayMode.Format;
 	ms_d3dPresentParameter.BackBufferCount					= m_uBackBufferCount;
 	ms_d3dPresentParameter.SwapEffect						= D3DSWAPEFFECT_DISCARD;
 	ms_d3dPresentParameter.MultiSampleType					= D3DMULTISAMPLE_NONE;
@@ -388,27 +389,33 @@ RETRY:
 	ms_d3dPresentParameter.EnableAutoDepthStencil			= TRUE;
 	ms_d3dPresentParameter.AutoDepthStencilFormat			= D3DFMT_D24S8;
 
-
-	if (SUCCEEDED(ms_lpd3d->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT,
-		D3DDEVTYPE_HAL,
-		D3DFMT_A8R8G8B8,
-		TRUE,
-		D3DMULTISAMPLE_2_SAMPLES,
-		&ms_d3dPresentParameter.MultiSampleQuality)))
+	// Enable MSAA only in fullscreen and only if supported for the chosen backbuffer format
+	if (!Windowed && !disableMSAA)
 	{
-		ms_d3dPresentParameter.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
-		ms_d3dPresentParameter.MultiSampleQuality = 0;
-	}
+		D3DFORMAT msaaCheckFormat = ms_d3dPresentParameter.BackBufferFormat;
+		if (SUCCEEDED(ms_lpd3d->CheckDeviceMultiSampleType(
+			D3DADAPTER_DEFAULT,
+			D3DDEVTYPE_HAL,
+			msaaCheckFormat,
+			FALSE,
+			D3DMULTISAMPLE_2_SAMPLES,
+			&ms_d3dPresentParameter.MultiSampleQuality)))
+		{
+			ms_d3dPresentParameter.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+			ms_d3dPresentParameter.MultiSampleQuality = 0;
+		}
 
-	if (SUCCEEDED(ms_lpd3d->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT,
-		D3DDEVTYPE_HAL,
-		D3DFMT_A8R8G8B8,
-		TRUE,
-		D3DMULTISAMPLE_4_SAMPLES,
-		&ms_d3dPresentParameter.MultiSampleQuality)))
-	{
-		ms_d3dPresentParameter.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
-		ms_d3dPresentParameter.MultiSampleQuality = 0;
+		if (SUCCEEDED(ms_lpd3d->CheckDeviceMultiSampleType(
+			D3DADAPTER_DEFAULT,
+			D3DDEVTYPE_HAL,
+			msaaCheckFormat,
+			FALSE,
+			D3DMULTISAMPLE_4_SAMPLES,
+			&ms_d3dPresentParameter.MultiSampleQuality)))
+		{
+			ms_d3dPresentParameter.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
+			ms_d3dPresentParameter.MultiSampleQuality = 0;
+		}
 	}
 
 	D3DDISPLAYMODEEX displayModeEx;
@@ -450,7 +457,8 @@ RETRY:
 		if (ErrorCorrection)
 			return CREATE_DEVICE;
 
-		// 2004. 1. 9 myevan Å«ÀÇ¹Ì ¾ø´Â ÄÚµåÀÎµí.. ¿¡·¯³ª¸é Ç¥½ÃÇÏ°í Á¾·áÇÏÀÚ
+		// Retry with conservative settings
+		disableMSAA = true;
 		iReflashRate = 0;
 		++ErrorCorrection;
 		iRet = CREATE_REFRESHRATE;
@@ -458,10 +466,11 @@ RETRY:
 	}
 
 	// Check DXT Support Info
+	const D3DFORMAT baseFormatForTextureCheck = Windowed ? d3dDisplayMode.Format : ms_d3dPresentParameter.BackBufferFormat;
 	if (ms_lpd3d->CheckDeviceFormat(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
-		ms_d3dPresentParameter.BackBufferFormat,
+		baseFormatForTextureCheck,
 		0,
 		D3DRTYPE_TEXTURE,
 		D3DFMT_DXT1) == D3DERR_NOTAVAILABLE)
@@ -472,7 +481,7 @@ RETRY:
 	if (ms_lpd3d->CheckDeviceFormat(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
-		ms_d3dPresentParameter.BackBufferFormat,
+		baseFormatForTextureCheck,
 		0,
 		D3DRTYPE_TEXTURE,
 		D3DFMT_DXT3) == D3DERR_NOTAVAILABLE)
@@ -483,7 +492,7 @@ RETRY:
 	if (ms_lpd3d->CheckDeviceFormat(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
-		ms_d3dPresentParameter.BackBufferFormat,
+		baseFormatForTextureCheck,
 		0,
 		D3DRTYPE_TEXTURE,
 		D3DFMT_DXT5) == D3DERR_NOTAVAILABLE)
