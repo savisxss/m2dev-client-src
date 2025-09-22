@@ -830,7 +830,8 @@ void CIME::DelCurPos()
 	if (ms_curpos < ms_lastpos)
 	{
 		int eraseCount = FindColorTagEndPosition(m_wText + ms_curpos, ms_lastpos - ms_curpos) + 1;
-		wcscpy(m_wText + ms_curpos, m_wText + ms_curpos + eraseCount);
+		size_t remainingChars = ms_lastpos - ms_curpos - eraseCount + 1; // +1 for null terminator
+		wmemmove(m_wText + ms_curpos, m_wText + ms_curpos + eraseCount, remainingChars); // wcscpy > wmemmove to handle overlapping memory
 		ms_lastpos -= eraseCount;
 		ms_curpos = std::min(ms_lastpos, ms_curpos);
 	}

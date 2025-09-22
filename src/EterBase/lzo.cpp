@@ -216,22 +216,14 @@ public:
 public:
 	DecryptBuffer(unsigned size)
 	{
-		static unsigned count = 0;
-		static unsigned sum = 0;
-		static unsigned maxSize = 0;
-
-		sum += size;
-		count++;
-
-		maxSize = std::max(size, maxSize);
 		if (size >= LOCAL_BUF_SIZE)
 		{
 			m_buf = new char[size];
-			dbg_printf("DecryptBuffer - AllocHeap %d max(%d) ave(%d)\n", size, maxSize/1024, sum/count);
+			dbg_printf("DecryptBuffer - AllocHeap %d\n", size);
 		}
 		else
 		{
-			dbg_printf("DecryptBuffer - AllocStack %d max(%d) ave(%d)\n", size, maxSize/1024, sum/count);
+			dbg_printf("DecryptBuffer - AllocStack %d\n", size);
 			m_buf = m_local_buf;
 		}
 	}
@@ -239,12 +231,12 @@ public:
 	{
 		if (m_local_buf != m_buf)
 		{
-			dbg_printf("DecruptBuffer - FreeHeap\n");
+			dbg_printf("DecryptBuffer - FreeHeap\n");
 			delete [] m_buf;
 		}
 		else
 		{
-			dbg_printf("DecruptBuffer - FreeStack\n");
+			dbg_printf("DecryptBuffer - FreeStack\n");
 		}
 	}
 	void* GetBufferPtr()

@@ -71,7 +71,7 @@ void string_replace_word(const char* base, int base_len, const char* src, int sr
 	int cur = 0;
 	while (cur < base_len)
 	{
-		if (memcmp(base + cur, src, src_len) == 0)
+		if (cur + src_len <= base_len && memcmp(base + cur, src, src_len) == 0)
 		{
 			result.append(base + prev, cur - prev);
 			result.append(dst, dst_len);			

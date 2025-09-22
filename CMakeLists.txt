@@ -5,6 +5,9 @@ project(m2dev-client-src)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# ASan support
+option(ENABLE_ASAN "Enable AddressSanitizer" OFF)
+
 set(CMAKE_MODULE_PATH
 	${CMAKE_MODULE_PATH}
 	"${CMAKE_CURRENT_SOURCE_DIR}/buildtool"
@@ -27,6 +30,19 @@ add_compile_options(
 	$<$<CXX_COMPILER_ID:MSVC>:/wd4828>
 	$<$<CXX_COMPILER_ID:MSVC>:/wd4996>
 )
+
+# ASan flags
+if(ENABLE_ASAN)
+	if(MSVC)
+		add_compile_options(/fsanitize=address)
+		add_link_options(/fsanitize=address)
+		add_definitions(-D_DISABLE_VECTOR_ANNOTATION)
+		add_definitions(-D_DISABLE_STRING_ANNOTATION)
+	else()
+		add_compile_options(-fsanitize=address -fno-omit-frame-pointer)
+		add_link_options(-fsanitize=address)
+	endif()
+endif()
 
 add_definitions(-DNOMINMAX)
 add_definitions(-DWIN32_LEAN_AND_MEAN)
