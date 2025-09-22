@@ -20,7 +20,7 @@ void CGraphicObjectInstance::Clear()
 	m_isVisible = TRUE;
 
 	m_v3Position.x = m_v3Position.y = m_v3Position.z = 0.0f;
-	m_v3Scale.x = m_v3Scale.y = m_v3Scale.z = 0.0f;
+	m_v3Scale.x = m_v3Scale.y = m_v3Scale.z = 1.0f;
 	//m_fRotation = 0.0f;
 	m_fYaw = m_fPitch = m_fRoll = 0.0f;
 	D3DXMatrixIdentity(&m_worldMatrix);
@@ -278,11 +278,21 @@ void CGraphicObjectInstance::Initialize()
 	m_BlockCamera = false;
 	
 	m_v3Position.x = m_v3Position.y = m_v3Position.z = 0.0f;
-	m_v3Scale.x = m_v3Scale.y = m_v3Scale.z = 0.0f;
+	m_v3Scale.x = m_v3Scale.y = m_v3Scale.z = 1.0f;
 	m_fYaw = m_fPitch = m_fRoll = 0.0f;
 
 	D3DXMatrixIdentity(&m_worldMatrix);
 	D3DXMatrixIdentity(&m_mRotation);
+
+	m_v3TBBoxMin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_v3TBBoxMax = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_v3BBoxMin = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_v3BBoxMax = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+
+	for (int i = 0; i < 8; ++i)
+		m_v4TBBox[i] = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	memset(m_abyPortalID, 0, sizeof(m_abyPortalID));
 
 	ClearCollision();
 	OnInitialize();
