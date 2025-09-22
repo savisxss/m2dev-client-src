@@ -185,7 +185,7 @@ void CGraphicMarkInstance::Load()
 	}
 
 	if (pResource->IsType(CGraphicImage::Type()))
-		SetImagePointer(static_cast<CGraphicImage*>(pResource));		
+		SetImagePointer(static_cast<CGraphicImage*>(pResource));
 }
 
 void CGraphicMarkInstance::SetImagePointer(CGraphicImage * pImage)

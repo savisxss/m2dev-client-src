@@ -1,7 +1,7 @@
 #ifndef __INC_METIN_II_MARKIMAGE_H__
 #define __INC_METIN_II_MARKIMAGE_H__
 
-typedef unsigned long Pixel;
+typedef uint32_t Pixel;
 
 struct SGuildMark
 {
@@ -100,7 +100,7 @@ class CGuildMarkImage
 		void	BuildAllBlocks();
 
 		SGuildMarkBlock	m_aakBlock[BLOCK_ROW_COUNT][BLOCK_COL_COUNT];
-		Pixel m_apxImage[WIDTH * HEIGHT * sizeof(Pixel)];
+		Pixel m_apxImage[WIDTH * HEIGHT];
 };
 
 #endif

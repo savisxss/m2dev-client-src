@@ -540,9 +540,11 @@ void CPythonTextTail::RegisterCharacterTextTail(DWORD dwGuildID, DWORD dwVirtual
 
 			if (CGuildMarkManager::Instance().GetMarkImageFilename(dwMarkID / CGuildMarkImage::MARK_TOTAL_COUNT, markImagePath))
 			{
+				CPackManager::instance().SetFileLoadMode();
 				pTextTail->pMarkInstance->SetImageFileName(markImagePath.c_str());
 				pTextTail->pMarkInstance->Load();
 				pTextTail->pMarkInstance->SetIndex(dwMarkID % CGuildMarkImage::MARK_TOTAL_COUNT);
+				CPackManager::instance().SetPackLoadMode();
 			}
 		}
 

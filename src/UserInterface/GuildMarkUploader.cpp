@@ -79,11 +79,13 @@ bool CGuildMarkUploader::__Load(const char* c_szFileName, UINT* peError)
 	}
 
 	// Copy into our mark buffer (BGRA expected)
-	for (int i = 0; i < width * height; ++i) {
-		m_kMark.m_apxBuf[i * 4 + 0] = data[i * 4 + 2]; // B
-		m_kMark.m_apxBuf[i * 4 + 1] = data[i * 4 + 1]; // G
-		m_kMark.m_apxBuf[i * 4 + 2] = data[i * 4 + 0]; // R
-		m_kMark.m_apxBuf[i * 4 + 3] = data[i * 4 + 3]; // A
+	for (uint32_t i = 0; i < width * height; ++i) {
+		const uint8_t R = data[i * 4 + 0];
+		const uint8_t G = data[i * 4 + 1];
+		const uint8_t B = data[i * 4 + 2];
+		const uint8_t A = data[i * 4 + 3];
+
+		m_kMark.m_apxBuf[i] = (uint32_t(A) << 24) | (uint32_t(R) << 16) | (uint32_t(G) << 8) | uint32_t(B);
 	}
 
 	stbi_image_free(data);
