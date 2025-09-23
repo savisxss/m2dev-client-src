@@ -112,6 +112,10 @@ enum
 	HEADER_CG_MARK_UPLOAD						= 102,
 	HEADER_CG_MARK_IDXLIST						= 104,
 
+	HEADER_CG_GUILD_MARK_UPLOAD_NEW			= 160,
+	HEADER_CG_GUILD_MARK_REQUEST				= 161,
+	HEADER_CG_GUILD_MARK_DELETE				= 162,
+
 	HEADER_CG_CRC_REPORT						= 103,
 	
 	HEADER_CG_HACK								= 105,
@@ -240,6 +244,10 @@ enum
 	HEADER_GC_MARK_BLOCK						= 100,
 	HEADER_GC_MARK_DIFF_DATA                    = 101,
 	HEADER_GC_MARK_IDXLIST						= 102,
+
+	HEADER_GC_GUILD_MARK_UPLOAD_RESULT		= 160,
+	HEADER_GC_GUILD_MARK_DATA					= 161,
+	HEADER_GC_GUILD_MARK_UPDATE				= 162,
 
 	//HEADER_GC_SLOW_TIMER						= 105,
     HEADER_GC_TIME                              = 106,
@@ -2560,6 +2568,50 @@ typedef struct packet_autoban_quiz
     char szQuiz[256];
 } TPacketGCAutoBanQuiz;
 // END_OF_AUTOBAN
+
+// Guild Mark Packets
+typedef struct packet_cg_guild_mark_upload {
+    uint8_t header;
+    uint32_t guild_id;
+    uint32_t data_size;
+    uint8_t format[8];
+    uint32_t crc32;
+} TPacketCGGuildMarkUpload;
+
+typedef struct packet_cg_guild_mark_request {
+    uint8_t header;
+    uint32_t guild_id;
+} TPacketCGGuildMarkRequest;
+
+typedef struct packet_cg_guild_mark_delete {
+    uint8_t header;
+    uint32_t guild_id;
+} TPacketCGGuildMarkDelete;
+
+typedef struct packet_gc_guild_mark_upload_result {
+    uint8_t header;
+    uint32_t guild_id;
+    uint8_t result;
+    uint32_t mark_id;
+} TPacketGCGuildMarkUploadResult;
+
+typedef struct packet_gc_guild_mark_data {
+    uint8_t header;
+    uint32_t guild_id;
+    uint32_t mark_id;
+    uint32_t compressed_size;
+    uint32_t original_size;
+    uint8_t format[8];
+    uint32_t crc32;
+    uint64_t timestamp;
+} TPacketGCGuildMarkData;
+
+typedef struct packet_gc_guild_mark_update {
+    uint8_t header;
+    uint32_t guild_id;
+    uint32_t mark_id;
+    uint8_t update_type;
+} TPacketGCGuildMarkUpdate;
 
 #ifdef _IMPROVED_PACKET_ENCRYPTION_
 struct TPacketKeyAgreement

@@ -8,8 +8,13 @@
 #include "GuildMarkDownloader.h"
 #include "GuildMarkUploader.h"
 #include "MarkManager.h"
+#include "GuildMarkClient.h"
 
 #include "ProcessCRC.h"
+
+#include <fstream>
+#include <algorithm>
+#include <cctype>
 
 // MARK_BUG_FIX
 static DWORD gs_nextDownloadMarkTime = 0;
@@ -287,6 +292,54 @@ UINT CPythonNetworkStream::UploadMark(const char * c_szImageFileName)
 		return ERROR_MARK_CHECK_NEED_RECONNECT;
 
 	return ERROR_NONE;
+}
+
+// New guild mark system implementations
+bool CPythonNetworkStream::SendGuildMarkUploadPacket(const char* filename)
+{
+	if (0 == m_dwGuildID)
+		return false;
+
+	// Read image file
+	std::ifstream file(filename, std::ios::binary);
+	if (!file.good())
+		return false;
+
+	file.seekg(0, std::ios::end);
+	size_t size = file.tellg();
+	file.seekg(0, std::ios::beg);
+
+	std::vector<uint8_t> imageData(size);
+	file.read(reinterpret_cast<char*>(imageData.data()), size);
+	file.close();
+
+	// Determine format from extension
+	std::string format = "png";
+	std::string filenameStr(filename);
+	size_t dotPos = filenameStr.find_last_of('.');
+	if (dotPos != std::string::npos) {
+		format = filenameStr.substr(dotPos + 1);
+		std::transform(format.begin(), format.end(), format.begin(), ::tolower);
+	}
+
+	// Use CGuildMarkClient to upload
+	CGuildMarkClient::Instance().UploadMark(m_dwGuildID, imageData, format, nullptr);
+	return true;
+}
+
+bool CPythonNetworkStream::SendGuildMarkRequestPacket(uint32_t guild_id)
+{
+	CGuildMarkClient::Instance().RequestMark(guild_id, nullptr);
+	return true;
+}
+
+bool CPythonNetworkStream::SendGuildMarkDeletePacket(uint32_t guild_id)
+{
+	if (m_dwGuildID != guild_id)
+		return false;
+
+	CGuildMarkClient::Instance().DeleteMark(guild_id);
+	return true;
 }
 
 UINT CPythonNetworkStream::UploadSymbol(const char* c_szImageFileName)

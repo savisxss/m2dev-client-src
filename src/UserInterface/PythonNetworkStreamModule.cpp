@@ -108,6 +108,36 @@ PyObject* netUploadMark(PyObject* poSelf, PyObject* poArgs)
 	return Py_BuildValue("i", rkNetStream.UploadMark(szFileName));
 }
 
+PyObject* netSendGuildMarkUpload(PyObject* poSelf, PyObject* poArgs)
+{
+	char* szFileName;
+	if (!PyTuple_GetString(poArgs, 0, &szFileName))
+		return Py_BuildException();
+
+	CPythonNetworkStream& rkNetStream = CPythonNetworkStream::Instance();
+	return Py_BuildValue("i", rkNetStream.SendGuildMarkUploadPacket(szFileName));
+}
+
+PyObject* netRequestGuildMark(PyObject* poSelf, PyObject* poArgs)
+{
+	int guild_id;
+	if (!PyTuple_GetInteger(poArgs, 0, &guild_id))
+		return Py_BuildException();
+
+	CPythonNetworkStream& rkNetStream = CPythonNetworkStream::Instance();
+	return Py_BuildValue("i", rkNetStream.SendGuildMarkRequestPacket(guild_id));
+}
+
+PyObject* netDeleteGuildMark(PyObject* poSelf, PyObject* poArgs)
+{
+	int guild_id;
+	if (!PyTuple_GetInteger(poArgs, 0, &guild_id))
+		return Py_BuildException();
+
+	CPythonNetworkStream& rkNetStream = CPythonNetworkStream::Instance();
+	return Py_BuildValue("i", rkNetStream.SendGuildMarkDeletePacket(guild_id));
+}
+
 PyObject* netUploadSymbol(PyObject* poSelf, PyObject* poArgs)
 {
 	char* szFileName;
@@ -1716,6 +1746,9 @@ void initnet()
 		{ "IsInsultIn",							netIsInsultIn,							METH_VARARGS },
 		{ "LoadInsultList",						netLoadInsultList,						METH_VARARGS },
 		{ "UploadMark",							netUploadMark,							METH_VARARGS },
+		{ "SendGuildMarkUpload",				netSendGuildMarkUpload,					METH_VARARGS },
+		{ "RequestGuildMark",					netRequestGuildMark,					METH_VARARGS },
+		{ "DeleteGuildMark",					netDeleteGuildMark,						METH_VARARGS },
 		{ "UploadSymbol",						netUploadSymbol,						METH_VARARGS },
 		{ "GetGuildID",							netGetGuildID,							METH_VARARGS },
 		{ "GetEmpireID",						netGetEmpireID,							METH_VARARGS },

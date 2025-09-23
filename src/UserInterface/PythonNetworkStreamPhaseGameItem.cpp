@@ -929,3 +929,47 @@ bool CPythonNetworkStream::RecvDragonSoulRefine()
 
 	return true;
 }
+
+bool CPythonNetworkStream::RecvGuildMarkUploadResult()
+{
+	TPacketGCGuildMarkUploadResult packet;
+	if (!Recv(sizeof(packet), &packet))
+		return false;
+
+	CGuildMarkClient::Instance().OnUploadResult(packet.guild_id, packet.result, packet.mark_id);
+	return true;
+}
+
+bool CPythonNetworkStream::RecvGuildMarkData()
+{
+	TPacketGCGuildMarkData packet;
+	if (!Recv(sizeof(packet), &packet))
+		return false;
+
+	std::vector<uint8_t> data(packet.compressed_size);
+	if (!Recv(packet.compressed_size, data.data()))
+		return false;
+
+	GuildMarkInfo mark;
+	mark.guild_id = packet.guild_id;
+	mark.mark_id = packet.mark_id;
+	mark.compressed_size = packet.compressed_size;
+	mark.original_size = packet.original_size;
+	mark.format = std::string(reinterpret_cast<const char*>(packet.format));
+	mark.crc32 = packet.crc32;
+	mark.timestamp = packet.timestamp;
+	mark.data = std::move(data);
+
+	CGuildMarkClient::Instance().OnMarkData(mark);
+	return true;
+}
+
+bool CPythonNetworkStream::RecvGuildMarkUpdate()
+{
+	TPacketGCGuildMarkUpdate packet;
+	if (!Recv(sizeof(packet), &packet))
+		return false;
+
+	CGuildMarkClient::Instance().OnMarkUpdate(packet.guild_id, packet.update_type);
+	return true;
+}

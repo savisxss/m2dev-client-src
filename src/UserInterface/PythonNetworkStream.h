@@ -5,6 +5,7 @@
 #include "EterLib/NetPacketHeaderMap.h"
 
 #include "InsultChecker.h"
+#include "GuildMarkClient.h"
 
 #include "packet.h"
 
@@ -105,6 +106,11 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 
 		UINT UploadMark(const char* c_szImageFileName);
 		UINT UploadSymbol(const char* c_szImageFileName);
+
+		// New guild mark system
+		bool SendGuildMarkUploadPacket(const char* filename);
+		bool SendGuildMarkRequestPacket(uint32_t guild_id);
+		bool SendGuildMarkDeletePacket(uint32_t guild_id);
 
 		bool LoadInsultList(const char* c_szInsultListFileName);
 		bool LoadConvertTable(DWORD dwEmpireID, const char* c_szFileName);
@@ -540,6 +546,11 @@ class CPythonNetworkStream : public CNetworkStream, public CSingleton<CPythonNet
 		
 		// 용혼석 관련
 		bool RecvDragonSoulRefine();
+
+		// Guild Mark
+		bool RecvGuildMarkUploadResult();
+		bool RecvGuildMarkData();
+		bool RecvGuildMarkUpdate();
 
 		// MiniMap Info
 		bool RecvNPCList();

@@ -621,6 +621,18 @@ void CPythonNetworkStream::GamePhase()
 				ret = RecvDragonSoulRefine();
 				break;
 
+			case HEADER_GC_GUILD_MARK_UPLOAD_RESULT:
+				ret = RecvGuildMarkUploadResult();
+				break;
+
+			case HEADER_GC_GUILD_MARK_DATA:
+				ret = RecvGuildMarkData();
+				break;
+
+			case HEADER_GC_GUILD_MARK_UPDATE:
+				ret = RecvGuildMarkUpdate();
+				break;
+
 			default:
 				ret = RecvDefaultPacket(header);
 				break;
